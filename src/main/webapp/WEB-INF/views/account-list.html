@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Account-list</title>
+</head>
+<body>
+
+<table>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  	<tr th:each="account : ${listAccount}">
+  		<td th:text = "${account.id}"></td>
+  		<td th:text = "${account.userName}"></td>
+  		<td th:text = "${account.email}"></td>
+  		<td><a th:href="@{/update/{id}(id=${account.id})}" >edit</a></td>
+        <td><a th:href="@{/delete/{id}(id=${account.id})}" >delete</a></td>                         
+  	</tr>
+  </table>
+
+
+</body>
+</html>
