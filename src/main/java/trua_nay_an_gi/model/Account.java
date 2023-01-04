@@ -1,9 +1,12 @@
 package trua_nay_an_gi.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 @Entity(name = "account")
@@ -14,24 +17,37 @@ public class Account {
     private Long id;
     private String userName;
     private String password;
-
     private boolean isEnabled;
     private String email;
     private String otp;
-    
+    @OneToMany(mappedBy = "account")
+    private Set<AccountRoleMap> accountRoleMapSet;
     
 	public Account() {
 	}
 
 
-	public Account(Long id, String userName, String password, boolean isEnabled, String email, String otp) {
+	
+
+	public Account(String userName, String password) {
+		this.userName = userName;
+		this.password = password;
+	}
+
+
+	public Account(Long id, String userName, String password, boolean isEnabled, String email, String otp,
+			Set<AccountRoleMap> accountRoleMapSet) {
+		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
 		this.isEnabled = isEnabled;
 		this.email = email;
 		this.otp = otp;
+		this.accountRoleMapSet = accountRoleMapSet;
 	}
+
+
 
 
 	public Long getId() {
