@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 @Entity(name = "account")
@@ -20,6 +21,10 @@ public class Account {
     private boolean isEnabled;
     private String email;
     private String otp;
+    @OneToOne(mappedBy = "account")
+    private AppUser user;
+    @OneToOne(mappedBy = "account")
+    private Merchant merchant;
     @OneToMany(mappedBy = "account")
     private Set<AccountRoleMap> accountRoleMapSet;
     
@@ -37,7 +42,6 @@ public class Account {
 
 	public Account(Long id, String userName, String password, boolean isEnabled, String email, String otp,
 			Set<AccountRoleMap> accountRoleMapSet) {
-		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
@@ -109,6 +113,49 @@ public class Account {
 		this.otp = otp;
 	}
 
+
+
+
+	public AppUser getUser() {
+		return user;
+	}
+
+
+
+
+	public void setUser(AppUser user) {
+		this.user = user;
+	}
+
+
+
+
+	public Merchant getMerchant() {
+		return merchant;
+	}
+
+
+
+
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+
+
+
+
+	public Set<AccountRoleMap> getAccountRoleMapSet() {
+		return accountRoleMapSet;
+	}
+
+
+
+
+	public void setAccountRoleMapSet(Set<AccountRoleMap> accountRoleMapSet) {
+		this.accountRoleMapSet = accountRoleMapSet;
+	}
+
+	
 	
 	
 }

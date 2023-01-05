@@ -20,5 +20,7 @@ public interface IAccountRepository extends IGeneralRepository<Account>{
 
 	@Override
 	Account findById(Long id);
+	
+	Account findByName(String name);
 
 }

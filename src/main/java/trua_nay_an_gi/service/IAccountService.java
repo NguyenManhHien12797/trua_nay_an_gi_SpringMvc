@@ -22,6 +22,8 @@ public interface IAccountService extends IGeneralService<Account> {
 
 	@Override
 	List<Account> findAll();
+	
+	Account findByName(String name);
 
 	
 }

@@ -28,15 +28,8 @@ public class Roles implements GrantedAuthority{
 		return name;
 	}
 
-	
-	
 	public Roles() {
 	}
-
-
-
-	
-
 
 	public Roles(Long id, String name, Set<AccountRoleMap> accountRoleMapSet) {
 		super();

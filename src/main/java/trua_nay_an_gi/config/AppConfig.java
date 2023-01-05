@@ -21,6 +21,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -58,9 +59,16 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware{
 	    templateResolver.setCacheable(true);
 	    return templateResolver;
 	  }
+	  
+	  
 	
 
-	  @Bean
+	  @Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+	}
+
+	@Bean
 	  public SpringTemplateEngine templateEngine() {
 		  SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		  templateEngine.setTemplateResolver(templateResolver());
@@ -72,6 +80,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware{
 	  public ViewResolver viewResolver() {
 		  ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 		  viewResolver.setTemplateEngine(templateEngine());
+		  viewResolver.setCharacterEncoding("UTF-8");
 		  return viewResolver;
 	  }
 	  

@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import trua_nay_an_gi.model.Account;
 import trua_nay_an_gi.service.IAccountService;
+
+
 
 @Controller
 public class AccountController {
@@ -20,12 +23,17 @@ public class AccountController {
 	  @Autowired
 	  private IAccountService accountService;
 	
-	  @GetMapping(value={"", "account-list"})
+	  @GetMapping(value={"/admin", "account-list"})
 	  public String listAccount(Model model) {
 	    model.addAttribute("listAccount", accountService.findAll());
 	    return "account-list";
 	  }
 	  
+	  
+	  @GetMapping(value={"/login"})
+	  public String showLoginForm() {
+	    return "login";
+	  }
 	 
 	  @PostMapping("add")
 	  public String addAccount(Model model) {
@@ -55,6 +63,13 @@ public class AccountController {
 	    return "account-view";
 	  }
 	  
+	  @GetMapping("/user/search")
+	  public String findAccountByName(@RequestParam(name= "name") String name, Model model) {
+	    Account account = accountService.findByName(name);
+	    model.addAttribute("listAccount", account);
+	    return "account-list";
+	  }
+	  
 	  @GetMapping("update/{id}")
 	  public String updateAccount(@PathVariable Long id, Model model) {
 	    Account account = accountService.findById(id);
@@ -80,4 +95,5 @@ public class AccountController {
 	    model.addAttribute("listAccount", accountService.findAll());
 	    return "account-list";
 	  }
+	 
 }

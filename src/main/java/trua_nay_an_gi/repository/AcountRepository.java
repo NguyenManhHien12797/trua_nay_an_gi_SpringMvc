@@ -2,6 +2,9 @@ package trua_nay_an_gi.repository;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +20,11 @@ public class AcountRepository implements IAccountRepository{
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 
+	
 	@Override
 	public void save(Account account) {
-	    Session session = this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.getCurrentSession();
 	    session.save(account);
 		
 	}
@@ -52,8 +52,21 @@ public class AcountRepository implements IAccountRepository{
 
 	@Override
 	public Account findById(Long id) {
-		   Session session = this.sessionFactory.getCurrentSession();
-		    return session.get(Account.class, id);
+		Session session = this.sessionFactory.getCurrentSession();
+		return session.get(Account.class, id);
+	}
+	
+	@Override
+	public Account findByName(String name) {
+		Session session = this.sessionFactory.getCurrentSession();
+		TypedQuery<Account> query = session.createQuery("FROM account a WHERE a.userName = :userName",Account.class);
+		query.setParameter("userName", name);
+		try {
+			return query.getSingleResult();
+		}catch (NoResultException e) {
+			return null;
+		}
+		
 	}
 
 

@@ -3,8 +3,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Account-list</title>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/account-list.css}">
+
+
+
 </head>
 <body>
+<h3>Account list</h3>
+<form th:action="@{/user/search}" method = "get">
+<label for="name">Name: </label>
+<input type="text" name= "name" id= "name">
+<!-- <input type = "button" value= "Search"> -->
+<button>Search</button>
+</form>
 
 <table>
     <tr>
