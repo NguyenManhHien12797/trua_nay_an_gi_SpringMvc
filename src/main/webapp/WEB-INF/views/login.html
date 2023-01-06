@@ -195,21 +195,40 @@
         <p class="text">Hoặc đăng nhập bằng tài khoản của bạn</p>
 
         <!--        form login-->
-        <form class="login100-form validate-form" [formGroup]="loginForm" (ngSubmit)="login()">
+        
+<!--         <form th:action="@{/login}"  method="post">
+  <table>
+    <tr>
+      <td>Name:</td>
+      <td><input type="text" name = "userName"/></td>
+      <td><input type="text" th:field="*{userName}" name = "userName"/></td>
+    </tr>
+    <tr>
+      <td>Password:</td>
+      <td><input type="text" name = "password"/></td>
+      <td><input type="text" th:field="*{password}" name = "password"/></td>
+    </tr>
+    <tr>
+      <td><button>Login</button></td>
+    </tr>
+  </table>
+</form>
+         -->
+        <div th:if= "${param.error}">
+        <p style="color:red">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        
+        </div>
+        
+        <form th:action="@{/login}" method="post">
           <div class="form-login-input">
             <div class="field-group">
-              <div class="input-group"><i class="far fa-envelope"></i><input class="input100" id="userName" type="text"
-                                                                             name="userName" placeholder="Tên đăng nhập"
-                                                                             formControlName="userName"
-                                                                             [(ngModel)]="nameD">
-
-                <div class="input-group"><i class="fas fa-lock"></i><input class="input100" type="password"
-                                                                           name="password" placeholder="Mật khẩu"
-                                                                           formControlName="password"
-                                                                           [(ngModel)]="passD">
-
+              <div class="input-group">
+              <span th:text= "${mess}"></span>
+              <input type="text" name="userName" placeholder="Tên đăng nhập">
+                <div class="input-group">
+                <input type="password" name="password" placeholder="Mật khẩu">
                 </div>
-         
+      
               </div>
             </div>
 

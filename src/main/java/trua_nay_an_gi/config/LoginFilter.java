@@ -18,7 +18,7 @@
 //	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 //			throws ServletException, IOException {
 //		HttpSession session = request.getSession(false);
-//		if(session.isNew()) {
+//		if(!session.isNew()) {
 //			request.getRequestDispatcher("/login").forward(request, response);
 //		}else {
 //			filterChain.doFilter(request, response);

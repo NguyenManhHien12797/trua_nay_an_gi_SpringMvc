@@ -29,19 +29,14 @@ public class AccountController {
 	    return "account-list";
 	  }
 	  
-	  
-	  @GetMapping(value={"/login"})
-	  public String showLoginForm() {
-	    return "login";
-	  }
 	 
-	  @PostMapping("add")
-	  public String addAccount(Model model) {
-	    model.addAttribute("account", new Account());
-	    return "account-save";
-	  }
+//	  @PostMapping("add")
+//	  public String addAccount(Model model) {
+//	    model.addAttribute("account", new Account());
+//	    return "account-save";
+//	  }
 	  
-	   @GetMapping("/create-account")
+	   @GetMapping("/user/create-account")
 	    public ModelAndView showCreateForm() {
 	        ModelAndView modelAndView = new ModelAndView("/account-save");
 	        modelAndView.addObject("account", new Account());

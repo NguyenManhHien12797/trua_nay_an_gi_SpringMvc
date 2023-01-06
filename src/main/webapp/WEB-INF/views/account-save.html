@@ -8,8 +8,12 @@
 <h1>Create Account</h1>
 
 
-<form th:action="@{/add}" th:object="${account}" method="post">
+<form th:action="@{/create-account}" th:object="${account}" method="post">
   <table>
+     <tr>
+      <td>Id:</td>
+      <td><input type="text" th:field="*{id}"/></td>
+    </tr>
     <tr>
       <td>Name:</td>
       <td><input type="text" th:field="*{userName}"/></td>
@@ -19,7 +23,7 @@
       <td><input type="text" th:field="*{email}"/></td>
     </tr>
     <tr>
-      <td><input type="submit" value="Create Customer"></td>
+      <td><button>Add</button></td>
     </tr>
   </table>
 </form>
