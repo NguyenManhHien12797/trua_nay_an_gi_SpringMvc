@@ -21,12 +21,12 @@ public class AccountRoleMap {
 	private Account account;
 	@ManyToOne
 	@JoinColumn(name = "role_id")
-	private Roles role;
+	private AppRoles role;
 
 	public AccountRoleMap() {
 	}
 
-	public AccountRoleMap(Long id, Account account, Roles role) {
+	public AccountRoleMap(Long id, Account account, AppRoles role) {
 		this.id = id;
 		this.account = account;
 		this.role = role;
@@ -48,11 +48,11 @@ public class AccountRoleMap {
 		this.account = account;
 	}
 
-	public Roles getRole() {
+	public AppRoles getRole() {
 		return role;
 	}
 
-	public void setRole(Roles role) {
+	public void setRole(AppRoles role) {
 		this.role = role;
 	}
 

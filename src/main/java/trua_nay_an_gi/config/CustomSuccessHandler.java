@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -14,11 +12,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -42,6 +37,13 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 			System.out.println("Can't redirect");
 			return;
 		}
+
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(15);
+		Account account = accountService.findByName(authentication.getName());
+		session.setAttribute("user", account);
+		session.setAttribute("username", account.getUserName());
+		session.setAttribute("authorities", authentication.getAuthorities());
 
 		redirectStrategy.sendRedirect(request, response, targetUrl);
 	}

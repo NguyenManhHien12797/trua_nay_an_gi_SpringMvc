@@ -13,7 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity(name = "roles")
-public class Roles implements GrantedAuthority {
+public class AppRoles implements GrantedAuthority {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,10 +28,10 @@ public class Roles implements GrantedAuthority {
 		return name;
 	}
 
-	public Roles() {
+	public AppRoles() {
 	}
 
-	public Roles(Long id, String name, Set<AccountRoleMap> accountRoleMapSet) {
+	public AppRoles(Long id, String name, Set<AccountRoleMap> accountRoleMapSet) {
 		super();
 		this.id = id;
 		this.name = name;

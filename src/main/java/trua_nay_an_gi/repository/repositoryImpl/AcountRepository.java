@@ -1,4 +1,4 @@
-package trua_nay_an_gi.repository;
+package trua_nay_an_gi.repository.repositoryImpl;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import trua_nay_an_gi.model.Account;
+import trua_nay_an_gi.repository.IAccountRepository;
 
 @Repository(value = "accountRepository")
 @Transactional(rollbackFor = Exception.class)
@@ -65,6 +66,20 @@ public class AcountRepository implements IAccountRepository {
 			return null;
 		}
 
+	}
+
+	@Override
+	public Long findIdUserByUserName(String userName) {
+		
+		Session session = this.sessionFactory.getCurrentSession();
+		TypedQuery<Account> query = session.createQuery("SELECT id FROM account a WHERE a.userName = :userName", Account.class);
+		query.setParameter("userName", userName);
+		try {
+			Account account = query.getSingleResult();
+			return account.getId();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -57,11 +58,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login", "/static/**").permitAll().antMatchers("/admin/**")
+		http.authorizeRequests().antMatchers("/login", "/register", "/static/**").permitAll().antMatchers("/admin/**")
 				.hasRole("ADMIN").antMatchers("/**").hasAnyRole("ADMIN", "USER").and().formLogin().loginPage("/login")
 				.usernameParameter("userName").successHandler(customSuccessHandler)
 //		    .defaultSuccessUrl("/admin", true)
 				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().csrf().disable();
+
+//		   http
+//	        .sessionManagement(session -> session
+//	            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+//	            .setMaxInactiveInterval(15)
+//	            .invalidSessionUrl("/login")
+//	        );
+
+		http.sessionManagement().maximumSessions(1).expiredUrl("/login?expired=true");
 
 	}
 

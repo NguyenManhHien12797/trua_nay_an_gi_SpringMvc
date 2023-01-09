@@ -39,6 +39,13 @@ public class Account {
 		this.password = password;
 	}
 
+	public Account(String userName, String password, boolean isEnabled, String email) {
+		this.userName = userName;
+		this.password = password;
+		this.isEnabled = isEnabled;
+		this.email = email;
+	}
+
 	public Account(Long id, String userName, String password, boolean isEnabled, String email, String otp,
 			Set<AccountRoleMap> accountRoleMapSet) {
 		this.id = id;

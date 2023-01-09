@@ -16,8 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import trua_nay_an_gi.model.Account;
-import trua_nay_an_gi.model.AccountDetails;
-import trua_nay_an_gi.service.AccountService;
 import trua_nay_an_gi.service.IAccountService;
 
 @Component
@@ -28,11 +26,13 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 
 	UserDetails isValidUser(String username, String password) {
 		Account account = accountService.findByName(username);
-		if (account != null && username.equalsIgnoreCase(account.getUserName()) && password.equals(account.getPassword())) {
+		if (account != null && username.equalsIgnoreCase(account.getUserName())
+				&& password.equals(account.getPassword())) {
 			List<GrantedAuthority> authorities = account.getAccountRoleMapSet().stream()
 					.map(role -> new SimpleGrantedAuthority(role.getRole().getName())).collect(Collectors.toList());
 
 			UserDetails user = User.withUsername(username).password(password).authorities(authorities).build();
+
 			return user;
 		}
 		return null;

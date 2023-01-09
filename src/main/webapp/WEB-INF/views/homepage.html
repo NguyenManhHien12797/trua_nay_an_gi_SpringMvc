@@ -61,7 +61,7 @@
 
                 <div class="user-acc-contain">
                   <img class="user-acc-img" src="{{avatar}}" alt="">
-                  <span>{{fullname}}</span>
+                  <span th:text="${session.username}"></span>
                   <div class="user-acc-dropdown">
 
                     <div *ngIf="message == 'merchant'; then thenBlockMerchant else elseBlockMerchant"></div>
@@ -81,7 +81,7 @@
                     </ng-template>
 
                     <hr>
-                    <span (click)="logout()"><i class="fa-solid fa-right-to-bracket"></i> Đăng xuất</span>
+                    <a th:href= "@{/logout}"><i class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
                   </div>
 
 

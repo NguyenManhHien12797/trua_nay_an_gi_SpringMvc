@@ -23,4 +23,6 @@ public interface IAccountService extends IGeneralService<Account> {
 
 	Account findByName(String name);
 
+	Long findIdUserByUserName(String userName);
+
 }
