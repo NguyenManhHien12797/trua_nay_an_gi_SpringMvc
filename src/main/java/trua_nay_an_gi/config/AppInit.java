@@ -3,7 +3,7 @@ package trua_nay_an_gi.config;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer{
+public class AppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
@@ -12,12 +12,12 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] {AppConfig.class};
+		return new Class[] { AppConfig.class };
 	}
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] {"/"};
+		return new String[] { "/" };
 	}
 
 }

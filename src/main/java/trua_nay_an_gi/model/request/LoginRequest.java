@@ -2,32 +2,31 @@ package trua_nay_an_gi.model.request;
 
 public class LoginRequest {
 
-	    private String userName;
-	    private String password;
-	    
-	    
-	    public LoginRequest() {
-		}
+	private String userName;
+	private String password;
 
-		public LoginRequest(String userName, String password) {
-			this.userName = userName;
-			this.password = password;
-		}
+	public LoginRequest() {
+	}
 
-		public String getUserName() {
-	        return userName;
-	    }
+	public LoginRequest(String userName, String password) {
+		this.userName = userName;
+		this.password = password;
+	}
 
-	    public void setUserName(String userName) {
-	        this.userName = userName;
-	    }
+	public String getUserName() {
+		return userName;
+	}
 
-	    public String getPassword() {
-	        return password;
-	    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-	    public void setPassword(String password) {
-	        this.password = password;
-	    }
-	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 }

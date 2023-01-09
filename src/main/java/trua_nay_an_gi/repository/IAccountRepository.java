@@ -4,7 +4,7 @@ import java.util.List;
 
 import trua_nay_an_gi.model.Account;
 
-public interface IAccountRepository extends IGeneralRepository<Account>{
+public interface IAccountRepository extends IGeneralRepository<Account> {
 
 	@Override
 	void save(Account t);
@@ -20,7 +20,7 @@ public interface IAccountRepository extends IGeneralRepository<Account>{
 
 	@Override
 	Account findById(Long id);
-	
+
 	Account findByName(String name);
 
 }

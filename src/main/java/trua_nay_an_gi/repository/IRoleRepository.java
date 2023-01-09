@@ -4,7 +4,7 @@ import java.util.List;
 
 import trua_nay_an_gi.model.Roles;
 
-public interface IRoleRepository extends IGeneralRepository<Roles>{
+public interface IRoleRepository extends IGeneralRepository<Roles> {
 
 	@Override
 	Roles findById(Long id);
@@ -21,6 +21,4 @@ public interface IRoleRepository extends IGeneralRepository<Roles>{
 	@Override
 	List<Roles> findAll();
 
-	
-	
 }

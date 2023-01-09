@@ -13,19 +13,26 @@ import trua_nay_an_gi.service.IAccountService;
 @Controller
 public class SecurityController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    
-    @Autowired
-    private IAccountService accountService;
-    
-    
-	  @GetMapping(value={"/login"})
-	  public String showLoginForm() {
-		  return "login";
-	   
-	  }
-	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private IAccountService accountService;
+
+	@GetMapping(value = { "/login" })
+	public String showLoginForm() {
+		return "login";
+
+	}
+
+	@GetMapping(value = { "/home" })
+	public String home(Model model) {
+
+		String message = "chua dang nhap";
+		model.addAttribute("message", message);
+		return "homepage";
+	}
+
 //	 @PostMapping(value = "/login")
 //	    public String login(@RequestParam(name= "userName") String userName, @RequestParam(name= "password") String password, Model model) {
 //	            // Tạo ra 1 đối tượng Authentication.
@@ -41,5 +48,5 @@ public class SecurityController {
 
 //
 //	    }
-	
+
 }

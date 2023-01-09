@@ -13,41 +13,39 @@ import org.springframework.transaction.annotation.Transactional;
 
 import trua_nay_an_gi.model.Account;
 
-
-@Repository(value = "acountRepository")
+@Repository(value = "accountRepository")
 @Transactional(rollbackFor = Exception.class)
-public class AcountRepository implements IAccountRepository{
+public class AcountRepository implements IAccountRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	
 	@Override
 	public void save(Account account) {
 		Session session = this.sessionFactory.getCurrentSession();
-	    session.save(account);
-		
+		session.save(account);
+
 	}
 
 	@Override
 	public void update(Account account) {
 		Session session = this.sessionFactory.getCurrentSession();
-	    session.update(account);
-		
+		session.update(account);
+
 	}
 
 	@Override
 	public void delete(Account account) {
 		Session session = this.sessionFactory.getCurrentSession();
-	    session.remove(account);
-		
+		session.remove(account);
+
 	}
 
 	@Override
 	public List<Account> findAll() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Account> accounts = session.createQuery("FROM account", Account.class).getResultList();
-	    return accounts;
+		return accounts;
 	}
 
 	@Override
@@ -55,20 +53,18 @@ public class AcountRepository implements IAccountRepository{
 		Session session = this.sessionFactory.getCurrentSession();
 		return session.get(Account.class, id);
 	}
-	
+
 	@Override
 	public Account findByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<Account> query = session.createQuery("FROM account a WHERE a.userName = :userName",Account.class);
+		TypedQuery<Account> query = session.createQuery("FROM account a WHERE a.userName = :userName", Account.class);
 		query.setParameter("userName", name);
 		try {
 			return query.getSingleResult();
-		}catch (NoResultException e) {
+		} catch (NoResultException e) {
 			return null;
 		}
-		
+
 	}
-
-
 
 }

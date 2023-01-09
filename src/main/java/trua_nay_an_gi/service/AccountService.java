@@ -15,11 +15,10 @@ import trua_nay_an_gi.repository.IAccountRepository;
 
 @Service
 @Transactional
-public class AccountService implements IAccountService, UserDetailsService{
-	
+public class AccountService implements IAccountService, UserDetailsService {
+
 	@Autowired
 	private IAccountRepository accountRepository;
-
 
 	@Override
 	public Account findById(Long id) {
@@ -29,7 +28,7 @@ public class AccountService implements IAccountService, UserDetailsService{
 	@Override
 	public void save(Account account) {
 		this.accountRepository.save(account);
-		
+
 	}
 
 	@Override
@@ -45,7 +44,7 @@ public class AccountService implements IAccountService, UserDetailsService{
 
 	@Override
 	public List<Account> findAll() {
-		return accountRepository.findAll();
+		return this.accountRepository.findAll();
 //		return null;
 	}
 
@@ -56,7 +55,7 @@ public class AccountService implements IAccountService, UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Account account = accountRepository.findByName(username);
+		Account account = this.accountRepository.findByName(username);
 		return AccountDetails.build(account);
 	}
 

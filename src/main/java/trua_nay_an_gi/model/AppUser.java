@@ -13,21 +13,19 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 public class AppUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name;
-    private String address;
-    private String phone;
-    private String avatar;
-    private String status;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
-    @JsonBackReference
-    private Account account;
-    
-    
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String name;
+	private String address;
+	private String phone;
+	private String avatar;
+	private String status;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "account_id")
+	@JsonBackReference
+	private Account account;
+
 	public AppUser() {
 	}
 
@@ -96,8 +94,5 @@ public class AppUser {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-    
-    
-    
-	
+
 }

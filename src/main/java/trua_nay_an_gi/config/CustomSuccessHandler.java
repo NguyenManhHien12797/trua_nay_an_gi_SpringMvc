@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +14,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -22,86 +26,72 @@ import trua_nay_an_gi.model.Account;
 import trua_nay_an_gi.service.IAccountService;
 
 @Component
-public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
+public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    @Autowired
-    private IAccountService accountService;
-	
-	  private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+	@Autowired
+	private IAccountService accountService;
 
-	    @Override
-	    protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-	            throws IOException {
-	        String targetUrl = determineTargetUrl(authentication);
+	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-	        if (response.isCommitted()) {
-	            System.out.println("Can't redirect");
-	            return;
-	        }
-	        
-	        redirectStrategy.sendRedirect(request, response, targetUrl);
-	    }
-	    
-	    
+	@Override
+	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+			throws IOException {
+		String targetUrl = determineTargetUrl(authentication);
 
-	    /*
-	     * This method extracts the roles of currently logged-in user and returns
-	     * appropriate URL according to his/her role.
-	     */
-	    protected String determineTargetUrl(Authentication authentication) {
+		if (response.isCommitted()) {
+			System.out.println("Can't redirect");
+			return;
+		}
 
-	    	
-	        String url = "";
+		redirectStrategy.sendRedirect(request, response, targetUrl);
+	}
 
-	        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+	/*
+	 * This method extracts the roles of currently logged-in user and returns
+	 * appropriate URL according to his/her role.
+	 */
+	protected String determineTargetUrl(Authentication authentication) {
 
-	        List<String> roles = new ArrayList<String>();
+		String url = "";
 
-	        for (GrantedAuthority a : authorities) {
-	            roles.add(a.getAuthority());
-	        }
-	        if (isAdmin(roles)) {
-	        	
-	  		  Account account = accountService.findByName(authentication.getName());
-			  if(account.getUser() != null && "pending".equals(account.getUser().getStatus())) {
-				  
-				   url = "/admin";
-			
-			  }else {
-				  url = "/khongcoquyen";
-			  }
-	        	
-	         
-	        } else if (isUser(roles)) {
-	            url = "/user/create-account";
-	        } else {
-	            url = "/khongcoquyen";
-	        }
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-	        return url;
-	    }
+		List<String> roles = new ArrayList<String>();
 
-	    private boolean isUser(List<String> roles) {
-	        if (roles.contains("ROLE_USER")) {
-	            return true;
-	        }
-	        return false;
-	    }
+		for (GrantedAuthority a : authorities) {
+			roles.add(a.getAuthority());
+		}
+		if (isAdmin(roles)) {
+			url = "/home";
+		} else if (isUser(roles)) {
+			url = "/user/create-account";
+		} else {
+			url = "/khongcoquyen";
+		}
 
-	    private boolean isAdmin(List<String> roles) {
-	        if (roles.contains("ROLE_ADMIN")) {
-	            return true;
-	        }
-	        return false;
-	    }
+		return url;
+	}
 
-	    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
-	        this.redirectStrategy = redirectStrategy;
-	    }
+	private boolean isUser(List<String> roles) {
+		if (roles.contains("ROLE_USER")) {
+			return true;
+		}
+		return false;
+	}
 
-	    protected RedirectStrategy getRedirectStrategy() {
-	        return redirectStrategy;
-	    }
+	private boolean isAdmin(List<String> roles) {
+		if (roles.contains("ROLE_ADMIN")) {
+			return true;
+		}
+		return false;
+	}
 
-	
+	public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
+		this.redirectStrategy = redirectStrategy;
+	}
+
+	protected RedirectStrategy getRedirectStrategy() {
+		return redirectStrategy;
+	}
+
 }

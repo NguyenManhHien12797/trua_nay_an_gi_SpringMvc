@@ -13,23 +13,23 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 public class Merchant {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name;
-    private String phone;
-    private String address;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String name;
+	private String phone;
+	private String address;
 
-    private String avatar;
-    private String openTime;
-    private String closeTime;
+	private String avatar;
+	private String openTime;
+	private String closeTime;
 
-    private String status;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
-    @JsonBackReference
-    private Account account;
-    
+	private String status;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "account_id")
+	@JsonBackReference
+	private Account account;
+
 	public Merchant() {
 	}
 
@@ -117,8 +117,5 @@ public class Merchant {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-    
-    
-    
-	
+
 }
