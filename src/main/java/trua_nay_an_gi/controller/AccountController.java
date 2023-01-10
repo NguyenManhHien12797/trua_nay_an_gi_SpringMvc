@@ -61,6 +61,15 @@ public class AccountController {
 		model.addAttribute("listAccount", account);
 		return "account-list";
 	}
+	
+	@GetMapping("/user/findId")
+	public String findIdByName(@RequestParam(name = "name") String name, Model model) {
+		Long id = accountService.findIdUserByUserName(name);
+		model.addAttribute("id", id);
+		return "account-list";
+	}
+
+	
 
 	@GetMapping("update/{id}")
 	public String updateAccount(@PathVariable Long id, Model model) {

@@ -49,9 +49,8 @@ public class AppUserServiceImpl implements IAppUserSevice {
 	}
 
 	@Override
-	public void saveUserToRegister(String address, String avatar, String name, String phone, Long account_id,
-			String status) {
-		appUserRepository.saveUserToRegister(address, avatar, name, phone, account_id, status);
+	public void saveUserToRegister(String address, String avatar, String name, String phone,String status, Long account_id) {
+		appUserRepository.saveUserToRegister(address, avatar, name, phone, status, account_id);
 	}
 
 }

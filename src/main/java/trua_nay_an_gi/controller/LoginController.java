@@ -15,6 +15,7 @@ import trua_nay_an_gi.model.Account;
 import trua_nay_an_gi.model.dto.AccountRegisterDTO;
 import trua_nay_an_gi.service.IAccountService;
 import trua_nay_an_gi.service.IAppUserSevice;
+import trua_nay_an_gi.service.IRoleService;
 
 @Controller
 public class LoginController {
@@ -27,6 +28,10 @@ public class LoginController {
 
 	@Autowired
 	private IAppUserSevice userSevice;
+	
+	@Autowired
+	private IRoleService roleService;
+	
 
 	@GetMapping(value = { "/login" })
 	public String showLoginForm() {
@@ -48,12 +53,12 @@ public class LoginController {
 
 	@GetMapping("/register")
 	public ModelAndView showFormRegister() {
-		ModelAndView modelAndView = new ModelAndView("/account-save");
-		modelAndView.addObject("account", new Account());
+		ModelAndView modelAndView = new ModelAndView("/register");
+		modelAndView.addObject("accountRegisterDTO", new AccountRegisterDTO());
 		return modelAndView;
 	}
 
-	@PostMapping("/create-account")
+	@PostMapping("/register")
 	public ModelAndView addUser(@ModelAttribute("accountRegisterDTO") AccountRegisterDTO accountRegisterDTO) {
 
 		String status = "active";
@@ -66,11 +71,11 @@ public class LoginController {
 		String avatar = "https://scr.vn/wp-content/uploads/2020/07/Avatar-Facebook-tr%E1%BA%AFng.jpg";
 
 		userSevice.saveUserToRegister(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
-				accountRegisterDTO.getPhone(), idAccountAfterCreated, status);
+				accountRegisterDTO.getPhone(), status,idAccountAfterCreated);
 		
 
-		ModelAndView modelAndView = new ModelAndView("/register");
-		modelAndView.addObject("account", new Account());
+		ModelAndView modelAndView = new ModelAndView("/login");
+		modelAndView.addObject("accountRegisterDTO", new AccountRegisterDTO());
 		return modelAndView;
 	}
 

@@ -17,6 +17,16 @@
 <button>Search</button>
 </form>
 
+
+<form th:action="@{/user/findId}" method = "get">
+<label for="name">Name: </label>
+<input type="text" name= "name" id= "name">
+<!-- <input type = "button" value= "Search"> -->
+<button>Search</button>
+</form>
+
+<p th:text= "${id}"></p>
+
 <table>
     <tr>
       <th>Id</th>

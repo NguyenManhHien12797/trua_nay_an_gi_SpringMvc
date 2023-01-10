@@ -192,12 +192,12 @@
           
         </div>
         <!--        <p class="text">Hoặc đăng nhập bằng tài khoản của bạn</p>-->
-        <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <form th:action="@{/register}" th:object="${accountRegisterDTO}" method="post">
           <div class="form-login-input">
             <div class="field-group">
-              <div class="input-group"><i class="far fa-user"></i><input type="text"
+              <div class="input-group"><i class="far fa-user"></i><input type="text"  th:field="*{userName}"
                                                                          placeholder="Tên đăng ký" value=""
-                                                                         formControlName="userName">
+                                                                         formControlName="userName"  >
                                                                          
                                                                          
              <!--    <div *ngIf="!userName?.valid && (userName?.dirty || userName?.touched)">
@@ -211,7 +211,7 @@
                   
                 </div>
               </div>
-              <div class="input-group"><i class="fas fa-lock"></i><input type="password" placeholder="Mật khẩu"
+              <div class="input-group"><i class="fas fa-lock"></i><input type="password" th:field="*{password}" placeholder="Mật khẩu"
                                                                          value="" formControlName="password">
                                                                          
                                                                          
@@ -227,7 +227,7 @@
                 
               </div>
 
-              <div class="input-group"><i class="far fa-envelope"></i><input type="text" placeholder="Nhập email"
+              <div class="input-group"><i class="far fa-envelope"></i><input type="text" th:field="*{email}" placeholder="Nhập email"
                                                                              value="" formControlName="email">
                                                                              
                                                                              
@@ -246,7 +246,7 @@
                 
                 
               </div>
-              <div class="input-group"><i class="far fa-user"></i><input type="text"
+              <div class="input-group"><i class="far fa-user"></i><input type="text" th:field="*{name}"
                                                                          placeholder="Nhập tên chủ tài khoản"
                                                                          value="" formControlName="name">
                                                                          
@@ -261,7 +261,7 @@
                 </div> -->
                 
               </div>
-              <div class="input-group"><i class="fas fa-phone"></i><input type="text" placeholder="Nhập số điện thoại"
+              <div class="input-group"><i class="fas fa-phone"></i><input type="text" th:field="*{phone}" placeholder="Nhập số điện thoại"
                                                                           value="" formControlName="phone">
                                                                           
           <!--                                                                 
@@ -278,7 +278,7 @@
                 
                 
               </div>
-              <div class="input-group"><i class="fas fa-home"></i><input type="text" placeholder="Nhập địa chỉ"
+              <div class="input-group"><i class="fas fa-home"></i><input type="text" th:field="*{address}" placeholder="Nhập địa chỉ"
                                                                          value="" formControlName="address">
                                                                          
                                                                          

@@ -72,7 +72,7 @@ public class AcountRepository implements IAccountRepository {
 	public Long findIdUserByUserName(String userName) {
 		
 		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<Account> query = session.createQuery("SELECT id FROM account a WHERE a.userName = :userName", Account.class);
+		TypedQuery<Account> query = session.createQuery("FROM account a WHERE a.userName = :userName", Account.class);
 		query.setParameter("userName", userName);
 		try {
 			Account account = query.getSingleResult();

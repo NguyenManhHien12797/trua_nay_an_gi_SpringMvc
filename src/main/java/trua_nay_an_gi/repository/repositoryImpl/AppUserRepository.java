@@ -3,6 +3,7 @@ package trua_nay_an_gi.repository.repositoryImpl;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
@@ -66,21 +67,21 @@ public class AppUserRepository implements IAppUserRepository {
 	}
 
 	@Override
-	public void saveUserToRegister(String address, String avatar, String name, String phone, Long account_id,
-			String status) {
+	public void saveUserToRegister(String address, String avatar, String name, String phone, String status,
+			Long account_id) {
+		
 		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<AppUser> query = session.createQuery(
-				"insert into AppUser(address,avatar,name,phone,account_id,status) "
-						+ "values (address = :address ,avatar = :avatar,name = :name,phone = :phone,account_id = :account_id,status = :status)",
-				AppUser.class);
+		Query query = session.createSQLQuery("Call INSERT_APPUSER(:address ,:avatar,:name,:phone,:status, :account_id)").addEntity(AppUser.class);
 		query.setParameter("address", address);
 		query.setParameter("avatar", avatar);
 		query.setParameter("name", name);
 		query.setParameter("phone", phone);
-		query.setParameter("account_id", account_id);
 		query.setParameter("status", status);
+		query.setParameter("account_id", account_id);
 		query.executeUpdate();
-
+		
 	}
+
+
 
 }
