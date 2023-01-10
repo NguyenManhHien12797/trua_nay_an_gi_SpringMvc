@@ -22,7 +22,7 @@ public interface IAccountRepository extends IGeneralRepository<Account> {
 	Account findById(Long id);
 
 	Account findByName(String name);
-	
+
 	Long findIdUserByUserName(String userName);
 
 }

@@ -23,6 +23,6 @@ public interface IAppUserSevice extends IGeneralService<AppUser> {
 
 	AppUser findByName(String name);
 
-	void saveUserToRegister(String address, String avatar, String name, String phone,String status, Long account_id);
+	void saveUserToRegister(String address, String avatar, String name, String phone, String status, Long account_id);
 
 }

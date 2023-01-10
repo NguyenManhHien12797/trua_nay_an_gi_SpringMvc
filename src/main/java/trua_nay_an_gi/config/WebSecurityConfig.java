@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -18,9 +18,6 @@ import trua_nay_an_gi.service.IAccountService;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private CustomSuccessHandler customSuccessHandler;
@@ -41,15 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) {
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(customIdentityAuthenticationProvider);
+		auth.userDetailsService((UserDetailsService) accountService).passwordEncoder(passwordEncoder());
 	}
 
-//	  @Override
-//	  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		  
-//		  auth.userDetailsService((UserDetailsService) accountService).passwordEncoder(NoOpPasswordEncoder.getInstance());
-//	  }
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -58,16 +51,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login", "/register", "/static/**").permitAll().antMatchers("/admin/**")
-				.hasRole("ADMIN").antMatchers("/**").hasAnyRole("ADMIN", "USER").and().formLogin().loginPage("/login")
-				.usernameParameter("userName").successHandler(customSuccessHandler)
-//		    .defaultSuccessUrl("/admin", true)
-				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().csrf().disable();
+		http.authorizeRequests().antMatchers("/login", "/register/**","/home", "/static/**").permitAll()
+		.antMatchers("/admin/**").hasRole("ADMIN")
+		.antMatchers("/merchant/**").hasRole("MERCHANT")
+		.antMatchers("/**").hasAnyRole("ADMIN", "USER")
+		.and().formLogin().loginPage("/login")
+		.usernameParameter("userName")
+		.successHandler(customSuccessHandler)
+		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.and().csrf().disable();
 
 //		   http
 //	        .sessionManagement(session -> session
 //	            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-//	            .setMaxInactiveInterval(15)
 //	            .invalidSessionUrl("/login")
 //	        );
 

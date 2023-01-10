@@ -26,14 +26,10 @@ public class AccountRoleMap {
 	public AccountRoleMap() {
 	}
 
-	
-	
 	public AccountRoleMap(Account account, AppRoles role) {
 		this.account = account;
 		this.role = role;
 	}
-
-
 
 	public AccountRoleMap(Long id, Account account, AppRoles role) {
 		this.id = id;

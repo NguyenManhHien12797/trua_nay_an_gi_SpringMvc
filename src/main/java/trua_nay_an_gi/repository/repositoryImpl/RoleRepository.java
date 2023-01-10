@@ -1,6 +1,5 @@
 package trua_nay_an_gi.repository.repositoryImpl;
 
-
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -17,7 +16,7 @@ import trua_nay_an_gi.repository.IRoleRepository;
 
 @Repository
 @Transactional(rollbackFor = Exception.class)
-public class RoleRepository implements IRoleRepository<AppRoles>{
+public class RoleRepository implements IRoleRepository<AppRoles> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -25,7 +24,8 @@ public class RoleRepository implements IRoleRepository<AppRoles>{
 	@Override
 	public void setDefaultRole(Long accountId, Integer roleId) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery("Call INSERT_ACCOUNT_ROLE(:account_id,:role_id)").addEntity(AccountRoleMap.class);
+		Query query = session.createSQLQuery("Call INSERT_ACCOUNT_ROLE(:account_id,:role_id)")
+				.addEntity(AccountRoleMap.class);
 		query.setParameter("account_id", accountId);
 		query.setParameter("role_id", roleId);
 		query.executeUpdate();
@@ -42,7 +42,5 @@ public class RoleRepository implements IRoleRepository<AppRoles>{
 			return null;
 		}
 	}
-
-	
 
 }

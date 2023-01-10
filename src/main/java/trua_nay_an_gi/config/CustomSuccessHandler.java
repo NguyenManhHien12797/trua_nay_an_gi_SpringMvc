@@ -65,10 +65,17 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 		if (isAdmin(roles)) {
 			url = "/home";
-		} else if (isUser(roles)) {
-			url = "/user/create-account";
-		} else {
-			url = "/khongcoquyen";
+			return url;
+		}
+		
+		if (isMerchant(roles)) {
+			url = "/home";
+			return url;
+		}
+		
+		if (isUser(roles)) {
+			url = "/home";
+			return url;
 		}
 
 		return url;
@@ -83,6 +90,13 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
 	private boolean isAdmin(List<String> roles) {
 		if (roles.contains("ROLE_ADMIN")) {
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean isMerchant(List<String> roles) {
+		if (roles.contains("ROLE_MERCHANT")) {
 			return true;
 		}
 		return false;

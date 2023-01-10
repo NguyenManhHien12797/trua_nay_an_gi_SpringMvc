@@ -8,22 +8,17 @@ import trua_nay_an_gi.model.AppRoles;
 import trua_nay_an_gi.repository.IRoleRepository;
 import trua_nay_an_gi.service.IRoleService;
 
-
 @Service
 @Transactional
-public class RoleServiceImpl implements IRoleService<AppRoles>{
-	
+public class RoleServiceImpl implements IRoleService<AppRoles> {
+
 	@Autowired
 	private IRoleRepository roleRepository;
-
-
 
 	@Override
 	public void setDefaultRole(Long accountId, Integer roleId) {
 		roleRepository.setDefaultRole(accountId, roleId);
 	}
-
-
 
 	@Override
 	public AppRoles findByName(String name) {

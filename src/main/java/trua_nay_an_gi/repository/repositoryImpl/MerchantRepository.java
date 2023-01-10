@@ -13,51 +13,51 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import trua_nay_an_gi.model.AppUser;
-import trua_nay_an_gi.repository.IAppUserRepository;
+import trua_nay_an_gi.model.Merchant;
+import trua_nay_an_gi.repository.IMerchantRepository;
 
-@Repository(value = "appUserRepository")
+@Repository(value = "merchantRepository")
 @Transactional(rollbackFor = Exception.class)
-public class AppUserRepository implements IAppUserRepository {
-
+public class MerchantRepository implements IMerchantRepository{
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public void save(AppUser appUser) {
+	public Merchant findById(Long id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.save(appUser);
+		return session.get(Merchant.class, id);
 	}
 
 	@Override
-	public void update(AppUser appUser) {
+	public void save(Merchant merchant) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.update(appUser);
+		session.save(merchant);
 	}
 
 	@Override
-	public void delete(AppUser appUser) {
+	public void update(Merchant merchant) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.remove(appUser);
-
+		session.update(merchant);
 	}
 
 	@Override
-	public List<AppUser> findAll() {
+	public void delete(Merchant merchant) {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<AppUser> appUsers = session.createQuery("FROM AppUser", AppUser.class).getResultList();
-		return appUsers;
+		session.remove(merchant);
 	}
 
 	@Override
-	public AppUser findById(Long id) {
+	public List<Merchant> findAll() {
 		Session session = this.sessionFactory.getCurrentSession();
-		return session.get(AppUser.class, id);
+		List<Merchant> merchants = session.createQuery("FROM Merchant", Merchant.class).getResultList();
+		return merchants;
 	}
 
 	@Override
-	public AppUser findByName(String name) {
+	public Merchant findByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<AppUser> query = session.createQuery("FROM AppUser a WHERE a.name = :name", AppUser.class);
+		TypedQuery<Merchant> query = session.createQuery("FROM Merchant m WHERE m.name = :name", Merchant.class);
 		query.setParameter("name", name);
 		try {
 			return query.getSingleResult();
@@ -67,12 +67,12 @@ public class AppUserRepository implements IAppUserRepository {
 	}
 
 	@Override
-	public void saveUserToRegister(String address, String avatar, String name, String phone, String status,
+	public void saveMerchantToRegister(String address, String avatar, String name, String phone, String status,
 			Long account_id) {
-
+		
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery("Call INSERT_APPUSER(:address ,:avatar,:name,:phone,:status, :account_id)")
-				.addEntity(AppUser.class);
+		Query query = session.createSQLQuery("Call INSERT_MERCHANT(:address ,:avatar,:name,:phone,:status, :account_id)")
+				.addEntity(Merchant.class);
 		query.setParameter("address", address);
 		query.setParameter("avatar", avatar);
 		query.setParameter("name", name);
@@ -80,7 +80,7 @@ public class AppUserRepository implements IAppUserRepository {
 		query.setParameter("status", status);
 		query.setParameter("account_id", account_id);
 		query.executeUpdate();
-
+		
 	}
 
 }

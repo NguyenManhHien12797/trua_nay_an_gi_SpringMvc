@@ -3,7 +3,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login Form</title>
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/login.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"
+      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
 </head>
 <style>
@@ -26,149 +28,13 @@
         <div class="container">
           <div class="header-content navbar row  justify-content-between align-items-center">
             <div class="logo-now col-auto"><span><a href="index.html"><img
-              src="./assets/img/shopeefoodvn.png"
-              alt="ShopeeFood"></a></span></div>
-            <div class="select-local col-auto">
-              <div class="dropdown">
-                <div class="dropdown-toggle" role="button" id="local-dropdown"
-                     data-toggle="dropdown" aria-haspopup="true">Hà Nội
-                </div>
-                <div class="dropdown-menu" style="font-size:14px">
-                  <div class="dropdown-item"><span class="name col">TP. HCM</span><span
-                    class="count col-auto">85849 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Hà Nội</span><span
-                    class="count col-auto">42040 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Đà Nẵng</span><span
-                    class="count col-auto">11850 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Cần Thơ</span><span
-                    class="count col-auto">3584 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Hải Phòng</span><span
-                    class="count col-auto">4109 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Huế</span><span
-                    class="count col-auto">2886 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Khánh Hoà</span><span
-                    class="count col-auto">2450 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Đồng Nai</span><span
-                    class="count col-auto">4385 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Nghệ An</span><span
-                    class="count col-auto">1701 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Vũng Tàu</span><span
-                    class="count col-auto">1926 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Bắc Ninh</span><span
-                    class="count col-auto">604 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Bình Dương</span><span
-                    class="count col-auto">3397 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Điện Biên</span><span
-                    class="count col-auto">10454 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Lâm Đồng</span><span
-                    class="count col-auto">1460 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Quảng Nam</span><span
-                    class="count col-auto">1013 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Quảng Ninh</span><span
-                    class="count col-auto">884 địa điểm</span></div>
-                  <div class="dropdown-item"><span class="name col">Thái Nguyên</span><span
-                    class="count col-auto">1028 địa điểm</span></div>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="main-nav col"><a class="nav-item active" href="/ha-noi/food">Đồ ăn</a><a
-              class="nav-item " href="/ha-noi/fresh">Thực phẩm</a><a class="nav-item "
-                                                                     href="/ha-noi/liquor">Bia</a><a class="nav-item "
-                                                                                                     href="/ha-noi/flowers">Hoa</a><a
-              class="nav-item " href="/ha-noi/fmcg">Siêu thị</a><a class="nav-item "
-                                                                   href="/ha-noi/medicine">Thuốc</a><a class="nav-item "
-                                                                                                       href="/ha-noi/pets">Thú
-              cưng</a></div>
-
+              th:src="@{/static/img/shopeefoodvn.png}"
+              alt="ShopBaeFood"></a></span></div>
           </div>
         </div>
       </div>
-      <div class="modal fade modal-search" id="modal-search" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content"><span class="close" data-dismiss="modal">x</span>
-            <div class="modal-search-form"><span class="sub-title">Đặt Đồ ăn, giao hàng từ 20'... có
-                                    37422 địa điểm ở Hà Nội từ 00:00 - 23:59</span>
-              <form><input class="search-input" name="search-input" type="text" autocomplete="off"
-                           value=""></form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade modal-new-app" id="modal-new-app" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content"><span class="close" data-dismiss="modal">x</span>
-            <div class="img-now"><img
-              src="#"
-              alt="App now"></div>
-            <div class="info-now"><span>
-                                    <h3 style="font-size: 36px;font-weight: lighter;margin-bottom: 0;">Hello you!</h3>
-                                    <p style="font-size: 15px;margin-top: 9px;margin-bottom: 9px;">We are pleased to
-                                        inform you that our application<span class="bold"> ShopeeFood</span> is changed
-                                        its name to</p><span class="btn btn-red font18" title="ShopeeFood"
-                                                             style="cursor: pointer;font-size: 18px !important;background-color: #cf2127;color: #fff;border-color: #cf2127;"><span
-              class="txt-bold"
-              style="font-weight: 700 !important;">ShopeeFood</span></span>
-                                </span>
-              <p class="update-version">Cập nhật phiên bản mới</p>
-              <div class="down-apps"><a target="_blank" rel="noopener noreferrer"
-                                        href="https://itunes.apple.com/us/app/deliverynow/id1137866760" class="down-app"
-                                        title="App Store"><span class="icon icon-app-store-sm"></span></a><a
-                target="_blank" rel="noopener noreferrer"
-                href="https://play.google.com/store/apps/details?id=com.deliverynow"
-                class="down-app" title="Google play"><span
-                class="icon icon-gg-play-sm"></span></a></div>
-            </div>
-            <div class="box-now-merchant clearfix">
-              <div class="img-merchant">
-                <div class="float-left mar-right10"><span class="icon icon-merchant-lg"></span>
-                </div>
-                <div class="float-left"><a target="_blank" rel="noopener noreferrer"
-                                           href="https://itunes.apple.com/US/app/id1296706589?mt=8" class="down-apps"
-                                           title="App Store"><span class="icon icon-app-store-sm"></span></a><a
-                  target="_blank" rel="noopener noreferrer"
-                  href="https://play.google.com/store/apps/details?id=com.sea.foody.nowmerchant&amp;amp;hl=vi"
-                  class="down-apps" title="Google play"><span
-                  class="icon icon-gg-play-sm"></span></a></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade modal-get-local" id="userLocationId" tabindex="-1" role="dialog"
-           data-backdrop="static" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content"><span class="close" data-dismiss="modal">x</span>
-            <div class="modal-header">Bạn muốn giao đến đâu?</div>
-            <div class="modal-body">
-              <div class="search-local">
-                <div class="primary-local">
-                  <div class="row align-items-center no-gutters">
-                    <div class="col-auto"><i class="icon icon-search-gray"></i></div>
-                    <div class="col"><input type="text" id="address" name="address"
-                                            placeholder="Nhập địa chỉ giao hàng" value=""></div>
-                    <div class="col-auto"><i class="icon icon-location"></i></div>
-                  </div>
-                </div>
-              </div>
-              <div class="list-local">
-                <div class="suggest-local">
-                  <div class="location-items"></div>
-                  <div class="find-map">
-                    <div class="row align-items-center no-gutters">
-                      <div class="col-auto"><i class="icon icon-thumbtack"></i></div>
-                      <div class="col pl-3"><span class="txt-blue link">Tìm trên bản đồ</span>
-                      </div>
-                      <div class="col-auto mr-3"><i class="icon-arrow-thin right"></i></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
+  
     </header>
     <!--form login-->
     <div class="now-login">
@@ -177,20 +43,7 @@
         <div class="login-via">
           <div class="item phone"><span class="fas fa-mobile-alt"></span>Số điện thoại</div>
           <div class="item fb"><span class="fab fa-facebook-f"></span>Facebook</div>
-          <form id="google-login-form" action="https://accounts.google.com/o/oauth2/v2/auth" method="GET"><input
-            type="hidden" name="client_id"
-            value="229327170580-69v69v4s94p2tvf4qi3g0qb901b2pg99.apps.googleusercontent.com"><input
-            type="hidden" name="redirect_uri" value="https://shopeefood.vn/account/login"><input type="hidden"
-                                                                                                 name="scope"
-                                                                                                 value="email profile openid"><input
-            type="hidden" name="state" value="/"><input
-            type="hidden" name="response_type" value="permission id_token"><input type="hidden"
-                                                                                  name="fetch_basic_profile"
-                                                                                  value="true"><input type="hidden"
-                                                                                                      name="nonce"
-                                                                                                      value="AO9thoqUvirPjVc4KOM61c001.snqMhG">
-            <div class="item plus"><i class="fab fa-google-plus-g"></i>Google</div>
-          </form>
+          <div class="item plus"><i class="fab fa-google-plus-g"></i>Google</div>
         </div>
         <p class="text">Hoặc đăng nhập bằng tài khoản của bạn</p>
 
@@ -203,25 +56,30 @@
         
         <form th:action="@{/login}" method="post">
           <div class="form-login-input">
+             <span th:text= "${mess}"></span>
             <div class="field-group">
               <div class="input-group">
-              <span th:text= "${mess}"></span>
+              <i class="far fa-user"></i>
               <input type="text" name="userName" placeholder="Tên đăng nhập">
-                <div class="input-group">
-                <input type="password" name="password" placeholder="Mật khẩu">
-                </div>
-      
               </div>
             </div>
+             <div class="field-group">
+                <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" placeholder="Mật khẩu">
+                </div>
+             </div>
+            
 
             <div class="form-group clearfix">
               <div class="float-left"><input type="checkbox" id="RememberMe" checked=""><label for="RememberMe">Lưu
                 thông tin đăng nhập</label></div>
-              <span class="float-right"><a routerLink="/forgotpass">Quên mật
+              <span class="float-right"><a th:href="@{/forgotpass}">Quên mật
                                     khẩu?</a></span>
             </div>
             <button class="btn btn-block btn-submit" [disabled]="disable">Đăng nhập</button>
 
+         <!--    <a th:href="@{/register/merchant}" class="btn btn-block btn-dark">Đăng ký</a> -->
             <a th:href="@{/register}" class="btn btn-block btn-dark">Đăng ký</a>
           </div>
           <br>
