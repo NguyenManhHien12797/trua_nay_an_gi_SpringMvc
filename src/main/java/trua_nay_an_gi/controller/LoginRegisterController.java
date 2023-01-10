@@ -89,11 +89,8 @@ public class LoginRegisterController {
 	}
 	
 	private boolean isAdmin(HttpSession session) {
-		Collection<? extends GrantedAuthority> authorities = (Collection<? extends GrantedAuthority>) session.getAttribute("authorities");
-		System.out.println(authorities);
-		
+		Collection<? extends GrantedAuthority> authorities = (Collection<? extends GrantedAuthority>) session.getAttribute("authorities");	
 		List<String> roles = new ArrayList<String>();
-
 		for (GrantedAuthority a : authorities) {
 			roles.add(a.getAuthority());
 		}
