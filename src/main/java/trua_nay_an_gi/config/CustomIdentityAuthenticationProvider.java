@@ -21,7 +21,7 @@ import trua_nay_an_gi.service.IAccountService;
 
 @Component
 public class CustomIdentityAuthenticationProvider implements AuthenticationProvider {
-	
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
 

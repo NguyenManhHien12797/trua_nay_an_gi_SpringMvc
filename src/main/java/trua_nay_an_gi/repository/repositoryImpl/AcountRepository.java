@@ -70,14 +70,10 @@ public class AcountRepository implements IAccountRepository {
 
 	@Override
 	public Long findIdUserByUserName(String userName) {
-
-		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<Account> query = session.createQuery("FROM account a WHERE a.userName = :userName", Account.class);
-		query.setParameter("userName", userName);
-		try {
-			Account account = query.getSingleResult();
+		Account account = this.findByName(userName);
+		if (account != null) {
 			return account.getId();
-		} catch (NoResultException e) {
+		} else {
 			return null;
 		}
 	}

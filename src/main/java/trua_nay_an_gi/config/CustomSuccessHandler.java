@@ -39,7 +39,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(15);
+		session.setMaxInactiveInterval(60 * 60);
 		Account account = accountService.findByName(authentication.getName());
 		session.setAttribute("user", account);
 		session.setAttribute("username", account.getUserName());
@@ -67,12 +67,12 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 			url = "/admin";
 			return url;
 		}
-		
+
 		if (isMerchant(roles)) {
 			url = "/home";
 			return url;
 		}
-		
+
 		if (isUser(roles)) {
 			url = "/home";
 			return url;
@@ -94,7 +94,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 		return false;
 	}
-	
+
 	private boolean isMerchant(List<String> roles) {
 		if (roles.contains("ROLE_MERCHANT")) {
 			return true;

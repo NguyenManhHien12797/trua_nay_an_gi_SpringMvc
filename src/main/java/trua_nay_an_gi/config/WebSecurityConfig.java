@@ -28,9 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private CustomIdentityAuthenticationProvider customIdentityAuthenticationProvider;
 
-	@Autowired
-	private AuthSuccessHandler authSuccessHandler;
-
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -43,7 +40,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService((UserDetailsService) accountService).passwordEncoder(passwordEncoder());
 	}
 
-
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -51,15 +47,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login", "/register/**","/home", "/static/**").permitAll()
-		.antMatchers("/admin/**").hasRole("ADMIN")
-		.antMatchers("/merchant/**").hasRole("MERCHANT")
-		.antMatchers("/**").hasAnyRole("ADMIN", "USER")
-		.and().formLogin().loginPage("/login")
-		.usernameParameter("userName")
-		.successHandler(customSuccessHandler)
-		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.and().csrf().disable();
+		http.authorizeRequests().antMatchers("/login", "/register/**", "/home", "/static/**").permitAll()
+				.antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/merchant/**").hasRole("MERCHANT")
+				.antMatchers("/**").hasAnyRole("ADMIN", "USER").and().formLogin().loginPage("/login")
+				.usernameParameter("userName").successHandler(customSuccessHandler).and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().csrf().disable();
 
 //		   http
 //	        .sessionManagement(session -> session

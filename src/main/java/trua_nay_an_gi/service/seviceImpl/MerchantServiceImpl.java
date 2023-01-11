@@ -12,8 +12,8 @@ import trua_nay_an_gi.service.IMerchantService;
 
 @Service
 @Transactional
-public class MerchantServiceImpl implements IMerchantService{
-	
+public class MerchantServiceImpl implements IMerchantService {
+
 	@Autowired
 	private IMerchantRepository merchantRepository;
 
@@ -51,7 +51,7 @@ public class MerchantServiceImpl implements IMerchantService{
 	@Override
 	public void saveMerchantToRegister(String address, String avatar, String name, String phone, String status,
 			Long account_id) {
-		
+
 		merchantRepository.saveMerchantToRegister(address, avatar, name, phone, status, account_id);
 	}
 

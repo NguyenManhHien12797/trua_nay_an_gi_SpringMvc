@@ -4,7 +4,7 @@ import java.util.List;
 
 import trua_nay_an_gi.model.Merchant;
 
-public interface IMerchantService extends IGeneralService<Merchant>{
+public interface IMerchantService extends IGeneralService<Merchant> {
 
 	@Override
 	void save(Merchant merchant);
@@ -23,5 +23,6 @@ public interface IMerchantService extends IGeneralService<Merchant>{
 
 	Merchant findByName(String name);
 
-	void saveMerchantToRegister(String address, String avatar, String name, String phone, String status, Long account_id);
+	void saveMerchantToRegister(String address, String avatar, String name, String phone, String status,
+			Long account_id);
 }

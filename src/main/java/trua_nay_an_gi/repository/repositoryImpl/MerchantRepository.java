@@ -18,8 +18,8 @@ import trua_nay_an_gi.repository.IMerchantRepository;
 
 @Repository(value = "merchantRepository")
 @Transactional(rollbackFor = Exception.class)
-public class MerchantRepository implements IMerchantRepository{
-	
+public class MerchantRepository implements IMerchantRepository {
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -69,9 +69,10 @@ public class MerchantRepository implements IMerchantRepository{
 	@Override
 	public void saveMerchantToRegister(String address, String avatar, String name, String phone, String status,
 			Long account_id) {
-		
+
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery("Call INSERT_MERCHANT(:address ,:avatar,:name,:phone,:status, :account_id)")
+		Query query = session
+				.createSQLQuery("Call INSERT_MERCHANT(:address ,:avatar,:name,:phone,:status, :account_id)")
 				.addEntity(Merchant.class);
 		query.setParameter("address", address);
 		query.setParameter("avatar", avatar);
@@ -80,7 +81,7 @@ public class MerchantRepository implements IMerchantRepository{
 		query.setParameter("status", status);
 		query.setParameter("account_id", account_id);
 		query.executeUpdate();
-		
+
 	}
 
 }

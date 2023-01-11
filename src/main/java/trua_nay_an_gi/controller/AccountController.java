@@ -21,7 +21,7 @@ public class AccountController {
 	@Autowired
 	private IAccountService accountService;
 
-	@GetMapping(value = { "/admin", "account-list" })
+	@GetMapping(value = { "account-list" })
 	public String listAccount(Model model) {
 		model.addAttribute("listAccount", accountService.findAll());
 		return "account-list";

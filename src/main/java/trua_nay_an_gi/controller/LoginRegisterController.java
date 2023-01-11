@@ -35,13 +35,13 @@ public class LoginRegisterController {
 
 	@Autowired
 	private IAppUserSevice userSevice;
-	
+
 	@Autowired
 	private IMerchantService merchantService;
 
 	@Autowired
 	private IRoleService roleService;
-	
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
@@ -60,8 +60,7 @@ public class LoginRegisterController {
 		String name = "";
 		String avatar = "";
 		String role = "";
-	
-		
+
 		if (account == null) {
 			message = "chua dang nhap";
 		} else {
@@ -70,7 +69,7 @@ public class LoginRegisterController {
 				avatar = account.getUser().getAvatar();
 				role = "user";
 			}
-			if(isAdmin(session)) {
+			if (isAdmin(session)) {
 				name = account.getUser().getName();
 				avatar = account.getUser().getAvatar();
 				role = "admin";
@@ -87,9 +86,10 @@ public class LoginRegisterController {
 		model.addAttribute("message", message);
 		return "homepage";
 	}
-	
+
 	private boolean isAdmin(HttpSession session) {
-		Collection<? extends GrantedAuthority> authorities = (Collection<? extends GrantedAuthority>) session.getAttribute("authorities");	
+		Collection<? extends GrantedAuthority> authorities = (Collection<? extends GrantedAuthority>) session
+				.getAttribute("authorities");
 		List<String> roles = new ArrayList<String>();
 		for (GrantedAuthority a : authorities) {
 			roles.add(a.getAuthority());
@@ -99,7 +99,6 @@ public class LoginRegisterController {
 		}
 		return false;
 	}
-	
 
 	@GetMapping("/register")
 	public ModelAndView showFormRegister() {
@@ -111,7 +110,7 @@ public class LoginRegisterController {
 		modelAndView.addObject("accountRegisterDTO", new AccountRegisterDTO());
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/register/merchant")
 	public ModelAndView showFormRegisterMerchant() {
 		ModelAndView modelAndView = new ModelAndView("/register");
@@ -129,8 +128,7 @@ public class LoginRegisterController {
 		String status = "active";
 		boolean isEnabled = true;
 		String pass = passwordEncoder.encode(accountRegisterDTO.getPassword());
-		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled,
-				accountRegisterDTO.getEmail());
+		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, accountRegisterDTO.getEmail());
 		accountService.save(account);
 		Long idAccountAfterCreated = accountService.findIdUserByUserName(account.getUserName());
 		roleService.setDefaultRole(idAccountAfterCreated, 1);
@@ -143,15 +141,14 @@ public class LoginRegisterController {
 		modelAndView.addObject("accountRegisterDTO", new AccountRegisterDTO());
 		return modelAndView;
 	}
-	
+
 	@PostMapping("/register/merchant")
 	public ModelAndView addMerchant(@ModelAttribute("accountRegisterDTO") AccountRegisterDTO accountRegisterDTO) {
 
 		String status = "active";
 		boolean isEnabled = true;
 		String pass = passwordEncoder.encode(accountRegisterDTO.getPassword());
-		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled,
-				accountRegisterDTO.getEmail());
+		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, accountRegisterDTO.getEmail());
 		accountService.save(account);
 		Long idAccountAfterCreated = accountService.findIdUserByUserName(account.getUserName());
 		roleService.setDefaultRole(idAccountAfterCreated, 3);

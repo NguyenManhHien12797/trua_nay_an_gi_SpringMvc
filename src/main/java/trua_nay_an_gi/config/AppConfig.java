@@ -29,6 +29,8 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "trua_nay_an_gi" })
@@ -40,7 +42,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 
 	@Autowired
 	private Environment env;
-	
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
@@ -67,6 +69,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
 		templateEngine.setEnableSpringELCompiler(true);
+		templateEngine.addDialect(new LayoutDialect());
 		return templateEngine;
 	}
 
