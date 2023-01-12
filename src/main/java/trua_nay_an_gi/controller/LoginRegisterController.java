@@ -125,14 +125,14 @@ public class LoginRegisterController {
 	@PostMapping("/register")
 	public ModelAndView addUser(@ModelAttribute("accountRegisterDTO") AccountRegisterDTO accountRegisterDTO) {
 
-		String status = "active";
+		String status = "pending";
 		boolean isEnabled = true;
 		String pass = passwordEncoder.encode(accountRegisterDTO.getPassword());
 		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, accountRegisterDTO.getEmail());
 		accountService.save(account);
 		Long idAccountAfterCreated = accountService.findIdUserByUserName(account.getUserName());
 		roleService.setDefaultRole(idAccountAfterCreated, 1);
-		String avatar = "/trua_nay_an_gi/static/img/images.jpg";
+		String avatar = "/static/img/images.jpg";
 
 		userSevice.saveUserToRegister(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
 				accountRegisterDTO.getPhone(), status, idAccountAfterCreated);
@@ -145,14 +145,14 @@ public class LoginRegisterController {
 	@PostMapping("/register/merchant")
 	public ModelAndView addMerchant(@ModelAttribute("accountRegisterDTO") AccountRegisterDTO accountRegisterDTO) {
 
-		String status = "active";
+		String status = "pending";
 		boolean isEnabled = true;
 		String pass = passwordEncoder.encode(accountRegisterDTO.getPassword());
 		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, accountRegisterDTO.getEmail());
 		accountService.save(account);
 		Long idAccountAfterCreated = accountService.findIdUserByUserName(account.getUserName());
 		roleService.setDefaultRole(idAccountAfterCreated, 3);
-		String avatar = "/trua_nay_an_gi/static/img/images.jpg";
+		String avatar = "/static/img/images.jpg";
 
 		merchantService.saveMerchantToRegister(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
 				accountRegisterDTO.getPhone(), status, idAccountAfterCreated);

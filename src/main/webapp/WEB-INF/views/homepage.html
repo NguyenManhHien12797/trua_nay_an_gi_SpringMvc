@@ -5,6 +5,7 @@
 <title>Homepage</title>
 
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
+  <script src="https://kit.fontawesome.com/bb6a3cf0b7.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -63,7 +64,7 @@
               <div th:unless= "${message == 'chua dang nhap'}">
 
                 <div class="user-acc-contain">
-                  <img class="user-acc-img" th:src="${avatar}" alt="">
+                  <img class="user-acc-img" th:src="@{${avatar}}" alt="">
                   <span th:text="${name}"></span>
 <!--                   <span th:text="${session.username}"></span> -->
                   <div class="user-acc-dropdown">
@@ -90,11 +91,17 @@
 
 
                 </div>
+              </div>
 
-                <div *ngIf="message === 'user'; then thenBlockCart"></div>
-                <ng-template #thenBlockCart>
-                  <div class="nav-bar-cart"><i class="fa-solid fa-cart-shopping" routerLink="/cart"></i>
 
+            </div>
+        
+          <div th:if="${role == 'user'}"  >
+          		<div class="nav-bar-cart">
+             		 <i class="fa-solid fa-cart-shopping" routerLink="/cart"></i>
+              
+                 </div>
+             
                     <div class="cart-detail">
                       <span class="cart-detail-span">Sản phẩm trong giỏ hàng</span>
                       <div
@@ -116,14 +123,10 @@
                         <button class="btn btn-cart" routerLink="/cart">Xem giỏ hàng</button>
                       </div>
                     </div>
-
-                  </div>
-                </ng-template>
-
-              </div>
-
-
-            </div>
+       
+                </div>
+                
+        
           </div>
         </div>
       </div>

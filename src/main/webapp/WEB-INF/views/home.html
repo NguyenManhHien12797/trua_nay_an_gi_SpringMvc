@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--  main-fragment (title, otherStaticResources, header, nav, mainContent, footer)  -->
 <html xmlns:th="http://www.thymeleaf.org"
@@ -7,7 +8,6 @@
                                                 ~{:: #home-header},
                                                 ~{:: #home-nav},
                                                 ~{:: #home-main-content},  
-                                     <!--            ~{:: #home-secondary-content},   -->
                                                 ~{:: #home-footer}
                                                )}">
                                               
@@ -26,15 +26,9 @@
         Home Nav
     </div>
     <div id="home-main-content">
-    
- 
         <h2>Home content</h2>
         <div>Content of Home Page</div>
     </div>
-    
-    <!-- 	<div id="home-secondary-content">
-    	 <h2>Home secondary content</h2>
-   		</div> -->
     <div id="home-footer" th:replace="~{/fragments/app-fragments :: copyright}">
         Footer
     </div>
