@@ -8,3 +8,23 @@
 	padding-right: 86px;
     text-align: center;
 }
+
+.btn-action-icon{
+	font-size: 25px;
+	font-weight: 600px;
+    border: none;
+    background-color: white;
+}
+.btn-action-icon:hover{
+	color: #c0c0c0;
+	cursor: pointer;
+	transform: translateX(3px);
+}
+
+.flex-column{
+	width: 160px;
+}
+
+#sidebarMenu{
+	max-width: 18.66667%;
+}

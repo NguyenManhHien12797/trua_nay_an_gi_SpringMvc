@@ -64,7 +64,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 			roles.add(a.getAuthority());
 		}
 		if (isAdmin(roles)) {
-			url = "/admin";
+			url = "/admin/merchant-list/active";
 			return url;
 		}
 

@@ -6,6 +6,7 @@
 <title th:replace="${title}">Page 1 Title</title>
 
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/admin.css}">
   <script src="https://kit.fontawesome.com/bb6a3cf0b7.js" crossorigin="anonymous"></script>
 <!-- Other javascript, css source files -->
 <th:block th:replace="${otherStaticResources} ?: ~{}"></th:block>
@@ -48,5 +49,30 @@
     <footer th:insert="${footer} ?: ~{}">
         <p>Footer</p>
     </footer>
+    
+    
+<script
+	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
+</script>
+
+<script th:inline="javascript">
+
+
+function updateStatus(userId, role,status) {
+    $.ajax({
+        type: "POST",
+        //tên API
+        url:`/trua_nay_an_gi/admin/${role}/${status}/${userId}`,
+        //xử lý khi thành công
+        success: function (data) {
+      	  location.reload();
+      	  
+        }
+
+      });
+}
+
+
+</script>
 </body>
 </html>

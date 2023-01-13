@@ -22,6 +22,8 @@ public interface IAppUserSevice extends IGeneralService<AppUser> {
 	AppUser findById(Long id);
 
 	AppUser findByName(String name);
+	
+	void updateStatus(Long id, String status);
 
 	void saveUserToRegister(String address, String avatar, String name, String phone, String status, Long account_id);
 

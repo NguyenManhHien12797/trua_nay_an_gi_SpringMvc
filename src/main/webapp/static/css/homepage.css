@@ -305,6 +305,11 @@ template {
   display: none
 }
 
+.btn-action-icon{
+    border: none;
+    background-color: white;
+}
+
 .container, .container-fluid {
   width: 1200px;
   margin-right: auto;

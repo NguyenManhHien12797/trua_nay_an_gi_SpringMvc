@@ -1,6 +1,7 @@
 package trua_nay_an_gi.service.seviceImpl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,14 @@ public class AppUserServiceImpl implements IAppUserSevice {
 	public void saveUserToRegister(String address, String avatar, String name, String phone, String status,
 			Long account_id) {
 		appUserRepository.saveUserToRegister(address, avatar, name, phone, status, account_id);
+	}
+
+	@Override
+	public void updateStatus(Long id, String status) {
+		AppUser appUser = this.findById(id);
+		appUser.setStatus(status);
+		appUserRepository.update(appUser);
+		
 	}
 
 }
