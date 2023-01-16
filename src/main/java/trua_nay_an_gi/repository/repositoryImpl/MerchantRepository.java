@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import trua_nay_an_gi.model.AppUser;
 import trua_nay_an_gi.model.Merchant;
 import trua_nay_an_gi.repository.IMerchantRepository;
 

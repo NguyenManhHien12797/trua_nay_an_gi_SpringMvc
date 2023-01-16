@@ -2,7 +2,6 @@ package trua_nay_an_gi.service;
 
 import java.util.List;
 
-import trua_nay_an_gi.model.AppUser;
 import trua_nay_an_gi.model.Merchant;
 
 public interface IMerchantService extends IGeneralService<Merchant> {
@@ -23,9 +22,9 @@ public interface IMerchantService extends IGeneralService<Merchant> {
 	Merchant findById(Long id);
 
 	Merchant findByName(String name);
-	
+
 	void updateStatus(Long id, String status, String role);
-	
+
 	List<?> findMerchantsOrUsersByStatus(String status, String role);
 
 	void saveMerchantToRegister(String address, String avatar, String name, String phone, String status,

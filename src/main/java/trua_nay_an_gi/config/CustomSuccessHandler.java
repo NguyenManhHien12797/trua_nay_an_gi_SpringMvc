@@ -69,7 +69,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 
 		if (isMerchant(roles)) {
-			url = "/home";
+			url = "/merchant";
 			return url;
 		}
 

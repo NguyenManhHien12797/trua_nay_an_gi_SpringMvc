@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--  main-fragment (title, otherStaticResources, header,supTitle nav, mainContent, footer)  -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/admin-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #merchant-static-resources},
+                                                ~{:: #merchant-header},
+                                                ~{:: #merchant-nav},
+                                                ~{:: #merchant-sup-title},
+                                                ~{:: #merchant-nav-sup},
+                                                ~{:: #merchant-main-content},  
+                                                ~{:: #merchant-footer}
+                                               )}">
+                                              
+<head>
+    <title>Merchant Page</title>
+    <th:block id="merchant-static-resources">
+	<link rel="stylesheet" type="text/css" th:href="@{/static/css/admin.css}">
+    </th:block>
+</head>
+<body>
+    <div id="merchant-header" th:replace="~{/fragments/app-fragments :: header}">
+        Header of Merchant Page
+    </div>
+    <div id="merchant-nav" th:replace="~{/fragments/app-fragments :: merchant-nav}">
+        Merchant Nav
+    </div>
+
+    <main class="container-fluid m-md-5" >
+   	<!-- 	 <h1 id= "merchant-sup-title" class="h2" th:replace="~{/fragments/app-fragments :: ${role} =='merchant-list'? 'merchant-sup-title': 'user-sup-title'}">Quản lý người bán</h1> -->
+   		 
+		<div class="container card shadow d-flex justify-content-center mt-5">
+ 		
+ 		 
+ 		<!-- nav options -->
+		    <div id="merchant-nav-sup" th:replace="~{/fragments/app-fragments :: ${status}? 'merchant-nav-sup': 'null'}">
+       			 Merchant Nav-Sup
+   			</div>
+   		<!-- nav options -->
+
+  		<!-- content -->
+     		<div id="merchant-main-content" th:replace="~{/fragments/app-fragments :: ${route}}">
+ 
+  		 	</div>
+   
+   	  	<!-- content -->
+
+		</div>
+	</main>
+
+    <div id="merchant-footer" th:replace="~{/fragments/app-fragments :: footer}">
+        Footer
+    </div>
+</body>
+
+</html>

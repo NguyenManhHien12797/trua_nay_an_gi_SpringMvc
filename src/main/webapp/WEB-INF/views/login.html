@@ -55,6 +55,8 @@
         
         </div>
         
+
+        
         <form th:action="@{/login}" method="post">
           <div class="form-login-input">
              <span th:text= "${mess}"></span>
@@ -81,7 +83,7 @@
             <button class="btn btn-block btn-submit" [disabled]="disable">Đăng nhập</button>
 
          <!--    <a th:href="@{/register/merchant}" class="btn btn-block btn-dark">Đăng ký</a> -->
-            <a th:href="@{/register}" class="btn btn-block btn-dark">Đăng ký</a>
+            <a th:href="@{/register/user}" class="btn btn-block btn-dark">Đăng ký</a>
           </div>
           <br>
 

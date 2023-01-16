@@ -6,462 +6,1060 @@
 </head>
 <body>
 
+	<!-- Demo -->
+	<!-- Default Navigator -->
+	<ul th:fragment="nav-default">
+		<li><a th:href="@{/admin/home}">Home</a></li>
+		<li><a th:href="@{/admin/products}">Products</a></li>
+		<li><a th:href="@{/admin/about}">About</a></li>
+	</ul>
 
-    <!-- Default Navigator -->
-    <ul th:fragment = "nav-default">
-        <li><a th:href="@{/admin/home}">Home</a></li>
-        <li><a th:href="@{/admin/products}">Products</a></li>
-        <li><a th:href="@{/admin/about}">About</a></li>
-    </ul>
+	<!-- Admin Navigator -->
+	<ul th:fragment="nav-admin">
+		<li><a th:href="@{/admin/products}">Product Management</a></li>
+		<li><a th:href="@{/admin/orders}">Order Management</a></li>
+	</ul>
+	<div th:fragment="copyright">&copy; o7planning.org</div>
 
-     
-    <div th:fragment = "nav-admin-page" class="position-sticky pt-3 sidebar-sticky">
-        <ul class="nav flex-column" style = "list-style: none;    padding-left: 0;">
-          <li class="nav-item " >
-            <a class="nav-link nav-item-hover" th:href="@{/admin/merchant-list/active}" >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
-                <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zm2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5z"/>
+	<!-- Demo -->
+
+	<!--  Admin-Fragment -->
+
+	<div th:fragment="admin-nav"
+		class="position-sticky pt-3 sidebar-sticky">
+		<ul class="nav flex-column" style="list-style: none; padding-left: 0;">
+			<li class="nav-item "><a class="nav-link nav-item-hover"
+				th:href="@{/admin/merchant-list/active}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
+                <path
+							d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zm2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5z" />
               </svg><span data-feather="file" class="align-text-bottom"></span>
-              Quản lý nguời bán
-            </a>
-          </li>
-          <li class="nav-item " >
-            <a class="nav-link nav-item-hover" th:href="@{/admin/user-list/active}" >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-              </svg><span data-feather="shopping-cart" class="align-text-bottom"></span>
-              Quản lý người dùng
-            </a>
-          </li>
-        </ul>
-    </div>
-   
-   <h2  th:fragment = "merchant-sup-title">Quản lý người bán</h2>
-   <h2  th:fragment = "user-sup-title">Quản lý người dùng</h2>
-   
-    
-<div class="table-responsive" th:fragment = "pending">
-  <table class="table table-striped table-sm">
-    <thead>
-    <tr>
-      <th scope="col">Ảnh</th>
-      <th scope="col">Tên</th>
-      <th scope="col">Điện thoại</th>
-      <th scope="col">Địa chỉ</th>
-      <th scope="col" colspan="2">Hành động</th>
-    </tr>
-    </thead>
-    <tbody>
-          
-	   <tr th:each="user : ${usersOrMechants}">
-	 <!--  <tr  th:each="user : ${role} == 'merchant-list'? ${merchants} : ${users}"> -->
-     	 <td><img th:src="@{${user.avatar}}" alt="" style="height: 40px; width: 40px; border-radius: 50%;"></td>
-      	 <td class="merchant-item" th:text = "${user.name}"></td>
-     	 <td class="merchant-item" th:text = "${user.phone}"></td>
-     	 <td class="merchant-item" th:text = "${user.address}"></td>
- 
-     	 <td class="action-icon" ><button class="btn-action-icon" th:onclick= "updateStatus([[${user.id}]],[[${role}]],'active')"> <i class="fa-solid fa-check" style = "color: green"></i></button></td>
-     	 <td class="action-icon" ><button class="btn-action-icon" th:onclick= "updateStatus([[${user.id}]],[[${role}]],'refuse')"><i class="fa-solid fa-x" style = "color: red"></i></button></td>
-    </tr>
+					Quản lý nguời bán
+			</a></li>
+			<li class="nav-item "><a class="nav-link nav-item-hover"
+				th:href="@{/admin/user-list/active}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                <path
+							d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+              </svg><span data-feather="shopping-cart"
+					class="align-text-bottom"></span> Quản lý người dùng
+			</a></li>
+		</ul>
+	</div>
 
-    </tbody>
-  </table>
-</div>
+	<h2 th:fragment="admin-merchant-sup-title">Quản lý người bán</h2>
 
-    
-<div class="table-responsive" th:fragment = "active">
-  <table class="table table-striped table-sm">
-    <thead>
-    <tr>
-      <th scope="col">Ảnh</th>
-      <th scope="col">Tên</th>
-      <th scope="col">Điện thoại</th>
-      <th scope="col">Địa chỉ</th>
-      <th scope="col" colspan="2">Hành động</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${usersOrMechants}">
- <!--    <tr th:each="user : ${role} == 'merchant-list'? ${merchants} : ${users}"> -->
-      <td><img th:src="@{${user.avatar}}" alt="" style="height: 40px;
-    width: 40px;
-    border-radius: 50%;"></td>
-      <td class="merchant-item" th:text = "${user.name}"></td>
-      <td class="merchant-item" th:text = "${user.phone}"></td>
-      <td class="merchant-item" th:text = "${user.address}"></td>
-      <td class="action-icon"><button class="btn-action-icon" th:onclick= "updateStatus([[${user.id}]],[[${role}]],'block')"><i class="fa-regular fas fa-lock" style= "color: #f15050"></i></button></td>
-    </tr>
+	<h2 th:fragment="admin-user-sup-title">Quản lý người dùng</h2>
 
-    </tbody>
-  </table>
-</div>   
-    
-<div class="table-responsive" th:fragment = "block">
-  <table class="table table-striped table-sm">
-    <thead>
-    <tr>
-      <th scope="col">Ảnh</th>
-      <th scope="col">Tên</th>
-      <th scope="col">Điện thoại</th>
-      <th scope="col">Địa chỉ</th>
-      <th scope="col" th:colspan="2">Hành động</th>
-    </tr>
-    </thead>
-    <tbody>
-     <tr th:each="user : ${usersOrMechants}">
- <!--    <tr th:each="user : ${role} == 'merchant-list'? ${merchants} : ${users}"> -->
-      <td><img th:src="@{${user.avatar}}" alt="" style="height: 40px;
-    width: 40px;
-    border-radius: 50%;"></td>
-      <td class="merchant-item" th:text = "${user.name}"></td>
-      <td class="merchant-item" th:text = "${user.phone}"></td>
-      <td class="merchant-item" th:text = "${user.address}"></td>
-      <td class="action-icon"><button class="btn-action-icon" th:onclick= "updateStatus([[${user.id}]],[[${role}]],'active')"><i class="fa-regular fas fa-unlock" style= "color: #3bbd3b"></i></button></td>
-    </tr>
+	<div th:fragment="admin-nav-sup">
+		<ul class="nav nav-pills mb-3 shadow-sm">
+			<li class="nav-item" style="display: inline-block"><a
+				class="nav-link link fw-bold"
+				th:href="@{/admin/__${role}__/pending}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-bookmark-plus-fill"
+						viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+							d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z" />
+      </svg> Chờ duyệt
+			</a></li>
+			<li class="nav-item" style="display: inline-block"><a
+				class="nav-link link fw-bold"
+				th:href="@{'/admin/'+${role}+'/active'}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+       			 <path
+							d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+    			</svg> Đang hoạt động
+			</a></li>
+			<li class="nav-item" style="display: inline-block"><a
+				class="nav-link link fw-bold"
+				th:href="@{'/admin/'+${role}+'/block'}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+        <path
+							d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+      </svg> Đang bị khóa
+			</a></li>
+		</ul>
 
-    </tbody>
-  </table>
-</div>      
-    
-  
-    
-    <!-- Admin Navigator -->
-    <ul th:fragment = "nav-admin">
-        <li><a th:href="@{/admin/products}">Product Management</a></li>
-        <li><a th:href="@{/admin/orders}">Order Management</a></li>
-    </ul>
-    <div th:fragment="copyright">
-      &copy; o7planning.org
-    </div>
-    
-    
-    <div th:fragment="nav-sup">
- 		 <ul class="nav nav-pills mb-3 shadow-sm">
-  			  <li class="nav-item" style = "display: inline-block">
-     			 <a class="nav-link link fw-bold" th:href= "@{/admin/__${role}__/pending}">
-     			 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
+
+
+	</div>
+
+	<div class="table-responsive" th:fragment="pending">
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th scope="col">Ảnh</th>
+					<th scope="col">Tên</th>
+					<th scope="col">Điện thoại</th>
+					<th scope="col">Địa chỉ</th>
+					<th scope="col" colspan="2">Hành động</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${usersOrMechants}">
+					<td><img th:src="@{${user.avatar}}" alt=""
+						style="height: 40px; width: 40px; border-radius: 50%;"></td>
+					<td class="merchant-item" th:text="${user.name}"></td>
+					<td class="merchant-item" th:text="${user.phone}"></td>
+					<td class="merchant-item" th:text="${user.address}"></td>
+					<td class="action-icon"><button class="btn-action-icon"
+							th:onclick="updateStatus([[${user.id}]],[[${role}]],'active',[[${stt}]])">
+							<i class="fa-solid fa-check" style="color: green"></i>
+						</button></td>
+					<td class="action-icon"><button class="btn-action-icon"
+							th:onclick="updateStatus([[${user.id}]],[[${role}]],'refuse',[[${stt}]])">
+							<i class="fa-solid fa-x" style="color: red"></i>
+						</button></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+	<div class="table-responsive" th:fragment="active">
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th scope="col">Ảnh</th>
+					<th scope="col">Tên</th>
+					<th scope="col">Điện thoại</th>
+					<th scope="col">Địa chỉ</th>
+					<th scope="col" colspan="2">Hành động</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${usersOrMechants}">
+					<td><img th:src="@{${user.avatar}}" alt=""
+						style="height: 40px; width: 40px; border-radius: 50%;"></td>
+					<td class="merchant-item" th:text="${user.name}"></td>
+					<td class="merchant-item" th:text="${user.phone}"></td>
+					<td class="merchant-item" th:text="${user.address}"></td>
+					<td class="action-icon"><button class="btn-action-icon"
+							th:onclick="updateStatus([[${user.id}]],[[${role}]],'block',[[${stt}]])">
+							<i class="fa-regular fas fa-lock" style="color: #f15050"></i>
+						</button></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+	<div class="table-responsive" th:fragment="block">
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th scope="col">Ảnh</th>
+					<th scope="col">Tên</th>
+					<th scope="col">Điện thoại</th>
+					<th scope="col">Địa chỉ</th>
+					<th scope="col" th:colspan="2">Hành động</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${usersOrMechants}">
+					<!--    <tr th:each="user : ${role} == 'merchant-list'? ${merchants} : ${users}"> -->
+					<td><img th:src="@{${user.avatar}}" alt=""
+						style="height: 40px; width: 40px; border-radius: 50%;"></td>
+					<td class="merchant-item" th:text="${user.name}"></td>
+					<td class="merchant-item" th:text="${user.phone}"></td>
+					<td class="merchant-item" th:text="${user.address}"></td>
+					<td class="action-icon"><button class="btn-action-icon"
+							th:onclick="updateStatus([[${user.id}]],[[${role}]],'active',[[${stt}]])">
+							<i class="fa-regular fas fa-unlock" style="color: #3bbd3b"></i>
+						</button></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+	<!--  Admin-Fragment -->
+
+	<!--  Merchant-Fragment -->
+
+	<div th:fragment="merchant-nav"
+		class="position-sticky pt-3 sidebar-sticky">
+		<ul class="nav flex-column">
+			<li class="nav-item"><a class="nav-link active"
+				aria-current="page" th:href="@{/merchant/merchant-dashboard}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-house-door-fill"
+						viewBox="0 0 16 16">
+                <path
+							d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z" />
+              </svg><span data-feather="home" class="align-text-bottom"></span>
+					Dashboard
+			</a></li>
+			<li class="nav-item "><a class="nav-link nav-item-hover"
+				th:href="@{/merchant/merchant-order/order-pending}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                <path
+							d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+                <path
+							d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+                <path
+							d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+              </svg><span data-feather="file" class="align-text-bottom"></span>
+					Quản lý đơn hàng
+			</a></li>
+			<li class="nav-item "><a class="nav-link nav-item-hover"
+				th:href="@{/merchant/merchant-product-manager}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                <path
+							d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+              </svg><span data-feather="shopping-cart"
+					class="align-text-bottom"></span> Quản lý sản phẩm
+			</a></li>
+			<li class="nav-item "><a class="nav-link nav-item-hover"
+				th:href="@{/merchant/merchant-info}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-postage" viewBox="0 0 16 16">
+                <path
+							d="M4.75 3a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h6.5a.75.75 0 0 0 .75-.75v-8.5a.75.75 0 0 0-.75-.75h-6.5ZM11 12H5V4h6v8Z" />
+                <path
+							d="M3.5 1a1 1 0 0 0 1-1h1a1 1 0 0 0 2 0h1a1 1 0 0 0 2 0h1a1 1 0 1 0 2 0H15v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1a1 1 0 1 0 0 2v1h-1.5a1 1 0 1 0-2 0h-1a1 1 0 1 0-2 0h-1a1 1 0 1 0-2 0h-1a1 1 0 1 0-2 0H1v-1a1 1 0 1 0 0-2v-1a1 1 0 1 0 0-2V9a1 1 0 1 0 0-2V6a1 1 0 0 0 0-2V3a1 1 0 0 0 0-2V0h1.5a1 1 0 0 0 1 1ZM3 3v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1Z" />
+              </svg><span data-feather="users" class="align-text-bottom"></span>
+					Thiết lập Shop
+			</a></li>
+		</ul>
+
+	</div>
+
+
+	<div th:fragment="merchant-nav-sup">
+
+		<ul class="nav nav-pills mb-3 shadow-sm">
+			<li class="nav-item" style="display: inline-block"><a
+				th:href="@{/merchant/__${route}__/order-pending}"
+				class="nav-link link fw-bold"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-bookmark-plus-fill"
+						viewBox="0 0 16 16">
+          		<path fill-rule="evenodd"
+							d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z" />
+        		</svg> Chờ duyệt
+			</a></li>
+			<li class="nav-item" style="display: inline-block"><a
+				class="nav-link link fw-bold"
+				th:href="@{/merchant/__${route}__/order-receive}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+         	 	<path
+							d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+        		</svg> Đã nhận đơn
+			</a></li>
+			<li class="nav-item" style="display: inline-block"><a
+				class="nav-link link fw-bold"
+				th:href="@{/merchant/__${route}__/order-send}"> <svg
+						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-rocket-takeoff-fill"
+						viewBox="0 0 16 16">
+          		<path
+							d="M12.17 9.53c2.307-2.592 3.278-4.684 3.641-6.218.21-.887.214-1.58.16-2.065a3.578 3.578 0 0 0-.108-.563 2.22 2.22 0 0 0-.078-.23V.453c-.073-.164-.168-.234-.352-.295a2.35 2.35 0 0 0-.16-.045 3.797 3.797 0 0 0-.57-.093c-.49-.044-1.19-.03-2.08.188-1.536.374-3.618 1.343-6.161 3.604l-2.4.238h-.006a2.552 2.552 0 0 0-1.524.734L.15 7.17a.512.512 0 0 0 .433.868l1.896-.271c.28-.04.592.013.955.132.232.076.437.16.655.248l.203.083c.196.816.66 1.58 1.275 2.195.613.614 1.376 1.08 2.191 1.277l.082.202c.089.218.173.424.249.657.118.363.172.676.132.956l-.271 1.9a.512.512 0 0 0 .867.433l2.382-2.386c.41-.41.668-.949.732-1.526l.24-2.408Zm.11-3.699c-.797.8-1.93.961-2.528.362-.598-.6-.436-1.733.361-2.532.798-.799 1.93-.96 2.528-.361.599.599.437 1.732-.36 2.531Z" />
+          		<path
+							d="M5.205 10.787a7.632 7.632 0 0 0 1.804 1.352c-1.118 1.007-4.929 2.028-5.054 1.903-.126-.127.737-4.189 1.839-5.18.346.69.837 1.35 1.411 1.925Z" />
+        		</svg> Chờ người mua xác nhận
+			</a></li>
+		</ul>
+
+	</div>
+
+	<div th:fragment="null"></div>
+
+	<div th:fragment="merchant-dashboard">
+		<h1>Dashboard</h1>
+	</div>
+
+	<div th:fragment="merchant-order">
+		<h1>Order</h1>
+	</div>
+
+	<div class="table-responsive" th:fragment="order-pending">
+		<h2>Pending</h2>
+
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">Ảnh</th>
+					<th scope="col">Người đặt</th>
+					<th scope="col">Điện thoại</th>
+					<th scope="col">Địa chỉ</th>
+					<th scope="col">Thời gian</th>
+					<th scope="col">Ghi chú</th>
+					<th scope="col">Xem chi tiết</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let order of orders">
+					<td>{{order.id}}</td>
+					<td><img src="{{order.appUser.avatar}}" alt=""
+						style="height: 40px; width: 40px; border-radius: 50%;"></td>
+					<td class="merchant-item">{{order.appUser.name}}</td>
+					<td class="merchant-item">{{order.appUser.phone}}</td>
+					<td class="merchant-item">{{order.appUser.address}}</td>
+					<td class="merchant-item" size="50px">{{order.orderdate}}</td>
+					<td class="merchant-item" size="50px">{{order.note}}</td>
+					<td class="action-icon show-detail"><a
+						[routerLink]="['/merchant/detail',order.id]"><i
+							class="fa-solid fa-eye fa-solid-icon"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div class="table-responsive" th:fragment="order-receive">
+		<h2>Receive</h2>
+
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">Ảnh</th>
+					<th scope="col">Người đặt</th>
+					<th scope="col">Điện thoại</th>
+					<th scope="col">Địa chỉ</th>
+					<th scope="col">Thời gian</th>
+					<th scope="col">Ghi chú</th>
+					<th scope="col">Xem chi tiết</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let order of orders">
+					<td>{{order.id}}</td>
+					<td><img src="{{order.appUser.avatar}}" alt=""
+						style="height: 40px; width: 40px; border-radius: 50%;"></td>
+					<td class="merchant-item">{{order.appUser.name}}</td>
+					<td class="merchant-item">{{order.appUser.phone}}</td>
+					<td class="merchant-item">{{order.appUser.address}}</td>
+					<td class="merchant-item" size="50px">{{order.orderdate}}</td>
+					<td class="merchant-item" size="50px">{{order.note}}</td>
+					<td class="action-icon show-detail"><a
+						[routerLink]="['/merchant/detail',order.id]"><i
+							class="fa-solid fa-eye fa-solid-icon"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div class="table-responsive" th:fragment="order-send">
+
+		<h2>Send</h2>
+
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th scope="col">id</th>
+					<th scope="col">Ảnh</th>
+					<th scope="col">Người đặt</th>
+					<th scope="col">Điện thoại</th>
+					<th scope="col">Địa chỉ</th>
+					<th scope="col">Thời gian</th>
+					<th scope="col">Ghi chú</th>
+					<th scope="col">Xem chi tiết</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let order of orders">
+					<td>{{order.id}}</td>
+					<td><img src="{{order.appUser.avatar}}" alt=""
+						style="height: 40px; width: 40px; border-radius: 50%;"></td>
+					<td class="merchant-item">{{order.appUser.name}}</td>
+					<td class="merchant-item">{{order.appUser.phone}}</td>
+					<td class="merchant-item">{{order.appUser.address}}</td>
+					<td class="merchant-item" size="50px">{{order.orderdate}}</td>
+					<td class="merchant-item" size="50px">{{order.note}}</td>
+					<td class="action-icon show-detail"><a
+						[routerLink]="['/merchant/detail',order.id]"><i
+							class="fa-solid fa-eye fa-solid-icon"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+	<div th:fragment="merchant-product-manager">
+
+		<div class="container">
+			<div class="row">
+				<a type="button" class="col-2 btn btn-outline-danger"
+					th:href="@{/merchant/merchant-add-product}">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+						fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+        <path
+							d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+        <path
+							d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
       </svg>
-     			  Chờ duyệt
-     			 </a>
-   			 </li>
-   			 <li class="nav-item" style = "display: inline-block">
-      			<a class="nav-link link fw-bold" th:href= "@{'/admin/'+${role}+'/active'}">
-      			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-       			 <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-    			</svg>
-      			 Đang hoạt động
-      			</a>
-   			 </li>
-   			 <li class="nav-item" style = "display: inline-block">
-      			<a class="nav-link link fw-bold" th:href= "@{'/admin/'+${role}+'/block'}">
-     			 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
-        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
-      </svg>
-       			Đang bị khóa
-       			</a>
-   			 </li>
- 		 </ul>
-
-    
-    
-    </div>
-    
-    
-    <div th:fragment="header">
-  	
-    <header class="main-header">
-
-      <div class="container-header">
-        <div class="container">
-          <div class="header-content navbar row  justify-content-between align-items-center">
-            <div class="logo-now col-auto">
-            <span><a th:href="@{/home}">Logo
-        <!--     <img th:src="@{/static/img/shopeefoodvn.png}" alt="ShopBaeFood"> -->
-              </a></span></div>
-              
-            <div class="main-nav col"><span>Kênh Admin</span></div>
-
-            <div class="user-acc col-auto user-acc-wr">
-              <div th:if="${message == 'chua dang nhap'}">
-                <a href="/login">
-                  <button type="button" class="btn btn-none-bg btn-login">
-                    <span class="font14">Đăng nhập</span>
-                  </button>
-                </a>
-              </div>
-   
-
-              <div th:unless= "${message == 'chua dang nhap'}">
-
-                <div class="user-acc-contain">
-                  <img class="user-acc-img" th:src="@{${avatar}}" alt="">
-                  <span th:text="${name}"></span>
-<!--                   <span th:text="${session.username}"></span> -->
-                  <div class="user-acc-dropdown">
-
-                    <div th:if="${role == 'merchant'}">
-                      <a class="user-acc-admin" th:href="@{/merchant}"><i class="fa-solid fa-store"></i> Kênh người bán</a>
-                    
-                    </div>
-                   
-                    <div th:unless="${role == 'merchant'}">
-                      <a class="user-acc-admin" th:href="@{/register/merchant}"><i class="fa-solid fa-user-plus"></i>
-                        Đăng ký người bán</a>
-                      <a class="user-acc-admin" th:href="@{/user-info}"><i class="fa-solid fa-address-card"></i> Trang
-                        cá nhân</a>
-                    </div>
-
-                    <div th:if="${role == 'admin'}">
-                      <a class="user-acc-admin" th:href="@{/admin}"> <i class="fa-solid fa-lock"></i> Kênh admin</a>
-                    </div>
-
-                    <hr>
-                    <a th:href= "@{/logout}"><i class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
-                  </div>
+					Thêm sản phẩm
+				</a>
+				&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<form method="get" class="col-2 " role="search"
+					style="width: 17%; margin-left: 260px">
+					<input type="search" class="form-control form-control-search"
+						placeholder="Search..." aria-label="Search" name="name"
+						(input)="search()">
+					<!--      <button type=""-->
+				</form>
+			</div>
 
 
-                </div>
+			<div class="table-responsive">
+				<table class="table table-striped table-sm">
+					<thead>
+						<tr>
+							<th scope="col">Stt</th>
+							<th scope="col">Ảnh</th>
+							<th scope="col">Tên</th>
+							<th scope="col">Giá sản phẩm</th>
+							<th scope="col">Mô tả</th>
+							<th scope="col" colspan="2">Hành động</th>
+						</tr>
+					</thead>
+					<tbody *ngFor="let product of products; index as i">
+						<tr [hidden]="hidden(i)">
+							<td>{{i+1}}</td>
+							<td><img src="{{product.image}}" alt=""
+								style="height: 40px; width: 40px; border-radius: 50%;"></td>
+							<td class="merchant-item">{{product.name}}</td>
+							<td class="merchant-item-price">{{product.newPrice}} đ</td>
+							<td class="merchant-item">{{product.shortDescription}}</td>
+							<td class="merchant-item-btn"><a
+								th:href="@{/merchant/merchant-edit-product}"><i
+									class="fa-regular fa-pen-to-square action-icon"></i></a></td>
+							<td class="merchant-item-btn"><a
+								(click)="deleteProduct(i,product.id)"><i
+									class="fa-solid fa-trash action-icon"></i></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
 
 
-              </div>
+	<div th:fragment="merchant-add-product">
+		<h2>Create product</h2>
 
-
-            </div>
-         
-         
-         
-                <div th:if="${role == 'user'}">
-                  <div class="nav-bar-cart"><i class="fa-solid fa-cart-shopping" routerLink="/cart"></i>
-
-                    <div class="cart-detail">
-                      <span class="cart-detail-span">Sản phẩm trong giỏ hàng</span>
-                      <div
-                        *ngIf="messagecart === 'khong co du lieu'; then thenBlockCartDetail else elseBlockACartDetail"></div>
-                      <ng-template #thenBlockCartDetail>
-                        <img class="nocart-img" src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png" alt="">
-                      </ng-template>
-                      <ng-template #elseBlockACartDetail>
-                        <div class="cart-detai-item-container">
-                          <div class="cart-detai-item" *ngFor="let product of carts">
-                            <img src="{{product.product.image}}" alt="">
-                            <span class="cart-detai-item-span">{{product.product.name}}</span>
-                            <span>{{product.product.newPrice}} đ</span>
-                          </div>
-                        </div>
-                      </ng-template>
-                      <div class="cart-detail-btn">
-                        <span>Tổng: {{carts.length}} sản phẩm</span>
-                        <button class="btn btn-cart" routerLink="/cart">Xem giỏ hàng</button>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-                
-              
-              
-         
-          </div>
-        </div>
-      </div>
-      <div class="modal fade modal-search" id="modal-search" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content"><span class="close" data-dismiss="modal">x</span>
-            <div class="modal-search-form"><span class="sub-title">Đặt Đồ ăn, giao hàng từ 20'... có
-                                    37422 địa điểm ở Hà Nội từ 00:00 - 23:59</span>
-              <form><input class="search-input" name="search-input" type="text" autocomplete="off"
-                           value=""></form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade modal-new-app" id="modal-new-app" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content"><span class="close" data-dismiss="modal">x</span>
-            <div class="img-now"><img
-              src="#"
-              alt="App now"></div>
-            <div class="info-now"><span>
-                                    <h3 style="font-size: 36px;font-weight: lighter;margin-bottom: 0;">Hello you!</h3>
-                                    <p style="font-size: 15px;margin-top: 9px;margin-bottom: 9px;">We are pleased to
-                                        inform you that our application<span class="bold"> ShopeeFood</span> is changed
-                                        its name to</p><span class="btn btn-red font18" title="ShopeeFood"
-                                                             style="cursor: pointer;font-size: 18px !important;background-color: #cf2127;color: #fff;border-color: #cf2127;"><span
-              class="txt-bold"
-              style="font-weight: 700 !important;">ShopBeaFood</span></span>
-                                </span>
-              <p class="update-version">Cập nhật phiên bản mới</p>
-              <div class="down-apps"><a target="_blank" rel="noopener noreferrer"
-                                        href="https://itunes.apple.com/us/app/deliverynow/id1137866760" class="down-app"
-                                        title="App Store"><span class="icon icon-app-store-sm"></span></a><a
-                target="_blank" rel="noopener noreferrer"
-                href="https://play.google.com/store/apps/details?id=com.deliverynow"
-                class="down-app" title="Google play"><span
-                class="icon icon-gg-play-sm"></span></a></div>
-            </div>
-            <div class="box-now-merchant clearfix">
-              <div class="img-merchant">
-                <div class="float-left mar-right10"><span class="icon icon-merchant-lg"></span>
-                </div>
-                <div class="float-left"><a target="_blank" rel="noopener noreferrer"
-                                           href="https://itunes.apple.com/US/app/id1296706589?mt=8" class="down-apps"
-                                           title="App Store"><span class="icon icon-app-store-sm"></span></a><a
-                  target="_blank" rel="noopener noreferrer"
-                  href="https://play.google.com/store/apps/details?id=com.sea.foody.nowmerchant&amp;amp;hl=vi"
-                  class="down-apps" title="Google play"><span
-                  class="icon icon-gg-play-sm"></span></a></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade modal-get-local" id="userLocationId" tabindex="-1" role="dialog"
-           data-backdrop="static" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content"><span class="close" data-dismiss="modal">x</span>
-            <div class="modal-header">Bạn muốn giao đến đâu?</div>
-            <div class="modal-body">
-              <div class="search-local">
-                <div class="primary-local">
-                  <div class="row align-items-center no-gutters">
-                    <div class="col-auto"><i class="icon icon-search-gray"></i></div>
-                    <div class="col"><input type="text" id="address" name="address"
-                                            placeholder="Nhập địa chỉ giao hàng" value=""></div>
-                    <div class="col-auto"><i class="icon icon-location"></i></div>
-                  </div>
-                </div>
-              </div>
-              <div class="list-local">
-                <div class="suggest-local">
-                  <div class="location-items"></div>
-                  <div class="find-map">
-                    <div class="row align-items-center no-gutters">
-                      <div class="col-auto"><i class="icon icon-thumbtack"></i></div>
-                      <div class="col pl-3"><span class="txt-blue link">Tìm trên bản đồ</span>
-                      </div>
-                      <div class="col-auto mr-3"><i class="icon-arrow-thin right"></i></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+<form  >
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label">Tên</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="name" ><br>
 
     </div>
 
-
-<div th:fragment="footer">
-       <div class="now-container-coporation">
-      <p class="seo-footer-link__head">Danh mục</p>
-      <div class="seo-footer-link__body">
-        <div class="seo-footer-link__item"><a href="#">
-          <p class="seo-footer-link__title">Thuốc</p>
-        </a>
-          <ul class="seo-footer-link__sub-item-wrapper"><a
-            href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-hoa-my-pham-giao-tan-noi"
-            class="seo-footer-link__sub-item">Hoá mỹ phẩm</a><a
-            href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-bcs-giao-tan-noi"
-            class="seo-footer-link__sub-item">BCS</a><a
-            href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-thiet-bi-giao-tan-noi"
-            class="seo-footer-link__sub-item">Thiết bị</a><a
-            href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-thuoc-tay-giao-tan-noi"
-            class="seo-footer-link__sub-item">Thuốc tây</a><a
-            href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-khau-trang-giao-tan-noi"
-            class="seo-footer-link__sub-item">Khẩu trang</a><a
-            href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-khan-cap-giao-tan-noi"
-            class="seo-footer-link__sub-item">Khẩn cấp</a></ul>
-        </div>
-        <div class="seo-footer-link__item"><a href="#">
-          <p class="seo-footer-link__title">Thú cưng</p>
-        </a>
-          <ul class="seo-footer-link__sub-item-wrapper"><a
-            href="#"
-            class="seo-footer-link__sub-item">Thú cưng</a></ul>
-        </div>
-        <div class="seo-footer-link__item"><a href="#">
-          <p class="seo-footer-link__title">Đồ ăn HN</p>
-        </a>
-          <ul class="seo-footer-link__sub-item-wrapper"><a
-            href="#"
-            class="seo-footer-link__sub-item">Đồ ăn HN</a></ul>
-        </div>
-        <div class="seo-footer-link__item"><a href="#">
-          <p class="seo-footer-link__title">Đặt bàn HN</p>
-        </a>
-          <ul class="seo-footer-link__sub-item-wrapper"></ul>
-        </div>
-        <div class="seo-footer-link__item"><a href="#">
-          <p class="seo-footer-link__title">Thực phẩm HN</p>
-        </a>
-          <ul class="seo-footer-link__sub-item-wrapper"></ul>
-        </div>
-        <div class="seo-footer-link__item"><a href="#">
-          <p class="seo-footer-link__title">Sản phẩm HN</p>
-        </a>
-          <ul class="seo-footer-link__sub-item-wrapper"></ul>
-        </div>
-        <div class="seo-footer-link__item"><a href="#">
-          <p class="seo-footer-link__title">Sản phẩm</p>
-        </a>
-          <ul class="seo-footer-link__sub-item-wrapper"><a
-            href="#"
-            class="seo-footer-link__sub-item">Mỹ phẩm</a><a
-            href="#"
-            class="seo-footer-link__sub-item">Đồ chơi</a><a
-            href="#"
-            class="seo-footer-link__sub-item">Sữa</a><a
-            href="#"
-            class="seo-footer-link__sub-item">Tã bỉm</a><a
-            href="#"
-            class="seo-footer-link__sub-item">Dụng cụ</a><a
-            href="#"
-            class="seo-footer-link__sub-item">Quần áo</a><a
-            href="https://shopeefood.vn/ha-noi/fmcg/danh-sach-dia-diem-phuc-vu-giay-dep-giao-tan-noi"
-            class="seo-footer-link__sub-item">Giày dép</a><a
-            href="https://shopeefood.vn/ha-noi/fmcg/danh-sach-dia-diem-phuc-vu-dien-tu-giao-tan-noi"
-            class="seo-footer-link__sub-item">Điện tử</a><a
-            href="https://shopeefood.vn/ha-noi/fmcg/danh-sach-dia-diem-phuc-vu-trang-suc-giao-tan-noi"
-            class="seo-footer-link__sub-item">Trang sức</a></ul>
-        </div>
-        <div class="seo-footer-link__item"><a href="https://shopeefood.vn/ha-noi/flowers">
-          <p class="seo-footer-link__title">Hoa</p>
-        </a>
-          <ul class="seo-footer-link__sub-item-wrapper"><a
-            href="https://shopeefood.vn/ha-noi/flowers/danh-sach-dia-diem-phuc-vu-chia-buon-giao-tan-noi"
-            class="seo-footer-link__sub-item">Chia buồn</a><a
-            href="https://shopeefood.vn/ha-noi/flowers/danh-sach-dia-diem-phuc-vu-cay-canh-giao-tan-noi"
-            class="seo-footer-link__sub-item">Cây cảnh</a><a
-            href="https://shopeefood.vn/ha-noi/flowers/danh-sach-dia-diem-phuc-vu-chuc-mung-giao-tan-noi"
-            class="seo-footer-link__sub-item">Chúc mừng</a><a
-            href="https://shopeefood.vn/ha-noi/flowers/danh-sach-dia-diem-phuc-vu-sinh-nhat-giao-tan-noi"
-            class="seo-footer-link__sub-item">Sinh nhật</a><a
-            href="https://shopeefood.vn/ha-noi/flowers/danh-sach-dia-diem-phuc-vu-tinh-yeu-giao-tan-noi"
-            class="seo-footer-link__sub-item">Tình yêu</a></ul>
-        </div>
-      </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="customFile" class="col-sm-2 col-form-label">Thêm ảnh</label>
+    <div class="col-sm-10">
+      <input type="file" class="form-control" id="customFile" #fileUploader (change)="showPreview($event)"/><br>
+      <img [src]="imgSrc" class="img" height="125" width="100" alt="Img" (click)="fileUploader.click()"><br>
     </div>
-  <div class="now-container-coporation" style="margin-top: 0px;">
-      <div class="container-inner">
-
-        <div class="block-last">
-          <p class="title-block">Địa chỉ công ty</p>
-          <span>
-                                <p>Công Ty Cổ Phần... </p>
-                                <p>Cầu Giấy, Hà Nội</p>
-                                <p>do Sở Kế hoạch và Đầu tư TP.HCM cấp ngày 11/6/2012,</p>
-                                <p>sửa đổi lần thứ 23, ngày 10/12/2020</p>
-                                <p>Số điện thoại: 1900 1234</p>
-                                <p>Email: <a href="mailto:support@demo.vn"> support@demo.vn</a></p>
-          </span>
-        </div>
-      </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="newPrice" class="col-sm-2 col-form-label">Giá mới</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="newPrice" ><br>
     </div>
-    <hr>
-     
-</div>
+  </div>
+
+  <div class="mb-3 row">
+    <label for="oldPrice" class="col-sm-2 col-form-label">Giá cũ</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="oldPrice"><br>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label for="shortDescription" class="col-sm-2 col-form-label">Mô tả</label>
+    <div class="col-sm-10">
+      <textarea type="text" rows="5" class="form-control" id="shortDescription"></textarea><br>
+  </div>
+  </div>
+
+
+  <button class="btn btn-dark" routerLink="/merchant/product-list">Hủy</button>
+&nbsp;
+  <button class="btn btn-danger" [disabled]="disable">Thêm</button>
+</form>
+		
+		
+	</div>
+	
+	
+	<div th:fragment="merchant-edit-product">
+		<h2>Update product</h2>
+
+<form  >
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label">Tên</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="name" ><br>
+
+    </div>
+
+  </div>
+  <div class="mb-3 row">
+    <label for="customFile" class="col-sm-2 col-form-label">Thêm ảnh</label>
+    <div class="col-sm-10">
+      <input type="file" class="form-control" id="customFile" #fileUploader (change)="showPreview($event)"/><br>
+      <img [src]="imgSrc" class="img" height="125" width="100" alt="Img" (click)="fileUploader.click()"><br>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="newPrice" class="col-sm-2 col-form-label">Giá mới</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="newPrice" ><br>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label for="oldPrice" class="col-sm-2 col-form-label">Giá cũ</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="oldPrice"><br>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label for="shortDescription" class="col-sm-2 col-form-label">Mô tả</label>
+    <div class="col-sm-10">
+      <textarea type="text" rows="5" class="form-control" id="shortDescription"></textarea><br>
+  </div>
+  </div>
+
+
+  <button class="btn btn-dark" routerLink="/merchant/product-list">Hủy</button>
+&nbsp;
+  <button class="btn btn-danger" [disabled]="disable">Update</button>
+</form>
+		
+		
+	</div>
+	
+	
+	
+	<div th:fragment="merchant-info">
+
+		<div class="row">
+			<div class="title title-strong">Tài Khoản</div>
+			<div class="desc">Thay đổi thiết lập cơ bản</div>
+		</div>
+		<div class="setting-card">
+			<div class="setting-card-inner">
+				<div class="">
+					<div class="setting-card-row desc">
+						<div class="main">
+							<i data-v-0e576418="" class="icon shopee-icon"> <svg
+									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              <path
+										d="M8 1a4 4 0 0 1 2.126 7.389A5.999 5.999 0 0 1 14 14v.5a.5.5 0 1 1-1 0V14a5 5 0 0 0-10 0v.5a.5.5 0 1 1-1 0V14a6.002 6.002 0 0 1 3.874-5.612A4 4 0 0 1 8 1zm0 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+            </svg>
+							</i>
+							<div class=" width-info ">
+								<div class="title">Hồ sơ của tôi</div>
+								<!---->
+							</div>
+							<div class="info">
+								<div class="account-profile">
+									<div class="account-profile-item">
+										<label for="image"> <img src="imgSrc"
+											class="account-profile-avatar">
+										</label> <input type="file" id="image"> <input
+											class="account-profile-text" style="margin-left: 8px;"
+											value="{{account.merchant.name}}">
+
+										<div>
+											<img class="img" height="125" width="100" alt="Img"><br>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="shopee-popover shopee-popover--light">
+								<div class="shopee-popover__ref"></div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="setting-card-row desc">
+						<div class="main">
+							<i class="icon shopee-icon"> <svg
+									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              <path
+										d="M13.473 10.365c2.035 1.298 1.368 2.653-1.092 4.015-2.337 1.294-5.135-.642-7.889-3.396l-.417-.424-.413-.436c-2.29-2.47-3.72-4.93-2.561-7.024C2.462.64 3.818-.027 5.116 2.007c1.119 1.754.801 2.468.432 3.065l-.176.28c-.278.463-.675.85-.566 1.316.045.192.47.876 1.596 2.027l.184.186c1.263 1.263 2.048 1.752 2.227 1.794.424.1.782-.22 1.19-.488l.478-.298.143-.08.151-.075c.546-.24 1.284-.271 2.698.63zm-2.355.313l-.107.06-.46.286-.387.263-.177.108c-.452.26-.897.372-1.402.254-.463-.109-1.3-.715-2.302-1.666l-.408-.4-.385-.393c-.959-1.005-1.545-1.812-1.658-2.295-.105-.448-.028-.85.173-1.25l.125-.226.305-.457.31-.498c.243-.424.234-.743-.263-1.58l-.21-.339-.137-.204c-.65-.91-1.106-.66-2.16 1.243-.808 1.462.13 3.498 2.813 6.275l.411.418c2.997 2.997 5.163 4.078 6.697 3.228l.37-.21c1.62-.94 1.73-1.376.776-2.018l-.286-.181c-.923-.566-1.3-.598-1.638-.418z"></path>
+            </svg>
+							</i>
+							<div class=" width-info">
+								<div class="title">Số điện thoại</div>
+							</div>
+							<div class="info">
+								<input class="info-input" value="{{account.merchant.phone}}">
+							</div>
+						</div>
+					</div>
+
+					<div class="setting-card-row desc ">
+						<div class="main">
+							<i class="icon shopee-icon"> <svg
+									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              <path
+										d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zm0 1.6L8.277 8.416a.5.5 0 0 1-.467.047l-.087-.047L2 4.601V12h12V4.6zm-.903-.6H2.902L8 7.4 13.097 4z"></path>
+            </svg>
+							</i>
+							<div class="width-info">
+								<div class="title">Email</div>
+							</div>
+							<div class="info">
+								<input class="info-input">
+							</div>
+						</div>
+					</div>
+
+					<div class="setting-card-row desc">
+						<div class="main">
+							<i class="icon shopee-icon"> <svg
+									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+										d="M8 1a4 4 0 0 1 4 4v1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1V5a4 4 0 0 1 4-4zm5 6H3v7h10V7zM8 9a.5.5 0 0 1 .5.5v2a.5.5 0 1 1-1 0v-2A.5.5 0 0 1 8 9zm0-7a3 3 0 0 0-2.995 2.824L5 5v1h6V5a3 3 0 0 0-2.824-2.995L8 2z"></path>
+            </svg>
+							</i>
+							<div class=" width-info">
+								<div class="title">Mật khẩu đăng nhập</div>
+							</div>
+							<div class="info">
+								<a class="info-input subtitle btn btn-dark"><svg
+										xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+										fill="currentColor" class="bi bi-envelope-exclamation"
+										viewBox="0 0 16 16">
+                <path
+											d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
+                <path
+											d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1.5a.5.5 0 0 1-1 0V11a.5.5 0 0 1 1 0Zm0 3a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+              </svg> Nhận otp để đổi mật khẩu</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="setting-card-row desc">
+						<div class="main">
+							<i class="shopee-icon-i fa-regular fa-clock"></i>
+
+							<div class="width-info">
+								<div class="title">Giờ hoạt động</div>
+							</div>
+							<div class="info">
+								<input class="info-input-opentime info-input"
+									value="{{account.merchant.openTime}}"> <span>--</span>
+								<input class="info-input-closetime info-input"
+									value="{{account.merchant.closeTime}}">
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div style="align-content: center">
+			<button type="button" class="right-button">
+				<span><svg xmlns="http://www.w3.org/2000/svg" width="16"
+						height="16" fill="currentColor" class="bi bi-pencil-fill"
+						viewBox="0 0 16 16">
+  <path
+							d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+</svg> Sửa</span>
+			</button>
+			<button [disabled]="disabeled||adisabeled" type="button"
+				class="right-button-2">
+				<span><svg xmlns="http://www.w3.org/2000/svg" width="16"
+						height="16" fill="currentColor" class="bi bi-save"
+						viewBox="0 0 16 16">
+  <path
+							d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+</svg> Lưu</span>
+			</button>
+		</div>
+
+
+	</div>
+
+	<!--  Merchant-Fragment -->
+
+
+
+	<div th:fragment="header">
+
+		<header class="main-header">
+
+			<div class="container-header">
+				<div class="container">
+					<div
+						class="header-content navbar row  justify-content-between align-items-center">
+						<div class="logo-now col-auto">
+							<span><a th:href="@{/home}">Logo <!--     <img th:src="@{/static/img/shopeefoodvn.png}" alt="ShopBaeFood"> -->
+							</a></span>
+						</div>
+
+						<div class="main-nav col">
+							<span>Kênh Admin</span>
+						</div>
+
+						<div class="user-acc col-auto user-acc-wr">
+							<div th:if="${message == 'chua dang nhap'}">
+								<a href="/login">
+									<button type="button" class="btn btn-none-bg btn-login">
+										<span class="font14">Đăng nhập</span>
+									</button>
+								</a>
+							</div>
+
+
+							<div th:unless="${message == 'chua dang nhap'}">
+
+								<div class="user-acc-contain">
+									<img class="user-acc-img" th:src="@{${avatar}}" alt=""> <span
+										th:text="${name}"></span>
+									<!--                   <span th:text="${session.username}"></span> -->
+									<div class="user-acc-dropdown">
+
+										<div th:if="${role == 'merchant'}">
+											<a class="user-acc-admin" th:href="@{/merchant}"><i
+												class="fa-solid fa-store"></i> Kênh người bán</a>
+
+										</div>
+
+										<div th:unless="${role == 'merchant'}">
+											<a class="user-acc-admin" th:href="@{/register/merchant}"><i
+												class="fa-solid fa-user-plus"></i> Đăng ký người bán</a> <a
+												class="user-acc-admin" th:href="@{/user-info}"><i
+												class="fa-solid fa-address-card"></i> Trang cá nhân</a>
+										</div>
+
+										<div th:if="${role == 'admin'}">
+											<a class="user-acc-admin" th:href="@{/admin}"> <i
+												class="fa-solid fa-lock"></i> Kênh admin
+											</a>
+										</div>
+
+										<hr>
+										<a th:href="@{/logout}"><i
+											class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
+									</div>
+
+
+								</div>
+
+
+							</div>
+
+
+						</div>
+
+
+
+						<div th:if="${role == 'user'}">
+							<div class="nav-bar-cart">
+								<i class="fa-solid fa-cart-shopping" routerLink="/cart"></i>
+
+								<div class="cart-detail">
+									<span class="cart-detail-span">Sản phẩm trong giỏ hàng</span>
+									<div
+										*ngIf="messagecart === 'khong co du lieu'; then thenBlockCartDetail else elseBlockACartDetail"></div>
+									<ng-template #thenBlockCartDetail> <img
+										class="nocart-img"
+										src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png"
+										alt=""> </ng-template>
+									<ng-template #elseBlockACartDetail>
+									<div class="cart-detai-item-container">
+										<div class="cart-detai-item" *ngFor="let product of carts">
+											<img src="{{product.product.image}}" alt=""> <span
+												class="cart-detai-item-span">{{product.product.name}}</span>
+											<span>{{product.product.newPrice}} đ</span>
+										</div>
+									</div>
+									</ng-template>
+									<div class="cart-detail-btn">
+										<span>Tổng: {{carts.length}} sản phẩm</span>
+										<button class="btn btn-cart" routerLink="/cart">Xem
+											giỏ hàng</button>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+
+
+
+					</div>
+				</div>
+			</div>
+			<div class="modal fade modal-search" id="modal-search" tabindex="-1"
+				role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<span class="close" data-dismiss="modal">x</span>
+						<div class="modal-search-form">
+							<span class="sub-title">Đặt Đồ ăn, giao hàng từ 20'... có
+								37422 địa điểm ở Hà Nội từ 00:00 - 23:59</span>
+							<form>
+								<input class="search-input" name="search-input" type="text"
+									autocomplete="off" value="">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade modal-new-app" id="modal-new-app"
+				tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<span class="close" data-dismiss="modal">x</span>
+						<div class="img-now">
+							<img src="#" alt="App now">
+						</div>
+						<div class="info-now">
+							<span>
+								<h3
+									style="font-size: 36px; font-weight: lighter; margin-bottom: 0;">Hello
+									you!</h3>
+								<p style="font-size: 15px; margin-top: 9px; margin-bottom: 9px;">
+									We are pleased to inform you that our application<span
+										class="bold"> ShopeeFood</span> is changed its name to
+								</p> <span class="btn btn-red font18" title="ShopeeFood"
+								style="cursor: pointer; font-size: 18px !important; background-color: #cf2127; color: #fff; border-color: #cf2127;"><span
+									class="txt-bold" style="font-weight: 700 !important;">ShopBeaFood</span></span>
+							</span>
+							<p class="update-version">Cập nhật phiên bản mới</p>
+							<div class="down-apps">
+								<a target="_blank" rel="noopener noreferrer"
+									href="https://itunes.apple.com/us/app/deliverynow/id1137866760"
+									class="down-app" title="App Store"><span
+									class="icon icon-app-store-sm"></span></a><a target="_blank"
+									rel="noopener noreferrer"
+									href="https://play.google.com/store/apps/details?id=com.deliverynow"
+									class="down-app" title="Google play"><span
+									class="icon icon-gg-play-sm"></span></a>
+							</div>
+						</div>
+						<div class="box-now-merchant clearfix">
+							<div class="img-merchant">
+								<div class="float-left mar-right10">
+									<span class="icon icon-merchant-lg"></span>
+								</div>
+								<div class="float-left">
+									<a target="_blank" rel="noopener noreferrer"
+										href="https://itunes.apple.com/US/app/id1296706589?mt=8"
+										class="down-apps" title="App Store"><span
+										class="icon icon-app-store-sm"></span></a><a target="_blank"
+										rel="noopener noreferrer"
+										href="https://play.google.com/store/apps/details?id=com.sea.foody.nowmerchant&amp;amp;hl=vi"
+										class="down-apps" title="Google play"><span
+										class="icon icon-gg-play-sm"></span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade modal-get-local" id="userLocationId"
+				tabindex="-1" role="dialog" data-backdrop="static"
+				style="display: none;" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<span class="close" data-dismiss="modal">x</span>
+						<div class="modal-header">Bạn muốn giao đến đâu?</div>
+						<div class="modal-body">
+							<div class="search-local">
+								<div class="primary-local">
+									<div class="row align-items-center no-gutters">
+										<div class="col-auto">
+											<i class="icon icon-search-gray"></i>
+										</div>
+										<div class="col">
+											<input type="text" id="address" name="address"
+												placeholder="Nhập địa chỉ giao hàng" value="">
+										</div>
+										<div class="col-auto">
+											<i class="icon icon-location"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list-local">
+								<div class="suggest-local">
+									<div class="location-items"></div>
+									<div class="find-map">
+										<div class="row align-items-center no-gutters">
+											<div class="col-auto">
+												<i class="icon icon-thumbtack"></i>
+											</div>
+											<div class="col pl-3">
+												<span class="txt-blue link">Tìm trên bản đồ</span>
+											</div>
+											<div class="col-auto mr-3">
+												<i class="icon-arrow-thin right"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+	</div>
+
+
+
+	<div th:fragment="footer">
+		<div class="now-container-coporation">
+			<p class="seo-footer-link__head">Danh mục</p>
+			<div class="seo-footer-link__body">
+				<div class="seo-footer-link__item">
+					<a href="#">
+						<p class="seo-footer-link__title">Thuốc</p>
+					</a>
+					<ul class="seo-footer-link__sub-item-wrapper">
+						<a
+							href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-hoa-my-pham-giao-tan-noi"
+							class="seo-footer-link__sub-item">Hoá mỹ phẩm</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-bcs-giao-tan-noi"
+							class="seo-footer-link__sub-item">BCS</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-thiet-bi-giao-tan-noi"
+							class="seo-footer-link__sub-item">Thiết bị</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-thuoc-tay-giao-tan-noi"
+							class="seo-footer-link__sub-item">Thuốc tây</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-khau-trang-giao-tan-noi"
+							class="seo-footer-link__sub-item">Khẩu trang</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/medicine/danh-sach-dia-diem-phuc-vu-khan-cap-giao-tan-noi"
+							class="seo-footer-link__sub-item">Khẩn cấp</a>
+					</ul>
+				</div>
+				<div class="seo-footer-link__item">
+					<a href="#">
+						<p class="seo-footer-link__title">Thú cưng</p>
+					</a>
+					<ul class="seo-footer-link__sub-item-wrapper">
+						<a href="#" class="seo-footer-link__sub-item">Thú cưng</a>
+					</ul>
+				</div>
+				<div class="seo-footer-link__item">
+					<a href="#">
+						<p class="seo-footer-link__title">Đồ ăn HN</p>
+					</a>
+					<ul class="seo-footer-link__sub-item-wrapper">
+						<a href="#" class="seo-footer-link__sub-item">Đồ ăn HN</a>
+					</ul>
+				</div>
+				<div class="seo-footer-link__item">
+					<a href="#">
+						<p class="seo-footer-link__title">Đặt bàn HN</p>
+					</a>
+					<ul class="seo-footer-link__sub-item-wrapper"></ul>
+				</div>
+				<div class="seo-footer-link__item">
+					<a href="#">
+						<p class="seo-footer-link__title">Thực phẩm HN</p>
+					</a>
+					<ul class="seo-footer-link__sub-item-wrapper"></ul>
+				</div>
+				<div class="seo-footer-link__item">
+					<a href="#">
+						<p class="seo-footer-link__title">Sản phẩm HN</p>
+					</a>
+					<ul class="seo-footer-link__sub-item-wrapper"></ul>
+				</div>
+				<div class="seo-footer-link__item">
+					<a href="#">
+						<p class="seo-footer-link__title">Sản phẩm</p>
+					</a>
+					<ul class="seo-footer-link__sub-item-wrapper">
+						<a href="#" class="seo-footer-link__sub-item">Mỹ phẩm</a>
+						<a href="#" class="seo-footer-link__sub-item">Đồ chơi</a>
+						<a href="#" class="seo-footer-link__sub-item">Sữa</a>
+						<a href="#" class="seo-footer-link__sub-item">Tã bỉm</a>
+						<a href="#" class="seo-footer-link__sub-item">Dụng cụ</a>
+						<a href="#" class="seo-footer-link__sub-item">Quần áo</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/fmcg/danh-sach-dia-diem-phuc-vu-giay-dep-giao-tan-noi"
+							class="seo-footer-link__sub-item">Giày dép</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/fmcg/danh-sach-dia-diem-phuc-vu-dien-tu-giao-tan-noi"
+							class="seo-footer-link__sub-item">Điện tử</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/fmcg/danh-sach-dia-diem-phuc-vu-trang-suc-giao-tan-noi"
+							class="seo-footer-link__sub-item">Trang sức</a>
+					</ul>
+				</div>
+				<div class="seo-footer-link__item">
+					<a href="https://shopeefood.vn/ha-noi/flowers">
+						<p class="seo-footer-link__title">Hoa</p>
+					</a>
+					<ul class="seo-footer-link__sub-item-wrapper">
+						<a
+							href="https://shopeefood.vn/ha-noi/flowers/danh-sach-dia-diem-phuc-vu-chia-buon-giao-tan-noi"
+							class="seo-footer-link__sub-item">Chia buồn</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/flowers/danh-sach-dia-diem-phuc-vu-cay-canh-giao-tan-noi"
+							class="seo-footer-link__sub-item">Cây cảnh</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/flowers/danh-sach-dia-diem-phuc-vu-chuc-mung-giao-tan-noi"
+							class="seo-footer-link__sub-item">Chúc mừng</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/flowers/danh-sach-dia-diem-phuc-vu-sinh-nhat-giao-tan-noi"
+							class="seo-footer-link__sub-item">Sinh nhật</a>
+						<a
+							href="https://shopeefood.vn/ha-noi/flowers/danh-sach-dia-diem-phuc-vu-tinh-yeu-giao-tan-noi"
+							class="seo-footer-link__sub-item">Tình yêu</a>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="now-container-coporation" style="margin-top: 0px;">
+			<div class="container-inner">
+
+				<div class="block-last">
+					<p class="title-block">Địa chỉ công ty</p>
+					<span>
+						<p>Công Ty Cổ Phần...</p>
+						<p>Cầu Giấy, Hà Nội</p>
+						<p>do Sở Kế hoạch và Đầu tư TP.HCM cấp ngày 11/6/2012,</p>
+						<p>sửa đổi lần thứ 23, ngày 10/12/2020</p>
+						<p>Số điện thoại: 1900 1234</p>
+						<p>
+							Email: <a href="mailto:support@demo.vn"> support@demo.vn</a>
+						</p>
+					</span>
+				</div>
+			</div>
+		</div>
+		<hr>
+
+	</div>
 </body>
 </html>

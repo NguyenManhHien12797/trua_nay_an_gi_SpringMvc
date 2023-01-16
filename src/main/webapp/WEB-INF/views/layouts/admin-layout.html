@@ -27,7 +27,7 @@
    
    	<main class=" m-md-5" >
   	
-  		<h1  th:replace="${supTitle}"></h1>
+  		<h1  th:insert="${supTitle} ?: ~{}"></h1>
   		
   		<div th:insert="${navSup} ?: ~{}">
   		  
@@ -58,14 +58,17 @@
 <script th:inline="javascript">
 
 
-function updateStatus(userId, role,status) {
+function updateStatus(userId, role,status,stt) {
+	console.log(stt);
     $.ajax({
         type: "POST",
         //tên API
-        url:`/trua_nay_an_gi/admin/${role}/${status}/${userId}`,
+        url:`/trua_nay_an_gi/admin/${role}/${stt}/${status}/${userId}`,
         //xử lý khi thành công
         success: function (data) {
-      	  location.reload();
+     /*  	  location.reload(); */
+      	console.log(data);  
+      	$(".table-responsive").html(data);
       	  
         }
 

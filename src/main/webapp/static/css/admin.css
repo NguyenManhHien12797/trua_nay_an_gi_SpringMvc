@@ -2,6 +2,7 @@
 
 .nav-item{
 	 margin-right: 15px;
+	 display: inline-block;
 }
 
 .table-striped th{

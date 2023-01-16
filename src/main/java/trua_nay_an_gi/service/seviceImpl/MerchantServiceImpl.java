@@ -19,7 +19,7 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Autowired
 	private IMerchantRepository merchantRepository;
-	
+
 	@Autowired
 	private IAppUserRepository userRepository;
 
@@ -63,65 +63,56 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Override
 	public void updateStatus(Long id, String status, String role) {
-		if("merchant-list".equals(role)) {
+		if ("merchant-list".equals(role)) {
 			Merchant merchant = merchantRepository.findById(id);
 			merchant.setStatus(status);
 			merchantRepository.update(merchant);
 		}
-		if("user-list".equals(role)) {
+		if ("user-list".equals(role)) {
 			AppUser appUser = userRepository.findById(id);
 			appUser.setStatus(status);
 			userRepository.update(appUser);
 		}
-		
+
 	}
 
 	@Override
 	public List<?> findMerchantsOrUsersByStatus(String status, String role) {
-		if("merchant-list".equals(role)) {
-			  List<Merchant> merchants = merchantRepository.findAll();
-			  List<Merchant> merchants1 =null;
-			  if("pending".equals(status)) {
-				  merchants1 = merchants.stream()
-						  .filter(merchant -> "pending".equals(merchant.getStatus()))
-						  .collect(Collectors.toList());
-			  }
-			  if("active".equals(status)) {
-				  merchants1 = merchants.stream()
-						  .filter(merchant -> "active".equals(merchant.getStatus()))
-						  .collect(Collectors.toList());
-			  }
-			  if("block".equals(status)) {
-				  merchants1 = merchants.stream()
-						  .filter(merchant -> "block".equals(merchant.getStatus()))
-						  .collect(Collectors.toList());
-			  }
-			
+		if ("merchant-list".equals(role)) {
+			List<Merchant> merchants = merchantRepository.findAll();
+			List<Merchant> merchants1 = null;
+			if ("pending".equals(status)) {
+				merchants1 = merchants.stream().filter(merchant -> "pending".equals(merchant.getStatus()))
+						.collect(Collectors.toList());
+			}
+			if ("active".equals(status)) {
+				merchants1 = merchants.stream().filter(merchant -> "active".equals(merchant.getStatus()))
+						.collect(Collectors.toList());
+			}
+			if ("block".equals(status)) {
+				merchants1 = merchants.stream().filter(merchant -> "block".equals(merchant.getStatus()))
+						.collect(Collectors.toList());
+			}
+
 			return merchants1;
 		}
-			
-		if("user-list".equals(role)) {
-			  List<AppUser> users = userRepository.findAll();
-			  List<AppUser> users1 =null;
-			  if("pending".equals(status)) {
-				  users1 = users.stream()
-						  .filter(user -> "pending".equals(user.getStatus()))
-						  .collect(Collectors.toList());
-			  }
-			  if("active".equals(status)) {
-				  users1 = users.stream()
-						  .filter(user -> "active".equals(user.getStatus()))
-						  .collect(Collectors.toList());
-			  }
-			  if("block".equals(status)) {
-				  users1 = users.stream()
-						  .filter(user -> "block".equals(user.getStatus()))
-						  .collect(Collectors.toList());
-			  }
-			
+
+		if ("user-list".equals(role)) {
+			List<AppUser> users = userRepository.findAll();
+			List<AppUser> users1 = null;
+			if ("pending".equals(status)) {
+				users1 = users.stream().filter(user -> "pending".equals(user.getStatus())).collect(Collectors.toList());
+			}
+			if ("active".equals(status)) {
+				users1 = users.stream().filter(user -> "active".equals(user.getStatus())).collect(Collectors.toList());
+			}
+			if ("block".equals(status)) {
+				users1 = users.stream().filter(user -> "block".equals(user.getStatus())).collect(Collectors.toList());
+			}
+
 			return users1;
 		}
-		
+
 		return null;
 
 	}

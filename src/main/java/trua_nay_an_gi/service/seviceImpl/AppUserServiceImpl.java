@@ -1,7 +1,6 @@
 package trua_nay_an_gi.service.seviceImpl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,7 +59,7 @@ public class AppUserServiceImpl implements IAppUserSevice {
 		AppUser appUser = this.findById(id);
 		appUser.setStatus(status);
 		appUserRepository.update(appUser);
-		
+
 	}
 
 }

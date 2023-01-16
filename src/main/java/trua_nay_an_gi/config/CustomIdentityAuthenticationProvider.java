@@ -1,17 +1,11 @@
 package trua_nay_an_gi.config;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -31,11 +25,9 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 	UserDetails isValidUser(String username, String password) {
 		Account account = accountService.findByName(username);
 		if (account != null && username.equalsIgnoreCase(account.getUserName())
-				&& password.equals(account.getPassword())) {
-			List<GrantedAuthority> authorities = account.getAccountRoleMapSet().stream()
-					.map(role -> new SimpleGrantedAuthority(role.getRole().getName())).collect(Collectors.toList());
+				&& passwordEncoder.matches(password, account.getPassword())) {
 
-			UserDetails user = User.withUsername(username).password(password).authorities(authorities).build();
+			UserDetails user = accountService.loadUserByUsername(username);
 
 			return user;
 		}
