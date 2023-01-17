@@ -42,11 +42,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login", "/register/**", "/home", "/static/**").permitAll()
+		http.authorizeRequests().antMatchers("/login", "/register/**","/product", "/home", "/static/**").permitAll()
 				.antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/merchant/**").hasRole("MERCHANT")
-				.antMatchers("/**").hasAnyRole("ADMIN", "USER").and().formLogin().loginPage("/login")
-				.usernameParameter("userName").successHandler(customSuccessHandler).and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().csrf().disable();
+				.antMatchers("/**").hasAnyRole("ADMIN", "USER")
+				.and().formLogin().loginPage("/login")
+				.usernameParameter("userName").successHandler(customSuccessHandler)
+				.and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.and().csrf().disable();
 
 //		   http
 //	        .sessionManagement(session -> session

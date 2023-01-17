@@ -428,20 +428,24 @@
 							<th scope="col" colspan="2">Hành động</th>
 						</tr>
 					</thead>
-					<tbody *ngFor="let product of products; index as i">
-						<tr [hidden]="hidden(i)">
-							<td>{{i+1}}</td>
-							<td><img src="{{product.image}}" alt=""
+					<tbody th:each="product : ${products}">
+						<tr>
+							<td th:text="${product.id}"></td>
+							<td><img th:src="@{${product.image}}" alt=""
 								style="height: 40px; width: 40px; border-radius: 50%;"></td>
-							<td class="merchant-item">{{product.name}}</td>
-							<td class="merchant-item-price">{{product.newPrice}} đ</td>
-							<td class="merchant-item">{{product.shortDescription}}</td>
-							<td class="merchant-item-btn"><a
-								th:href="@{/merchant/merchant-edit-product}"><i
-									class="fa-regular fa-pen-to-square action-icon"></i></a></td>
-							<td class="merchant-item-btn"><a
-								(click)="deleteProduct(i,product.id)"><i
-									class="fa-solid fa-trash action-icon"></i></a></td>
+							<td class="merchant-item" th:text="${product.name}"></td>
+							<td class="merchant-item-price" th:text="${product.newPrice} +' đ'"></td>
+							<td class="merchant-item" th:text="${product.shortDescription}"></td>
+							<td class="merchant-item-btn">
+								<a th:href="@{/merchant/merchant-edit-product/edit/__${product.id}__}">
+									<i class="fa-regular fa-pen-to-square action-icon"></i>
+								</a>
+							</td>
+							<td class="merchant-item-btn">
+								<a th:href= @{/merchant/delete/__${product.id}__}>
+									<i class="fa-solid fa-trash action-icon"></i>
+								</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -504,50 +508,57 @@
 	<div th:fragment="merchant-edit-product">
 		<h2>Update product</h2>
 
-<form  >
+<form  th:action="@{/merchant/merchant-edit-product/edit/__${id}__}" th:object="${productForm}" method="post" enctype="multipart/form-data">
   <div class="mb-3 row">
+  
+  
+ 
     <label for="name" class="col-sm-2 col-form-label">Tên</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" ><br>
+      <input type="text" class="form-control" id= "name" name="name" th:field="*{name}" ><br>
 
     </div>
 
   </div>
   <div class="mb-3 row">
-    <label for="customFile" class="col-sm-2 col-form-label">Thêm ảnh</label>
+    <label for="customFile" class="col-sm-2 col-form-label" >Thêm ảnh</label>
     <div class="col-sm-10">
-      <input type="file" class="form-control" id="customFile" #fileUploader (change)="showPreview($event)"/><br>
-      <img [src]="imgSrc" class="img" height="125" width="100" alt="Img" (click)="fileUploader.click()"><br>
+      <input type="file" class="form-control" id="customFile" th:field=*{image}/><br>
+      <img th:src="@{*{image}}" class="img" height="125" width="100" alt="Img"><br>
     </div>
   </div>
   <div class="mb-3 row">
     <label for="newPrice" class="col-sm-2 col-form-label">Giá mới</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control" id="newPrice" ><br>
+      <input type="number" class="form-control" id="newPrice" th:field="*{newPrice}"><br>
     </div>
   </div>
 
   <div class="mb-3 row">
     <label for="oldPrice" class="col-sm-2 col-form-label">Giá cũ</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control" id="oldPrice"><br>
+      <input type="number" class="form-control" id="oldPrice" th:field="*{oldPrice}"><br>
     </div>
   </div>
 
   <div class="mb-3 row">
     <label for="shortDescription" class="col-sm-2 col-form-label">Mô tả</label>
     <div class="col-sm-10">
-      <textarea type="text" rows="5" class="form-control" id="shortDescription"></textarea><br>
+      <textarea type="text" rows="5" class="form-control" id="shortDescription" th:field="*{shortDescription}"></textarea><br>
   </div>
   </div>
 
 
   <button class="btn btn-dark" routerLink="/merchant/product-list">Hủy</button>
 &nbsp;
-  <button class="btn btn-danger" [disabled]="disable">Update</button>
+  <button class="btn btn-danger" [disabled]="disable" type="submit">Update</button>
 </form>
-		
-		
+
+
+
+
+
+
 	</div>
 	
 	

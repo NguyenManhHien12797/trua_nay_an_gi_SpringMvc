@@ -20,10 +20,10 @@ public class AccountController {
 	@Autowired
 	private IAccountService accountService;
 
-	@GetMapping(value = { "account-list" })
+	@GetMapping(value = { "admin/account-list" })
 	public String listAccount(Model model) {
 		model.addAttribute("listAccount", accountService.findAll());
-		return "account-list";
+		return "demo/account-list";
 	}
 
 //	  @PostMapping("add")
@@ -72,7 +72,7 @@ public class AccountController {
 	public String updateAccount(@PathVariable Long id, Model model) {
 		Account account = accountService.findById(id);
 		model.addAttribute("account", account);
-		return "account-update";
+		return "demo/account-update";
 	}
 
 //	  @RequestMapping("/saveCustomer")
@@ -85,7 +85,7 @@ public class AccountController {
 	public String doUpdateCustomer(@ModelAttribute("account") Account account, Model model) {
 		accountService.update(account);
 		model.addAttribute("listAccount", accountService.findAll());
-		return "account-list";
+		return "demo/account-list";
 	}
 
 	@DeleteMapping("delete/{id}")
