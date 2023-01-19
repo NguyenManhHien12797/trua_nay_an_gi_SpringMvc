@@ -42,7 +42,17 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		session.setMaxInactiveInterval(60 * 60);
 		Account account = accountService.findByName(authentication.getName());
 		session.setAttribute("user", account);
-		session.setAttribute("username", account.getUserName());
+		if(account.getUser() != null) {
+			session.setAttribute("userId", account.getUser().getId());
+			session.setAttribute("username", account.getUser().getName());
+			session.setAttribute("avatar", account.getUser().getAvatar());
+		}
+		if(account.getMerchant() != null) {
+			session.setAttribute("userId", account.getMerchant().getId());
+			session.setAttribute("username", account.getMerchant().getName());
+			session.setAttribute("avatar", account.getMerchant().getAvatar());
+			
+		}
 		session.setAttribute("authorities", authentication.getAuthorities());
 
 		redirectStrategy.sendRedirect(request, response, targetUrl);
@@ -69,7 +79,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 
 		if (isMerchant(roles)) {
-			url = "/merchant";
+			url = "/merchant/merchant-dashboard";
 			return url;
 		}
 

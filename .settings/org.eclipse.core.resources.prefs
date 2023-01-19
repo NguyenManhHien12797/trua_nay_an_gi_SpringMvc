@@ -4,6 +4,7 @@ encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/WEB-INF/views/fragments/app-fragments.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/homepage.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/login.html=UTF-8
+encoding//src/main/webapp/WEB-INF/views/merchant-details.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/register.html=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

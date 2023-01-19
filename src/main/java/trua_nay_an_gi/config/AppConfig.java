@@ -90,7 +90,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
-		sessionFactory.setPackagesToScan("trua_nay_an_gi.model");
+		sessionFactory.setPackagesToScan(new String[]{"trua_nay_an_gi.model"});
 		sessionFactory.setHibernateProperties(hibernateProperties());
 		return sessionFactory;
 	}
@@ -104,6 +104,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 				setProperty("hibernate.globally_quoted_identifiers", "true");
 				setProperty("hibernate.hibernate.current_session_context_class", "thread");
 				setProperty("hibernate.enable_lazy_load_no_trans", "true");
+				setProperty("hibernate.show_sql", "true");
 
 			}
 		};

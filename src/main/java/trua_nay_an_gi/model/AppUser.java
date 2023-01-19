@@ -7,14 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
+//@Table(name="appuser")
 public class AppUser {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String address;
@@ -22,7 +24,7 @@ public class AppUser {
 	private String avatar;
 	private String status;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "account_id")
+	@JoinColumn(name = "account_id",nullable=true)
 	@JsonBackReference
 	private Account account;
 

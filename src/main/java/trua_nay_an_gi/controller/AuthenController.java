@@ -26,10 +26,17 @@ public class AuthenController {
 
 	}
 
-	@GetMapping(value = { "/home" })
+	@GetMapping(value = { "/home", "/" })
 	public String home(Model model, HttpSession session) {
 		String path = authenService.home(model, session);
 		return path;
+	}
+	
+
+	@GetMapping(value = { "/home/merchant-detail/{id}"})
+	public String merchantDetails(@PathVariable Long id,Model model, HttpSession session ) {
+		
+		return authenService.merchantDetails(id, model, session);
 	}
 
 	@GetMapping("/register/{role}")

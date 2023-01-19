@@ -20487,7 +20487,7 @@ button.history-table-status.gray {
 }
 
 .now-menu-restaurant {
-  width: 845px;
+  width: 1200px;
   margin-bottom: 20px;
   min-height: 226px;
   float: left
@@ -20536,7 +20536,7 @@ button.history-table-status.gray {
 .menu-restaurant-category {
   border: 1px solid #ebebeb;
   padding: 15px 5px 15px 15px;
-  width: 235px;
+  width: 255px;
   margin-right: 10px;
   background: #fff;
   border-radius: 4px
@@ -20579,7 +20579,7 @@ button.history-table-status.gray {
 }
 
 .menu-restaurant-detail {
-  width: 590px;
+  width: 900px;
   padding: 6px 15px;
   float: right;
   border: 1px solid #ebebeb;

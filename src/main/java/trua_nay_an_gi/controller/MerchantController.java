@@ -35,26 +35,28 @@ public class MerchantController {
 
 	@GetMapping("/merchant")
 	private String merchantPage() {
-		return "merchant_page";
+		return "redirect: /trua_nay_an_gi/merchant/merchant-dashboard";
 	}
 
-	@GetMapping("/merchant/{route}")
+	@GetMapping(value = {"/merchant/{route}"})
 	private String merchantPage1(@PathVariable String route, Model model, HttpSession session) {
-		
+		String message = " ";
+		String navTitle = "Kênh Merchant";
 		if("merchant-product-manager".equals(route)) {
-			Account account = (Account) session.getAttribute("user");
-			if(account == null) {
-				return "/login";
-			}
-			List<Product> products = productService.findAllProductByDeleteFlag(account.getMerchant().getId());
+			List<Product> products = productService.findAllProductByDeleteFlag(session);
+			
 			model.addAttribute("products", products);
 		}
+		model.addAttribute("message", message);
+		model.addAttribute("navTitle", navTitle);
+		model.addAttribute("role", "merchant");
 		model.addAttribute("route", route);
+		model.addAttribute("productForm", new ProductForm());
 		return "merchant_page";
 	}
 	
 	@GetMapping(value= {"/merchant/{route}/{status}"})
-	private String merchantPage2(@PathVariable String route, @PathVariable String status,Model model) {
+	private String showFormOrder(@PathVariable String route, @PathVariable String status,Model model) {
 		String rt = status;
 		model.addAttribute("route", rt);
 		model.addAttribute("status", status);
@@ -64,7 +66,7 @@ public class MerchantController {
 	
 	
 	@GetMapping(value= {"/merchant/{route}/edit/{id}"})
-	private String merchantPage3(@PathVariable String route,@PathVariable Long id, Model model) {
+	private String showFormUpdate(@PathVariable String route,@PathVariable Long id, Model model) {
 		Product product = productService.findById(id);
 		ProductForm productForm = new ProductForm(product.getId(), product.getName(), product.getShortDescription(), product.getNumberOrder(), product.getOldPrice(), product.getNewPrice(), null);
 		model.addAttribute("productForm", productForm); 
@@ -72,56 +74,24 @@ public class MerchantController {
 	}
 	
 	@PostMapping(value= {"/merchant/merchant-edit-product/edit/{id}"})
-	private String updateProduct(@PathVariable Long id,@ModelAttribute("productForm") ProductForm productForm, Model model) {
-		System.out.println(productForm.getName());
-//		System.out.println(productForm.getShortDescription());
-		
-		MultipartFile multipartFile = productForm.getImage();
-		String fileName = "/static/img/"+multipartFile.getOriginalFilename();
-		try {
-			FileCopyUtils.copy(productForm.getImage().getBytes(), new File(fileUpload + fileName));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	
-		Product product = productService.findById(id);
-		product.setId(product.getId());
-		product.setName(productForm.getName());
-		product.setShortDescription(productForm.getShortDescription());
-		product.setOldPrice(productForm.getOldPrice());
-		product.setNewPrice(productForm.getNewPrice());
-		product.setImage(fileName);
-		productService.update(product);
+	private String updateProduct(@PathVariable Long id,@ModelAttribute("productForm") ProductForm productForm) {
+		productService.updateProduct(id, productForm);
 		return "redirect: /trua_nay_an_gi/merchant/merchant-product-manager";
+	}
+	
+	@PostMapping(value= {"/merchant/create"})
+	private String createProduct(@ModelAttribute("productForm") ProductForm productForm, HttpSession session) {
+		return productService.saveProduct(productForm, session);
 	}
 	
 	
 	@RequestMapping(value= {"/merchant/delete/{id}"})
-	private String deleteProduct(@PathVariable Long id, Model model) {
-		Product product = productService.findById(id);
-		product.setDeleteFlag(true);
-		productService.update(product);
+	private String deleteProduct(@PathVariable Long id) {
+		productService.delete(id);
 		return "redirect: /trua_nay_an_gi/merchant/merchant-product-manager";
 	}
 	
-//	@PostMapping("/product/edit/save")
-//	public String editProduct(@ModelAttribute ProductForm productForm) {
-//		System.out.println("eidt " + productForm);
-//		MultipartFile multipartFile = productForm.getImage();
-//		String fileName = multipartFile.getOriginalFilename();
-//		try {
-//			FileCopyUtils.copy(productForm.getImage().getBytes(), new File(fileUpload + fileName));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		product.setDeleteFlag(true);
-//		Merchant merchant = new Merchant();
-//		merchant.setId(1L);
-//		product.setMerchant(merchant);
-//		productService.update(product);
-//		return "redirect:/merchant/product/";
-//	}
+
 	
 	
 }

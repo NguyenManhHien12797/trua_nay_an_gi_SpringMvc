@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import trua_nay_an_gi.model.AppUser;
@@ -71,14 +72,14 @@ public class AppUserRepository implements IAppUserRepository {
 			Long account_id) {
 
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery("Call INSERT_APPUSER(:address ,:avatar,:name,:phone,:status, :account_id)")
+		Query query = session.createSQLQuery("insert into appuser(address ,avatar,name,phone,status, account_id) values(?,?,?,?,?,?)")
 				.addEntity(AppUser.class);
-		query.setParameter("address", address);
-		query.setParameter("avatar", avatar);
-		query.setParameter("name", name);
-		query.setParameter("phone", phone);
-		query.setParameter("status", status);
-		query.setParameter("account_id", account_id);
+		query.setParameter(1, address);
+		query.setParameter(2, avatar);
+		query.setParameter(3, name);
+		query.setParameter(4, phone);
+		query.setParameter(5, status);
+		query.setParameter(6, account_id);
 		query.executeUpdate();
 
 	}

@@ -2,7 +2,10 @@ package trua_nay_an_gi.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import trua_nay_an_gi.model.Product;
+import trua_nay_an_gi.model.ProductForm;
 
 public interface IProductService extends IGeneralService<Product>{
 
@@ -21,8 +24,12 @@ public interface IProductService extends IGeneralService<Product>{
 	@Override
 	List<Product> findAll();
 	
-	List<Product> findAllProductByDeleteFlag(Long id);
+	List<Product> findAllProductByDeleteFlag(HttpSession session);
 	
-	Long findMerchantIdByProduct(String name);
+	List<Product> findAllProductByDeleteFlag(Long merchantId);
+	
+	void updateProduct(Long id, ProductForm productForm);
+
+	String saveProduct(ProductForm productForm, HttpSession session);
 	
 }

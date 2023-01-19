@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import trua_nay_an_gi.model.Account;
@@ -45,7 +46,7 @@ public class AcountRepository implements IAccountRepository {
 	@Override
 	public List<Account> findAll() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Account> accounts = session.createQuery("FROM account", Account.class).getResultList();
+		List<Account> accounts = session.createQuery("FROM Account", Account.class).getResultList();
 		return accounts;
 	}
 
@@ -58,7 +59,7 @@ public class AcountRepository implements IAccountRepository {
 	@Override
 	public Account findByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<Account> query = session.createQuery("FROM account a WHERE a.userName = :userName", Account.class);
+		TypedQuery<Account> query = session.createQuery("FROM Account a WHERE a.userName = :userName", Account.class);
 		query.setParameter("userName", name);
 		try {
 			return query.getSingleResult();

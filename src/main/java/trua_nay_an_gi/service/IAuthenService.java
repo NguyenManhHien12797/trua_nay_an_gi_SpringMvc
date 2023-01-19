@@ -17,4 +17,7 @@ public interface IAuthenService {
 
 	ModelAndView showFormRegister(String role);
 
+	void checkLogin(Model model,HttpSession session);
+	
+	String merchantDetails(Long id,Model model, HttpSession session );
 }

@@ -18,13 +18,14 @@ public class AdminController {
 	private IMerchantService merchantService;
 
 	@GetMapping(value = { "/admin/{role}/{status}" })
-	public String adminPage1(@PathVariable String role, @PathVariable String status, Model model) {
+	public String adminPage(@PathVariable String role, @PathVariable String status, Model model) {
 		addListAttribute(status, role, model);
+	
 		return "admin_page";
 	}
 
 	@PostMapping("/admin/{role}/{stt}/{status}/{id}")
-	public String doUpdateAppUser(@PathVariable String role, @PathVariable Long id, @PathVariable String status,
+	public String updateStatus(@PathVariable String role, @PathVariable Long id, @PathVariable String status,
 			@PathVariable String stt, Model model) {
 		merchantService.updateStatus(id, status, role);
 		addListAttribute(stt, role, model);
@@ -32,8 +33,11 @@ public class AdminController {
 	}
 
 	private void addListAttribute(String stt, String role, Model model) {
+		String navTitle = "Kênh Admin";
+		
 		List<?> usersOrMechants = merchantService.findMerchantsOrUsersByStatus(stt, role);
 		model.addAttribute("usersOrMechants", usersOrMechants);
+		model.addAttribute("navTitle", navTitle);
 		model.addAttribute("role", role);
 		model.addAttribute("stt", stt);
 	}
