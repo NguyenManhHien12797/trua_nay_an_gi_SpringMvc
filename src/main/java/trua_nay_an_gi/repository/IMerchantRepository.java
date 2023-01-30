@@ -15,15 +15,10 @@ public interface IMerchantRepository extends IGeneralRepository<Merchant> {
 	@Override
 	void update(Merchant merchant);
 
-	@Override
-	void delete(Merchant merchant);
 
 	@Override
 	List<Merchant> findAll();
 
 	Merchant findByName(String name);
-
-	void saveMerchantToRegister(String address, String avatar, String name, String phone, String status,
-			Long account_id);
 
 }

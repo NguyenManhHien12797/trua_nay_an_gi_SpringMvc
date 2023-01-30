@@ -37,11 +37,7 @@ public class AccountService implements IAccountService, UserDetailsService {
 		this.accountRepository.update(account);
 	}
 
-	@Override
-	public void delete(Long id) {
-		Account account = this.findById(id);
-		this.accountRepository.delete(account);
-	}
+
 
 	@Override
 	public List<Account> findAll() {

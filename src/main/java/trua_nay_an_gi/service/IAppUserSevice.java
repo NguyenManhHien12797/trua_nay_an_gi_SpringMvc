@@ -13,9 +13,6 @@ public interface IAppUserSevice extends IGeneralService<AppUser> {
 	void update(AppUser appUser);
 
 	@Override
-	void delete(Long id);
-
-	@Override
 	List<AppUser> findAll();
 
 	@Override
@@ -24,7 +21,5 @@ public interface IAppUserSevice extends IGeneralService<AppUser> {
 	AppUser findByName(String name);
 
 	void updateStatus(Long id, String status);
-
-	void saveUserToRegister(String address, String avatar, String name, String phone, String status, Long account_id);
 
 }

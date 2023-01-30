@@ -162,7 +162,7 @@
                     <div class="row" style="width: 800px">
                       <div class="col-auto item-restaurant-img">
                         <button class="inline"><img
-                          th:src="@{${product.image}}"
+                          th:src="@{'/image/' +${product.image}}"
                           alt="img" width="60" height="60"></button>
                       </div>
                       <div class="col item-restaurant-info"><h2 class="item-restaurant-name" th:text = "${product.name}"></h2>
@@ -227,6 +227,9 @@
 
 
 function addToCart(price,user_id,product_id) {
+	if(user_id == null){
+		window.location="https://localhost:8443/trua_nay_an_gi/login?mess=chua-dang-nhap";
+	}
 
 /*     let producer = $('#producer').val();
     let model = $('#model').val();
@@ -253,7 +256,6 @@ function addToCart(price,user_id,product_id) {
         //xử lý khi thành công
         success: function (data) {
       	console.log("suss");  
-      	console.log(data);  
       	  
         }
 

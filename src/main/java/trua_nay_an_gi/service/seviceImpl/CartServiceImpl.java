@@ -1,14 +1,19 @@
 package trua_nay_an_gi.service.seviceImpl;
 
+
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import trua_nay_an_gi.model.Account;
 import trua_nay_an_gi.model.AppUser;
 import trua_nay_an_gi.model.Cart;
 import trua_nay_an_gi.model.Product;
+import trua_nay_an_gi.model.ProductCartMap;
 import trua_nay_an_gi.model.dto.CartDTO;
 import trua_nay_an_gi.repository.IAppUserRepository;
 import trua_nay_an_gi.repository.ICartRepository;
@@ -17,7 +22,7 @@ import trua_nay_an_gi.service.ICartService;
 
 @Service
 @Transactional
-public class CartServiceImpl implements ICartService<Cart>{
+public class CartServiceImpl implements ICartService{
 	
 	@Autowired
 	private ICartRepository cartRepository;
@@ -30,60 +35,63 @@ public class CartServiceImpl implements ICartService<Cart>{
 	
 
 	@Override
-	public List<Cart> findAllByUserId(Long userId) {
-		return cartRepository.findAllByUserId(userId);
+	public List<Cart> findAllCartByUserIdAndDeleteFlag(Long userId) {
+		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
+	
+		return cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
 	}
-
+	
 	@Override
-	public void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice) {
+	public String addToCart(CartDTO cartDTO, HttpSession session) {
 		
+	
 		
-	}
-
-	@Override
-	public Cart findCartById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Cart findCartByProductIdAndUserId(Long product_id, Long user_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setProductCart(Long cart_id, Long product_id) {
-		// TODO Auto-generated method stub
+		Account account = (Account) session.getAttribute("user");
 		
-	}
-
-	@Override
-	public void updateQuantityCart(int quantity, Long cart_id) {
-		// TODO Auto-generated method stub
+		if(account == null) {
+			return "/login";
+		}
 		
-	}
-
-	@Override
-	public void addToCart(CartDTO cartDTO) {
-		
-        Cart cart = (Cart) cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
+        Cart cart = cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
         int quantity = 1;
+        Double totalPrice = 0.0;
         if (cart != null) {
-        	quantity = cart.getQuantity() + 1;
-            cartRepository.updateQuantityCart(quantity, cart.getId());
+//        	cart.setQuantity(cart.getQuantity() + 1);
+//        	totalPrice = cart.getQuantity()*cartDTO.getPrice();
+//        	cart.setTotalPrice(totalPrice);
+            cartRepository.update(cart);
+            return "/merchant-details";
         } else {
 
-            Double totalPrice = quantity*cartDTO.getPrice();
+            totalPrice = quantity*cartDTO.getPrice();
             AppUser user = userRepository.findById(cartDTO.getUser_id());
             Product product = productRepository.findById(cartDTO.getProduct_id());
+            boolean deleteFlag = false;
+
+//            cartRepository.save(new Cart(quantity, cartDTO.getPrice(), user,product, totalPrice, deleteFlag));
+            Cart cart1 =cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
+           
+            ProductCartMap productCartMap = new ProductCartMap(cart1, product);
             
-            cartRepository.saveCart(quantity, cartDTO.getPrice(), cartDTO.getUser_id(), cartDTO.getProduct_id(), totalPrice);
-//            cartRepository.save(new Cart(quantity, cartDTO.getPrice(), user,product, totalPrice));
-            Cart cart1 = (Cart) cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
-            cartRepository.setProductCart(cart1.getId(), cartDTO.getProduct_id());
+            cartRepository.setProductCart(productCartMap);
+            
+            return "/merchant-details";
         }
 		
 	}
+
+
+	@Override
+	public void deleteCart(Long id) {
+		Cart cart = cartRepository.findById(id);
+		cart.setDeleteFlag(true);
+		cartRepository.update(cart);
+		
+	}
+
+
+
+
+
 
 }

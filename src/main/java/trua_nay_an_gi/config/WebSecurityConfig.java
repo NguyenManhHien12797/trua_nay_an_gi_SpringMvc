@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/","/login", "/register/**","/product", "/home/**", "/static/**").permitAll()
+		http.authorizeRequests().antMatchers("/","/login", "/register/**","/product", "/home/**", "/static/**","/image/**").permitAll()
 				.antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/merchant/**").hasRole("MERCHANT")
 				.antMatchers("/**").hasAnyRole("ADMIN", "USER")
 				.and().formLogin().loginPage("/login")
@@ -52,13 +52,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.and().csrf().disable();
 
-//		   http
-//	        .sessionManagement(session -> session
-//	            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-//	            .invalidSessionUrl("/login")
-//	        );
+		   http
+	        .sessionManagement(session -> session
+	            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+	            .invalidSessionUrl("/login?mess=timeout")
+	        );
 
-		http.sessionManagement().maximumSessions(1).expiredUrl("/login?expired=true");
+//		http.sessionManagement().maximumSessions(1).expiredUrl("/login?mess=timeout");
 
 	}
 

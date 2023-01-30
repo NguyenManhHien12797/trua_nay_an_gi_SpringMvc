@@ -41,6 +41,7 @@ public class AccountRoleMap {
 		this.role = role;
 	}
 
+
 	public Long getId() {
 		return id;
 	}

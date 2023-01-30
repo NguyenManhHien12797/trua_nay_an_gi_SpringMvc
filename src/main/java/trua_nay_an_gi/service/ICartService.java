@@ -1,24 +1,19 @@
 package trua_nay_an_gi.service;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
+import trua_nay_an_gi.model.Cart;
 import trua_nay_an_gi.model.dto.CartDTO;
 
-public interface ICartService<Cart> {
+public interface ICartService {
 	
-  	List<Cart> findAllByUserId(Long userId);
+  	List<Cart> findAllCartByUserIdAndDeleteFlag(Long userId);
 
-  	void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice);
-
-    Cart findCartById(Long id);
-
-    Cart findCartByProductIdAndUserId(Long product_id, Long user_id);
+    String addToCart(CartDTO cart, HttpSession session);
     
-    void setProductCart(Long cart_id, Long product_id);
-
-    
-    void updateQuantityCart(int quantity,Long cart_id);
-    
-    void addToCart(CartDTO cart);
+    void deleteCart(Long id);
 
 }

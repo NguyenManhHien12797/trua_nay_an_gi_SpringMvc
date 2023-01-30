@@ -55,11 +55,14 @@
         
         </div>
         
-
+ 	 	<div th:if= "${mess}" >
+        <p style="color:red">[[${mess}]]</p>
+        
+        </div>
         
         <form th:action="@{/login}" method="post">
           <div class="form-login-input">
-             <span th:text= "${mess}"></span>
+            <!--  <span th:text= "${mess}"></span> -->
             <div class="field-group">
               <div class="input-group">
               <i class="far fa-user"></i>

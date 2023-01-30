@@ -12,8 +12,6 @@ public interface IAppUserRepository extends IGeneralRepository<AppUser> {
 	@Override
 	void update(AppUser appUser);
 
-	@Override
-	void delete(AppUser appUser);
 
 	@Override
 	List<AppUser> findAll();
@@ -22,7 +20,5 @@ public interface IAppUserRepository extends IGeneralRepository<AppUser> {
 	AppUser findById(Long id);
 
 	AppUser findByName(String name);
-
-	void saveUserToRegister(String address, String avatar, String name, String phone, String status, Long account_id);
 
 }

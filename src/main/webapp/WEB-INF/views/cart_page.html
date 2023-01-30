@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Cart</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/cart_page.css}">
+<script src="https://kit.fontawesome.com/bb6a3cf0b7.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"
+      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+<style>
+  .font15 {
+    font-size: 15px;
+  }
+
+  .font14 {
+    font-size: 14px;
+  }
+</style>
+</head>
+
+<body class="portal" style="font-size:calc(8px + 0.5vw);">
+<div id="app">
+  <div class="wrapper">
+
+
+    <header class="main-header" th:replace="~{/fragments/app-fragments :: home-header}">
+
+    </header>
+
+
+<section class="h-100 gradient-custom">
+  <div class="container py-5">
+    <div class="row d-flex justify-content-center my-4">
+      <div class="col-md-8">
+        <div class="card mb-4">
+          <div class="card-header py-3">
+            <h5 class="mb-0">Sản phẩm</h5>
+          </div>
+          <div class="card-body">
+            <div th:if="${message == 'khong co du lieu'}">
+              <img class="card-body-noimage" src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png" alt="">
+            </div>
+            <!-- Single item -->
+
+                <div class="row" th:each="cart : ${carts}">
+                  <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                    <!-- Image -->
+                    <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                      <img th:src="@{'/image/'+${cart.getProduct().getImage()}}"
+                           class="w-100 bg-image-img" alt="Blue Jeans Jacket" />
+                      <a href="#!">
+                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                      </a>
+                    </div>
+                    <!-- Image -->
+                  </div>
+
+                  <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                    <!-- Data -->
+                    <p><strong th:text="${cart.getProduct().getName()}"></strong></p>
+                    <p>Mô tả: [[${cart.getProduct().getShortDescription()}]]</p>
+                    <p>Đơn giá: [[${cart.getProduct().getNewPrice()}]] đ</p>
+                    <p>Cửa hàng: [[${cart.getProduct().getMerchant().getName()}]]</p>
+                    <a  class="btn btn-primary btn-sm me-1 mb-2" 
+                           th:href= @{/user/delete/__${cart.id}__}>
+                      <i class="fas fa-trash"></i>
+                    </a>
+                    <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
+                            title="Move to the wish list">
+                      <i class="fas fa-heart"></i>
+                    </button>
+                    <!-- Data -->
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <!-- Quantity -->
+                    <div class="d-flex mb-4" style="max-width: 300px">
+
+                      <div class="form-outline">
+                        <label class="form-label" for="form1">Số lượng</label>
+                        <input id="form1" min="0" name="quantity" th:value="${cart.getQuantity()}" type="number" class="form-control" />
+
+                      </div>
+                    </div>
+                    <!-- Quantity -->
+
+                    <!-- Price -->
+                    <p class="text-start text-md-center">
+                      <strong>Giá tiền: </strong>
+                      <strong >[[${cart.getTotalPrice()}]] đ</strong>
+                    </p>
+                    <!-- Price -->
+                  </div>
+                </div>
+                <!-- Single item -->
+
+
+          </div>
+        </div>
+
+
+        <div class="card mb-4" style="width: 1300px;">
+          <div class="card-body">
+            <p><strong>Lịch sử mua hàng</strong></p>
+
+            <div class="table-responsive container">
+              <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                  <th scope="col">Ảnh</th>
+                  <th scope="col">Người đặt </th>
+                  <th scope="col">Tổng tiền</th>
+                  <th scope="col">Thời gian</th>
+                  <th scope="col" >Trạng thái</th>
+                  <th scope="col" colspan="2" style="text-align: center;">Hành động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let order of orders">
+                  <td><img src="{{order.appUser.avatar}}" alt="" style="height: 40px;
+        width: 40px;
+        border-radius: 50%;"></td>
+                  <td class="merchant-item">{{order.appUser.name}}</td>
+                  <td class="merchant-item">{{order.totalPrice}} đ</td>
+                  <td class="merchant-item">{{order.orderdate}}</td>
+                  <td class="merchant-item" size="50px">{{order.status}} </td>
+                  <div *ngIf="order.status === 'Người bán nhận order'; then thenBlockStatus else elseBlockAStatus"></div>
+                  <ng-template #thenBlockStatus>
+                    <td class="merchant-item" size="50px" style="width: 101px;"><button class="btn-order" (click)="receiveOrderStatus(order, order.id)">Nhận hàng</button></td>
+                    <td class="merchant-item" size="50px" style="width: 80px;"><button class="btn-order" (click)="refuseOrderStatus(order, order.id)">Từ chối</button></td>
+                  </ng-template>
+                  <ng-template #elseBlockAStatus>
+                    <td class="merchant-item"></td>
+                    <td class="merchant-item" size="50px"></td>
+                  </ng-template>
+
+                  <td class="merchant-item" size="50px"><button class="btn-order" (click)="deleteOrder(order.id)"><i class="fa-solid fa-trash"></i></button></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+
+          <div class="card-body">
+            <p><strong>We accept</strong></p>
+            <img class="me-2" width="45px"
+                 src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+                 alt="Visa" />
+            <img class="me-2" width="45px"
+                 src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+                 alt="American Express" />
+            <img class="me-2" width="45px"
+                 src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+                 alt="Mastercard" />
+          </div>
+
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-header py-3">
+            <h5 class="mb-0">Hóa đơn</h5>
+          </div>
+          <div class="card-body">
+			<form th:action="@{/checkout}" th:object="${order}" method="post">
+
+            <div class="table-responsive">
+
+            <div th:if="${message == 'khong co du lieu'}">
+              <span>Chưa có sản phẩm</span>
+            </div>
+            <div th:unless="${message == 'khong co du lieu'}">
+                  <table class="table table-striped table-sm"  >
+                  <thead>
+                  <tr>
+                    <th scope="col">Stt </th>
+                    <th scope="col">Tên </th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Đơn giá</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="cart,i : ${carts}">
+                    <td class="merchant-item" th:text="${i.index + 1}"></td>
+                    <td class="merchant-item" th:text="${cart.getProduct().getName()}"></td>
+                    <td style="text-align: center" class="merchant-item" th:text="${cart.getQuantity()}"></td>
+                    <td class="merchant-item">[[${cart.getProduct().getNewPrice()}]] đ</td>
+                  </tr>
+                  <tr>
+                    <th scope="col" colspan="3">Tổng tiền </th>
+                    <th scope="col" th:field = "*{totalPrice}">[[${totalPrice}]] đ</th>
+               
+                  </tr>
+                  <tr>
+                    <th scope="col" ><input type="text" hidden th:field = "*{merchant_id}"></th>
+                    <th scope="col" ><input type="text" hidden th:field = "*{totalPrice}"></th>
+                    <th scope="col" ><input type="text" hidden th:field = "*{orderdate}"></th>
+              
+                  </tr>
+                  <tr>
+                    <td scope="col">Ghi chú </td>
+                    <td scope="col" colspan="2"><input class="note" type="text" placeholder="Ghi chú" th:field= "*{note}"></td>
+                  </tr>
+                  <tr>
+                    <td scope="col">Địa chỉ</td>
+                    <td scope="col" colspan="2"><input class="note" type="text" placeholder="Địa chỉ giao hàng" ></td>
+                  </tr>
+                  </tbody>
+                </table>
+              
+            </div>
+         
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block btn-checkout">
+              Đặt hàng
+            </button>
+            
+            </form>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+
+
+    <div th:replace="~{/fragments/app-fragments :: footer}">
+        Footer
+    </div>
+
+  </div>
+
+
+</div>
+
+
+</body>
+</html>

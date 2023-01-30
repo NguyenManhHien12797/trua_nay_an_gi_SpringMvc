@@ -13,9 +13,6 @@ public interface IMerchantService extends IGeneralService<Merchant> {
 	void update(Merchant merchant);
 
 	@Override
-	void delete(Long id);
-
-	@Override
 	List<Merchant> findAll();
 
 	@Override
@@ -27,6 +24,4 @@ public interface IMerchantService extends IGeneralService<Merchant> {
 
 	List<?> findMerchantsOrUsersByStatus(String status, String role);
 
-	void saveMerchantToRegister(String address, String avatar, String name, String phone, String status,
-			Long account_id);
 }

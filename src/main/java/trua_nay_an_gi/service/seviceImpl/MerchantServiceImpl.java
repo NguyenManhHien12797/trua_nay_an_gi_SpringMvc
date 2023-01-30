@@ -33,11 +33,6 @@ public class MerchantServiceImpl implements IMerchantService {
 		merchantRepository.update(merchant);
 	}
 
-	@Override
-	public void delete(Long id) {
-		Merchant merchant = this.findById(id);
-		merchantRepository.delete(merchant);
-	}
 
 	@Override
 	public List<Merchant> findAll() {
@@ -54,12 +49,6 @@ public class MerchantServiceImpl implements IMerchantService {
 		return merchantRepository.findByName(name);
 	}
 
-	@Override
-	public void saveMerchantToRegister(String address, String avatar, String name, String phone, String status,
-			Long account_id) {
-
-		merchantRepository.saveMerchantToRegister(address, avatar, name, phone, status, account_id);
-	}
 
 	@Override
 	public void updateStatus(Long id, String status, String role) {

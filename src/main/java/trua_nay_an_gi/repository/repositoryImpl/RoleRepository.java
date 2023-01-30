@@ -24,13 +24,9 @@ public class RoleRepository implements IRoleRepository<AppRoles> {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public void setDefaultRole(Long accountId, Integer roleId) {
+	public void setDefaultRole(AccountRoleMap accountRoleMap) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery("insert into AccountRoleMap (account_id,role_id) values(?,?)")
-				.addEntity(AccountRoleMap.class);
-		query.setParameter(1, accountId);
-		query.setParameter(2, roleId);
-		query.executeUpdate();
+		session.save(accountRoleMap);
 	}
 
 	@Override
@@ -43,6 +39,12 @@ public class RoleRepository implements IRoleRepository<AppRoles> {
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+
+	@Override
+	public AppRoles findById(Long id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		return session.get(AppRoles.class,id);
 	}
 
 }

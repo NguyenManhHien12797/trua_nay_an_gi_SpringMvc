@@ -12,8 +12,6 @@ public interface IAccountRepository extends IGeneralRepository<Account> {
 	@Override
 	void update(Account t);
 
-	@Override
-	void delete(Account t);
 
 	@Override
 	List<Account> findAll();

@@ -18,7 +18,6 @@ public interface IProductService extends IGeneralService<Product>{
 	@Override
 	void update(Product product);
 	
-	@Override
 	void delete(Long id);
 	
 	@Override

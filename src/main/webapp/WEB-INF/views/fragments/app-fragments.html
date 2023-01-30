@@ -431,7 +431,7 @@
 					<tbody th:each="product, i : ${products}">
 						<tr>
 							<td th:text="${i.index + 1}"></td>
-							<td><img th:src="@{${product.image}}" alt=""
+							<td><img th:src="@{'/image/' +${product.image}}" alt=""
 								style="height: 40px; width: 40px; border-radius: 50%;"></td>
 							<td class="merchant-item" th:text="${product.name}"></td>
 							<td class="merchant-item-price" th:text="${product.newPrice} +' đ'"></td>
@@ -796,10 +796,10 @@
             </div>
         
           <div th:if="${role == 'user'}"  >
-          		<div class="nav-bar-cart">
-             		 <i class="fa-solid fa-cart-shopping" routerLink="/cart"></i>
+          		<a class="nav-bar-cart"  th:href="@{/user/cart}">
+             		 <i class="fa-solid fa-cart-shopping"></i>
               
-                 </div>
+                 </a>
              
                     <div class="cart-detail">
                       <span class="cart-detail-span">Sản phẩm trong giỏ hàng</span>

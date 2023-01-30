@@ -35,12 +35,7 @@ public class AppUserRepository implements IAppUserRepository {
 		session.update(appUser);
 	}
 
-	@Override
-	public void delete(AppUser appUser) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.remove(appUser);
 
-	}
 
 	@Override
 	public List<AppUser> findAll() {
@@ -67,21 +62,6 @@ public class AppUserRepository implements IAppUserRepository {
 		}
 	}
 
-	@Override
-	public void saveUserToRegister(String address, String avatar, String name, String phone, String status,
-			Long account_id) {
 
-		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createSQLQuery("insert into appuser(address ,avatar,name,phone,status, account_id) values(?,?,?,?,?,?)")
-				.addEntity(AppUser.class);
-		query.setParameter(1, address);
-		query.setParameter(2, avatar);
-		query.setParameter(3, name);
-		query.setParameter(4, phone);
-		query.setParameter(5, status);
-		query.setParameter(6, account_id);
-		query.executeUpdate();
-
-	}
 
 }

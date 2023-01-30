@@ -18,9 +18,6 @@ public interface IAccountService extends IGeneralService<Account> {
 	void update(Account t);
 
 	@Override
-	void delete(Long id);
-
-	@Override
 	List<Account> findAll();
 
 	Account findByName(String name);

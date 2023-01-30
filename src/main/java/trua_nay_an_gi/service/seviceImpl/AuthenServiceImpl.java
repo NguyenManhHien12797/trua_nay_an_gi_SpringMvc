@@ -15,9 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import trua_nay_an_gi.model.Account;
+import trua_nay_an_gi.model.AccountRoleMap;
+import trua_nay_an_gi.model.AppRoles;
+import trua_nay_an_gi.model.AppUser;
 import trua_nay_an_gi.model.Merchant;
 import trua_nay_an_gi.model.Product;
 import trua_nay_an_gi.model.dto.AccountRegisterDTO;
+import trua_nay_an_gi.service.IAccountRoleMapService;
 import trua_nay_an_gi.service.IAccountService;
 import trua_nay_an_gi.service.IAppUserSevice;
 import trua_nay_an_gi.service.IAuthenService;
@@ -46,6 +50,7 @@ public class AuthenServiceImpl implements IAuthenService {
 	
 	@Autowired
 	private IProductService productService;
+	
 
 	@Override
 	public void register(AccountRegisterDTO accountRegisterDTO, String role) {
@@ -56,19 +61,20 @@ public class AuthenServiceImpl implements IAuthenService {
 		accountService.save(account);
 		
 		String avatar = "/static/img/images.jpg";
-		Long idAccountAfterCreated = accountService.findIdUserByUserName(account.getUserName());
 		
-		
-
 		if ("user".equals(role)) {
-			roleService.setDefaultRole(idAccountAfterCreated, 1);
-			userSevice.saveUserToRegister(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
-					accountRegisterDTO.getPhone(), status, idAccountAfterCreated);
+			AppRoles appRole = roleService.findById(1L);
+			
+			roleService.setDefaultRole(new AccountRoleMap(account,appRole));
+			userSevice.save(new AppUser(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
+					accountRegisterDTO.getPhone(), status, account));
 		}
 		if ("merchant".equals(role)) {
-			roleService.setDefaultRole(idAccountAfterCreated, 3);
-			merchantService.saveMerchantToRegister(accountRegisterDTO.getAddress(), avatar,
-					accountRegisterDTO.getName(), accountRegisterDTO.getPhone(), status, idAccountAfterCreated);
+			AppRoles appRole = roleService.findById(3L);
+			roleService.setDefaultRole(new AccountRoleMap(account,appRole));
+			
+			merchantService.save(new Merchant(accountRegisterDTO.getAddress(), avatar,
+					accountRegisterDTO.getName(), accountRegisterDTO.getPhone(), status, account));
 		}
 
 	}

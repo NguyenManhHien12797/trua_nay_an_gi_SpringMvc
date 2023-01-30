@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import trua_nay_an_gi.model.AccountRoleMap;
 import trua_nay_an_gi.model.AppRoles;
 import trua_nay_an_gi.repository.IRoleRepository;
 import trua_nay_an_gi.service.IRoleService;
@@ -16,13 +17,18 @@ public class RoleServiceImpl implements IRoleService<AppRoles> {
 	private IRoleRepository roleRepository;
 
 	@Override
-	public void setDefaultRole(Long accountId, Integer roleId) {
-		roleRepository.setDefaultRole(accountId, roleId);
+	public void setDefaultRole(AccountRoleMap accountRoleMap) {
+		roleRepository.setDefaultRole(accountRoleMap);
 	}
 
 	@Override
 	public AppRoles findByName(String name) {
 		return roleRepository.findByName(name);
+	}
+
+	@Override
+	public AppRoles findById(Long id) {
+		return roleRepository.findById(id);
 	}
 
 }

@@ -78,7 +78,7 @@ public class ProductServiceImpl implements IProductService{
 		
 		Account account =(Account) session.getAttribute("user");
 		MultipartFile multipartFile = productForm.getImage();
-		String fileName = "/static/img/"+multipartFile.getOriginalFilename();
+		String fileName = multipartFile.getOriginalFilename();
 		try {
 			FileCopyUtils.copy(productForm.getImage().getBytes(), new File(fileUpload + fileName));
 		} catch (IOException e) {
@@ -105,7 +105,8 @@ public class ProductServiceImpl implements IProductService{
 	public void updateProduct(Long id, ProductForm productForm) {
 	
 		MultipartFile multipartFile = productForm.getImage();
-		String fileName = "/static/img/"+multipartFile.getOriginalFilename();
+		String fileName =multipartFile.getOriginalFilename();
+//		String fileName = "/static/img/"+multipartFile.getOriginalFilename();
 		try {
 			FileCopyUtils.copy(productForm.getImage().getBytes(), new File(fileUpload + fileName));
 		} catch (IOException e) {

@@ -30,6 +30,10 @@ public class ProductCartMap {
 			this.product = product;
 			this.cart = cart;
 		}
+		public ProductCartMap(Cart cart, Product product) {
+			this.product = product;
+			this.cart = cart;
+		}
 		public Long getId() {
 			return id;
 		}

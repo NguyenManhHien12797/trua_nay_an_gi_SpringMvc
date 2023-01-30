@@ -2,25 +2,31 @@ package trua_nay_an_gi.repository;
 
 import java.util.List;
 
+import trua_nay_an_gi.model.Cart;
+import trua_nay_an_gi.model.ProductCartMap;
 
 
 
-public interface ICartRepository<Cart> {
 
-	
-	  	List<Cart> findAllByUserId(Long userId);
+public interface ICartRepository extends IGeneralRepository<Cart>{
 
-	  	void saveCart(int quantity, double price, Long userID, Long productId, double totalPrice);
-
-	    Cart findCartById(Long id);
 
 	    Cart findCartByProductIdAndUserId(Long product_id, Long user_id);
 	    
-	    void setProductCart(Long cart_id, Long product_id);
+	    void setProductCart(ProductCartMap productCartMap);
 
-	    
-	    void updateQuantityCart(int quantity,Long cart_id);
+	    List<Cart> findAllCartByUserIdAndDeleteFlag(Long userId);
 
+	    @Override
 	    void save(Cart cart);
+
+		@Override
+		Cart findById(Long id);
+
+		@Override
+		void update(Cart t);
+
+		@Override
+		List<Cart> findAll();
 	
 }

@@ -10,7 +10,5 @@ public interface IGeneralService<T> {
 
 	void update(T t);
 
-	void delete(Long id);
-
 	List<T> findAll();
 }

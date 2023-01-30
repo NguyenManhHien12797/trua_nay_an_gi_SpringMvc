@@ -15,8 +15,6 @@ public interface IProductRepository extends IGeneralRepository<Product>{
 	@Override
 	void update(Product product);
 	
-	@Override
-	void delete(Product product);
 	
 	@Override
 	List<Product> findAll();

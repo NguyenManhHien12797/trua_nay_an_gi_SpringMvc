@@ -28,12 +28,6 @@ public class AppUserServiceImpl implements IAppUserSevice {
 	}
 
 	@Override
-	public void delete(Long id) {
-		AppUser appUser = this.findById(id);
-		appUserRepository.delete(appUser);
-	}
-
-	@Override
 	public List<AppUser> findAll() {
 		return appUserRepository.findAll();
 	}
@@ -48,11 +42,6 @@ public class AppUserServiceImpl implements IAppUserSevice {
 		return appUserRepository.findByName(name);
 	}
 
-	@Override
-	public void saveUserToRegister(String address, String avatar, String name, String phone, String status,
-			Long account_id) {
-		appUserRepository.saveUserToRegister(address, avatar, name, phone, status, account_id);
-	}
 
 	@Override
 	public void updateStatus(Long id, String status) {

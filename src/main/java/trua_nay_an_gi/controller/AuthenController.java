@@ -1,5 +1,7 @@
 package trua_nay_an_gi.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import trua_nay_an_gi.model.dto.AccountRegisterDTO;
@@ -20,8 +23,20 @@ public class AuthenController {
 	@Autowired
 	private IAuthenService authenService;
 
+//	@GetMapping(value = { "/login" })
+//	public String showLoginForm() {
+//		return "login";
+//
+//	}
+	
 	@GetMapping(value = { "/login" })
-	public String showLoginForm() {
+	public String showLoginForm1( @RequestParam(required = false) String mess, Model model) {
+		if("chua-dang-nhap".equals(mess)) {
+			model.addAttribute("mess", "Vui lòng đăng nhập để tiếp tục!");
+		}
+		if("timeout".equals(mess)) {
+			model.addAttribute("mess", "Hết thời gian. Vui lòng đăng nhập để tiếp tục!");
+		}
 		return "login";
 
 	}

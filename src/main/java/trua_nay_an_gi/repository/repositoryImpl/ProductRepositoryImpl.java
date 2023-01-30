@@ -41,12 +41,6 @@ public class ProductRepositoryImpl implements IProductRepository{
 		
 	}
 
-	@Override
-	public void delete(Product product) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.remove(product);
-		
-	}
 
 	@Override
 	public List<Product> findAll() {

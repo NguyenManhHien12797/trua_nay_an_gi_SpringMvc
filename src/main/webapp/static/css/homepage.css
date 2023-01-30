@@ -8067,10 +8067,12 @@ hr {
   color: #252525;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  padding: 0 15px;
+  padding: 20px 15px;
   border: 1px solid #ebebeb;
   border-top: 0;
-  border-radius: 0 0 5px 5px
+  border-radius: 0 0 5px 5px;
+  background-color: #ebebeb;
+  
 }
 
 .card-body .rating {

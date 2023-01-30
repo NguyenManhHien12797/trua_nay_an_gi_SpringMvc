@@ -41,11 +41,6 @@ public class MerchantRepository implements IMerchantRepository {
 		session.update(merchant);
 	}
 
-	@Override
-	public void delete(Merchant merchant) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.remove(merchant);
-	}
 
 	@Override
 	public List<Merchant> findAll() {
@@ -66,22 +61,5 @@ public class MerchantRepository implements IMerchantRepository {
 		}
 	}
 
-	@Override
-	public void saveMerchantToRegister(String address, String avatar, String name, String phone, String status,
-			Long account_id) {
-
-		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session
-				.createSQLQuery("Call INSERT_MERCHANT(:address ,:avatar,:name,:phone,:status, :account_id)")
-				.addEntity(Merchant.class);
-		query.setParameter("address", address);
-		query.setParameter("avatar", avatar);
-		query.setParameter("name", name);
-		query.setParameter("phone", phone);
-		query.setParameter("status", status);
-		query.setParameter("account_id", account_id);
-		query.executeUpdate();
-
-	}
 
 }

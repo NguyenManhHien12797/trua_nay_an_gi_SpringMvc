@@ -39,7 +39,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(60 * 60);
+		session.setMaxInactiveInterval(60*60);
 		Account account = accountService.findByName(authentication.getName());
 		session.setAttribute("user", account);
 		if(account.getUser() != null) {

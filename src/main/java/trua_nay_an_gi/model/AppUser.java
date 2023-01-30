@@ -41,6 +41,15 @@ public class AppUser {
 		this.account = account;
 	}
 
+	public AppUser(String address, String avatar, String name, String phone, String status, Account account) {
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.avatar = avatar;
+		this.status = status;
+		this.account = account;
+	}
+
 	public Long getId() {
 		return id;
 	}

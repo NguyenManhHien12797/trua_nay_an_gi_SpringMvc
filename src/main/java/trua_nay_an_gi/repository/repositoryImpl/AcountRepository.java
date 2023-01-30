@@ -36,12 +36,6 @@ public class AcountRepository implements IAccountRepository {
 
 	}
 
-	@Override
-	public void delete(Account account) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.remove(account);
-
-	}
 
 	@Override
 	public List<Account> findAll() {

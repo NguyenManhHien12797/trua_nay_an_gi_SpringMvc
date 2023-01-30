@@ -1,12 +1,15 @@
 package trua_nay_an_gi.model;
 
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -16,36 +19,38 @@ public class Cart {
 	  	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
-	    private int quantity;
-	    private  Double price;
-	    private Double totalPrice;
+//	    private int quantity;
+//	    private  Double price;
+//	    private Double totalPrice;
 
 	    @ManyToOne
 	    @JoinColumn(name = "user_id")
 	    private AppUser user_id;
+	    
 
 	    @ManyToOne
-	    @JoinColumn(name = "product_id")
-	    private Product product_id;
+	    @JoinColumn(name = "merchant_id")
+	    private Merchant merchant;
+	    
+	    @OneToMany
+	    private Set<CartDetail> carts;
+	    
+//	    @ManyToOne
+//	    @JoinColumn(name = "product_id")
+//	    private Product product_id;
+	    
+	    @Column(name = "deleteFlag")
+	    private boolean deleteFlag;
 
 		public Cart() {
 		}
 
-		public Cart(Long id, int quantity, Double price, Double totalPrice, AppUser user, Product product) {
+		public Cart(Long id, AppUser user_id, Merchant merchant, Set<CartDetail> carts, boolean deleteFlag) {
 			this.id = id;
-			this.quantity = quantity;
-			this.price = price;
-			this.totalPrice = totalPrice;
-			this.user_id = user;
-			this.product_id = product;
-		}
-
-		public Cart(int quantity, double price, AppUser user_id, Product product_id, Double totalPrice) {
-			this.quantity = quantity;
-			this.price = price;
-			this.totalPrice = totalPrice;
 			this.user_id = user_id;
-			this.product_id = product_id;
+			this.merchant = merchant;
+			this.carts = carts;
+			this.deleteFlag = deleteFlag;
 		}
 
 		public Long getId() {
@@ -56,45 +61,39 @@ public class Cart {
 			this.id = id;
 		}
 
-		public int getQuantity() {
-			return quantity;
-		}
-
-		public void setQuantity(int quantity) {
-			this.quantity = quantity;
-		}
-
-		public Double getPrice() {
-			return price;
-		}
-
-		public void setPrice(Double price) {
-			this.price = price;
-		}
-
-		public Double getTotalPrice() {
-			return totalPrice;
-		}
-
-		public void setTotalPrice(Double totalPrice) {
-			this.totalPrice = totalPrice;
-		}
-
-		public AppUser getUser() {
+		public AppUser getUser_id() {
 			return user_id;
 		}
 
-		public void setUser(AppUser user) {
-			this.user_id = user;
+		public void setUser_id(AppUser user_id) {
+			this.user_id = user_id;
 		}
 
-		public Product getProduct() {
-			return product_id;
+		public Merchant getMerchant() {
+			return merchant;
 		}
 
-		public void setProduct(Product product) {
-			this.product_id = product;
+		public void setMerchant(Merchant merchant) {
+			this.merchant = merchant;
 		}
 
+		public Set<CartDetail> getCarts() {
+			return carts;
+		}
+
+		public void setCarts(Set<CartDetail> carts) {
+			this.carts = carts;
+		}
+
+		public boolean isDeleteFlag() {
+			return deleteFlag;
+		}
+
+		public void setDeleteFlag(boolean deleteFlag) {
+			this.deleteFlag = deleteFlag;
+		}
+
+		
+		
 	    
 }
