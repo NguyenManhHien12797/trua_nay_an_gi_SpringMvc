@@ -36,7 +36,7 @@ public class CartRepositoryImpl implements ICartRepository{
 	@Override
 	public Cart findCartByProductIdAndUserId(Long product_id, Long user_id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createQuery("Select c FROM Cart c WHERE c.deleteFlag = false and c.product_id ="+product_id+" and "+ " c.user_id ="+ user_id, Cart.class);
+		Query query = session.createQuery("Select c FROM Cart c WHERE c.deleteFlag = false and c.product ="+product_id+" and "+ " c.user_id ="+ user_id, Cart.class);
 		try {
 			return (Cart)query.getSingleResult();
 		} catch (NoResultException e) {
@@ -44,6 +44,7 @@ public class CartRepositoryImpl implements ICartRepository{
 		}
 		
 	}
+	
 
 
 	@Override
@@ -82,6 +83,7 @@ public class CartRepositoryImpl implements ICartRepository{
 	public List<Cart> findAll() {
 		return null;
 	}
+
 
 
 

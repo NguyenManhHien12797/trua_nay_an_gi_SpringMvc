@@ -27,6 +27,7 @@ public class CartServiceImpl implements ICartService{
 	@Autowired
 	private ICartRepository cartRepository;
 	
+	
 	@Autowired
 	private IAppUserRepository userRepository;
 	
@@ -36,7 +37,6 @@ public class CartServiceImpl implements ICartService{
 
 	@Override
 	public List<Cart> findAllCartByUserIdAndDeleteFlag(Long userId) {
-		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
 	
 		return cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
 	}
@@ -53,12 +53,13 @@ public class CartServiceImpl implements ICartService{
 		}
 		
         Cart cart = cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
+        
         int quantity = 1;
         Double totalPrice = 0.0;
         if (cart != null) {
-//        	cart.setQuantity(cart.getQuantity() + 1);
-//        	totalPrice = cart.getQuantity()*cartDTO.getPrice();
-//        	cart.setTotalPrice(totalPrice);
+        	cart.setQuantity(cart.getQuantity() + 1);
+        	totalPrice = cart.getQuantity()*cartDTO.getPrice();
+        	cart.setTotalPrice(totalPrice);
             cartRepository.update(cart);
             return "/merchant-details";
         } else {
@@ -68,7 +69,7 @@ public class CartServiceImpl implements ICartService{
             Product product = productRepository.findById(cartDTO.getProduct_id());
             boolean deleteFlag = false;
 
-//            cartRepository.save(new Cart(quantity, cartDTO.getPrice(), user,product, totalPrice, deleteFlag));
+            cartRepository.save(new Cart(quantity, cartDTO.getPrice(), user,product, totalPrice, deleteFlag));
             Cart cart1 =cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
            
             ProductCartMap productCartMap = new ProductCartMap(cart1, product);
@@ -80,6 +81,9 @@ public class CartServiceImpl implements ICartService{
 		
 	}
 
+	
+
+
 
 	@Override
 	public void deleteCart(Long id) {
@@ -88,6 +92,7 @@ public class CartServiceImpl implements ICartService{
 		cartRepository.update(cart);
 		
 	}
+
 
 
 

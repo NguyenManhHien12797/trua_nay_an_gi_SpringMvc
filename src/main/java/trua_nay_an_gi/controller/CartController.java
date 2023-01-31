@@ -1,7 +1,6 @@
 package trua_nay_an_gi.controller;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,10 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import trua_nay_an_gi.model.Account;
 import trua_nay_an_gi.model.Cart;
 import trua_nay_an_gi.model.Order;
-import trua_nay_an_gi.model.OrderDetail;
 import trua_nay_an_gi.model.dto.CartDTO;
 import trua_nay_an_gi.service.ICartService;
 
@@ -27,6 +24,7 @@ public class CartController {
 	
 	@Autowired
 	private ICartService cartService;
+	
 
 	@PostMapping("/addToCart")
 	private String addToCart(@RequestBody CartDTO cartDTO, HttpSession session) {
@@ -39,23 +37,21 @@ public class CartController {
 	private String showCart(Model model, HttpSession session) {
 		Long userId  = (Long) session.getAttribute("userId");
 		List<Cart> carts = cartService.findAllCartByUserIdAndDeleteFlag(userId);
+		
 		String message = " ";
 		if(carts.isEmpty()) {
 			message = "khong co du lieu";
 		}
 		
 		Double totalPrice = 0.0;
-		Order order = new Order();
-		
 		for(Cart cart: carts) {
-//			totalPrice += cart.getTotalPrice();
+			totalPrice += cart.getTotalPrice();
 		}
-		
-		
+		Order order = new Order();
+	
 		order.setTotalPrice(totalPrice); 
 		LocalDateTime time = LocalDateTime.now();
 		order.setOrderdate(time);
-//		order.setMerchant_id(carts.get(0).getProduct().getMerchant().getId());
 		
 		model.addAttribute("carts", carts);
 		model.addAttribute("message", message);

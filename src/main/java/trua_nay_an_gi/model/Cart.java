@@ -1,6 +1,5 @@
 package trua_nay_an_gi.model;
 
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 
 @Entity
@@ -19,25 +17,18 @@ public class Cart {
 	  	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
-//	    private int quantity;
-//	    private  Double price;
-//	    private Double totalPrice;
+	    private int quantity;
+	    private  Double price;
+	    private Double totalPrice;
 
 	    @ManyToOne
 	    @JoinColumn(name = "user_id")
 	    private AppUser user_id;
 	    
-
+	    
 	    @ManyToOne
-	    @JoinColumn(name = "merchant_id")
-	    private Merchant merchant;
-	    
-	    @OneToMany
-	    private Set<CartDetail> carts;
-	    
-//	    @ManyToOne
-//	    @JoinColumn(name = "product_id")
-//	    private Product product_id;
+	    @JoinColumn(name = "product_id")
+	    private Product product;
 	    
 	    @Column(name = "deleteFlag")
 	    private boolean deleteFlag;
@@ -45,13 +36,30 @@ public class Cart {
 		public Cart() {
 		}
 
-		public Cart(Long id, AppUser user_id, Merchant merchant, Set<CartDetail> carts, boolean deleteFlag) {
+	
+
+		public Cart(Long id, int quantity, Double price, Double totalPrice, AppUser user_id,
+				Product product, boolean deleteFlag) {
 			this.id = id;
+			this.quantity = quantity;
+			this.price = price;
+			this.totalPrice = totalPrice;
 			this.user_id = user_id;
-			this.merchant = merchant;
-			this.carts = carts;
+			this.product = product;
 			this.deleteFlag = deleteFlag;
 		}
+
+		public Cart(int quantity, double price, AppUser user, Product product, Double totalPrice,
+				boolean deleteFlag) {
+			this.quantity = quantity;
+			this.price = price;
+			this.totalPrice = totalPrice;
+			this.user_id = user;
+			this.product = product;
+			this.deleteFlag = deleteFlag;
+		}
+
+
 
 		public Long getId() {
 			return id;
@@ -69,28 +77,60 @@ public class Cart {
 			this.user_id = user_id;
 		}
 
-		public Merchant getMerchant() {
-			return merchant;
-		}
-
-		public void setMerchant(Merchant merchant) {
-			this.merchant = merchant;
-		}
-
-		public Set<CartDetail> getCarts() {
-			return carts;
-		}
-
-		public void setCarts(Set<CartDetail> carts) {
-			this.carts = carts;
-		}
-
 		public boolean isDeleteFlag() {
 			return deleteFlag;
 		}
 
 		public void setDeleteFlag(boolean deleteFlag) {
 			this.deleteFlag = deleteFlag;
+		}
+
+
+
+		public int getQuantity() {
+			return quantity;
+		}
+
+
+
+		public void setQuantity(int quantity) {
+			this.quantity = quantity;
+		}
+
+
+
+		public Double getPrice() {
+			return price;
+		}
+
+
+
+		public void setPrice(Double price) {
+			this.price = price;
+		}
+
+
+
+		public Double getTotalPrice() {
+			return totalPrice;
+		}
+
+
+
+		public void setTotalPrice(Double totalPrice) {
+			this.totalPrice = totalPrice;
+		}
+
+
+
+		public Product getProduct() {
+			return product;
+		}
+
+
+
+		public void setProduct(Product product) {
+			this.product = product;
 		}
 
 		
