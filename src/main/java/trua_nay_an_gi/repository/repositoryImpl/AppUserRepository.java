@@ -10,10 +10,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import trua_nay_an_gi.model.AppUser;
+import trua_nay_an_gi.model.Merchant;
 import trua_nay_an_gi.repository.IAppUserRepository;
 
 @Repository(value = "appUserRepository")
@@ -60,6 +60,14 @@ public class AppUserRepository implements IAppUserRepository {
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+
+	@Override
+	public List<AppUser> findAppUsersByStatus(String status) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("FROM AppUser a Where a.status= :status");
+		query.setParameter("status", status);
+		return query.getResultList();
 	}
 
 

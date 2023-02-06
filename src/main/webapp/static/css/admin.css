@@ -29,3 +29,55 @@
 #sidebarMenu{
 	max-width: 18.66667%;
 }
+
+.btn-orderDetail{
+	padding: 6px;
+    border-radius: 8px;
+    margin-right: 10px
+}
+
+.active{
+	color: white;
+}
+
+.activeli{
+	background-color: #ee4d2d;
+	padding: 2px;
+}
+
+.activeli a{
+	color: white;
+}
+.nav-item{
+	width: 100%;
+}
+
+.shopee-icon{
+	width: 18px;
+	margin: 13px 0px;
+}
+
+.setting-card-row{
+	display: flex;
+}
+
+.title-t{
+	margin: 10px 20px;
+}
+.info{
+	margin-top: 10px;
+}
+
+.width-info{
+	width: 260px;
+}
+
+.account-profile-item label {
+	width: 40px
+}
+
+.account-profile-avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}

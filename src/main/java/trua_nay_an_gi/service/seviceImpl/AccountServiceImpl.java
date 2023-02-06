@@ -16,7 +16,7 @@ import trua_nay_an_gi.service.IAccountService;
 
 @Service
 @Transactional
-public class AccountService implements IAccountService, UserDetailsService {
+public class AccountServiceImpl implements IAccountService, UserDetailsService {
 
 	@Autowired
 	private IAccountRepository accountRepository;

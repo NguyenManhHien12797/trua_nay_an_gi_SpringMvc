@@ -1,7 +1,6 @@
 package trua_nay_an_gi.repository.repositoryImpl;
 
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;

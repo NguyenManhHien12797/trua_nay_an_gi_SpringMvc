@@ -33,7 +33,7 @@
 
 <section class="h-100 gradient-custom">
   <div class="container py-5">
-    <div class="row d-flex justify-content-center my-4">
+    <div class="row d-flex justify-content-center my-4"> 
       <div class="col-md-8">
         <div class="card mb-4">
           <div class="card-header py-3">
@@ -65,7 +65,7 @@
                     <p>Đơn giá: [[${cart.getProduct().getNewPrice()}]] đ</p>
                     <p>Cửa hàng: [[${cart.getProduct().getMerchant().getName()}]]</p>
                     <a  class="btn btn-primary btn-sm me-1 mb-2" 
-                           th:href= @{/user/delete/__${cart.id}__}>
+                           th:href= "@{/user/delete/__${cart.id}__}">
                       <i class="fas fa-trash"></i>
                     </a>
                     <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
@@ -112,32 +112,22 @@
                 <tr>
                   <th scope="col">Ảnh</th>
                   <th scope="col">Người đặt </th>
-                  <th scope="col">Tổng tiền</th>
                   <th scope="col">Thời gian</th>
                   <th scope="col" >Trạng thái</th>
                   <th scope="col" colspan="2" style="text-align: center;">Hành động</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let order of orders">
-                  <td><img src="{{order.appUser.avatar}}" alt="" style="height: 40px;
+                <tr th:each="order,i : ${orders}">
+                  <td><img th:src="@{'/image/'+${order.getAppUser().getAvatar()}}" alt="" style="height: 40px;
         width: 40px;
         border-radius: 50%;"></td>
-                  <td class="merchant-item">{{order.appUser.name}}</td>
-                  <td class="merchant-item">{{order.totalPrice}} đ</td>
-                  <td class="merchant-item">{{order.orderdate}}</td>
-                  <td class="merchant-item" size="50px">{{order.status}} </td>
-                  <div *ngIf="order.status === 'Người bán nhận order'; then thenBlockStatus else elseBlockAStatus"></div>
-                  <ng-template #thenBlockStatus>
-                    <td class="merchant-item" size="50px" style="width: 101px;"><button class="btn-order" (click)="receiveOrderStatus(order, order.id)">Nhận hàng</button></td>
-                    <td class="merchant-item" size="50px" style="width: 80px;"><button class="btn-order" (click)="refuseOrderStatus(order, order.id)">Từ chối</button></td>
-                  </ng-template>
-                  <ng-template #elseBlockAStatus>
-                    <td class="merchant-item"></td>
-                    <td class="merchant-item" size="50px"></td>
-                  </ng-template>
-
-                  <td class="merchant-item" size="50px"><button class="btn-order" (click)="deleteOrder(order.id)"><i class="fa-solid fa-trash"></i></button></td>
+                  <td class="merchant-item">[[${order.getAppUser().getName()}]]</td>
+                  <td class="merchant-item">[[${order.getOrderdate()}]]</td>
+                  <td class="merchant-item" size="100px">[[${order.getStatus()}]] </td>
+                  <td class="merchant-item" size="100px" style="width: 101px;" th:if= "${order.status == 'seller-receive'}"><a class="btn-order" th:href="@{/user/update-order-status/__${order.id}__/buyer-receive}">Nhận hàng</a></td>
+                  <td class="merchant-item" size="100px" style="width: 80px;" th:if= "${order.status == 'seller-receive'}"><a class="btn-order" th:href="@{/user/update-order-status/__${order.id}__/buyer-refuse}">Từ chối</a></td>
+                  <td class="merchant-item" size="100px"><a class="btn-order" th:href= "@{/user/delete-order/__${order.id}__}"><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
                 </tbody>
               </table>
@@ -168,7 +158,7 @@
             <h5 class="mb-0">Hóa đơn</h5>
           </div>
           <div class="card-body">
-			<form th:action="@{/checkout}" th:object="${order}" method="post">
+			<form th:action="@{/user/checkout}" th:object="${order}" method="post">
 
             <div class="table-responsive">
 
@@ -194,14 +184,16 @@
                   </tr>
                   <tr>
                     <th scope="col" colspan="3">Tổng tiền </th>
-                    <th scope="col" th:field = "*{totalPrice}">[[${totalPrice}]] đ</th>
+                    <th scope="col" >[[${totalPrice}]] đ</th>
                
                   </tr>
-                  <tr>
+                   <tr>
                     <th scope="col" ><input type="text" hidden th:field = "*{merchant_id}"></th>
                     <th scope="col" ><input type="text" hidden th:field = "*{totalPrice}"></th>
                     <th scope="col" ><input type="text" hidden th:field = "*{orderdate}"></th>
               
+                  </tr>
+                  <tr>
                   </tr>
                   <tr>
                     <td scope="col">Ghi chú </td>
@@ -209,7 +201,7 @@
                   </tr>
                   <tr>
                     <td scope="col">Địa chỉ</td>
-                    <td scope="col" colspan="2"><input class="note" type="text" placeholder="Địa chỉ giao hàng" ></td>
+                    <td scope="col" colspan="2"><input class="note" type="text" placeholder="Địa chỉ giao hàng" th:field= "*{address}"></td>
                   </tr>
                   </tbody>
                 </table>

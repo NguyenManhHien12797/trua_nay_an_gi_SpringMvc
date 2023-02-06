@@ -1,41 +1,44 @@
 package trua_nay_an_gi.controller;
 
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import trua_nay_an_gi.model.Account;
 import trua_nay_an_gi.model.Order;
-import trua_nay_an_gi.service.ICartService;
 import trua_nay_an_gi.service.IOrderService;
 
 @Controller
 public class OrderController {
 	
+	
 	@Autowired
 	private IOrderService orderService;
-	
-	@Autowired
-	private ICartService cartService;
 
-	@PostMapping("/checkout")
-	public String checkout(@ModelAttribute("order") Order order, HttpSession session) {
-		Account account = (Account) session.getAttribute("user");
-		order.setAppUser(account.getUser());
-		order.setStatus("pending");
-		System.out.println(order.getNote());
-		System.out.println(order.getTotalPrice());
-		System.out.println(order.getMerchant_id());
-		System.out.println(order.getOrderdate());
 	
-		System.out.println(order.getAppUser().getName());
-		orderService.save(order);
+	@PostMapping("/user/checkout")
+	public String checkout(@ModelAttribute("order") Order order, HttpSession session) {
+		orderService.checkout(order, session);
 		
 		return "redirect: /trua_nay_an_gi/user/cart";
+	}
+	
+	@RequestMapping("/user/update-order-status/{order_id}/{status}")
+	public String updateOrderStatus(@PathVariable Long order_id, @PathVariable String status) {
+		
+		return orderService.updateOrderStatus(order_id, status);
+	}
+	
+	@RequestMapping("/user/delete-order/{order_id}")
+	public String deleteOrder(@PathVariable Long order_id) {
+		orderService.deleteOrder(order_id);
+		return  "redirect:/user/cart";
 	}
 	
 }

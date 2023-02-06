@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--  main-fragment (title, otherStaticResources, header,supTitle nav, mainContent, footer)  -->
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layouts/admin-layout :: main-fragment(  
+      th:replace="~{layouts/main-layout :: main-fragment(  
                                                 ~{::title},
                                                 ~{:: #merchant-static-resources},
                                                 ~{:: #merchant-header},
@@ -33,9 +33,29 @@
  		
  		 
  		<!-- nav options -->
-		    <div id="merchant-nav-sup" th:replace="~{/fragments/app-fragments :: ${status}? 'merchant-nav-sup': 'null'}">
+ 		<div th:if="${route == 'order-pending'}">
+ 		  <div id="merchant-nav-sup" th:replace="~{/fragments/app-fragments :: ${route == 'order-pending'}? 'merchant-nav-sup': 'null'}">
+       			 Merchant Nav-Sup
+   		  </div>
+ 		</div>
+ 		
+ 		<div th:if="${route == 'seller-receive'}">
+ 		 	<div id="merchant-nav-sup" th:replace="~{/fragments/app-fragments :: ${route == 'seller-receive'}? 'merchant-nav-sup': 'null'}">
        			 Merchant Nav-Sup
    			</div>
+ 		</div>
+ 		
+ 		<div th:if="${route == 'order-history'}">
+ 		 	<div id="merchant-nav-sup" th:replace="~{/fragments/app-fragments :: ${route == 'order-history'}? 'merchant-nav-sup': 'null'}">
+       			 Merchant Nav-Sup
+   			</div>
+ 		</div>
+		  
+		<div th:if="${route == 'order-detail'}">
+ 		 	<div id="merchant-nav-sup" th:replace="~{/fragments/app-fragments :: ${route == 'order-detail'}? 'merchant-nav-sup': 'null'}">
+       			 Merchant Nav-Sup
+   			</div>
+ 		</div>
    		<!-- nav options -->
 
   		<!-- content -->
@@ -52,5 +72,6 @@
         Footer
     </div>
 </body>
+
 
 </html>

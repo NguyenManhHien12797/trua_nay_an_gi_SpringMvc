@@ -14,17 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import exception.HandleException;
 import trua_nay_an_gi.model.Account;
 import trua_nay_an_gi.model.AccountRoleMap;
 import trua_nay_an_gi.model.AppRoles;
 import trua_nay_an_gi.model.AppUser;
+import trua_nay_an_gi.model.Mail;
 import trua_nay_an_gi.model.Merchant;
 import trua_nay_an_gi.model.Product;
 import trua_nay_an_gi.model.dto.AccountRegisterDTO;
-import trua_nay_an_gi.service.IAccountRoleMapService;
+import trua_nay_an_gi.repository.IAccountRepository;
 import trua_nay_an_gi.service.IAccountService;
 import trua_nay_an_gi.service.IAppUserSevice;
 import trua_nay_an_gi.service.IAuthenService;
+import trua_nay_an_gi.service.IMailService;
 import trua_nay_an_gi.service.IMerchantService;
 import trua_nay_an_gi.service.IProductService;
 import trua_nay_an_gi.service.IRoleService;
@@ -51,6 +54,14 @@ public class AuthenServiceImpl implements IAuthenService {
 	@Autowired
 	private IProductService productService;
 	
+	@Autowired
+	private IAccountRepository accountRepository;
+	
+	@Autowired
+	private IMailService mailService;
+	
+	
+	
 
 	@Override
 	public void register(AccountRegisterDTO accountRegisterDTO, String role) {
@@ -60,7 +71,7 @@ public class AuthenServiceImpl implements IAuthenService {
 		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, accountRegisterDTO.getEmail());
 		accountService.save(account);
 		
-		String avatar = "/static/img/images.jpg";
+		String avatar = "images.jpg";
 		
 		if ("user".equals(role)) {
 			AppRoles appRole = roleService.findById(1L);
@@ -152,6 +163,55 @@ public class AuthenServiceImpl implements IAuthenService {
 		model.addAttribute("merchant", merchant);
 		model.addAttribute("products", products);
 		return "merchant-details";
+	}
+
+	@Override
+	public void createOtp(HttpSession session) {
+		Account account = (Account) session.getAttribute("user");
+		double randomDouble = Math.random();
+	    randomDouble = randomDouble * 1000000+1 ;
+	    int OTP= (int) randomDouble;
+	    account.setOtp(String.valueOf(OTP));
+	    
+	    accountRepository.update(account);
+        Mail mail= new Mail();
+        mail.setMailTo(account.getEmail());
+        mail.setMailFrom("nguyenhuuquyet07092001@gmail.com");
+        mail.setMailSubject("Mã xác nhận OTP");
+        mail.setMailContent("Mã OTP của bạn là:"+OTP+"\nVui lòng không chia sẻ với ai\nMời nhấp link bên dưới để đến trang xác nhận OTP\nhttp://localhost:4200/forgotpass/otp");
+        mailService.sendEmail(mail);
+		
+	}
+
+	@Override
+	public String checkOtp(Long account_id,String otp) {
+		Account account = accountRepository.findById(account_id);
+		if(otp.equals(account.getOtp())) {
+			return "ok";
+		}
+		throw new HandleException(500,"Sai OTP");
+	}
+
+	@Override
+	public void changePass(String pass, Long account_id) {
+		Account account = accountRepository.findById(account_id);
+		
+		account.setPassword(passwordEncoder.encode(pass));
+		account.setOtp(null);
+		accountRepository.update(account);
+	}
+
+	@Override
+	public String showLoginForm(String mess) {
+		String message= " ";
+		if("chua-dang-nhap".equals(mess)) {
+			message = "Vui lòng đăng nhập để tiếp tục!";
+		}
+		if("timeout".equals(mess)) {
+			message = "Hết thời gian. Vui lòng đăng nhập để tiếp tục!";
+		}
+		
+		return message;
 	}
 
 }

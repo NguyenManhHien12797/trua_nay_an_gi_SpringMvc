@@ -10,9 +10,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
+import trua_nay_an_gi.model.Cart;
 import trua_nay_an_gi.model.Merchant;
 import trua_nay_an_gi.repository.IMerchantRepository;
 
@@ -59,6 +59,14 @@ public class MerchantRepository implements IMerchantRepository {
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+
+	@Override
+	public List<Merchant> findMerchantsByStatus(String status) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery("FROM Merchant m Where m.status= :status");
+		query.setParameter("status", status);
+		return query.getResultList();
 	}
 
 

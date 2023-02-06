@@ -24,8 +24,8 @@
 
   <div class="container">
     <div class="detail-restaurant-img"><img
-      th:src="@{${merchant.avatar}}"
-      alt="Dồi Sụn Nướng &amp; Ăn Vặt - Shop Online" class=""></div>
+      th:src="@{'/image/'+${merchant.avatar}}"
+      alt="" class=""></div>
     <div class="detail-restaurant-info">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -223,6 +223,10 @@
 	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
 </script>
 
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+ 
 <script th:inline="javascript">
 
 
@@ -231,18 +235,13 @@ function addToCart(price,user_id,product_id) {
 		window.location="https://localhost:8443/trua_nay_an_gi/login?mess=chua-dang-nhap";
 	}
 
-/*     let producer = $('#producer').val();
-    let model = $('#model').val();
-    let price = $('#price').val(); */
-    console.log(price);
-    console.log(user_id);
-    console.log(product_id);
     let CartDTO = {
     	price: price,
     	user_id: user_id,
     	product_id: product_id
     		
     };
+   
 	
     $.ajax({
     	headers: {
@@ -252,14 +251,32 @@ function addToCart(price,user_id,product_id) {
         type: "POST",
         data: JSON.stringify(CartDTO),
         //tên API
-        url:`/trua_nay_an_gi/addToCart`,
+        url:`/trua_nay_an_gi/user/addToCart`,
         //xử lý khi thành công
         success: function (data) {
       	console.log("suss");  
-      	  
+    	swal("Đã thêm vào giỏ hàng!"," ","success");
+        },
+        error: function (data){
+        	console.log("err"); 
+		
+		    
+		    swal({
+		    	  title: "Vui lòng đặt hàng của cửa hàng trước rồi tiếp tục!",
+		    	  text: "Đi đến giỏ hàng -->",
+		    	  icon: "warning",
+		    	  buttons: true,
+		    	  dangerMode: true,
+		    	})
+		    	.then((ok) => {
+		    	  if (ok) {
+		    		  window.location="https://localhost:8443/trua_nay_an_gi/user/cart"; 
+		    	  } 
+		    	});
+        	
         }
 
-      });
+      })
 }
 
 

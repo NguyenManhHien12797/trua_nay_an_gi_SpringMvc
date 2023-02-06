@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import trua_nay_an_gi.model.Cart;
-import trua_nay_an_gi.model.Product;
 import trua_nay_an_gi.model.ProductCartMap;
 import trua_nay_an_gi.repository.ICartRepository;
 

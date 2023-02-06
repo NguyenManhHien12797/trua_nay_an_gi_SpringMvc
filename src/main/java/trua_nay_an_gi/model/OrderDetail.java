@@ -1,5 +1,6 @@
 package trua_nay_an_gi.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,17 +23,22 @@ public class OrderDetail {
 	    @ManyToOne
 	    @JoinColumn(name="order_id")
 	    private Order order;
-
+	    
 	    private int quantity;
+	    
+	    @Column(name = "deleteFlag")
+	    private boolean deleteFlag;
 
 		public OrderDetail() {
 		}
 
-		public OrderDetail(Long id, Product product, Order order, int quantity) {
+		public OrderDetail(Long id, Product product, Order order, int quantity, boolean deleteFlag) {
+			super();
 			this.id = id;
 			this.product = product;
 			this.order = order;
 			this.quantity = quantity;
+			this.deleteFlag = deleteFlag;
 		}
 
 		public Long getId() {
@@ -51,14 +57,6 @@ public class OrderDetail {
 			this.product = product;
 		}
 
-		public Order getOrder() {
-			return order;
-		}
-
-		public void setOrder(Order order) {
-			this.order = order;
-		}
-
 		public int getQuantity() {
 			return quantity;
 		}
@@ -66,6 +64,23 @@ public class OrderDetail {
 		public void setQuantity(int quantity) {
 			this.quantity = quantity;
 		}
+
+		public boolean isDeleteFlag() {
+			return deleteFlag;
+		}
+
+		public void setDeleteFlag(boolean deleteFlag) {
+			this.deleteFlag = deleteFlag;
+		}
+
+		public Order getOrder() {
+			return order;
+		}
+
+		public void setOrder(Order order) {
+			this.order = order;
+		}
 	    
+		
 	    
 }

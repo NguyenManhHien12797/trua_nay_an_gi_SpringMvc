@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import trua_nay_an_gi.model.OrderDetail;
-import trua_nay_an_gi.repository.IOderDetailRepository;
+import trua_nay_an_gi.repository.IOrderDetailRepository;
 
 @Repository
 @Transactional(rollbackFor = Exception.class)
-public class OderDetailRepositoryImpl implements IOderDetailRepository{
+public class OrderDetailRepositoryImpl implements IOrderDetailRepository{
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -44,5 +44,23 @@ public class OderDetailRepositoryImpl implements IOderDetailRepository{
 		List<OrderDetail> orderDetails = session.createQuery("FROM OrderDetail", OrderDetail.class).getResultList();
 		return orderDetails;
 	}
+
+//	@Override
+//	public List<OrderDetail> findOrderDetailsByMerchantId(Long merchant_id, String status) {
+//		Session session = this.sessionFactory.getCurrentSession();
+//		Query query = session.createQuery("FROM OrderDetail o Where o.deleteFlag = false and o.merchant_id="+ merchant_id + " and o.status = :status");
+//		query.setParameter("status", status);
+//		List<OrderDetail> orderDetails = query.getResultList();
+//		return orderDetails;
+//	}
+//
+	@Override
+	public List<OrderDetail> findOrderDetailsByOrderId(Long order_id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<OrderDetail> orderDetails = session.createQuery("FROM OrderDetail o Where o.deleteFlag = false and o.order="+ order_id, OrderDetail.class).getResultList();
+		return orderDetails;
+	}
+
+
 
 }

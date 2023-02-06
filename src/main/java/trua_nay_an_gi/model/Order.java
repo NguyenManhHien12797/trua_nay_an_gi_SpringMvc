@@ -2,6 +2,7 @@ package trua_nay_an_gi.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,23 +29,31 @@ public class Order {
 	    private LocalDateTime orderdate;
 
 	    private String status;
+	    
 	    private Long merchant_id;
 	    private double totalPrice;
+	    private String address;
+	    
+	    @Column(name = "deleteFlag")
+	    private boolean deleteFlag;
 	    
 	    
 		public Order() {
 		}
 
 
-		public Order(Long id, AppUser appUser, String note, LocalDateTime orderdate, String status, Long merchant_id,
-				double totalPrice) {
+		public Order(Long id, AppUser user_id, String note, LocalDateTime orderdate, String status, Long merchant_id,
+				double totalPrice, String address, boolean deleteFlag) {
+			super();
 			this.id = id;
-			this.user_id = appUser;
+			this.user_id = user_id;
 			this.note = note;
 			this.orderdate = orderdate;
 			this.status = status;
 			this.merchant_id = merchant_id;
 			this.totalPrice = totalPrice;
+			this.address = address;
+			this.deleteFlag = deleteFlag;
 		}
 
 
@@ -96,8 +105,7 @@ public class Order {
 		public void setStatus(String status) {
 			this.status = status;
 		}
-
-
+		
 		public Long getMerchant_id() {
 			return merchant_id;
 		}
@@ -115,6 +123,38 @@ public class Order {
 
 		public void setTotalPrice(double totalPrice) {
 			this.totalPrice = totalPrice;
+		}
+
+
+		public AppUser getUser_id() {
+			return user_id;
+		}
+
+
+		public void setUser_id(AppUser user_id) {
+			this.user_id = user_id;
+		}
+
+
+		public String getAddress() {
+			return address;
+		}
+
+
+
+		public void setAddress(String address) {
+			this.address = address;
+		}
+
+
+
+		public boolean isDeleteFlag() {
+			return deleteFlag;
+		}
+
+
+		public void setDeleteFlag(boolean deleteFlag) {
+			this.deleteFlag = deleteFlag;
 		}
 	    
 		

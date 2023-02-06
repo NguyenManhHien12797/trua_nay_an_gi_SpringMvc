@@ -15,8 +15,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <springframework.version>5.3.20</springframework.version>
     <springframework.security.version>5.6.1</springframework.security.version>
     <hibernate.version>5.6.8.Final</hibernate.version>
@@ -42,6 +42,12 @@
     <artifactId>spring-context</artifactId>
     <version>${springframework.version}</version>
     </dependency>
+    
+         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
     
     <dependency>
     <groupId>org.springframework</groupId>
@@ -169,6 +175,11 @@
     <version>1.4</version>
 </dependency>
 
+<dependency>
+  <groupId>com.sun.mail</groupId>
+  <artifactId>javax.mail</artifactId>
+  <version>1.6.2</version>
+</dependency>
 
   </dependencies>
 

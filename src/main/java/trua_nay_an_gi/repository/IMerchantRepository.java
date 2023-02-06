@@ -18,6 +18,8 @@ public interface IMerchantRepository extends IGeneralRepository<Merchant> {
 
 	@Override
 	List<Merchant> findAll();
+	
+	List<Merchant> findMerchantsByStatus(String status);
 
 	Merchant findByName(String name);
 

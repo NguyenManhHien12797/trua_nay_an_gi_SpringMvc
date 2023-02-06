@@ -2,7 +2,11 @@ package trua_nay_an_gi.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import trua_nay_an_gi.model.Account;
 import trua_nay_an_gi.model.Merchant;
+import trua_nay_an_gi.model.MerchantForm;
 
 public interface IMerchantService extends IGeneralService<Merchant> {
 
@@ -23,5 +27,7 @@ public interface IMerchantService extends IGeneralService<Merchant> {
 	void updateStatus(Long id, String status, String role);
 
 	List<?> findMerchantsOrUsersByStatus(String status, String role);
+	
+	void updateMerchantInfo(MerchantForm merchantForm, Account account, HttpSession session);
 
 }

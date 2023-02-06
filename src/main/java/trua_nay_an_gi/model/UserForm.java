@@ -1,36 +1,23 @@
 package trua_nay_an_gi.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+public class UserForm {
 
-@Entity
-//@Table(name="appuser")
-public class AppUser {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String address;
 	private String phone;
-	private String avatar;
+	private MultipartFile avatar;
 	private String status;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "account_id",nullable=true)
-	@JsonBackReference
+	
 	private Account account;
 
-	public AppUser() {
+	public UserForm() {
 	}
 
-	public AppUser(Long id, String name, String address, String phone, String avatar, String status, Account account) {
+	public UserForm(Long id, String name, String address, String phone, MultipartFile avatar, String status,
+			Account account) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
@@ -40,13 +27,11 @@ public class AppUser {
 		this.account = account;
 	}
 
-	public AppUser(String address, String avatar, String name, String phone, String status, Account account) {
+	public UserForm(Long id, String name, String phone, String address) {
+		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.phone = phone;
-		this.avatar = avatar;
-		this.status = status;
-		this.account = account;
 	}
 
 	public Long getId() {
@@ -81,11 +66,11 @@ public class AppUser {
 		this.phone = phone;
 	}
 
-	public String getAvatar() {
+	public MultipartFile getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(String avatar) {
+	public void setAvatar(MultipartFile avatar) {
 		this.avatar = avatar;
 	}
 
@@ -104,5 +89,7 @@ public class AppUser {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-
+	
+	
+	
 }

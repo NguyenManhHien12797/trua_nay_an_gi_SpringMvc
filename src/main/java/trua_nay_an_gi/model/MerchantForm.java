@@ -1,40 +1,25 @@
 package trua_nay_an_gi.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+public class MerchantForm {
 
-@Entity
-//@Table(name="merchant")
-public class Merchant {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String phone;
 	private String address;
 
-	private String avatar;
+	private MultipartFile avatar;
 	private String openTime;
 	private String closeTime;
 
 	private String status;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "account_id")
-	@JsonBackReference
 	private Account account;
-
-	public Merchant() {
+	
+	public MerchantForm() {
 	}
 
-	public Merchant(Long id, String name, String phone, String address, String avatar, String openTime,
+	public MerchantForm(Long id, String name, String phone, String address, MultipartFile avatar, String openTime,
 			String closeTime, String status, Account account) {
 		this.id = id;
 		this.name = name;
@@ -47,13 +32,14 @@ public class Merchant {
 		this.account = account;
 	}
 
-	public Merchant(String address, String avatar, String name, String phone, String status, Account account) {
+	public MerchantForm(Long id,String name, String address, String phone, String openTime,
+			String closeTime) {
+		this.id = id;
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
-		this.avatar = avatar;
-		this.status = status;
-		this.account = account;
+		this.openTime = openTime;
+		this.closeTime = closeTime;
 	}
 
 	public Long getId() {
@@ -88,11 +74,11 @@ public class Merchant {
 		this.address = address;
 	}
 
-	public String getAvatar() {
+	public MultipartFile getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(String avatar) {
+	public void setAvatar(MultipartFile avatar) {
 		this.avatar = avatar;
 	}
 
@@ -129,5 +115,5 @@ public class Merchant {
 	}
 	
 	
-
+	
 }
