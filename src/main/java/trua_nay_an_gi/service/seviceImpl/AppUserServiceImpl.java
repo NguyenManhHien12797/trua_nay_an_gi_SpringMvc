@@ -70,9 +70,10 @@ public class AppUserServiceImpl implements IAppUserSevice {
 	@Override
 	public void updateUserInfo(UserForm userForm, Account account, HttpSession session) {
 		Account account1 = (Account) session.getAttribute("user");
+		
 		account1.setEmail(account.getEmail());
 		accountRepository.update(account1);
-		
+		AppUser user = appUserRepository.findById(userForm.getId());
 		
 		MultipartFile multipartFile = userForm.getAvatar();
 		String fileName =multipartFile.getOriginalFilename();
@@ -80,17 +81,19 @@ public class AppUserServiceImpl implements IAppUserSevice {
 			FileCopyUtils.copy(userForm.getAvatar().getBytes(), new File(fileUpload + fileName));
 		} catch (IOException e) {
 //			e.printStackTrace();
-			System.out.print("Chưa chọn file ảnh"+e.getMessage());
-			fileName= account1.getUser().getAvatar();
+			System.out.println("Chưa chọn file ảnh"+e.getMessage());
+			fileName= user.getAvatar();
 		}
-	
-		AppUser user = appUserRepository.findById(userForm.getId());
+		
+		
 		user.setName(userForm.getName());
 		user.setPhone(userForm.getPhone());
 		user.setAddress(userForm.getAddress());
 		user.setAvatar(fileName);
+		user.setAccount(account1);
 		appUserRepository.update(user);
 		
+		session.setAttribute("user", account1);
 		session.setAttribute("avatar", user.getAvatar());
 		session.setAttribute("username", user.getName());
 		

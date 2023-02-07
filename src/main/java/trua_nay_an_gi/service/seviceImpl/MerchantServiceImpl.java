@@ -123,7 +123,7 @@ public class MerchantServiceImpl implements IMerchantService {
 		account1.setEmail(account.getEmail());
 		accountRepository.update(account1);
 		
-		
+		Merchant merchant = merchantRepository.findById(merchantForm.getId());
 		MultipartFile multipartFile = merchantForm.getAvatar();
 		String fileName =multipartFile.getOriginalFilename();
 		try {
@@ -131,10 +131,10 @@ public class MerchantServiceImpl implements IMerchantService {
 		} catch (IOException e) {
 //			e.printStackTrace();
 			System.out.print("Chưa chọn file ảnh"+e.getMessage());
-			fileName= account1.getMerchant().getAvatar();
+			fileName= merchant.getAvatar();
 		}
 	
-		Merchant merchant = merchantRepository.findById(merchantForm.getId());
+		
 		merchant.setName(merchantForm.getName());
 		merchant.setPhone(merchantForm.getPhone());
 		merchant.setOpenTime(merchantForm.getOpenTime());

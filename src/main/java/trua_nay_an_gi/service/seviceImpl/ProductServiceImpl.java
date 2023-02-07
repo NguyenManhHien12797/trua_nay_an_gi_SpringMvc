@@ -103,17 +103,18 @@ public class ProductServiceImpl implements IProductService{
 
 	@Override
 	public void updateProduct(Long id, ProductForm productForm) {
-	
+		Product product = productRepository.findById(id);
 		MultipartFile multipartFile = productForm.getImage();
 		String fileName =multipartFile.getOriginalFilename();
 //		String fileName = "/static/img/"+multipartFile.getOriginalFilename();
 		try {
 			FileCopyUtils.copy(productForm.getImage().getBytes(), new File(fileUpload + fileName));
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			fileName = product.getImage();
+			
 		}
 		
-		Product product = productRepository.findById(id);
 		product.setId(product.getId());
 		product.setName(productForm.getName());
 		product.setShortDescription(productForm.getShortDescription());

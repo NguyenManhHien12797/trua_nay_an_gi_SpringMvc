@@ -34,7 +34,7 @@
 
 <section class="h-100 gradient-custom">
 
-   <div th:replace="~{/fragments/app-fragments :: ${route}}">
+   <div th:replace="~{/fragments/app-fragments :: (${route} == 'user-info'? 'user-info' : (${route} == 'user-update-info'? 'user-update-info': 'null'))}">
         User Info
     </div>
 

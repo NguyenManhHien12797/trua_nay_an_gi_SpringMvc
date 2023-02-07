@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import trua_nay_an_gi.model.Account;
 import trua_nay_an_gi.model.AppUser;
+import trua_nay_an_gi.model.MerchantForm;
 import trua_nay_an_gi.model.UserForm;
 import trua_nay_an_gi.model.dto.AccountRegisterDTO;
 import trua_nay_an_gi.service.IAppUserSevice;
@@ -55,8 +56,9 @@ public class AuthenController {
 	@GetMapping(value = { "/home/{route}"})
 	public String userInfo(@PathVariable String route,HttpSession session, Model model) {
 		Account account = (Account) session.getAttribute("user");
+	
 		if(account == null) {
-			return "redirec:/login?mess=chua-dang-nhap";
+			return "redirect:/login?mess=chua-dang-nhap";
 		}
 		AppUser user = userSevice.findById( account.getUser().getId());
 		UserForm userForm = new UserForm(user.getId(), user.getName(), user.getPhone(),user.getAddress());
@@ -67,6 +69,15 @@ public class AuthenController {
 		model.addAttribute("role", "user");
 		return "user-info";
 	}
+	
+	
+	@PostMapping(value= {"/user/user-info"})
+	private String updateAccountMerchant(@ModelAttribute("userForm") UserForm userForm, @ModelAttribute("account") Account account, HttpSession session) {
+
+		userSevice.updateUserInfo(userForm, account, session);
+		return "redirect:/home/user-info";
+	}
+	
 
 	@GetMapping("/register/{role}")
 	public ModelAndView showFormRegister(@PathVariable String role) {
