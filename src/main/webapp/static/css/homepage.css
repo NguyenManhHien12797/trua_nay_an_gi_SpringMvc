@@ -345,6 +345,10 @@ template {
   min-width: 0
 }
 
+.user-acc-wr-merchant{
+	padding-right: 110px;
+}
+
 .col {
   -ms-flex-preferred-size: 0;
   flex-basis: 0;
@@ -23401,6 +23405,7 @@ input.required-data, select.required-data {
   background-color: #f7f7f7;
   width: 200px;
   padding: 10px 0 20px 20px;
+  box-shadow: 2px 2px 5px #4a4a4a;
   border-radius: 5px;
   display: none;
 }

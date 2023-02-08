@@ -1,4 +1,6 @@
-package exception;
+package trua_nay_an_gi.exception;
+
+
 
 
 import org.springframework.http.ResponseEntity;

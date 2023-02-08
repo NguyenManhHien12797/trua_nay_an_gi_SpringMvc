@@ -4,6 +4,7 @@
 <meta charset="ISO-8859-1">
 <title>Register</title>
 
+ <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"
       integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
@@ -56,116 +57,61 @@
         <!--        <p class="text">Hoặc đăng nhập bằng tài khoản của bạn</p>-->
         <form th:action="@{${register}}" th:object="${accountRegisterDTO}" method="post">
           <div class="form-login-input">
+          
+          	<div style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></div>
             <div class="field-group">
               <div class="input-group"><i class="far fa-user"></i><input type="text"  th:field="*{userName}"
                                                                          placeholder="Tên đăng ký" value=""
                                                                          formControlName="userName"  >
                                                                          
                                                                          
-             <!--    <div *ngIf="!userName?.valid && (userName?.dirty || userName?.touched)">
-                  <div [hidden]="!userName?.errors?.['required']">
-                    <p style="color: red"> Tên không được trống </p>
-                  </div>
-                  <div [hidden]="!userName?.errors?.['minlength']">
-                    <p style="color: red"> Tên phải nhiều hơn 3 ký tự </p>
-                  </div> -->
-                  
                   
                 </div>
               </div>
+              
+              <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
              <div class="field-group">
               <div class="input-group"><i class="fas fa-lock"></i><input type="password" th:field="*{password}" placeholder="Mật khẩu"
                                                                          value="" formControlName="password">
                                                                          
-                                                                         
-         <!--        <div *ngIf="!password?.valid && (password?.dirty || password?.touched)">
-                  <div [hidden]="!password?.errors?.['required']">
-                    <p style="color: red"> Mật khẩu không được trống </p>
-                  </div>
-                  <div [hidden]="!password?.errors?.['minlength']">
-                    <p style="color: red"> Mật khẩu phải nhiều hơn 3 ký tự </p>
-                  </div>
-                </div>
-                 -->
                 
               </div>
 
 		     </div>
+				<div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 				
 				<div class="field-group">
               <div class="input-group"><i class="far fa-envelope"></i><input type="text" th:field="*{email}" placeholder="Nhập email"
                                                                              value="" formControlName="email">
-                                                                             
-                                                                             
-            <!--     <div *ngIf="!email?.valid && (email?.dirty || email?.touched)">
-                  <div [hidden]="!email?.errors?.['required']">
-                    <p style="color: red"> Email không được trống </p>
-                  </div>
-                  <div [hidden]="!email?.errors?.['minlength']">
-                    <p style="color: red"> Email phải nhiều hơn 3 ký tự </p>
-                  </div>
-                  <div [hidden]="!email?.errors?.['pattern']">
-                    <p style="color: red"> Email phải đúng định dạng </p>
-                  </div>
-
-                </div> -->
-                
-                
+             
               </div>
              
              	</div>
+             	
+            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             <div class="field-group">
               <div class="input-group"><i class="far fa-user"></i><input type="text" th:field="*{name}"
                                                                          placeholder="Nhập tên chủ tài khoản"
                                                                          value="" formControlName="name">
-                                                                         
-                                                                         
-           <!--      <div *ngIf="!name?.valid && (name?.dirty || name?.touched)">
-                  <div [hidden]="!name?.errors?.['required']">
-                    <p style="color: red"> Tên không được trống </p>
-                  </div>
-                  <div [hidden]="!name?.errors?.['minlength']">
-                    <p style="color: red"> Tên phải nhiều hơn 3 ký tự </p>
-                  </div>
-                </div> -->
-                
+             
               </div>
             </div>
+            
+             <div style="color:red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
             <div class="field-group">
               <div class="input-group"><i class="fas fa-phone"></i><input type="text" th:field="*{phone}" placeholder="Nhập số điện thoại"
                                                                           value="" formControlName="phone">
                                                                           
-          <!--                                                                 
-                <div *ngIf="!phone?.valid && (phone?.dirty || phone?.touched)">
-                  <div [hidden]="!phone?.errors?.['required']">
-                    <p style="color: red"> Số điện thoại không được trống </p>
-                  </div>
-                  <div [hidden]="!phone?.errors?.['minlength']">
-                    <p style="color: red"> Số điện thoại phải nhiều hơn 9 ký tự </p>
-                  </div><div [hidden]="!phone?.errors?.['pattern']">
-                    <p style="color: red"> Số điện thoại không đúng định dạng </p>
-                  </div>
-                </div> -->
                 
                 
               </div>
             </div>  
              
+           <div style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
             <div class="field-group"> 
               <div class="input-group"><i class="fas fa-home"></i><input type="text" th:field="*{address}" placeholder="Nhập địa chỉ"
                                                                          value="" formControlName="address">
                                                                          
-                                                                         
-         <!--        <div *ngIf="!address?.valid && (address?.dirty || address?.touched)">
-                  <div [hidden]="!address?.errors?.['required']">
-                    <p style="color: red"> Địa chỉ không được trống </p>
-                  </div>
-                  <div [hidden]="!address?.errors?.['minlength']">
-                    <p style="color: red"> Địa chỉ phải nhiều hơn 3 ký tự </p>
-                  </div>
-                </div> -->
-                
-                
               </div>
           	</div>
             </div>

@@ -1188,7 +1188,7 @@
               cưng</a></div>
 
 
-            <div class="user-acc col-auto user-acc-wr">
+            <div class="user-acc col-auto user-acc-wr" th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
               <div th:if="${message == 'chua dang nhap'}">
                 <a th:href="@{/login}">
                   <button type="button" class="btn btn-none-bg btn-login">
@@ -1373,7 +1373,7 @@
 							<span th:text ="${navTitle}">Kênh Admin</span>
 						</div>
 
-						<div class="user-acc col-auto user-acc-wr">
+						<div class="user-acc col-auto user-acc-wr" th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
 							<div th:if="${message == 'chua dang nhap'}">
 								<a href="/login">
 									<button type="button" class="btn btn-none-bg btn-login">

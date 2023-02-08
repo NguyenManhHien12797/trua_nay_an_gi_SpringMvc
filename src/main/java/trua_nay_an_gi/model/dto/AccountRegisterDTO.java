@@ -1,12 +1,28 @@
 package trua_nay_an_gi.model.dto;
 
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import trua_nay_an_gi.model.validator.Phone;
+import trua_nay_an_gi.model.validator.UserNameUnique;
+
 public class AccountRegisterDTO {
 	private Long id;
+	@NotEmpty(message = "Tên người dùng không được để trống")
+	@UserNameUnique
 	private String userName;
+	@NotEmpty(message = "Mật khẩu không được để trống")
 	private String password;
+	@NotEmpty(message = "Email không được để trống")
+	@Email(message = "Email phải có @")
 	private String email;
+	@NotEmpty(message = "Tên chủ tài khoản không được để trống")
 	private String name;
+	@NotEmpty(message = "Số điện thoại không được để trống")
+	@Phone
 	private String phone;
+	@NotEmpty(message = "Địa chỉ không được để trống")
 	private String address;
 
 	public AccountRegisterDTO() {
