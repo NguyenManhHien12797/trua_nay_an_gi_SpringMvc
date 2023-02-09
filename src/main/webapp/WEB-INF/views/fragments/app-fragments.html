@@ -12,7 +12,7 @@
 		class="position-sticky pt-3 sidebar-sticky">
 		<ul class="nav flex-column" style="list-style: none; padding-left: 0;">
 			<li class="nav-item " th:class="${role == 'merchant-list'} ? activeli : nav-item "><a class="nav-link nav-item-hover"
-				th:href="@{/admin/merchant-list/active}"> <svg
+				th:href="@{/admin/merchant-list/ACTIVE}"> <svg
 						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 						fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
                 <path
@@ -21,7 +21,7 @@
 					Quản lý nguời bán
 			</a></li>
 			<li class="nav-item " th:class="${role == 'user-list'} ? activeli : nav-item "><a class="nav-link nav-item-hover"
-				th:href="@{/admin/user-list/active}"> <svg
+				th:href="@{/admin/user-list/ACTIVE}"> <svg
 						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 						fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path
@@ -38,9 +38,9 @@
 
 	<div th:fragment="admin-nav-sup">
 		<ul class="nav nav-pills mb-3 shadow-sm">
-			<li style="display: inline-block" th:class="${status == 'pending'} ? activeli : ' ' "><a
+			<li style="display: inline-block" th:class="${status == 'PENDING'} ? activeli : ' ' "><a
 				class="nav-link link fw-bold"
-				th:href="@{/admin/__${role}__/pending}"> <svg
+				th:href="@{/admin/__${role}__/PENDING}"> <svg
 						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 						fill="currentColor" class="bi bi-bookmark-plus-fill"
 						viewBox="0 0 16 16">
@@ -48,18 +48,18 @@
 							d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z" />
       </svg> Chờ duyệt
 			</a></li>
-			<li style="display: inline-block" th:class="${status == 'active'} ? activeli : ' ' "><a
+			<li style="display: inline-block" th:class="${status == 'ACTIVE'} ? activeli : ' ' "><a
 				class="nav-link link fw-bold"
-				th:href="@{'/admin/'+${role}+'/active'}"> <svg
+				th:href="@{'/admin/'+${role}+'/ACTIVE'}"> <svg
 						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 						fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
        			 <path
 							d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
     			</svg> Đang hoạt động
 			</a></li>
-			<li style="display: inline-block" th:class="${status == 'block'} ? activeli : ' ' "><a
+			<li style="display: inline-block" th:class="${status == 'BLOCK'} ? activeli : ' ' "><a
 				class="nav-link link fw-bold"
-				th:href="@{'/admin/'+${role}+'/block'}"> <svg
+				th:href="@{'/admin/'+${role}+'/BLOCK'}"> <svg
 						xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 						fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
         <path
@@ -72,7 +72,7 @@
 
 	</div>
 
-	<div class="table-responsive" th:fragment="pending">
+	<div class="table-responsive" th:fragment="PENDING">
 		<table class="table table-striped table-sm">
 			<thead>
 				<tr>
@@ -91,11 +91,11 @@
 					<td class="merchant-item" th:text="${user.phone}"></td>
 					<td class="merchant-item" th:text="${user.address}"></td>
 					<td class="action-icon"><button class="btn-action-icon"
-							th:onclick="updateStatus([[${user.id}]],[[${role}]],'active',[[${stt}]])">
+							th:onclick="updateStatus([[${user.id}]],[[${role}]],'ACTIVE',[[${stt}]])">
 							<i class="fa-solid fa-check" style="color: green"></i>
 						</button></td>
 					<td class="action-icon"><button class="btn-action-icon"
-							th:onclick="updateStatus([[${user.id}]],[[${role}]],'refuse',[[${stt}]])">
+							th:onclick="updateStatus([[${user.id}]],[[${role}]],'REFUSE',[[${stt}]])">
 							<i class="fa-solid fa-x" style="color: red"></i>
 						</button></td>
 				</tr>
@@ -104,7 +104,7 @@
 		</table>
 	</div>
 
-	<div class="table-responsive" th:fragment="active">
+	<div class="table-responsive" th:fragment="ACTIVE">
 		<table class="table table-striped table-sm">
 			<thead>
 				<tr>
@@ -123,7 +123,7 @@
 					<td class="merchant-item" th:text="${user.phone}"></td>
 					<td class="merchant-item" th:text="${user.address}"></td>
 					<td class="action-icon"><button class="btn-action-icon"
-							th:onclick="updateStatus([[${user.id}]],[[${role}]],'block',[[${stt}]])">
+							th:onclick="updateStatus([[${user.id}]],[[${role}]],'BLOCK',[[${stt}]])">
 							<i class="fa-regular fas fa-lock" style="color: #f15050"></i>
 						</button></td>
 				</tr>
@@ -132,7 +132,7 @@
 		</table>
 	</div>
 
-	<div class="table-responsive" th:fragment="block">
+	<div class="table-responsive" th:fragment="BLOCK">
 		<table class="table table-striped table-sm">
 			<thead>
 				<tr>
@@ -152,7 +152,7 @@
 					<td class="merchant-item" th:text="${user.phone}"></td>
 					<td class="merchant-item" th:text="${user.address}"></td>
 					<td class="action-icon"><button class="btn-action-icon"
-							th:onclick="updateStatus([[${user.id}]],[[${role}]],'active',[[${stt}]])">
+							th:onclick="updateStatus([[${user.id}]],[[${role}]],'ACTIVE',[[${stt}]])">
 							<i class="fa-regular fas fa-unlock" style="color: #3bbd3b"></i>
 						</button></td>
 				</tr>
@@ -1219,7 +1219,7 @@
                     </div>
 
                     <div th:if="${role == 'admin'}">
-                      <a class="user-acc-admin" th:href="@{/admin}"> <i class="fa-solid fa-lock"></i> Kênh admin</a>
+                      <a class="user-acc-admin" th:href="@{/admin/merchant-list/active}"> <i class="fa-solid fa-lock"></i> Kênh admin</a>
                     </div>
 
                     <hr>
@@ -1404,7 +1404,7 @@
 										</div>
 
 										<div th:if="${role == 'admin'}">
-											<a class="user-acc-admin" th:href="@{/admin}"> <i
+											<a class="user-acc-admin" th:href="@{/admin/merchant-list/active}"> <i
 												class="fa-solid fa-lock"></i> Kênh admin
 											</a>
 										</div>
