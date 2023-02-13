@@ -1,5 +1,6 @@
 package shopbaeFood.service.seviceImpl;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import shopbaeFood.repository.ICartRepository;
 import shopbaeFood.repository.IOrderRepository;
 import shopbaeFood.repository.IProductRepository;
 import shopbaeFood.service.ICartService;
+import shopbaeFood.util.Contants;
 
 @Service
 @Transactional
@@ -51,7 +53,7 @@ public class CartServiceImpl implements ICartService {
 		Account account = (Account) session.getAttribute("user");
 
 		if (account == null) {
-			return "redirect:/login?mess=chua-dang-nhap";
+			return "redirect:/shopbaeFood/login?mess=not-logged-in";
 		}
 
 		Cart cart = cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
@@ -73,7 +75,7 @@ public class CartServiceImpl implements ICartService {
 			cartRepository.update(cart);
 
 			merchant_id = cart.getProduct().getMerchant().getId();
-			return "redirect:/home/merchant-detail/${merchant_id}";
+			return MessageFormat.format("redirect:/home/merchant-detail/{0}", merchant_id) ;
 		} else {
 
 			totalPrice = quantity * cartDTO.getPrice();
@@ -88,7 +90,7 @@ public class CartServiceImpl implements ICartService {
 			cartRepository.setProductCart(productCartMap);
 
 			merchant_id = cart1.getProduct().getMerchant().getId();
-			return "redirect:/home/merchant-detail/${merchant_id}";
+			return MessageFormat.format("redirect:/home/merchant-detail/{0}", merchant_id);
 		}
 
 	}
@@ -105,11 +107,14 @@ public class CartServiceImpl implements ICartService {
 	public String showCart(Model model, HttpSession session) {
 		Long userId = (Long) session.getAttribute("userId");
 		Account account = (Account) session.getAttribute("user");
+		if(account ==null) {
+			return "redirect: /shopbaeFood/login?mess=not-logged-in";
+		}
 		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
 		List<Order> orders = orderRepository.findOrdersByUserId(userId);
 		String message = " ";
 		if (carts.isEmpty()) {
-			message = "khong co du lieu";
+			message = Contants.CART_MESSAGE.NO_DATA;
 		}
 
 		Double totalPrice = 0.0;

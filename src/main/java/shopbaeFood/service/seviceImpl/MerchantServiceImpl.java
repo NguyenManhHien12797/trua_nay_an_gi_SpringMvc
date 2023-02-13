@@ -44,6 +44,12 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Autowired
 	private IMailService mailService;
+	
+	public static final String ROUTE_MERCHANT = "merchant-list";
+	public static final String ROUTE_USER = "user-list";
+	public static final String MAIL_FROM = "nguyenhuuquyet07092001@gmail.com";
+	public static final String MAIL_ACCEPT_SUBJECT = "Mail xác nhận đăng ký";
+	public static final String MAIL_REFUSE_SUBJECT = "Mail từ chối đăng ký làm người bán";
 
 	@Override
 	public void save(Merchant merchant) {
@@ -72,24 +78,24 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Override
 	public void updateStatus(Long id, Status status, String role) {
-		if ("merchant-list".equals(role)) {
+		if (ROUTE_MERCHANT.equals(role)) {
 			Merchant merchant = merchantRepository.findById(id);
 			Account account = accountRepository.findById(merchant.getAccount().getId());
 			merchant.setStatus(status);
 			merchantRepository.update(merchant);
 			if(Status.PENDING.equals(status)) {
 				Mail mail = new Mail();
-				mail.setMailFrom("nguyenhuuquyet07092001@gmail.com");
+				mail.setMailFrom(MAIL_FROM);
 				mail.setMailTo(account.getEmail());
 				String subject = " ";
 				String content = " ";
 				if (Status.ACTIVE.equals(status)) {
-					subject = "Mail xác nhận đăng ký";
+					subject = MAIL_ACCEPT_SUBJECT;
 					content = MessageFormat.format("Dear {0} !\n Cảm ơn bạn đã đăng ký làm thành viên của hệ thống",
 							merchant.getName());
 				}
 				if (Status.REFUSE.equals(status)) {
-					subject = "Mail từ chối đăng ký làm người bán";
+					subject = MAIL_REFUSE_SUBJECT;
 					content = MessageFormat.format(
 							"Dear {0} !\\n Cảm ơn bạn đã đăng ký làm merchant của hệ thống. Chúng tôi rất tiếc khi bạn chưa đủ điều kiện để đăng ký làm người bán.",
 							merchant.getName());
@@ -100,7 +106,7 @@ public class MerchantServiceImpl implements IMerchantService {
 				mailService.sendEmail(mail);
 			}
 		}
-		if ("user-list".equals(role)) {
+		if (ROUTE_USER.equals(role)) {
 			AppUser appUser = userRepository.findById(id);
 			appUser.setStatus(status);
 			userRepository.update(appUser);
@@ -109,12 +115,12 @@ public class MerchantServiceImpl implements IMerchantService {
 	}
 
 	@Override
-	public List<?> findMerchantsOrUsersByStatus(Status status, String role) {
-		if ("merchant-list".equals(role)) {
+	public List<?> findMerchantsOrUsersByStatus(Status status, String route) {
+		if (ROUTE_MERCHANT.equals(route)) {
 			List<Merchant> merchants = merchantRepository.findMerchantsByStatus(status);
 			return merchants;
 		}
-		if ("user-list".equals(role)) {
+		if (ROUTE_USER.equals(route)) {
 			List<AppUser> users = userRepository.findAppUsersByStatus(status);
 			return users;
 		}
@@ -134,8 +140,8 @@ public class MerchantServiceImpl implements IMerchantService {
 		try {
 			FileCopyUtils.copy(merchantForm.getAvatar().getBytes(), new File(fileUpload + fileName));
 		} catch (IOException e) {
-//			e.printStackTrace();
-			System.out.print("Chưa chọn file ảnh" + e.getMessage());
+			e.printStackTrace();
+			System.out.print("Chưa chọn file ảnh: " + e.getMessage());
 			fileName = merchantUpdate.getAvatar();
 		}
 
@@ -149,6 +155,11 @@ public class MerchantServiceImpl implements IMerchantService {
 		session.setAttribute("avatar", merchantUpdate.getAvatar());
 		session.setAttribute("username", merchantUpdate.getName());
 
+	}
+
+	@Override
+	public List<Merchant> findMerchantsByStatus(Status status) {
+		return merchantRepository.findMerchantsByStatus(status);
 	}
 
 }

@@ -20,6 +20,10 @@ public class HibernateConfig {
 	@Autowired
 	private Environment env;
 
+	/**
+	 * The method is used to creates a Hibernate SessionFactory
+	 * @return
+	 */
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -28,7 +32,11 @@ public class HibernateConfig {
 		sessionFactory.setHibernateProperties(hibernateProperties());
 		return sessionFactory;
 	}
-
+	
+	/**
+	 * The method is used to set hibernate properties
+	 * @return
+	 */
 	public Properties hibernateProperties() {
 
 		return new Properties() {
@@ -48,7 +56,11 @@ public class HibernateConfig {
 			}
 		};
 	}
-
+	
+	/**
+	 * The method is used to set dataSource()
+	 * @return dataSource
+	 */
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -60,6 +72,11 @@ public class HibernateConfig {
 		return dataSource;
 	}
 
+	/** 
+	 * The method is used to transaction management for queries via sessionFactory
+	 * @param sessionFactory
+	 * @return transactionManager
+	 */
 	@Bean
 	@Autowired
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {

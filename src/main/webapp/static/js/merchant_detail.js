@@ -1,6 +1,6 @@
 function addToCart(price,user_id,product_id) {
 	if(user_id == null){
-		window.location="https://localhost:8443/shopbaeFood/login?mess=chua-dang-nhap";
+		window.location="https://localhost:8443/shopbaeFood/login?mess=not-logged-in";
 	}
 
     let CartDTO = {

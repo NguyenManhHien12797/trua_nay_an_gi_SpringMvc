@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 import shopbaeFood.model.Account;
 import shopbaeFood.model.Status;
-import shopbaeFood.model.payload.MessageResponse;
 import shopbaeFood.service.IAccountService;
+import shopbaeFood.util.Contants;
 
 @Component
 public class CustomIdentityAuthenticationProvider implements AuthenticationProvider {
@@ -23,8 +23,14 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 
 	@Autowired
 	private IAccountService accountService;
-
-	UserDetails isValidUser(String username, String password) {
+	
+	/**
+	 * This method is used to check user is valid
+	 * @param username
+	 * @param password
+	 * @return user 
+	 */
+	private UserDetails isValidUser(String username, String password) {
 		Account account = accountService.findByName(username);
 		if (account != null && username.equalsIgnoreCase(account.getUserName())
 				&& passwordEncoder.matches(password, account.getPassword())) {
@@ -36,6 +42,9 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 		return null;
 	}
 
+	/**
+	 * This method is used to authenticate and check the login status: PENDING/ ACTIVE/ BLOCK/ REFUSE
+	 */
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = authentication.getName();
@@ -46,24 +55,24 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 		if (userDetails != null) {
 			Account account = accountService.findByName(username);
 			if (account.getUser() != null && Status.BLOCK.equals(account.getUser().getStatus())) {
-				throw new BadCredentialsException("Tài khoản của bạn đã bị khóa !!");
+				throw new BadCredentialsException(Contants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK);
 			}
 
 			if (account.getMerchant() != null) {
 				if (Status.PENDING.equals(account.getMerchant().getStatus())) {
-					throw new BadCredentialsException("Tài khoản đang chờ admin duyệt !!");
+					throw new BadCredentialsException(Contants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_PENDING);
 				}
 				if (Status.BLOCK.equals(account.getMerchant().getStatus())) {
-					throw new BadCredentialsException("Tài khoản của bạn đã bị khóa !!");
+					throw new BadCredentialsException(Contants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK);
 				}
 				if (Status.REFUSE.equals(account.getMerchant().getStatus())) {
-					throw new BadCredentialsException("Admin từ chối đăng ký Merchant !!");
+					throw new BadCredentialsException(Contants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_REFUSE);
 				}
 			}
 
 			return new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
 		} else {
-			throw new BadCredentialsException("Tài khoản hoặc mật khẩu không đúng !!");
+			throw new BadCredentialsException(Contants.RESPONSE_MESSAGE.LOGIN_FAILE);
 		}
 	}
 

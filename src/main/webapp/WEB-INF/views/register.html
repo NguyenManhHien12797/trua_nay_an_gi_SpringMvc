@@ -6,8 +6,7 @@
 
  <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"
-      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css}">
 
 <style>
   .font15 {
@@ -62,7 +61,7 @@
             <div class="field-group">
               <div class="input-group"><i class="far fa-user"></i><input type="text"  th:field="*{userName}"
                                                                          placeholder="Tên đăng ký" value=""
-                                                                         formControlName="userName"  >
+                                                                        >
                                                                          
                                                                          
                   
@@ -72,7 +71,7 @@
               <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
              <div class="field-group">
               <div class="input-group"><i class="fas fa-lock"></i><input type="password" th:field="*{password}" placeholder="Mật khẩu"
-                                                                         value="" formControlName="password">
+                                                                         value="">
                                                                          
                 
               </div>
@@ -82,7 +81,7 @@
 				
 				<div class="field-group">
               <div class="input-group"><i class="far fa-envelope"></i><input type="text" th:field="*{email}" placeholder="Nhập email"
-                                                                             value="" formControlName="email">
+                                                                             value="" >
              
               </div>
              
@@ -92,7 +91,7 @@
             <div class="field-group">
               <div class="input-group"><i class="far fa-user"></i><input type="text" th:field="*{name}"
                                                                          placeholder="Nhập tên chủ tài khoản"
-                                                                         value="" formControlName="name">
+                                                                         value="" >
              
               </div>
             </div>
@@ -100,7 +99,7 @@
              <div style="color:red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
             <div class="field-group">
               <div class="input-group"><i class="fas fa-phone"></i><input type="text" th:field="*{phone}" placeholder="Nhập số điện thoại"
-                                                                          value="" formControlName="phone">
+                                                                          value="" >
                                                                           
                 
                 
@@ -110,7 +109,7 @@
            <div style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
             <div class="field-group"> 
               <div class="input-group"><i class="fas fa-home"></i><input type="text" th:field="*{address}" placeholder="Nhập địa chỉ"
-                                                                         value="" formControlName="address">
+                                                                         value="" >
                                                                          
               </div>
           	</div>
@@ -118,12 +117,14 @@
             
             <button class="btn btn-block btn-submit">Đăng ký</button>
           </div>
-        </form>
+        </form>       
+        
         <br>
         <div class="login-mess-policy">Chúng tôi không sử dụng thông tin của bạn với bất kỳ mục đích nào. Bằng cách đăng
           nhập hoặc đăng ký, bạn đồng ý với <a
             style="color: #0495ba; border-bottom: 2px solid; text-decoration: none !important;" target="_blank"
-            href="https://shopeefood.vn/gioi-thieu#footer-bottom">Chính sách quy định của Foody</a></div>
+            href="https://shopeefood.vn/gioi-thieu#footer-bottom">Chính sách quy định của Foody</a>
+        </div>
       </div>
     </div>
     <!-- end form login -->
@@ -134,10 +135,6 @@
     </div>
 
   </div>
-
-
-</div>
-
 
 </body>
 </html>

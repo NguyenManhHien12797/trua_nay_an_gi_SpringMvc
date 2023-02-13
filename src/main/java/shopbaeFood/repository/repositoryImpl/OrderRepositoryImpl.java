@@ -2,7 +2,7 @@ package shopbaeFood.repository.repositoryImpl;
 
 import java.util.List;
 
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import shopbaeFood.model.AppUser;
 import shopbaeFood.model.Order;
+import shopbaeFood.repository.IAppUserRepository;
 import shopbaeFood.repository.IOrderRepository;
 
 @Repository
@@ -19,6 +21,9 @@ public class OrderRepositoryImpl implements IOrderRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private IAppUserRepository userRepository;
 
 	@Override
 	public Order findById(Long id) {
@@ -50,31 +55,33 @@ public class OrderRepositoryImpl implements IOrderRepository {
 	@Override
 	public List<Order> findOrdersByUserId(Long user_id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Order> orders = session
-				.createQuery("FROM Order o Where o.deleteFlag = false and o.user_id=" + user_id, Order.class)
-				.getResultList();
-		return orders;
+		AppUser user = userRepository.findById(user_id);
+		TypedQuery<Order> query = session
+				.createQuery("FROM Order o Where o.deleteFlag = false and o.user_id= :user_id", Order.class);
+		query.setParameter("user_id", user);
+		return query.getResultList();
 	}
 
 	@Override
 	public List<Order> findOrdersByMerchantId(Long merchant_id, String status) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createQuery("FROM Order o Where o.deleteFlag = false and o.merchant_id=" + merchant_id
-				+ " and o.status = :status order by o.id DESC");
+		TypedQuery<Order> query = session.createQuery(
+				"FROM Order o Where o.deleteFlag = false and o.merchant_id= :merchant_id and o.status = :status order by o.id DESC",
+				Order.class);
+		query.setParameter("merchant_id", merchant_id);
 		query.setParameter("status", status);
-		List<Order> orders = query.getResultList();
-		return orders;
+		return query.getResultList();
 	}
 
 	@Override
 	public List<Order> findOrdersByMerchantIdAndStatus(Long merchant_id, String status, String status1) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createQuery("FROM Order o Where o.deleteFlag = false and o.merchant_id=" + merchant_id
-				+ " and o.status = :status or o.status = :status1 order by o.id DESC");
+		TypedQuery<Order> query = session.createQuery("FROM Order o Where o.deleteFlag = false and o.merchant_id= :merchant_id"
+				+ " and o.status = :status or o.status = :status1 order by o.id DESC", Order.class);
+		query.setParameter("merchant_id", merchant_id);
 		query.setParameter("status", status);
 		query.setParameter("status1", status1);
-		List<Order> orders = query.getResultList();
-		return orders;
+		return query.getResultList();
 	}
 
 }

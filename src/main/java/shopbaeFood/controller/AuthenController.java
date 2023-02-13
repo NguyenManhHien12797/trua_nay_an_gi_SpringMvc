@@ -35,7 +35,12 @@ public class AuthenController {
 	public static final String USER = "user";
 	public static final String MECHANT = "merchant";
 
-	// Show form login
+	/**
+	 * This method returns login page or message when login error
+	 * @param mess 
+	 * @param model
+	 * @return view login
+	 */
 	@GetMapping(value = { "/login" })
 	public String showLoginForm(@RequestParam(required = false) String mess, Model model) {
 		model.addAttribute("mess", authenService.showLoginForm(mess));
@@ -43,21 +48,38 @@ public class AuthenController {
 
 	}
 
-	// Show trang homepage
+	/**
+	 * This method returns homePage page
+	 * @param model
+	 * @param session
+	 * @return view homePage
+	 */
 	@GetMapping(value = { "/home", "/" })
 	public String home(Model model, HttpSession session) {
 		String homePage = authenService.home(model, session);
 		return homePage;
 	}
 
-	// Show trang merchant details
+	/**
+	 * This method returns merchant details page
+	 * @param id : merchant_id
+	 * @param model
+	 * @param session
+	 * @return view merchant-detail
+	 */
 	@GetMapping(value = { "/home/merchant-detail/{id}" })
 	public String merchantDetails(@PathVariable Long id, Model model, HttpSession session) {
 
 		return authenService.merchantDetails(id, model, session);
 	}
-
-	// Show trang user info/ user update info
+	
+	/**
+	 * This method returns fragments: user_info/ user_update_info by route
+	 * @param route : user_info/ user_update_info
+	 * @param session
+	 * @param model
+	 * @return view user_info page
+	 */
 	@GetMapping(value = { "/home/{route}" })
 	public String userInfo(@PathVariable String route, HttpSession session, Model model) {
 		Account account = (Account) session.getAttribute("user");
@@ -75,7 +97,13 @@ public class AuthenController {
 		return "user-info";
 	}
 
-	// Update info
+	/**
+	 * This method is used to update user and return user-info
+	 * @param userForm
+	 * @param account
+	 * @param session
+	 * @return view user-info
+	 */
 	@PostMapping(value = { "/user/user-info" })
 	private String updateAccountUser(@ModelAttribute("userForm") UserForm userForm,
 			@ModelAttribute("account") Account account, HttpSession session) {
@@ -84,13 +112,24 @@ public class AuthenController {
 		return "redirect:/home/user-info";
 	}
 
-	// Show trang đăng ký theo role: user/ merchant
+	/**
+	 * This method returns register page by role
+	 * @param role : user/ merchant
+	 * @return view register
+	 */
 	@GetMapping("/register/{role}")
 	public ModelAndView showFormRegister(@PathVariable String role) {
 		return authenService.showFormRegister(role);
 	}
 
-	// Đăng ký theo role: user/ merchant
+	/**
+	 * This method is used to register user/ merchant
+	 * @param role : user/ merchant
+	 * @param accountRegisterDTO
+	 * @param bindingResult
+	 * @param model
+	 * @return view login
+	 */
 	@PostMapping("/register/{role}")
 	public String register(@PathVariable String role,
 			@Valid @ModelAttribute("accountRegisterDTO") AccountRegisterDTO accountRegisterDTO,
@@ -112,7 +151,11 @@ public class AuthenController {
 		return "login";
 	}
 
-	// Create otp
+	/**
+	 * This method is used to create OTP
+	 * @param session
+	 * @return mess: 'create otp ok'
+	 */
 	@RequestMapping(value = { "/home/create-otp" })
 	@ResponseBody
 	private String createOTP(HttpSession session) {
@@ -120,7 +163,12 @@ public class AuthenController {
 		return "create otp ok";
 	}
 
-	// Check otp
+	/**
+	 * This method is used to check otp
+	 * @param account_id
+	 * @param otp
+	 * @return message: 'ok' or throw new HandleException
+	 */
 	@PostMapping(value = { "/home/checkotp/{account_id}/{otp}" })
 	@ResponseBody
 	private String checkOTP(@PathVariable Long account_id, @PathVariable String otp) {
@@ -128,7 +176,12 @@ public class AuthenController {
 		return authenService.checkOtp(account_id, otp);
 	}
 
-	// Đổi password
+	/**
+	 * This method is used to change pass
+	 * @param account_id
+	 * @param pass
+	 * @return message: 'change pass ok'
+	 */
 	@PostMapping(value = { "/home/change-pass/{account_id}/{pass}" })
 	@ResponseBody
 	private String changePass(@PathVariable Long account_id, @PathVariable String pass) {

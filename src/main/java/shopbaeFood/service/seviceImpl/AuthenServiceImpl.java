@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
-import shopbaeFood.exception.HandleException;
+import shopbaeFood.exception.CheckOtpException;
 import shopbaeFood.model.Account;
 import shopbaeFood.model.AccountRoleMap;
 import shopbaeFood.model.AppRoles;
@@ -33,6 +33,7 @@ import shopbaeFood.service.IMailService;
 import shopbaeFood.service.IMerchantService;
 import shopbaeFood.service.IProductService;
 import shopbaeFood.service.IRoleService;
+import shopbaeFood.util.Contants;
 
 @Service
 @Transactional
@@ -62,10 +63,11 @@ public class AuthenServiceImpl implements IAuthenService {
 	@Autowired
 	private IMailService mailService;
 
-	public static final String LOGIN_MESS_NOT_LOGIN = "not-logged-in";
-	public static final String LOGIN_MESS_TIME_OUT = "timeout";
 	public static final String USER = "user";
 	public static final String MECHANT = "merchant";
+	public static final String MAIL_SUBJECT = "Mã xác nhận OTP";
+	public static final String MAIL_FROM = "nguyenhuuquyet07092001@gmail.com";
+
 
 	@Override
 	public void register(AccountRegisterDTO accountRegisterDTO, String role) {
@@ -98,6 +100,7 @@ public class AuthenServiceImpl implements IAuthenService {
 	public boolean isAdmin(HttpSession session) {
 		Collection<? extends GrantedAuthority> attribute = (Collection<? extends GrantedAuthority>) session
 				.getAttribute("authorities");
+		
 		Collection<? extends GrantedAuthority> authorities = attribute;
 		List<String> roles = new ArrayList<String>();
 		for (GrantedAuthority a : authorities) {
@@ -112,7 +115,7 @@ public class AuthenServiceImpl implements IAuthenService {
 	@Override
 	public String home(Model model, HttpSession session) {
 		checkLogin(model, session);
-		List<?> merchants = merchantService.findMerchantsOrUsersByStatus(Status.ACTIVE, "merchant-list");
+		List<?> merchants = merchantService.findMerchantsByStatus(Status.ACTIVE);
 		model.addAttribute("merchants", merchants);
 		return "homepage";
 	}
@@ -181,8 +184,8 @@ public class AuthenServiceImpl implements IAuthenService {
 		accountRepository.update(account);
 		Mail mail = new Mail();
 		mail.setMailTo(account.getEmail());
-		mail.setMailFrom("nguyenhuuquyet07092001@gmail.com");
-		mail.setMailSubject("Mã xác nhận OTP");
+		mail.setMailFrom(MAIL_FROM);
+		mail.setMailSubject(MAIL_SUBJECT);
 		String content = MessageFormat.format("Mã OTP của bạn là: {0} \nVui lòng không chia sẻ với ai",
 				String.valueOf(OTP));
 		mail.setMailContent(content);
@@ -196,7 +199,7 @@ public class AuthenServiceImpl implements IAuthenService {
 		if (otp.equals(account.getOtp())) {
 			return "ok";
 		}
-		throw new HandleException(500, "Sai OTP");
+		throw new CheckOtpException(500, Contants.RESPONSE_MESSAGE.WRONG_OTP);
 	}
 
 	@Override
@@ -211,11 +214,11 @@ public class AuthenServiceImpl implements IAuthenService {
 	@Override
 	public String showLoginForm(String mess) {
 		String message = " ";
-		if (LOGIN_MESS_NOT_LOGIN.equals(mess)) {
-			message = "Vui lòng đăng nhập để tiếp tục!";
+		if (Contants.LOGIN_STATE.NOT_LOGIN.equals(mess)) {
+			message = Contants.RESPONSE_MESSAGE.NOT_LOGIN;
 		}
-		if (LOGIN_MESS_TIME_OUT.equals(mess)) {
-			message = "Hết thời gian. Vui lòng đăng nhập để tiếp tục!";
+		if (Contants.LOGIN_STATE.TIME_OUT.equals(mess)) {
+			message = Contants.RESPONSE_MESSAGE.TIME_OUT;
 		}
 
 		return message;

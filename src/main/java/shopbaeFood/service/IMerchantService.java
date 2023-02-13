@@ -27,7 +27,9 @@ public interface IMerchantService extends IGeneralService<Merchant> {
 
 	void updateStatus(Long id, Status status, String role);
 
-	List<?> findMerchantsOrUsersByStatus(Status status, String role);
+	List<?> findMerchantsOrUsersByStatus(Status status, String route);
+	
+	List<Merchant> findMerchantsByStatus(Status status);
 
 	void updateMerchantInfo(MerchantForm merchantForm, Account account, HttpSession session);
 

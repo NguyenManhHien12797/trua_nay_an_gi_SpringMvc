@@ -100,8 +100,9 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         return bean;
     }
 
-	// Cấu hình upload file
-
+	/**
+	 * This function is used to config file upload
+	 */
 	@Bean(name = "multipartResolver")
 	public CommonsMultipartResolver getResolver() throws IOException {
 		CommonsMultipartResolver resolver = new CommonsMultipartResolver();

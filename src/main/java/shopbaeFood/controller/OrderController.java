@@ -18,7 +18,12 @@ public class OrderController {
 	@Autowired
 	private IOrderService orderService;
 
-	// Đặt hàng
+	/**
+	 * This method is used to checkout
+	 * @param order
+	 * @param session
+	 * @return view cart_page
+	 */
 	@PostMapping("/user/checkout")
 	public String checkout(@ModelAttribute("order") Order order, HttpSession session) {
 		orderService.checkout(order, session);
@@ -26,14 +31,23 @@ public class OrderController {
 		return "redirect: /shopbaeFood/user/cart";
 	}
 
-	// Update order status
+	/**
+	 * This method is used to update order status
+	 * @param order_id
+	 * @param status
+	 * @return 
+	 */
 	@RequestMapping("/user/update-order-status/{order_id}/{status}")
 	public String updateOrderStatus(@PathVariable Long order_id, @PathVariable String status) {
 
 		return orderService.updateOrderStatus(order_id, status);
 	}
 
-	// Xóa order
+	/**
+	 * This method is used to delete order
+	 * @param order_id
+	 * @return view cart_page
+	 */
 	@RequestMapping("/user/delete-order/{order_id}")
 	public String deleteOrder(@PathVariable Long order_id) {
 		orderService.deleteOrder(order_id);

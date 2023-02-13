@@ -20,20 +20,34 @@ public class CartController {
 	@Autowired
 	private ICartService cartService;
 
-	// Thêm sản phẩm vào giỏ hàng
+	/**
+	 * This method is used to add to cart
+	 * @param cartDTO
+	 * @param session
+	 * @return view merchant-detail page
+	 */
 	@PostMapping("/user/addToCart")
 	private String addToCart(@RequestBody CartDTO cartDTO, HttpSession session) {
 
 		return cartService.addToCart(cartDTO, session);
 	}
 
-	// Show giỏ hàng
+	/**
+	 * This method returns cart_page page
+	 * @param model
+	 * @param session
+	 * @return view cart_page
+	 */
 	@GetMapping("/user/cart")
 	private String showCart(Model model, HttpSession session) {
 		return cartService.showCart(model, session);
 	}
 
-	// Xóa sản phẩm trong giỏ hàng
+	/**
+	 * This method is used to delete product in cart and return cart_page page
+	 * @param id : cart_id
+	 * @return view car_page
+	 */
 	@RequestMapping(value = { "/user/delete/{id}" })
 	private String deleteProduct(@PathVariable Long id) {
 		cartService.deleteCart(id);

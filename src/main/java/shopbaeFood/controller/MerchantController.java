@@ -25,6 +25,7 @@ import shopbaeFood.service.IMerchantService;
 import shopbaeFood.service.IOrderDetailService;
 import shopbaeFood.service.IOrderService;
 import shopbaeFood.service.IProductService;
+import shopbaeFood.util.Contants;
 
 @Controller
 public class MerchantController {
@@ -44,13 +45,22 @@ public class MerchantController {
 	@Value("${file-upload}")
 	private String fileUpload;
 
-	// Show trang dashboard
+	/**
+	 * This function return merchant-dashboard page
+	 * @return view merchant-dashboard
+	 */
 	@GetMapping("/merchant")
 	private String merchantPage() {
 		return "redirect: /shopbaeFood/merchant/merchant-dashboard";
 	}
 
-	// Show trang merchant theo route:
+	/**
+	 * This method return merchant_page page by route
+	 * @param route : merchant-dashboard/ order-manager/ merchant-product-manager/ merchant-info
+	 * @param model
+	 * @param session
+	 * @return view merchant_page
+	 */
 	@GetMapping(value = { "/merchant/{route}" })
 	private String merchantPage1(@PathVariable String route, Model model, HttpSession session) {
 		String message = " ";
@@ -60,7 +70,7 @@ public class MerchantController {
 			List<Product> products = productService.findAllProductByDeleteFlag(session);
 
 			model.addAttribute("products", products);
-			model.addAttribute("rt", route);
+			model.addAttribute("navRoute", route);
 		}
 
 		Account account = (Account) session.getAttribute("user");
@@ -78,41 +88,60 @@ public class MerchantController {
 		return "merchant_page";
 	}
 
-	// Show trang quản lý order
-	@GetMapping(value = { "/merchant/{route}/{status}" })
-	private String showFormOrder(@PathVariable String route, @PathVariable String status, Model model,
+	/**
+	 * This method return merchant_page page by route and status
+	 * @param status : order-pending/ seller-receive/ order-history
+	 * @param model
+	 * @param session
+	 * @return view merchant_page
+	 */
+	@GetMapping(value = { "/merchant/order-manager/{status}" })
+	private String showFormOrder( @PathVariable String status, Model model,
 			HttpSession session) {
 		Long merchant_id = (Long) session.getAttribute("userId");
 		String navTitle = "Kênh Merchant";
 		List<Order> orders = orderService.findOrdersByMerchant(merchant_id, status);
-		if ("order-history".equals(status)) {
-			orders = orderService.findOrdersByMerchantIdAndStatus(merchant_id, "buyer-receive", "buyer-refuse");
+		if (Contants.ORDER_STATE.HISTORY.equals(status)) {
+			orders = orderService.findOrdersByMerchantIdAndStatus(merchant_id, Contants.ORDER_STATE.BUYER_RECEIVE, Contants.ORDER_STATE.BUYER_REFUSE);
 		}
-		String rt = status;
-		model.addAttribute("route", rt);
+		model.addAttribute("route", status);
 		model.addAttribute("status", status);
 		model.addAttribute("orders", orders);
-		model.addAttribute("rt", route);
+		model.addAttribute("navRoute", "order-manager");
 		model.addAttribute("navTitle", navTitle);
 		return "merchant_page";
 	}
 
-	// Show trang orderdetails
-	@GetMapping(value = { "/merchant/order/{route}/{order_id}" })
-	private String showFormOrderDetail(@PathVariable String route, @PathVariable Long order_id, Model model,
+	/**
+	 * This method returns merchant_page page by route: order_detail
+	 * @param status : order-pending/ seller-receive/ order-history
+	 * @param route : order-detail
+	 * @param order_id
+	 * @param model
+	 * @param session
+	 * @return view merchant_page
+	 */
+	@GetMapping(value = { "/merchant/{status}/{route}/{order_id}" })
+	private String showFormOrderDetail(@PathVariable String status,@PathVariable String route, @PathVariable Long order_id, Model model,
 			HttpSession session) {
 		String navTitle = "Kênh Merchant";
 		List<OrderDetail> orderDetails = orderDetailService.findOrderDetailsByOrderId(order_id);
-		Order order = orderService.findById(order_id);
 
 		model.addAttribute("orderDetails", orderDetails);
 		model.addAttribute("order_id", order_id);
-		model.addAttribute("status", order.getStatus());
+		model.addAttribute("status", status);
 		model.addAttribute("navTitle", navTitle);
+		model.addAttribute("navRoute", "order-manager");
 		return "merchant_page";
 	}
 
-	// Show trang update sản phẩm
+	/**
+	 * This method returns form update product
+	 * @param route : merchant-edit-product
+	 * @param id : product_id
+	 * @param model
+	 * @return view merchant_page
+	 */
 	@GetMapping(value = { "/merchant/merchant-product-manager/{route}/edit/{id}" })
 	private String showFormUpdate(@PathVariable String route, @PathVariable Long id, Model model) {
 		String navTitle = "Kênh Merchant";
@@ -124,23 +153,34 @@ public class MerchantController {
 		}
 		model.addAttribute("productForm", productForm);
 		model.addAttribute("route", route);
-		model.addAttribute("rt", "merchant-product-manager");
+		model.addAttribute("navRoute", "merchant-product-manager");
 		model.addAttribute("navTitle", navTitle);
 		return "merchant_page";
 	}
 
-	// Show trang tạo mới sản phẩm
+	/**
+	 * This method returns form create product
+	 * @param route : merchant-add-product
+	 * @param model
+	 * @return view merchant_page
+	 */
 	@GetMapping(value = { "/merchant/merchant-product-manager/{route}" })
 	private String showFormCreate(@PathVariable String route, Model model) {
 		String navTitle = "Kênh Merchant";
 		model.addAttribute("productForm", new ProductForm());
 		model.addAttribute("route", route);
-		model.addAttribute("rt", "merchant-product-manager");
+		model.addAttribute("navRoute", "merchant-product-manager");
 		model.addAttribute("navTitle", navTitle);
 		return "merchant_page";
 	}
 
-	// Show trang merchant info
+	/**
+	 * This method returns form merchant-update-info
+	 * @param route : merchant-update-info
+	 * @param model
+	 * @param session
+	 * @return view merchant_page
+	 */
 	@GetMapping(value = { "/merchant/merchant-info/{route}" })
 	private String showFormUpdateInfo(@PathVariable String route, Model model, HttpSession session) {
 		String navTitle = "Kênh Merchant";
@@ -152,14 +192,20 @@ public class MerchantController {
 		model.addAttribute("account", account);
 
 		model.addAttribute("route", route);
-		model.addAttribute("rt", "merchant-info");
+		model.addAttribute("navRoute", "merchant-info");
 		model.addAttribute("navTitle", navTitle);
 		model.addAttribute("merchantForm", merchantForm);
 		model.addAttribute("merchant", merchant);
 		return "merchant_page";
 	}
 
-	// Update merchant info
+	/**
+	 * This method is used to update merchant
+	 * @param merchantForm
+	 * @param account
+	 * @param session
+	 * @return view merchant-info
+	 */
 	@PostMapping(value = { "/merchant/merchant-info" })
 	private String updateAccountMerchant(@ModelAttribute("merchantForm") MerchantForm merchantForm,
 			@ModelAttribute("account") Account account, HttpSession session) {
@@ -168,20 +214,34 @@ public class MerchantController {
 		return "redirect:/merchant/merchant-info";
 	}
 
-	// Update sản phẩm
+	/**
+	 * This method is used to update product
+	 * @param id : product_id
+	 * @param productForm
+	 * @return view merchant-product-manager
+	 */
 	@PostMapping(value = { "/merchant/merchant-edit-product/edit/{id}" })
 	private String updateProduct(@PathVariable Long id, @ModelAttribute("productForm") ProductForm productForm) {
 		productService.updateProduct(id, productForm);
 		return "redirect: /shopbaeFood/merchant/merchant-product-manager";
 	}
 
-	// Thêm sản phẩm
+	/**
+	 * This method is used to create product
+	 * @param productForm
+	 * @param session
+	 * @return view merchant-product-manager
+	 */
 	@PostMapping(value = { "/merchant/create" })
 	private String createProduct(@ModelAttribute("productForm") ProductForm productForm, HttpSession session) {
 		return productService.saveProduct(productForm, session);
 	}
 
-	// Xóa sản phẩm
+	/**
+	 * This method is used to delete product
+	 * @param id : product_id
+	 * @return view merchant-product-manager
+	 */
 	@RequestMapping(value = { "/merchant/delete/{id}" })
 	private String deleteProduct(@PathVariable Long id) {
 		productService.delete(id);

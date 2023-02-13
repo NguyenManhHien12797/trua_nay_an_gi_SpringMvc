@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import shopbaeFood.model.Merchant;
 import shopbaeFood.model.Product;
+import shopbaeFood.repository.IMerchantRepository;
 import shopbaeFood.repository.IProductRepository;
 
 @Repository(value = "productRepository")
@@ -19,46 +21,52 @@ public class ProductRepositoryImpl implements IProductRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	private Session getSession() {
+		Session session = this.sessionFactory.getCurrentSession();
+		return session;
+	}
+	
+	@Autowired
+	private IMerchantRepository merchantRepository;
 
 	@Override
 	public Product findById(Long id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.get(Product.class, id);
+		return getSession().get(Product.class, id);
 	}
 
 	@Override
 	public void save(Product product) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.save(product);
+		getSession().save(product);
 
 	}
 
 	@Override
 	public void update(Product product) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(product);
+		getSession().update(product);
 
 	}
 
 	@Override
 	public List<Product> findAll() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<Product> products = session.createQuery("FROM Product", Product.class).getResultList();
+		List<Product> products = getSession().createQuery("FROM Product", Product.class).getResultList();
 		return products;
 	}
 
 	@Override
 	public List<Product> findAllProductByDeleteFlag(Long id) {
-		Session session = sessionFactory.getCurrentSession();
-		return session.createQuery("From Product p where p.deleteFlag = false and p.merchant =" + id, Product.class)
-				.getResultList();
+		Merchant merchant = merchantRepository.findById(id);
+		TypedQuery<Product> query = getSession().createQuery(
+				"From Product p where p.deleteFlag = false and p.merchant = :merchant", Product.class);
+		query.setParameter("merchant", merchant);
+		return query.getResultList();
 
 	}
 
 	@Override
 	public Long findMerchantIdByProduct(String name) {
-		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<Long> query = session.createQuery("Select p.merchant_id FROM Product p where p.name = " + name);
+		TypedQuery<Long> query = getSession().createQuery("Select p.merchant_id FROM Product p where p.name = :name", Long.class);
+		query.setParameter("name", name);
 		Long merchantId = query.getSingleResult();
 		return merchantId;
 	}

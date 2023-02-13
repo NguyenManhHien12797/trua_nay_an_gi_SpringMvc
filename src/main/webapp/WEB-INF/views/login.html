@@ -6,8 +6,7 @@
 
  <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css"
-      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css}">
 
 </head>
 <style>
@@ -80,12 +79,12 @@
             
 
             <div class="form-group clearfix">
-              <div class="float-left"><input type="checkbox" id="RememberMe" checked=""><label for="RememberMe">Lưu
+              <div class="float-left"><input type="checkbox" id="RememberMe" ><label for="RememberMe">Lưu
                 thông tin đăng nhập</label></div>
               <span class="float-right"><a th:href="@{/forgotpass}">Quên mật
                                     khẩu?</a></span>
             </div>
-            <button class="btn btn-block btn-submit" [disabled]="disable">Đăng nhập</button>
+            <button class="btn btn-block btn-submit" >Đăng nhập</button>
 
          <!--    <a th:href="@{/register/merchant}" class="btn btn-block btn-dark">Đăng ký</a> -->
             <a th:href="@{/register/user}" class="btn btn-block btn-dark">Đăng ký</a>

@@ -40,7 +40,6 @@ public class AccountServiceImpl implements IAccountService, UserDetailsService {
 	@Override
 	public List<Account> findAll() {
 		return this.accountRepository.findAll();
-//		return null;
 	}
 
 	@Override

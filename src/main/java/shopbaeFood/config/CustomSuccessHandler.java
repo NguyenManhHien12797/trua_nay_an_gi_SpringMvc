@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import shopbaeFood.model.Account;
 import shopbaeFood.service.IAccountService;
+import shopbaeFood.util.Contants;
 
 @Component
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -28,12 +29,10 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-	public static final String URL_HOME = "/home";
-	public static final String URL_ADMIN = "/admin/merchant-list/ACTIVE";
-	public static final String URL_MERCHANT = "/merchant/merchant-dashboard";
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
 	public static final String ROLE_USER = "ROLE_USER";
 	public static final String ROLE_MERCHANT = "ROLE_MERCHANT";
+	
 
 	@Override
 	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -46,7 +45,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(60 * 60);
+		session.setMaxInactiveInterval(Contants.SESSION_EXPIRATION);
 		Account account = accountService.findByName(authentication.getName());
 		session.setAttribute("user", account);
 		if (account.getUser() != null) {
@@ -80,20 +79,20 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		for (GrantedAuthority a : authorities) {
 			roles.add(a.getAuthority());
 		}
-		if (isAdmin(roles)) {
-			url = URL_ADMIN;
-			return url;
-		}
-
-		if (isMerchant(roles)) {
-			url = URL_MERCHANT;
-			return url;
-		}
+	
 
 		if (isUser(roles)) {
-			url = URL_HOME;
-			return url;
+			url = "/home";
 		}
+		
+		if (isMerchant(roles)) {
+			url = "/merchant/merchant-dashboard";
+		}
+
+		if (isAdmin(roles)) {
+			url = "/admin/merchant-list/ACTIVE";
+		}
+		
 
 		return url;
 	}

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler({ Exception.class, HandleException.class })
+	@ExceptionHandler({ Exception.class, CheckOtpException.class })
 	public ResponseEntity<String> handleUnwantedException(Exception e) {
 		return ResponseEntity.status(500).body(e.getMessage());
 	}

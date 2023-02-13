@@ -1,6 +1,6 @@
 package shopbaeFood.exception;
 
-public class HandleException extends RuntimeException {
+public class CheckOtpException extends RuntimeException {
 	/**
 	 * 
 	 */
@@ -8,10 +8,10 @@ public class HandleException extends RuntimeException {
 	private int code;
 	private String message;
 
-	public HandleException() {
+	public CheckOtpException() {
 	}
 
-	public HandleException(int code, String message) {
+	public CheckOtpException(int code, String message) {
 		this.code = code;
 		this.message = message;
 	}

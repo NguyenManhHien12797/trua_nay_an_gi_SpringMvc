@@ -20,38 +20,38 @@ public class AcountRepository implements IAccountRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	private Session getSession() {
+		Session session = this.sessionFactory.getCurrentSession();
+		return session;
+	}
 
 	@Override
 	public void save(Account account) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.save(account);
+		 getSession().save(account);
 
 	}
 
 	@Override
 	public void update(Account account) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(account);
+		 getSession().update(account);
 
 	}
 
 	@Override
 	public List<Account> findAll() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<Account> accounts = session.createQuery("FROM Account", Account.class).getResultList();
+		List<Account> accounts = getSession().createQuery("FROM Account", Account.class).getResultList();
 		return accounts;
 	}
 
 	@Override
 	public Account findById(Long id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.get(Account.class, id);
+		return  getSession().get(Account.class, id);
 	}
 
 	@Override
 	public Account findByName(String name) {
-		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<Account> query = session.createQuery("FROM Account a WHERE a.userName = :userName", Account.class);
+		TypedQuery<Account> query =  getSession().createQuery("FROM Account a WHERE a.userName = :userName", Account.class);
 		query.setParameter("userName", name);
 		try {
 			return query.getSingleResult();

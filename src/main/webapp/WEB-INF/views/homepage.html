@@ -7,7 +7,7 @@
  <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
 
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
-  <script src="https://kit.fontawesome.com/bb6a3cf0b7.js" crossorigin="anonymous"></script>
+  <script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
 </head>
 <body>
 
@@ -30,37 +30,26 @@
             </div>
             <div class="form-search">
               <div class="input-group"><input style="color: black;" type="text" id="txtSearchHome"
-                                              placeholder="Tìm địa điểm, món ăn, địa chỉ..." [(ngModel)]="name"
-                                              (input)="search()"><a>
+                                              placeholder="Tìm địa điểm, món ăn, địa chỉ..." ><a>
                 <button disabled="true" type="button"
                         class="btn btn-search"><span class="fa fa-search"></span></button>
               </a></div>
             </div>
-            <div class="category-list-filter"><a routerLink="list-merchant"><span
-              class="category-item ">All</span></a><a (click)="quickSearch('Đồ ăn')"><span
-              class="category-item ">Đồ ăn</span></a><a (click)="quickSearch('Đồ uống')"><span class="category-item ">Đồ uống</span></a><a
-              (click)="quickSearch('Đồ chay')"><span
-              class="category-item ">Đồ chay</span></a><a
-              (click)="quickSearch('Bánh kem')"><span
-              class="category-item ">Bánh kem</span></a><a
-              (click)="quickSearch('Tráng miệng')"><span
-              class="category-item ">Tráng miệng</span></a><a
-              (click)="quickSearch('Homemade')"><span
-              class="category-item ">Homemade</span></a><a
-              (click)="quickSearch('Vỉa hè')"><span
-              class="category-item ">Vỉa hè</span></a><a
-              href="/ha-noi/danh-sach-dia-diem-phuc-vu-pizza-pasta-burger-giao-tan-noi"><span
-              class="category-item ">Pizza/Burger</span></a><a
-              href="/ha-noi/danh-sach-dia-diem-phuc-vu-chicken-giao-tan-noi"><span
-              class="category-item ">Món gà</span></a><a
-              href="/ha-noi/danh-sach-dia-diem-phuc-vu-hotpot-giao-tan-noi"><span
-              class="category-item ">Món lẩu</span></a><a
-              href="/ha-noi/danh-sach-dia-diem-phuc-vu-sushi-giao-tan-noi"><span
-              class="category-item ">Sushi</span></a><a
-              href="/ha-noi/danh-sach-dia-diem-phuc-vu-soup-based-giao-tan-noi"><span
-              class="category-item ">Mì phở</span></a><a
-              href="/ha-noi/danh-sach-dia-diem-phuc-vu-rice-giao-tan-noi"><span
-              class="category-item ">Cơm hộp</span></a></div>
+            <div class="category-list-filter"><a ><span
+              class="category-item ">All</span></a><a ><span
+              class="category-item ">Đồ ăn</span></a><a ><span class="category-item ">Đồ uống</span></a><a
+              ><span
+              class="category-item ">Đồ chay</span></a>
+              <a><span class="category-item ">Bánh kem</span></a>
+              <a><span class="category-item ">Tráng miệng</span></a><a><span
+              class="category-item ">Homemade</span></a>
+              <a><span class="category-item ">Vỉa hè</span></a>
+              <a><span class="category-item ">Pizza/Burger</span></a>
+              <a><span class="category-item ">Món gà</span></a>
+              <a><span class="category-item ">Món lẩu</span></a>
+              <a><span class="category-item ">Sushi</span></a>
+              <a><span class="category-item ">Mì phở</span></a>
+              <a><span class="category-item ">Cơm hộp</span></a></div>
             <div>
               <div class="font18 mb-2 mt-3">Sử dụng App ShopeeFood để có nhiều giảm giá <br>và trải nghiệm
                 tốt hơn
@@ -149,8 +138,8 @@
                       </div>
                     </div>
                     <div th:each="merchant: ${merchants}">
-                      <div class="item-restaurant" [hidden]="hidden(i)"><a class="item-content"
-                                                                           th:href="@{home/merchant-detail/__${merchant.id}__}">
+                      <div class="item-restaurant">
+                      <a class="item-content" th:href="@{home/merchant-detail/__${merchant.id}__}">
                         <div class="img-restaurant">
                           <div class="tag-preferred"><i class="fa fa-thumbs-up"
                                                         aria-hidden="true"></i>Yêu thích
@@ -161,7 +150,7 @@
                         </div>
                         <div class="info-restaurant">
                           <div class="info-basic-res">
-                            <h4 class="name-res" title="A Lẩu - Cháo Lòng" th:text="${merchant.name}"></h4>
+                            <h4 class="name-res" title="" th:text="${merchant.name}"></h4>
                             <div class="address-res"
                                 th:text="${merchant.address}"></div>
                           </div>
@@ -173,7 +162,7 @@
                     </div>
                   </div>
                   <div class="txt-center mt-2">
-                    <button (click)="plus()" class="btn-none btn-load-more link"><span
+                    <button class="btn-none btn-load-more link"><span
                       class="pr-1">Xem thêm</span><i class="fas fa-redo font12 "></i></button>
                   </div>
                 </div>
@@ -267,8 +256,8 @@
                         <div class="box-line-lg"></div>
                       </div>
                     </div>
-                    <div class="item-restaurant"><a class="item-content"
-                                                    href="/thuong-hieu/the-1989-vietnam-milktea">
+                    <div class="item-restaurant">
+                    <a class="item-content" href="/thuong-hieu/the-1989-vietnam-milktea">
                       <div class="row no-gutters">
                         <div class="col-auto">
                           <div class="img-restaurant"><img
@@ -515,8 +504,8 @@
                         </div>
                       </div>
                     </a></div>
-                    <div class="item-restaurant"><a class="item-content"
-                                                    href="/thuong-hieu/bun-bo-tron-bun-mach-trang">
+                    <div class="item-restaurant">
+                    <a class="item-content" href="/thuong-hieu/bun-bo-tron-bun-mach-trang">
                       <div class="row no-gutters">
                         <div class="col-auto">
                           <div class="img-restaurant"><img

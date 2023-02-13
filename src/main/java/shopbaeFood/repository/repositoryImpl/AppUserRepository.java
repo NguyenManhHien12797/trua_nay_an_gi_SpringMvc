@@ -3,7 +3,6 @@ package shopbaeFood.repository.repositoryImpl;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
@@ -22,36 +21,36 @@ public class AppUserRepository implements IAppUserRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	private Session getSession() {
+		Session session = this.sessionFactory.getCurrentSession();
+		return session;
+	}
 
 	@Override
 	public void save(AppUser appUser) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.save(appUser);
+		getSession().save(appUser);
 	}
 
 	@Override
 	public void update(AppUser appUser) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(appUser);
+		getSession().update(appUser);
 	}
 
 	@Override
 	public List<AppUser> findAll() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<AppUser> appUsers = session.createQuery("FROM AppUser", AppUser.class).getResultList();
+		List<AppUser> appUsers = getSession().createQuery("FROM AppUser", AppUser.class).getResultList();
 		return appUsers;
 	}
 
 	@Override
 	public AppUser findById(Long id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.get(AppUser.class, id);
+		return getSession().get(AppUser.class, id);
 	}
 
 	@Override
 	public AppUser findByName(String name) {
-		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<AppUser> query = session.createQuery("FROM AppUser a WHERE a.name = :name", AppUser.class);
+		TypedQuery<AppUser> query = getSession().createQuery("FROM AppUser a WHERE a.name = :name", AppUser.class);
 		query.setParameter("name", name);
 		try {
 			return query.getSingleResult();
@@ -62,8 +61,7 @@ public class AppUserRepository implements IAppUserRepository {
 
 	@Override
 	public List<AppUser> findAppUsersByStatus(Status status) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createQuery("FROM AppUser a Where a.status= :status");
+		TypedQuery<AppUser> query = getSession().createQuery("FROM AppUser a Where a.status= :status", AppUser.class);
 		query.setParameter("status", status);
 		return query.getResultList();
 	}

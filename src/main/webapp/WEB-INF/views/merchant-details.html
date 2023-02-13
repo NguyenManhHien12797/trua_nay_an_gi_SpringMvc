@@ -6,7 +6,7 @@
 
  <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
-  <script src="https://kit.fontawesome.com/bb6a3cf0b7.js" crossorigin="anonymous"></script>
+  <script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
 </head>
 <body>
 
@@ -30,8 +30,8 @@
     <div class="detail-restaurant-info">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a class="breadcrumb-link" rel="nofollow" routerLink="/home">Home</a></li>
-          <li class="breadcrumb-item"><a class="breadcrumb-link" rel="nofollow" routerLink="/home/list-merchant">list-merchant</a></li>
+          <li class="breadcrumb-item"><a class="breadcrumb-link" rel="nofollow">Home</a></li>
+          <li class="breadcrumb-item"><a class="breadcrumb-link" rel="nofollow">list-merchant</a></li>
           <li class="breadcrumb-item"><a class="breadcrumb-link" rel="nofollow" th:text= "${merchant.name}"></a></li>
         </ol>
       </nav>
@@ -141,8 +141,7 @@
           <div class="menu-restaurant-list">
             <div class="search-items"><p class="input-group"><i class="fas fa-search"></i><input type="search"
                                                                                                  name="searchKey"
-                                                                                                 placeholder="Tìm món"
-                                                                                                 (input)="search()" [(ngModel)]="nameSearch"></p></div>
+                                                                                                 placeholder="Tìm món"></p></div>
             <div id="restaurant-item">
               <div aria-label="grid" aria-readonly="true" class="ReactVirtualized__Grid ReactVirtualized__List"
                    role="grid" tabindex="0"
@@ -153,9 +152,13 @@
                        style="height: 56px; left: 0px; position: absolute; top: 0px; width: 100%;">
                     <div class="title-menu">HÔM NAY CÓ GÌ HOT</div>
                   </div>
+                  
+                  <br>
+                  <br>
+                  <br>
 
                   <table style="width: 100%">
-                  <div th:each="product : ${products}">
+                  <th:block th:each="product : ${products}">
                   <tr>
                   	<td>
                   	<div class="item-restaurant-row ">
@@ -189,13 +192,12 @@
                   </div>
                   </td>
                     </tr>
-                  </div>
-                    <br>
-                    <br>
-                    <br>
+                  
+                  </th:block>
+                   
 <!--                  end for-->
                   </table>
-                  <div class="txt-center mt-2"><button (click)="plus()" class="btn-none btn-load-more link"><span
+                  <div class="txt-center mt-2"><button class="btn-none btn-load-more link"><span
                     class="pr-1">Xem thêm</span><i class="fas fa-redo font12 "></i></button></div>
                 </div>
               </div>

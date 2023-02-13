@@ -2,7 +2,6 @@ package shopbaeFood.service.seviceImpl;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -81,7 +80,7 @@ public class AppUserServiceImpl implements IAppUserSevice {
 		try {
 			FileCopyUtils.copy(userForm.getAvatar().getBytes(), new File(fileUpload + fileName));
 		} catch (IOException e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("Chưa chọn file ảnh" + e.getMessage());
 			fileName = user.getAvatar();
 		}

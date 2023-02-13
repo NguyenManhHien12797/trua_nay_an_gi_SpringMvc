@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
@@ -62,9 +61,6 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public List<Product> findAllProductByDeleteFlag(HttpSession session) {
 		Account account = (Account) session.getAttribute("user");
-		if (account == null) {
-			throw new BadCredentialsException("Không tìm thấy account! Mời đăng nhập lại!");
-		}
 
 		return productRepository.findAllProductByDeleteFlag(account.getMerchant().getId());
 	}
@@ -80,10 +76,6 @@ public class ProductServiceImpl implements IProductService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if (account == null) {
-			throw new BadCredentialsException("Không tìm thấy account! Mời đăng nhập lại!");
-		}
-
 		Product product = new Product();
 		product.setName(productForm.getName());
 		product.setShortDescription(productForm.getShortDescription());
@@ -104,7 +96,7 @@ public class ProductServiceImpl implements IProductService {
 		try {
 			FileCopyUtils.copy(productForm.getImage().getBytes(), new File(fileUpload + fileName));
 		} catch (IOException e) {
-//			e.printStackTrace();
+			e.printStackTrace();
 			fileName = product.getImage();
 
 		}

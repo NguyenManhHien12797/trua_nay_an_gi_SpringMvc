@@ -21,17 +21,20 @@ public class RoleRepository implements IRoleRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	private Session getSession() {
+		Session session = this.sessionFactory.getCurrentSession();
+		return session;
+	}
 
 	@Override
 	public void setDefaultRole(AccountRoleMap accountRoleMap) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.save(accountRoleMap);
+		getSession().save(accountRoleMap);
 	}
 
 	@Override
 	public AppRoles findByName(String name) {
-		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<AppRoles> query = session.createQuery("FROM Roles a WHERE a.name = :name", AppRoles.class);
+		TypedQuery<AppRoles> query = getSession().createQuery("FROM Roles a WHERE a.name = :name", AppRoles.class);
 		query.setParameter("name", name);
 		try {
 			return query.getSingleResult();
@@ -42,8 +45,7 @@ public class RoleRepository implements IRoleRepository {
 
 	@Override
 	public AppRoles findById(Long id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.get(AppRoles.class, id);
+		return getSession().get(AppRoles.class, id);
 	}
 
 }

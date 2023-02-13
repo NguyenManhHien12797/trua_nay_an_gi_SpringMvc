@@ -15,6 +15,7 @@ import shopbaeFood.repository.ICartRepository;
 import shopbaeFood.repository.IOrderDetailRepository;
 import shopbaeFood.repository.IOrderRepository;
 import shopbaeFood.service.IOrderService;
+import shopbaeFood.util.Contants;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
@@ -54,7 +55,7 @@ public class OrderServiceImpl implements IOrderService {
 	public void checkout(Order order, HttpSession session) {
 		Account account = (Account) session.getAttribute("user");
 		order.setAppUser(account.getUser());
-		order.setStatus("order-pending");
+		order.setStatus(Contants.ORDER_STATE.PENDING);
 		orderRepository.save(order);
 
 		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
@@ -89,8 +90,8 @@ public class OrderServiceImpl implements IOrderService {
 		Order order = orderRepository.findById(order_id);
 		order.setStatus(status);
 		orderRepository.update(order);
-		String route = "redirect: /shopbaeFood/merchant/seller-receive";
-		if ("buyer-receive".equals(status) || "buyer-refuse".equals(status)) {
+		String route = "redirect: /shopbaeFood/merchant/order-manager/seller-receive";
+		if (Contants.ORDER_STATE.BUYER_RECEIVE.equals(status) || Contants.ORDER_STATE.BUYER_REFUSE.equals(status)) {
 			route = "redirect:/user/cart";
 		}
 		return route;

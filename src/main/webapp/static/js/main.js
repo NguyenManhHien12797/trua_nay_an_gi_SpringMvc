@@ -110,12 +110,12 @@ function changePassword(account_id) {
 }
 
 
-function updateStatus(userId, role,status,stt) {
-	console.log(stt);
+function updateStatus(userId, navRoute,status,route) {
+	console.log(route);
     $.ajax({
         type: "POST",
         //tên API
-        url:`/shopbaeFood/admin/${role}/${stt}/${status}/${userId}`,
+        url:`/shopbaeFood/admin/${navRoute}/${route}/${status}/${userId}`,
         //xử lý khi thành công
         success: function (data) {
       	$(".table-responsive").html(data);

@@ -3,7 +3,6 @@ package shopbaeFood.repository.repositoryImpl;
 import java.util.List;
 
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
@@ -23,35 +22,35 @@ public class MerchantRepository implements IMerchantRepository {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	private Session getSession() {
+		Session session = this.sessionFactory.getCurrentSession();
+		return session;
+	}
+
 	@Override
 	public Merchant findById(Long id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.get(Merchant.class, id);
+		return getSession().get(Merchant.class, id);
 	}
 
 	@Override
 	public void save(Merchant merchant) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.save(merchant);
+		getSession().save(merchant);
 	}
 
 	@Override
 	public void update(Merchant merchant) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(merchant);
+		getSession().update(merchant);
 	}
 
 	@Override
 	public List<Merchant> findAll() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<Merchant> merchants = session.createQuery("FROM Merchant", Merchant.class).getResultList();
+		List<Merchant> merchants = getSession().createQuery("FROM Merchant", Merchant.class).getResultList();
 		return merchants;
 	}
 
 	@Override
 	public Merchant findByName(String name) {
-		Session session = this.sessionFactory.getCurrentSession();
-		TypedQuery<Merchant> query = session.createQuery("FROM Merchant m WHERE m.name = :name", Merchant.class);
+		TypedQuery<Merchant> query = getSession().createQuery("FROM Merchant m WHERE m.name = :name", Merchant.class);
 		query.setParameter("name", name);
 		try {
 			return query.getSingleResult();
@@ -62,10 +61,14 @@ public class MerchantRepository implements IMerchantRepository {
 
 	@Override
 	public List<Merchant> findMerchantsByStatus(Status status) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Query query = session.createQuery("FROM Merchant m Where m.status= :status");
+		TypedQuery<Merchant> query = getSession().createQuery("FROM Merchant m Where m.status= :status", Merchant.class);
 		query.setParameter("status", status);
+		try {
 		return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	
 	}
 
 }
