@@ -18,7 +18,7 @@ public class Contants {
 	 }
 	 
 	 public static class CART_MESSAGE{
-		 public static final String NO_DATA = "Không có dữ liệu";
+		 public static final String NO_DATA = "khong co du lieu";
 	 }
 	 
 	 public static class ORDER_STATE{

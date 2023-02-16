@@ -28,7 +28,6 @@ public class AdminController {
 	@GetMapping(value = { "/admin/{navRoute}/{status}" })
 	public String adminPage(@PathVariable String navRoute, @PathVariable Status status, Model model) {
 		addListAttribute(status, navRoute, model);
-
 		return "admin_page";
 	}
 
@@ -58,7 +57,6 @@ public class AdminController {
 
 	private void addListAttribute(Status status, String navRoute, Model model) {
 		String navTitle = "Kênh Admin";
-
 		List<?> usersOrMechants = merchantService.findMerchantsOrUsersByStatus(status, navRoute);
 		model.addAttribute("usersOrMechants", usersOrMechants);
 		model.addAttribute("navTitle", navTitle);

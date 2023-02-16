@@ -13,7 +13,6 @@ import org.springframework.security.core.GrantedAuthority;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-//@Table(name="roles")
 public class AppRoles implements GrantedAuthority {
 
 	/**

@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-//@Table(name="product_cart")
 public class ProductCartMap {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

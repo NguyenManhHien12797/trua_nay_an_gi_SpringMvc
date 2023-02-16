@@ -167,7 +167,8 @@ public class AuthenController {
 	 * This method is used to check otp
 	 * @param account_id
 	 * @param otp
-	 * @return message: 'ok' or throw new HandleException
+	 * @return message: 'ok'
+	 * @throws CheckOtpException if check otp false
 	 */
 	@PostMapping(value = { "/home/checkotp/{account_id}/{otp}" })
 	@ResponseBody

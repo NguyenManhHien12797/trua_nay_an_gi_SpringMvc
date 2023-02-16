@@ -58,7 +58,6 @@ public class AcountRepository implements IAccountRepository {
 		} catch (NoResultException e) {
 			return null;
 		}
-
 	}
 
 	@Override

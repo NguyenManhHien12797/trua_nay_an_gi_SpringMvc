@@ -11,26 +11,42 @@ import shopbaeFood.model.Status;
 
 public interface IMerchantService extends IGeneralService<Merchant> {
 
-	@Override
-	void save(Merchant merchant);
-
-	@Override
-	void update(Merchant merchant);
-
-	@Override
-	List<Merchant> findAll();
-
-	@Override
-	Merchant findById(Long id);
-
+	/**
+	 * This method is used to find Merchant by name
+	 * @param name
+	 * @return Merchant
+	 */
 	Merchant findByName(String name);
 
-	void updateStatus(Long id, Status status, String role);
+	/**
+	 * This method is used to update status
+	 * @param id
+	 * @param status
+	 * @param navRoute
+	 */
+	void updateStatus(Long id, Status status, String navRoute);
 
+	/**
+	 * This method is used to find Merchants or Users by status
+	 * @param status 
+	 * @param route merchant-list/ user-list
+	 * @return List
+	 */
 	List<?> findMerchantsOrUsersByStatus(Status status, String route);
 	
+	/**
+	 * This method is used to find Merchants by status
+	 * @param status
+	 * @return List<Merchant>
+	 */
 	List<Merchant> findMerchantsByStatus(Status status);
 
+	/**
+	 * This method is used to update Merchant info
+	 * @param merchantForm
+	 * @param account
+	 * @param session
+	 */
 	void updateMerchantInfo(MerchantForm merchantForm, Account account, HttpSession session);
 
 }

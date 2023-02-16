@@ -21,10 +21,12 @@ public class AccountServiceImpl implements IAccountService, UserDetailsService {
 	@Autowired
 	private IAccountRepository accountRepository;
 
+
 	@Override
 	public Account findById(Long id) {
 		return this.accountRepository.findById(id);
 	}
+
 
 	@Override
 	public void save(Account account) {
@@ -32,26 +34,31 @@ public class AccountServiceImpl implements IAccountService, UserDetailsService {
 
 	}
 
+
 	@Override
 	public void update(Account account) {
 		this.accountRepository.update(account);
 	}
+
 
 	@Override
 	public List<Account> findAll() {
 		return this.accountRepository.findAll();
 	}
 
+
 	@Override
 	public Account findByName(String name) {
 		return accountRepository.findByName(name);
 	}
+
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Account account = this.accountRepository.findByName(username);
 		return AccountDetails.build(account);
 	}
+
 
 	@Override
 	public Long findIdUserByUserName(String userName) {

@@ -96,6 +96,8 @@ public class AuthenServiceImpl implements IAuthenService {
 
 	}
 
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isAdmin(HttpSession session) {
 		Collection<? extends GrantedAuthority> attribute = (Collection<? extends GrantedAuthority>) session
@@ -111,15 +113,17 @@ public class AuthenServiceImpl implements IAuthenService {
 		}
 		return false;
 	}
+	
 
 	@Override
 	public String home(Model model, HttpSession session) {
 		checkLogin(model, session);
-		List<?> merchants = merchantService.findMerchantsByStatus(Status.ACTIVE);
+		List<Merchant> merchants = merchantService.findMerchantsByStatus(Status.ACTIVE);
 		model.addAttribute("merchants", merchants);
 		return "homepage";
 	}
 
+	
 	@Override
 	public void checkLogin(Model model, HttpSession session) {
 		Account account = (Account) session.getAttribute("user");

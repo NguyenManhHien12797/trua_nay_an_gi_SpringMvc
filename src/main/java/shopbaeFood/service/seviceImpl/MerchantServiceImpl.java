@@ -77,12 +77,14 @@ public class MerchantServiceImpl implements IMerchantService {
 	}
 
 	@Override
-	public void updateStatus(Long id, Status status, String role) {
-		if (ROUTE_MERCHANT.equals(role)) {
+	public void updateStatus(Long id, Status status, String navRoute) {
+		if (ROUTE_MERCHANT.equals(navRoute)) {
 			Merchant merchant = merchantRepository.findById(id);
 			Account account = accountRepository.findById(merchant.getAccount().getId());
 			merchant.setStatus(status);
+			System.out.println("--------------------Update-----------------");
 			merchantRepository.update(merchant);
+			System.out.println("--------------------Update-----------------");
 			if(Status.PENDING.equals(status)) {
 				Mail mail = new Mail();
 				mail.setMailFrom(MAIL_FROM);
@@ -106,7 +108,7 @@ public class MerchantServiceImpl implements IMerchantService {
 				mailService.sendEmail(mail);
 			}
 		}
-		if (ROUTE_USER.equals(role)) {
+		if (ROUTE_USER.equals(navRoute)) {
 			AppUser appUser = userRepository.findById(id);
 			appUser.setStatus(status);
 			userRepository.update(appUser);

@@ -13,16 +13,4 @@ public interface ICartRepository extends IGeneralRepository<Cart> {
 
 	List<Cart> findAllCartByUserIdAndDeleteFlag(Long userId);
 
-	@Override
-	void save(Cart cart);
-
-	@Override
-	Cart findById(Long id);
-
-	@Override
-	void update(Cart t);
-
-	@Override
-	List<Cart> findAll();
-
 }

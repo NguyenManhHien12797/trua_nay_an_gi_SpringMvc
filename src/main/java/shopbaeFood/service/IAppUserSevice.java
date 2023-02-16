@@ -1,7 +1,5 @@
 package shopbaeFood.service;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import shopbaeFood.model.Account;
@@ -11,22 +9,20 @@ import shopbaeFood.model.UserForm;
 
 public interface IAppUserSevice extends IGeneralService<AppUser> {
 
-	@Override
-	void save(AppUser appUser);
-
-	@Override
-	void update(AppUser appUser);
-
-	@Override
-	List<AppUser> findAll();
-
-	@Override
-	AppUser findById(Long id);
-
+	/**
+	 * This method is used to find AppUser by name
+	 * @return AppUser
+	 */
 	AppUser findByName(String name);
 
+	/**
+	 * This method is used to update status 
+	 */
 	void updateStatus(Long id, Status status);
 
+	/**
+	 * This method is used to update user info and set attribute user, avatar and userName
+	 */
 	void updateUserInfo(UserForm userForm, Account account, HttpSession session);
 
 }

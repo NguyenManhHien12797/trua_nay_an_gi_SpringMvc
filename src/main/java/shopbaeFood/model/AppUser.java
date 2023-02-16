@@ -10,10 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-//@Table(name="appuser")
+@DynamicUpdate
 public class AppUser {
 
 	@Id

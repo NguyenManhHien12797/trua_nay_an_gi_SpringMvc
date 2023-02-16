@@ -34,7 +34,7 @@ public class HibernateConfig {
 	}
 	
 	/**
-	 * The method is used to set hibernate properties
+	 * The method is used to set Hibernate properties
 	 * @return
 	 */
 	public Properties hibernateProperties() {
@@ -49,16 +49,17 @@ public class HibernateConfig {
 				setProperty("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.properties.hibernate.hbm2ddl.auto"));
 				setProperty("hibernate.dialect", env.getProperty("spring.jpa.properties.hibernate.dialect"));
 				setProperty("hibernate.globally_quoted_identifiers", "true");
-				setProperty("hibernate.hibernate.current_session_context_class", "thread");
+//				setProperty("hibernate.current_session_context_class", "thread");
 				setProperty("hibernate.enable_lazy_load_no_trans", "true");
 				setProperty("hibernate.show_sql", "true");
+				setProperty("hibernate.highlight_sql", "true");
 
 			}
 		};
 	}
 	
 	/**
-	 * The method is used to set dataSource()
+	 * The method is used to set dataSource() contains connection information to the database
 	 * @return dataSource
 	 */
 	@Bean

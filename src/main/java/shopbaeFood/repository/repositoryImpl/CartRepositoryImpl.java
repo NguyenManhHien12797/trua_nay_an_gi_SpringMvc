@@ -9,7 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import shopbaeFood.model.AppUser;
@@ -22,7 +21,6 @@ import shopbaeFood.repository.IProductRepository;
 
 @Repository(value = "cartRepository")
 @Transactional(rollbackFor = Exception.class)
-@EnableTransactionManagement
 public class CartRepositoryImpl implements ICartRepository {
 
 	@Autowired

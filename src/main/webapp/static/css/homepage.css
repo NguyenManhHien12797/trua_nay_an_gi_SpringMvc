@@ -14846,7 +14846,8 @@ a.text-rebranding-primary:focus, a.text-rebranding-primary:hover {
   right: 0;
   z-index: 99;
   background-color: #fff;
-  height: 70px
+  height: 70px;
+  box-shadow: 0 7px 10px #ddd;
 }
 
 .container-header .icon-search-dark {

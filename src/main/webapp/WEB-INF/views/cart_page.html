@@ -50,10 +50,7 @@
                     <!-- Image -->
                     <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
                       <img th:src="@{'/image/'+${cart.getProduct().getImage()}}"
-                           class="w-100 bg-image-img" alt="Blue Jeans Jacket" />
-                      <a href="#!">
-                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                      </a>
+                           class="w-100 bg-image-img" alt="" />
                     </div>
                     <!-- Image -->
                   </div>
@@ -124,10 +121,10 @@
         border-radius: 50%;"></td>
                   <td class="merchant-item">[[${order.getAppUser().getName()}]]</td>
                   <td class="merchant-item">[[${order.getOrderdate()}]]</td>
-                  <td class="merchant-item" size="100px">[[${order.getStatus()}]] </td>
-                  <td class="merchant-item" size="100px" style="width: 101px;" th:if= "${order.status == 'seller-receive'}"><a class="btn-order" th:href="@{/user/update-order-status/__${order.id}__/buyer-receive}">Nhận hàng</a></td>
-                  <td class="merchant-item" size="100px" style="width: 80px;" th:if= "${order.status == 'seller-receive'}"><a class="btn-order" th:href="@{/user/update-order-status/__${order.id}__/buyer-refuse}">Từ chối</a></td>
-                  <td class="merchant-item" size="100px"><a class="btn-order" th:href= "@{/user/delete-order/__${order.id}__}"><i class="fa-solid fa-trash"></i></a></td>
+                  <td class="merchant-item">[[${order.getStatus()}]] </td>
+                  <td class="merchant-item"  style="width: 101px;" th:if= "${order.status == 'seller-receive'}"><a class="btn-order" th:href="@{/user/update-order-status/__${order.id}__/buyer-receive}">Nhận hàng</a></td>
+                  <td class="merchant-item"  style="width: 80px;" th:if= "${order.status == 'seller-receive'}"><a class="btn-order" th:href="@{/user/update-order-status/__${order.id}__/buyer-refuse}">Từ chối</a></td>
+                  <td class="merchant-item" ><a class="btn-order" th:href= "@{/user/delete-order/__${order.id}__}"><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
                 </tbody>
               </table>
@@ -188,9 +185,9 @@
                
                   </tr>
                    <tr>
-                    <th scope="col" ><input type="text" hidden th:field = "*{merchant_id}"></th>
-                    <th scope="col" ><input type="text" hidden th:field = "*{totalPrice}"></th>
-                    <th scope="col" ><input type="text" hidden th:field = "*{orderdate}"></th>
+                    <th scope="col" ><input type="text" style="display:none" th:field = "*{merchant_id}"></th>
+                    <th scope="col" ><input type="text" style="display:none" th:field = "*{totalPrice}"></th>
+                    <th scope="col" ><input type="text" style="display:none" th:field = "*{orderdate}"></th>
               
                   </tr>
                   <tr>

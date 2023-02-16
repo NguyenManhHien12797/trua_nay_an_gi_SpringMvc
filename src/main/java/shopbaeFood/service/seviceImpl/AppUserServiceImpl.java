@@ -34,30 +34,36 @@ public class AppUserServiceImpl implements IAppUserSevice {
 	@Value("${file-upload}")
 	private String fileUpload;
 
+
 	@Override
 	public void save(AppUser appUser) {
 		appUserRepository.save(appUser);
 	}
 
+
 	@Override
 	public void update(AppUser appUser) {
 		appUserRepository.update(appUser);
 	}
+	
 
 	@Override
 	public List<AppUser> findAll() {
 		return appUserRepository.findAll();
 	}
+	
 
 	@Override
 	public AppUser findById(Long id) {
 		return appUserRepository.findById(id);
 	}
+	
 
 	@Override
 	public AppUser findByName(String name) {
 		return appUserRepository.findByName(name);
 	}
+	
 
 	@Override
 	public void updateStatus(Long id, Status status) {
@@ -66,6 +72,7 @@ public class AppUserServiceImpl implements IAppUserSevice {
 		appUserRepository.update(appUser);
 
 	}
+
 
 	@Override
 	public void updateUserInfo(UserForm userForm, Account accountInput, HttpSession session) {
