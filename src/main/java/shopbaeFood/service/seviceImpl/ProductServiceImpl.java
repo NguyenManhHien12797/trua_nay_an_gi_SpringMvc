@@ -14,6 +14,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import shopbaeFood.model.Account;
+import shopbaeFood.model.Merchant;
 import shopbaeFood.model.Product;
 import shopbaeFood.model.ProductForm;
 import shopbaeFood.repository.IProductRepository;
@@ -62,7 +63,7 @@ public class ProductServiceImpl implements IProductService {
 	public List<Product> findAllProductByDeleteFlag(HttpSession session) {
 		Account account = (Account) session.getAttribute("user");
 
-		return productRepository.findAllProductByDeleteFlag(account.getMerchant().getId());
+		return productRepository.findAllProductByDeleteFlag(account.getMerchant());
 	}
 
 	@Override
@@ -112,8 +113,18 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public List<Product> findAllProductByDeleteFlag(Long merchantId) {
-		return productRepository.findAllProductByDeleteFlag(merchantId);
+	public List<Product> findAllProductByDeleteFlag(Merchant merchant) {
+		return productRepository.findAllProductByDeleteFlag(merchant);
+	}
+
+	@Override
+	public List<Product> findAllProductByDeleteFlag(Merchant merchant, int pageNumber) {
+		return productRepository.findAllProductByDeleteFlag(merchant, pageNumber);
+	}
+
+	@Override
+	public Long lastPageNumber(Merchant merchant) {
+		return productRepository.lastPageNumber(merchant);
 	}
 
 }

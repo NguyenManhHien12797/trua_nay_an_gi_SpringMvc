@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import shopbaeFood.model.Merchant;
 import shopbaeFood.model.Order;
 
 public interface IOrderService extends IGeneralService<Order> {
@@ -52,5 +53,9 @@ public interface IOrderService extends IGeneralService<Order> {
 	 * @param order_id
 	 */
 	void deleteOrder(Long order_id);
+	
+	List<Order> findAllOrderByMerchant_idAndDeleteFlag(Long merchant_id, String status, int pageNumber);
+	
+	Long lastPageNumber(Long merchant_id, String status);
 
 }

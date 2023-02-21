@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
@@ -18,32 +19,27 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Long id;
-
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private AppUser user_id;
-
 	private String note;
-
 	private LocalDateTime orderdate;
-
 	private String status;
-
 	private Long merchant_id;
 	private double totalPrice;
 	private String address;
-
 	@Column(name = "deleteFlag")
 	private boolean deleteFlag;
+	@Column(name = "userDeleteFlag")
+	@ColumnDefault("0")
+	private boolean userDeleteFlag;
 
 	public Order() {
 	}
-
+	
 	public Order(Long id, AppUser user_id, String note, LocalDateTime orderdate, String status, Long merchant_id,
-			double totalPrice, String address, boolean deleteFlag) {
-		super();
+			double totalPrice, String address, boolean deleteFlag, boolean userDeleteFlag) {
 		this.id = id;
 		this.user_id = user_id;
 		this.note = note;
@@ -53,8 +49,9 @@ public class Order {
 		this.totalPrice = totalPrice;
 		this.address = address;
 		this.deleteFlag = deleteFlag;
+		this.userDeleteFlag = userDeleteFlag;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -134,5 +131,15 @@ public class Order {
 	public void setDeleteFlag(boolean deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
+
+	public boolean isUserDeleteFlag() {
+		return userDeleteFlag;
+	}
+
+	public void setUserDeleteFlag(boolean userDeleteFlag) {
+		this.userDeleteFlag = userDeleteFlag;
+	}
+	
+	
 
 }

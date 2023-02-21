@@ -24,5 +24,7 @@ public interface IAccountService extends IGeneralService<Account> {
 	 * @return AccountDetails
 	 */
 	UserDetails loadUserByUsername(String username);
+	
+	Boolean existsByUserName(String userName);
 
 }

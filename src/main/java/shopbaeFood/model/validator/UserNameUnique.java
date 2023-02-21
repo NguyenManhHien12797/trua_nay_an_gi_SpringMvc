@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import shopbaeFood.util.Contants;
+
 
 @Documented
 @Constraint(validatedBy = UserNameValidator.class)
@@ -16,7 +18,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserNameUnique {
 
-	String message() default "Tên đăng nhập đã tồn tại";
+	String message() default Contants.VALIDATOR_MESSAGE.USERNAME_EXISTS;
 
 	Class<?>[] groups() default {};
 

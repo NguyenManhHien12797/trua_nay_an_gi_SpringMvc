@@ -70,4 +70,10 @@ public class AcountRepository implements IAccountRepository {
 		}
 	}
 
+	@Override
+	public Boolean existsByUserName(String userName) {
+		Account account = findByName(userName);
+		return getSession().contains(account);
+	}
+
 }

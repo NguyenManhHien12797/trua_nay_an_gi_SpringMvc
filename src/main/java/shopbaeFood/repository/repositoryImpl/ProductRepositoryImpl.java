@@ -2,6 +2,7 @@ package shopbaeFood.repository.repositoryImpl;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
@@ -12,12 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import shopbaeFood.model.Merchant;
 import shopbaeFood.model.Product;
-import shopbaeFood.repository.IMerchantRepository;
 import shopbaeFood.repository.IProductRepository;
 
 @Repository(value = "productRepository")
 @Transactional(rollbackFor = Exception.class)
 public class ProductRepositoryImpl implements IProductRepository {
+	
+	private final int PAGE_SIZE = 5;
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -27,8 +29,6 @@ public class ProductRepositoryImpl implements IProductRepository {
 		return session;
 	}
 	
-	@Autowired
-	private IMerchantRepository merchantRepository;
 
 	@Override
 	public Product findById(Long id) {
@@ -54,13 +54,38 @@ public class ProductRepositoryImpl implements IProductRepository {
 	}
 
 	@Override
-	public List<Product> findAllProductByDeleteFlag(Long id) {
-		Merchant merchant = merchantRepository.findById(id);
+	public List<Product> findAllProductByDeleteFlag(Merchant merchant) {
 		TypedQuery<Product> query = getSession().createQuery(
 				"From Product p where p.deleteFlag = false and p.merchant = :merchant", Product.class);
 		query.setParameter("merchant", merchant);
 		return query.getResultList();
 
+	}
+	
+	@Override
+	public List<Product> findAllProductByDeleteFlag(Merchant merchant, int pageNumber) {
+		    
+		TypedQuery<Product> query = getSession().createQuery(
+			"From Product p where p.deleteFlag = false and p.merchant = :merchant", Product.class);
+		query.setParameter("merchant", merchant);
+		query.setFirstResult((pageNumber - 1) * PAGE_SIZE);
+		query.setMaxResults(PAGE_SIZE);
+		
+		return query.getResultList();
+
+	}
+	
+	@Override
+	public Long lastPageNumber(Merchant merchant) {
+		String countQ = "Select count (p.id) from Product p where p.deleteFlag = false and p.merchant = :merchant";
+		Query countQuery = getSession().createQuery(countQ);
+		countQuery.setParameter("merchant", merchant);
+		Long countResults = (Long) countQuery.getSingleResult();
+		Long lastPageNumber = (countResults / PAGE_SIZE);
+		  if (countResults % PAGE_SIZE != 0) {
+		      lastPageNumber = (countResults / PAGE_SIZE) + 1;
+		    }
+		return lastPageNumber;
 	}
 
 	@Override
@@ -70,5 +95,8 @@ public class ProductRepositoryImpl implements IProductRepository {
 		Long merchantId = query.getSingleResult();
 		return merchantId;
 	}
+
+
+
 
 }

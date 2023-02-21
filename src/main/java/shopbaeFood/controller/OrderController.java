@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,10 +49,10 @@ public class OrderController {
 	 * @param order_id
 	 * @return view cart_page
 	 */
-	@RequestMapping("/user/delete-order/{order_id}")
+	@RequestMapping(value={"/user/delete-order/{order_id}"})
 	public String deleteOrder(@PathVariable Long order_id) {
 		orderService.deleteOrder(order_id);
-		return "redirect:/shopbaeFood/user/cart";
+		return "redirect:/user/cart";
 	}
 
 }

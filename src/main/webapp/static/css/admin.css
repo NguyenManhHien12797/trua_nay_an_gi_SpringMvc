@@ -81,3 +81,9 @@
     height: 40px;
     border-radius: 50%;
 }
+
+.paging{
+	margin-right: 8px;
+	font-size: 20px;
+	    padding: 5px 15px;
+}

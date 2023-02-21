@@ -8,6 +8,12 @@
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/cart_page.css}">
 <script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
+<!-- https://cdnjs.com/libraries/sockjs-client -->
+<script th:src="@{/static/js/sockjs.min.js}"></script>
+<!-- https://cdnjs.com/libraries/stomp.js/ -->
+<script type="text/javascript"  th:src="@{/static/js/stomp.min.js}"></script>
+
+
 <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css}">
 
 <style>
@@ -124,7 +130,9 @@
                   <td class="merchant-item">[[${order.getStatus()}]] </td>
                   <td class="merchant-item"  style="width: 101px;" th:if= "${order.status == 'seller-receive'}"><a class="btn-order" th:href="@{/user/update-order-status/__${order.id}__/buyer-receive}">Nhận hàng</a></td>
                   <td class="merchant-item"  style="width: 80px;" th:if= "${order.status == 'seller-receive'}"><a class="btn-order" th:href="@{/user/update-order-status/__${order.id}__/buyer-refuse}">Từ chối</a></td>
-                  <td class="merchant-item" ><a class="btn-order" th:href= "@{/user/delete-order/__${order.id}__}"><i class="fa-solid fa-trash"></i></a></td>
+                  <td class="merchant-item" th:if= "${order.status == 'seller-receive'}"><a class="btn-order" th:href= "@{/user/delete-order/__${order.id}__}"><i class="fa-solid fa-trash"></i></a></td>
+                  <td class="merchant-item" th:if= "${order.status == 'buyer-receive'}"><a class="btn-order" th:href= "@{/user/delete-order/__${order.id}__}"><i class="fa-solid fa-trash"></i></a></td>
+                  <td class="merchant-item" th:if= "${order.status == 'buyer-refuse'}"><a class="btn-order" th:href= "@{/user/delete-order/__${order.id}__}"><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
                 </tbody>
               </table>
@@ -155,7 +163,7 @@
             <h5 class="mb-0">Hóa đơn</h5>
           </div>
           <div class="card-body">
-			<form th:action="@{/user/checkout}" th:object="${order}" method="post">
+			<form th:action="@{/user/checkout}" th:object="${order}" method="post" id="messageForm" name="messageForm">
 
             <div class="table-responsive">
 
@@ -185,7 +193,7 @@
                
                   </tr>
                    <tr>
-                    <th scope="col" ><input type="text" style="display:none" th:field = "*{merchant_id}"></th>
+                    <th scope="col" ><input type="text" id="merchant_id" style="display:none" th:field = "*{merchant_id}" ></th>
                     <th scope="col" ><input type="text" style="display:none" th:field = "*{totalPrice}"></th>
                     <th scope="col" ><input type="text" style="display:none" th:field = "*{orderdate}"></th>
               
@@ -194,7 +202,11 @@
                   </tr>
                   <tr>
                     <td scope="col">Ghi chú </td>
-                    <td scope="col" colspan="2"><input class="note" type="text" placeholder="Ghi chú" th:field= "*{note}"></td>
+                    <td scope="col" colspan="2"><input class="note"  type="text" placeholder="Ghi chú" th:field= "*{note}"></td>
+                  </tr>
+                     <tr>
+                    <td scope="col">Mess </td>
+                    <td scope="col" colspan="2"><input class="note" id="message"  type="text" placeholder="Ghi chú" th:field= "*{note}"></td>
                   </tr>
                   <tr>
                     <td scope="col">Địa chỉ</td>
@@ -228,6 +240,10 @@
 
 </div>
 
-
+<script
+	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script th:src="@{/static/js/socketJs.js}"></script>
 </body>
 </html>

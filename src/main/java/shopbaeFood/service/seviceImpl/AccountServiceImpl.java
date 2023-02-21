@@ -65,4 +65,10 @@ public class AccountServiceImpl implements IAccountService, UserDetailsService {
 		return accountRepository.findIdUserByUserName(userName);
 	}
 
+
+	@Override
+	public Boolean existsByUserName(String userName) {
+		return accountRepository.existsByUserName(userName);
+	}
+
 }

@@ -66,24 +66,43 @@ public class MerchantController {
 		String message = " ";
 		String navTitle = "Kênh Merchant";
 		Long merchant_id = (Long) session.getAttribute("userId");
+		Account account = (Account) session.getAttribute("user");
+		Merchant merchant = merchantService.findById(merchant_id);
 		if ("merchant-product-manager".equals(route)) {
-			List<Product> products = productService.findAllProductByDeleteFlag(session);
-
-			model.addAttribute("products", products);
-			model.addAttribute("navRoute", route);
+			String firstPage = "1";
+			return "redirect: /shopbaeFood/merchant/merchant-product-manager/page/"+firstPage;
 		}
 
-		Account account = (Account) session.getAttribute("user");
-
-		Merchant merchant = merchantService.findById(merchant_id);
 		model.addAttribute("account", account);
 		model.addAttribute("merchant", merchant);
-
 		model.addAttribute("status", route);
 		model.addAttribute("message", message);
 		model.addAttribute("navTitle", navTitle);
 		model.addAttribute("role", "merchant");
 		model.addAttribute("route", route);
+		model.addAttribute("productForm", new ProductForm());
+		return "merchant_page";
+	}
+
+	@GetMapping(value = { "/merchant/{route}/page/{pageNumber}" })
+	private String showListProduct(@PathVariable String route,@PathVariable int pageNumber, Model model, HttpSession session) {
+		String message = " ";
+		String navTitle = "Kênh Merchant";
+		Long merchant_id = (Long) session.getAttribute("userId");
+		Account account = (Account) session.getAttribute("user");
+		Merchant merchant = merchantService.findById(merchant_id);
+		List<Product> products = productService.findAllProductByDeleteFlag(merchant,pageNumber);
+		Long lastPageNumber = productService.lastPageNumber(merchant);
+		model.addAttribute("products", products);
+		model.addAttribute("account", account);
+		model.addAttribute("merchant", merchant);
+		model.addAttribute("message", message);
+		model.addAttribute("navTitle", navTitle);
+		model.addAttribute("role", "merchant");
+		model.addAttribute("route", route);
+		model.addAttribute("navRoute", route);
+		model.addAttribute("page", pageNumber);
+		model.addAttribute("lastPageNumber", lastPageNumber);
 		model.addAttribute("productForm", new ProductForm());
 		return "merchant_page";
 	}
@@ -95,12 +114,14 @@ public class MerchantController {
 	 * @param session
 	 * @return view merchant_page
 	 */
-	@GetMapping(value = { "/merchant/order-manager/{status}" })
-	private String showFormOrder( @PathVariable String status, Model model,
+	@GetMapping(value = { "/merchant/order-manager/{status}/{pageNumber}" })
+	private String showFormOrder( @PathVariable String status, @PathVariable int pageNumber, Model model,
 			HttpSession session) {
 		Long merchant_id = (Long) session.getAttribute("userId");
 		String navTitle = "Kênh Merchant";
-		List<Order> orders = orderService.findOrdersByMerchant(merchant_id, status);
+//		List<Order> orders = orderService.findOrdersByMerchant(merchant_id, status);
+		List<Order> orders = orderService.findAllOrderByMerchant_idAndDeleteFlag(merchant_id, status,pageNumber);
+		Long lastPageNumber = orderService.lastPageNumber(merchant_id,status);
 		if (Contants.ORDER_STATE.HISTORY.equals(status)) {
 			orders = orderService.findOrdersByMerchantIdAndStatus(merchant_id, Contants.ORDER_STATE.BUYER_RECEIVE, Contants.ORDER_STATE.BUYER_REFUSE);
 		}
@@ -108,6 +129,8 @@ public class MerchantController {
 		model.addAttribute("status", status);
 		model.addAttribute("orders", orders);
 		model.addAttribute("navRoute", "order-manager");
+		model.addAttribute("lastPageNumber", lastPageNumber);
+		model.addAttribute("page", pageNumber);
 		model.addAttribute("navTitle", navTitle);
 		return "merchant_page";
 	}

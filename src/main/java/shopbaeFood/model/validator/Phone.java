@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import shopbaeFood.util.Contants;
+
 
 
 @Documented
@@ -17,7 +19,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Phone {
 
-	String message() default "Số điện thoại có 10 số: 0 +[ 3| 5| 7| 8| 9]+ 8 số [0-9]";
+	String message() default Contants.VALIDATOR_MESSAGE.PHONE_NUMBER_FORMAT;
 
 	Class<?>[] groups() default {};
 

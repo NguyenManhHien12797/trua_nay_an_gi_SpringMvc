@@ -25,7 +25,13 @@ public class Contants {
 		 public static final String PENDING = "order-pending";
 		 public static final String BUYER_REFUSE = "buyer-refuse";
 		 public static final String BUYER_RECEIVE = "buyer-receive";
+		 public static final String SELLER_RECEIVE = "seller-receive";
 		 public static final String HISTORY = "order-history";
+	 }
+	 
+	 public static class VALIDATOR_MESSAGE{
+		 public static final String USERNAME_EXISTS = "Tên đăng nhập đã tồn tại";
+		 public static final String PHONE_NUMBER_FORMAT = "Số điện thoại có 10 số: 0 +[ 3| 5| 7| 8| 9]+ 8 số [0-9]";
 	 }
 	 
 	 public static final int SESSION_EXPIRATION = 60*60;

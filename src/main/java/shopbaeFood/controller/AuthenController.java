@@ -34,16 +34,18 @@ public class AuthenController {
 	
 	public static final String USER = "user";
 	public static final String MECHANT = "merchant";
-
+	public static final String TITLE_MERCHANT = "Đăng ký người bán";
+	public static final String TITLE_USER = "Đăng ký người dùng";
+	
 	/**
 	 * This method returns login page or message when login error
-	 * @param mess 
+	 * @param message 
 	 * @param model
 	 * @return view login
 	 */
 	@GetMapping(value = { "/login" })
-	public String showLoginForm(@RequestParam(required = false) String mess, Model model) {
-		model.addAttribute("mess", authenService.showLoginForm(mess));
+	public String showLoginForm(@RequestParam(required = false) String message, Model model) {
+		model.addAttribute("mess", authenService.showLoginForm(message));
 		return "login";
 
 	}
@@ -137,10 +139,10 @@ public class AuthenController {
 		if (bindingResult.hasErrors()) {
 			String title = "";
 			if (USER.equals(role)) {
-				title = "Đăng ký người dùng";
+				title = TITLE_USER;
 			}
 			if (MECHANT.equals(role)) {
-				title = "Đăng ký người bán";
+				title = TITLE_MERCHANT;
 			}
 
 			model.addAttribute("title", title);

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -80,8 +81,8 @@ public class AuthenServiceImpl implements IAuthenService {
 		String avatar = "images.jpg";
 
 		if (USER.equals(role)) {
+		
 			AppRoles appRole = roleService.findById(1L);
-
 			roleService.setDefaultRole(new AccountRoleMap(account, appRole));
 			userSevice.save(new AppUser(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
 					accountRegisterDTO.getPhone(), status, account));
@@ -171,7 +172,7 @@ public class AuthenServiceImpl implements IAuthenService {
 	public String merchantDetails(Long id, Model model, HttpSession session) {
 		checkLogin(model, session);
 		Merchant merchant = merchantService.findById(id);
-		List<Product> products = productService.findAllProductByDeleteFlag(id);
+		List<Product> products = productService.findAllProductByDeleteFlag(merchant);
 		model.addAttribute("merchant", merchant);
 		model.addAttribute("products", products);
 		return "merchant-details";
