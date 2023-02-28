@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:svg="http://www.w3.org/2000/svg">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:svg="http://www.w3.org/2000/svg" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -13,7 +13,7 @@
 		class="position-sticky pt-3 sidebar-sticky">
 		<ul class="nav flex-column" style="list-style: none; padding-left: 0;">
 			<li class="nav-item " th:class="${navRoute == 'merchant-list'} ? activeli : nav-item "><a class="nav-link nav-item-hover"
-				th:href="@{/admin/merchant-list/ACTIVE}"> <svg
+				th:href="@{/admin/merchant-list/ACTIVE/1}"> <svg
 						style=" width:16px; height:16px"
 						fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
                 <path
@@ -22,7 +22,7 @@
 					Quản lý nguời bán
 			</a></li>
 			<li class="nav-item " th:class="${navRoute == 'user-list'} ? activeli : nav-item "><a class="nav-link nav-item-hover"
-				th:href="@{/admin/user-list/ACTIVE}"> <svg
+				th:href="@{/admin/user-list/ACTIVE/1}"> <svg
 						style=" width:16px; height:16px"
 						fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path
@@ -41,7 +41,7 @@
 		<ul class="nav nav-pills mb-3 shadow-sm">
 			<li style="display: inline-block" th:class="${#strings.equals(status, 'PENDING')} ? activeli"><a
 				class="nav-link link fw-bold"
-				th:href="@{/admin/__${navRoute}__/PENDING}"> <svg style=" width:16px; height:16px"
+				th:href="@{/admin/__${navRoute}__/PENDING/1}"> <svg style=" width:16px; height:16px"
 						fill="currentColor" class="bi bi-bookmark-plus-fill"
 						viewBox="0 0 16 16">
         <path fill-rule="evenodd"
@@ -50,7 +50,7 @@
 			</a></li>
 			<li style="display: inline-block" th:class="${#strings.equals(status, 'ACTIVE')} ? activeli"><a
 				class="nav-link link fw-bold"
-				th:href="@{'/admin/'+${navRoute}+'/ACTIVE'}"> <svg
+				th:href="@{'/admin/'+${navRoute}+'/ACTIVE/1'}"> <svg
 						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
 						fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
        			 <path
@@ -59,7 +59,7 @@
 			</a></li>
 			<li style="display: inline-block" th:class="${#strings.equals(status, 'BLOCK')} ? activeli"><a
 				class="nav-link link fw-bold"
-				th:href="@{'/admin/'+${navRoute}+'/BLOCK'}"> <svg
+				th:href="@{'/admin/'+${navRoute}+'/BLOCK/1'}"> <svg
 						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
 						fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
         <path
@@ -72,7 +72,9 @@
 
 	</div>
 
-	<div class="table-responsive" th:fragment="PENDING">
+	<div  th:fragment="PENDING">
+	<div class="table-responsive" style="height:300px">
+	
 		<table class="table table-striped table-sm">
 			<thead>
 				<tr>
@@ -102,9 +104,17 @@
 
 			</tbody>
 		</table>
+		
+	</div>
+	
+		<th:block th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
+			<a th:text="${i}" th:href="@{/admin/__${navRoute}__/PENDING/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+		</th:block>
 	</div>
 
-	<div class="table-responsive" th:fragment="ACTIVE">
+	<div th:fragment="ACTIVE">
+		<div class="table-responsive" style="height:300px">
+			
 		<table class="table table-striped table-sm">
 			<thead>
 				<tr>
@@ -127,12 +137,18 @@
 							<i class="fa-regular fas fa-lock" style="color: #f15050"></i>
 						</button></td>
 				</tr>
-
 			</tbody>
 		</table>
+		</div>
+		<th:block th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
+			<a th:text="${i}" th:href="@{/admin/__${navRoute}__/ACTIVE/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+		</th:block>
 	</div>
 
-	<div class="table-responsive" th:fragment="BLOCK">
+	<div  th:fragment="BLOCK">
+	
+	<div class="table-responsive" style="height:300px">
+	
 		<table class="table table-striped table-sm">
 			<thead>
 				<tr>
@@ -159,6 +175,10 @@
 
 			</tbody>
 		</table>
+	</div>
+		<th:block th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
+			<a th:text="${i}" th:href="@{/admin/__${navRoute}__/BLOCK/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+		</th:block>
 	</div>
 
 	<!--  Admin-Fragment -->
@@ -264,9 +284,10 @@
 		<h1>Order</h1>
 	</div>
 
-	<div class="table-responsive" th:fragment="order-pending">
+	<div th:fragment="order-pending">
 		<h2>Pending</h2>
-
+			<div class="table-responsive" style="height:300px">
+			
 		<table class="table table-striped table-sm">
 			<thead>
 				<tr>
@@ -297,9 +318,9 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<th:block th:each="i: ${#numbers.sequence(1, lastPageNumber)}">
-			<a th:text="${i}" th:href="@{/merchant/order-manager/seller-receive/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+			</div>
+		<th:block th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
+			<a th:text="${i}" th:href="@{/merchant/order-manager/order-pending/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
 		</th:block>
 	</div>
 	
@@ -377,10 +398,11 @@
 		</th:block>
 	</div>
 
-	<div class="table-responsive" th:fragment="order-history">
+	<div  th:fragment="order-history">
 
 		<h2>Send</h2>
-
+			<div class="table-responsive" style="height:300px">
+				
 			<table class="table table-striped table-sm">
 			<thead>
 				<tr>
@@ -409,9 +431,10 @@
 				</tr>
 			</tbody>
 		</table>
-
-		<th:block th:each="i: ${#numbers.sequence(1, lastPageNumber)}">
-			<a th:text="${i}" th:href="@{/merchant/order-manager/seller-receive/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+			</div>
+		
+		<th:block th:each="i: ${#numbers.sequence(1, (lastPageNumber == 0 ? 1: lastPageNumber))}">
+			<a th:text="${i}" th:href="@{/merchant/order-manager/order-history/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
 		</th:block>
 	</div>
 
@@ -464,7 +487,7 @@
 							<td class="merchant-item-price" th:text="${product.newPrice} +' đ'"></td>
 							<td class="merchant-item" th:text="${product.shortDescription}"></td>
 							<td class="merchant-item-btn">
-								<a th:href="@{/merchant/merchant-product-manager/merchant-edit-product/edit/__${product.id}__}">
+								<a th:href="@{/merchant/merchant-product-manager/merchant-edit-product/__${product.id}__}">
 									<i class="fa-regular fa-pen-to-square action-icon"></i>
 								</a>
 							</td>
@@ -478,7 +501,7 @@
 				</table>
 			</div>
 		
-		<th:block th:each="i: ${#numbers.sequence(1, lastPageNumber)}">
+		<th:block th:each="i: ${#numbers.sequence(1, (lastPageNumber == 0 ? 1: lastPageNumber))}">
 			<a th:text="${i}" th:href="@{/merchant/merchant-product-manager/page/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
 		</th:block>
 		
@@ -540,7 +563,7 @@
 	<div th:fragment="merchant-edit-product">
 		<h2>Update product</h2>
 
-<form  th:action="@{/merchant/merchant-edit-product/edit/__${id}__}" th:object="${productForm}" method="post" enctype="multipart/form-data">
+<form  th:action="@{/merchant/merchant-edit-product/__${id}__}" th:object="${productForm}" method="post" enctype="multipart/form-data">
   <div class="mb-3 row">
   
   
@@ -1162,7 +1185,6 @@
 
 	<header th:fragment = "home-header">
 	
-		
       <div class="container-header">
         <div class="container">
           <div class="header-content navbar row  justify-content-between align-items-center">
@@ -1198,7 +1220,6 @@
                                                                                                        href="/ha-noi/pets">Thú
               cưng</a></div>
 
-
             <div class="user-acc col-auto user-acc-wr" th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
               <div th:if="${message == 'chua dang nhap'}">
                 <a th:href="@{/login}">
@@ -1207,8 +1228,7 @@
                   </button>
                 </a>
               </div>
-   
-
+              
               <div th:unless= "${message == 'chua dang nhap'}">
 
                 <div class="user-acc-contain">
@@ -1217,40 +1237,30 @@
                   	<input id="userId" th:value="${session.userId}" style="display:none;">
               <!--     <span th:text="${session.userId}"></span> -->
                   <div class="user-acc-dropdown">
-
                     <div th:if="${role == 'merchant'}">
                       <a class="user-acc-admin" th:href="@{/merchant}"><i class="fa-solid fa-store"></i> Kênh người bán</a>
-                    
-                    </div>
                    
-                    <div th:unless="${role == 'merchant'}">
+                    </div>
+					<div th:unless="${role == 'merchant'}">
                       <a class="user-acc-admin" th:href="@{/register/merchant}"><i class="fa-solid fa-user-plus"></i>
                         Đăng ký người bán</a>
                       <a class="user-acc-admin" th:href="@{/home/user-info}"><i class="fa-solid fa-address-card"></i> Trang
                         cá nhân</a>
                     </div>
-
                     <div th:if="${role == 'admin'}">
-                      <a class="user-acc-admin" th:href="@{/admin/merchant-list/ACTIVE}"> <i class="fa-solid fa-lock"></i> Kênh admin</a>
+                      <a class="user-acc-admin" th:href="@{/admin/merchant-list/ACTIVE/1}"> <i class="fa-solid fa-lock"></i> Kênh admin</a>
                     </div>
-
                     <hr>
                     <a th:href= "@{/logout}"><i class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
                   </div>
-
-
                 </div>
               </div>
-
-
             </div>
         
           <div th:if="${role == 'user'}"  >
           		<a class="nav-bar-cart"  th:href="@{/user/cart}">
              		 <i class="fa-solid fa-cart-shopping"></i>
-              
                  </a>
-             
                     <div class="cart-detail">
                       <span class="cart-detail-span">Sản phẩm trong giỏ hàng</span>
                       <div>
@@ -1259,7 +1269,7 @@
                     
                         <div class="cart-detai-item-container">
                           <div class="cart-detai-item">
-                            <img src="{{product.product.image}}" alt="">
+                            <img src=" " alt="">
                             <span class="cart-detai-item-span">{{product.product.name}}</span>
                             <span>{{product.product.newPrice}} đ</span>
                           </div>
@@ -1271,8 +1281,6 @@
                     </div>
        
                 </div>
-                
-        
           </div>
         </div>
       </div>
@@ -1359,9 +1367,6 @@
           </div>
         </div>
       </div>
-   
-   
-	
 	</header>
 
 	<div th:fragment="header">
@@ -1389,8 +1394,6 @@
 									</button>
 								</a>
 							</div>
-
-
 							<div th:unless="${message == 'chua dang nhap'}">
 
 								<div class="user-acc-contain">
@@ -1408,12 +1411,12 @@
 										<div th:unless="${role == 'merchant'}">
 											<a class="user-acc-admin" th:href="@{/register/merchant}"><i
 												class="fa-solid fa-user-plus"></i> Đăng ký người bán</a> <a
-												class="user-acc-admin" th:href="@{/user-info}"><i
+												class="user-acc-admin" th:href="@{/home/user-info}"><i
 												class="fa-solid fa-address-card"></i> Trang cá nhân</a>
 										</div>
 
 										<div th:if="${role == 'admin'}">
-											<a class="user-acc-admin" th:href="@{/admin/merchant-list/ACTIVE}"> <i
+											<a class="user-acc-admin" th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
 												class="fa-solid fa-lock"></i> Kênh admin
 											</a>
 										</div>
@@ -1422,18 +1425,11 @@
 										<a th:href="@{/logout}"><i
 											class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
 									</div>
-
-
 								</div>
-
-
 							</div>
 
-
 						</div>
-
-
-
+						
 						<div th:if="${role == 'user'}">
 							<div class="nav-bar-cart">
 								<i class="fa-solid fa-cart-shopping"></i>
@@ -1446,7 +1442,7 @@
 										alt="">
 									<div class="cart-detai-item-container">
 										<div class="cart-detai-item" >
-											<img src="{{product.product.image}}" alt=""> <span
+											<img src=" " alt=""> <span
 												class="cart-detai-item-span">{{product.product.name}}</span>
 											<span>{{product.product.newPrice}} đ</span>
 										</div>

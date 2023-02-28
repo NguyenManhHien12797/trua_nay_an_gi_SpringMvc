@@ -18,8 +18,6 @@ import shopbaeFood.repository.IProductRepository;
 @Repository(value = "productRepository")
 @Transactional(rollbackFor = Exception.class)
 public class ProductRepositoryImpl implements IProductRepository {
-	
-	private final int PAGE_SIZE = 5;
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -54,38 +52,12 @@ public class ProductRepositoryImpl implements IProductRepository {
 	}
 
 	@Override
-	public List<Product> findAllProductByDeleteFlag(Merchant merchant) {
+	public List<Product> findAllProductByMerchantAndDeleteFlag(Merchant merchant) {
 		TypedQuery<Product> query = getSession().createQuery(
 				"From Product p where p.deleteFlag = false and p.merchant = :merchant", Product.class);
 		query.setParameter("merchant", merchant);
 		return query.getResultList();
 
-	}
-	
-	@Override
-	public List<Product> findAllProductByDeleteFlag(Merchant merchant, int pageNumber) {
-		    
-		TypedQuery<Product> query = getSession().createQuery(
-			"From Product p where p.deleteFlag = false and p.merchant = :merchant", Product.class);
-		query.setParameter("merchant", merchant);
-		query.setFirstResult((pageNumber - 1) * PAGE_SIZE);
-		query.setMaxResults(PAGE_SIZE);
-		
-		return query.getResultList();
-
-	}
-	
-	@Override
-	public Long lastPageNumber(Merchant merchant) {
-		String countQ = "Select count (p.id) from Product p where p.deleteFlag = false and p.merchant = :merchant";
-		Query countQuery = getSession().createQuery(countQ);
-		countQuery.setParameter("merchant", merchant);
-		Long countResults = (Long) countQuery.getSingleResult();
-		Long lastPageNumber = (countResults / PAGE_SIZE);
-		  if (countResults % PAGE_SIZE != 0) {
-		      lastPageNumber = (countResults / PAGE_SIZE) + 1;
-		    }
-		return lastPageNumber;
 	}
 
 	@Override

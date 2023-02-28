@@ -7,12 +7,8 @@ import shopbaeFood.model.Product;
 
 public interface IProductRepository extends IGeneralRepository<Product> {
 
-	List<Product> findAllProductByDeleteFlag(Merchant merchant);
+	List<Product> findAllProductByMerchantAndDeleteFlag(Merchant merchant);
 
 	Long findMerchantIdByProduct(String name);
-	
-	List<Product> findAllProductByDeleteFlag(Merchant merchant, int pageNumber);
-	
-	Long lastPageNumber(Merchant merchant);
 
 }

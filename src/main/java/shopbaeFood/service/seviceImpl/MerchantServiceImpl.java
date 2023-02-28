@@ -25,6 +25,7 @@ import shopbaeFood.repository.IAppUserRepository;
 import shopbaeFood.repository.IMerchantRepository;
 import shopbaeFood.service.IMailService;
 import shopbaeFood.service.IMerchantService;
+import shopbaeFood.util.Page;
 
 @Service
 @Transactional
@@ -32,6 +33,8 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Value("${file-upload}")
 	private String fileUpload;
+	
+	private final int PAGE_SIZE = 5;
 
 	@Autowired
 	private IMerchantRepository merchantRepository;
@@ -45,8 +48,8 @@ public class MerchantServiceImpl implements IMerchantService {
 	@Autowired
 	private IMailService mailService;
 	
-	public static final String ROUTE_MERCHANT = "merchant-list";
-	public static final String ROUTE_USER = "user-list";
+	public static final String NAV_ROUTE_MERCHANT = "merchant-list";
+	public static final String NAV_ROUTE_USER = "user-list";
 	public static final String MAIL_FROM = "nguyenhuuquyet07092001@gmail.com";
 	public static final String MAIL_ACCEPT_SUBJECT = "Mail xác nhận đăng ký";
 	public static final String MAIL_REFUSE_SUBJECT = "Mail từ chối đăng ký làm người bán";
@@ -78,13 +81,11 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Override
 	public void updateStatus(Long id, Status status, String navRoute) {
-		if (ROUTE_MERCHANT.equals(navRoute)) {
+		if (NAV_ROUTE_MERCHANT.equals(navRoute)) {
 			Merchant merchant = merchantRepository.findById(id);
 			Account account = accountRepository.findById(merchant.getAccount().getId());
 			merchant.setStatus(status);
-			System.out.println("--------------------Update-----------------");
 			merchantRepository.update(merchant);
-			System.out.println("--------------------Update-----------------");
 			if(Status.PENDING.equals(status)) {
 				Mail mail = new Mail();
 				mail.setMailFrom(MAIL_FROM);
@@ -108,7 +109,7 @@ public class MerchantServiceImpl implements IMerchantService {
 				mailService.sendEmail(mail);
 			}
 		}
-		if (ROUTE_USER.equals(navRoute)) {
+		if (NAV_ROUTE_USER.equals(navRoute)) {
 			AppUser appUser = userRepository.findById(id);
 			appUser.setStatus(status);
 			userRepository.update(appUser);
@@ -117,17 +118,43 @@ public class MerchantServiceImpl implements IMerchantService {
 	}
 
 	@Override
-	public List<?> findMerchantsOrUsersByStatus(Status status, String route) {
-		if (ROUTE_MERCHANT.equals(route)) {
+	public List<?> findMerchantsOrUsersByStatus(Status status, String navRoute) {
+		if (NAV_ROUTE_MERCHANT.equals(navRoute)) {
 			List<Merchant> merchants = merchantRepository.findMerchantsByStatus(status);
 			return merchants;
 		}
-		if (ROUTE_USER.equals(route)) {
+		if (NAV_ROUTE_USER.equals(navRoute)) {
 			List<AppUser> users = userRepository.findAppUsersByStatus(status);
 			return users;
 		}
 		return null;
 
+	}
+	
+	@Override
+	public Page<?> page(Status status, String navRoute, int pageNumber) {
+		
+		int lastPageNumber = 0;
+		if (NAV_ROUTE_MERCHANT.equals(navRoute)) {
+			Page<Merchant> page = new Page<Merchant>();
+			List<Merchant> merchants = page.paging(pageNumber,PAGE_SIZE, merchantRepository.findMerchantsByStatus(status));
+			lastPageNumber = page.lastPageNumber(PAGE_SIZE, merchantRepository.findMerchantsByStatus(status));
+			page.setPaging(merchants);
+			page.setLastPageNumber(lastPageNumber);
+			return page;
+		}
+		if (NAV_ROUTE_USER.equals(navRoute)) {
+			Page<AppUser> page = new Page<AppUser>();
+			List<AppUser> users = page.paging(pageNumber,PAGE_SIZE, userRepository.findAppUsersByStatus(status));
+			lastPageNumber = page.lastPageNumber(PAGE_SIZE, userRepository.findAppUsersByStatus(status));
+			page.setPaging(users);
+			page.setLastPageNumber(lastPageNumber);
+			return page;
+		}
+	
+		
+		
+		return null;
 	}
 
 	@Override

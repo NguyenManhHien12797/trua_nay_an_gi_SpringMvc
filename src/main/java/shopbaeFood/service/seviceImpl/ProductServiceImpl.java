@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
@@ -17,6 +17,7 @@ import shopbaeFood.model.Account;
 import shopbaeFood.model.Merchant;
 import shopbaeFood.model.Product;
 import shopbaeFood.model.ProductForm;
+import shopbaeFood.repository.IAccountRepository;
 import shopbaeFood.repository.IProductRepository;
 import shopbaeFood.service.IProductService;
 
@@ -26,6 +27,9 @@ public class ProductServiceImpl implements IProductService {
 
 	@Autowired
 	private IProductRepository productRepository;
+	
+	@Autowired
+	private IAccountRepository accountRepository;
 
 	@Value("${file-upload}")
 	private String fileUpload;
@@ -34,17 +38,7 @@ public class ProductServiceImpl implements IProductService {
 	public Product findById(Long id) {
 		return productRepository.findById(id);
 	}
-
-	@Override
-	public void save(Product product) {
-
-	}
-
-	@Override
-	public void update(Product product) {
-		productRepository.update(product);
-
-	}
+	
 
 	@Override
 	public void delete(Long id) {
@@ -53,23 +47,11 @@ public class ProductServiceImpl implements IProductService {
 		productRepository.update(product);
 
 	}
-
+	
 	@Override
-	public List<Product> findAll() {
-		return productRepository.findAll();
-	}
-
-	@Override
-	public List<Product> findAllProductByDeleteFlag(HttpSession session) {
-		Account account = (Account) session.getAttribute("user");
-
-		return productRepository.findAllProductByDeleteFlag(account.getMerchant());
-	}
-
-	@Override
-	public String saveProduct(ProductForm productForm, HttpSession session) {
-
-		Account account = (Account) session.getAttribute("user");
+	public String saveProduct(ProductForm productForm) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Account account = accountRepository.findByName(authentication.getName());
 		MultipartFile multipartFile = productForm.getImage();
 		String fileName = multipartFile.getOriginalFilename();
 		try {
@@ -113,18 +95,8 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public List<Product> findAllProductByDeleteFlag(Merchant merchant) {
-		return productRepository.findAllProductByDeleteFlag(merchant);
-	}
-
-	@Override
-	public List<Product> findAllProductByDeleteFlag(Merchant merchant, int pageNumber) {
-		return productRepository.findAllProductByDeleteFlag(merchant, pageNumber);
-	}
-
-	@Override
-	public Long lastPageNumber(Merchant merchant) {
-		return productRepository.lastPageNumber(merchant);
+	public List<Product> findAllProductByMerchantAndDeleteFlag(Merchant merchant) {
+		return productRepository.findAllProductByMerchantAndDeleteFlag(merchant);
 	}
 
 }

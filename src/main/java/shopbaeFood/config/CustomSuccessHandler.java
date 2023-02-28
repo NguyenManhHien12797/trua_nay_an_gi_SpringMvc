@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 import shopbaeFood.model.Account;
 import shopbaeFood.service.IAccountService;
-import shopbaeFood.util.Contants;
+import shopbaeFood.util.Constants;
 
 @Component
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -45,7 +45,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(Contants.SESSION_EXPIRATION);
+		session.setMaxInactiveInterval(Constants.SESSION_EXPIRATION);
 		Account account = accountService.findByName(authentication.getName());
 		session.setAttribute("user", account);
 		if (account.getUser() != null) {
@@ -90,7 +90,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		}
 
 		if (isAdmin(roles)) {
-			url = "/admin/merchant-list/ACTIVE";
+			url = "/admin/merchant-list/ACTIVE/1";
 		}
 		
 

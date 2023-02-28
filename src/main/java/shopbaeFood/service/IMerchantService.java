@@ -7,7 +7,9 @@ import javax.servlet.http.HttpSession;
 import shopbaeFood.model.Account;
 import shopbaeFood.model.Merchant;
 import shopbaeFood.model.MerchantForm;
+import shopbaeFood.model.Order;
 import shopbaeFood.model.Status;
+import shopbaeFood.util.Page;
 
 public interface IMerchantService extends IGeneralService<Merchant> {
 
@@ -48,5 +50,7 @@ public interface IMerchantService extends IGeneralService<Merchant> {
 	 * @param session
 	 */
 	void updateMerchantInfo(MerchantForm merchantForm, Account account, HttpSession session);
+	
+	Page<?> page(Status status, String navRoute, int pageNumber);
 
 }

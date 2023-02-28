@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import shopbaeFood.model.Account;
 import shopbaeFood.model.Status;
 import shopbaeFood.service.IAccountService;
-import shopbaeFood.util.Contants;
+import shopbaeFood.util.Constants;
 
 @Component
 public class CustomIdentityAuthenticationProvider implements AuthenticationProvider {
@@ -42,6 +42,7 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 		return null;
 	}
 
+	
 	/**
 	 * This method is used to authenticate and check the login status: PENDING/ ACTIVE/ BLOCK/ REFUSE
 	 */
@@ -55,26 +56,27 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 		if (userDetails != null) {
 			Account account = accountService.findByName(username);
 			if (account.getUser() != null && Status.BLOCK.equals(account.getUser().getStatus())) {
-				throw new BadCredentialsException(Contants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK);
+				throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK);
 			}
 
 			if (account.getMerchant() != null) {
 				if (Status.PENDING.equals(account.getMerchant().getStatus())) {
-					throw new BadCredentialsException(Contants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_PENDING);
+					throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_PENDING);
 				}
 				if (Status.BLOCK.equals(account.getMerchant().getStatus())) {
-					throw new BadCredentialsException(Contants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK);
+					throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK);
 				}
 				if (Status.REFUSE.equals(account.getMerchant().getStatus())) {
-					throw new BadCredentialsException(Contants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_REFUSE);
+					throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_REFUSE);
 				}
 			}
 
 			return new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
 		} else {
-			throw new BadCredentialsException(Contants.RESPONSE_MESSAGE.LOGIN_FAILE);
+			throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE);
 		}
 	}
+
 
 	@Override
 	public boolean supports(Class<?> authenticationType) {

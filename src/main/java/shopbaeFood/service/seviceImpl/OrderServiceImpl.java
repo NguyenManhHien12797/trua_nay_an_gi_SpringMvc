@@ -19,7 +19,8 @@ import shopbaeFood.repository.IOrderDetailRepository;
 import shopbaeFood.repository.IOrderRepository;
 import shopbaeFood.service.IMerchantService;
 import shopbaeFood.service.IOrderService;
-import shopbaeFood.util.Contants;
+import shopbaeFood.util.Constants;
+import shopbaeFood.util.Page;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
@@ -38,34 +39,14 @@ public class OrderServiceImpl implements IOrderService {
 	
 	@Autowired
 	private SimpMessagingTemplate messagingTemplate;
-
-	@Override
-	public Order findById(Long id) {
-		return orderRepository.findById(id);
-	}
-
-	@Override
-	public void save(Order order) {
-		orderRepository.save(order);
-
-	}
-
-	@Override
-	public void update(Order order) {
-		orderRepository.update(order);
-
-	}
-
-	@Override
-	public List<Order> findAll() {
-		return orderRepository.findAll();
-	}
+	
+	private final int PAGE_SIZE = 5;
 
 	@Override
 	public void checkout(Order order, HttpSession session) {
 		Account account = (Account) session.getAttribute("user");
 		order.setAppUser(account.getUser());
-		order.setStatus(Contants.ORDER_STATE.PENDING);
+		order.setStatus(Constants.ORDER_STATE.PENDING);
 		orderRepository.save(order);
 
 		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
@@ -92,11 +73,6 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public List<Order> findOrdersByMerchant(Long merchant_id, String status) {
-		return orderRepository.findOrdersByMerchantId(merchant_id, status);
-	}
-
-	@Override
 	public List<Order> findOrdersByUserId(Long user_id) {
 		return orderRepository.findOrdersByUserId(user_id);
 	}
@@ -107,7 +83,7 @@ public class OrderServiceImpl implements IOrderService {
 		Merchant merchant = merchantService.findById(order.getMerchant_id());
 		order.setStatus(status);
 		orderRepository.update(order);
-		if(Contants.ORDER_STATE.SELLER_RECEIVE.equals(status)) {
+		if(Constants.ORDER_STATE.SELLER_RECEIVE.equals(status)) {
 			messagingTemplate.convertAndSend("/topic/"+ order.getAppUser().getId(),
 					new OrderDTO(order.getId(), 
 							order.getAppUser().getName(),
@@ -115,18 +91,15 @@ public class OrderServiceImpl implements IOrderService {
 							merchant.getName()
 					));
 		}
-		String route = "redirect: /shopbaeFood/merchant/order-manager/seller-receive";
-		if (Contants.ORDER_STATE.BUYER_RECEIVE.equals(status) || Contants.ORDER_STATE.BUYER_REFUSE.equals(status)) {
+		String route = "redirect: /shopbaeFood/merchant/order-manager/seller-receive/1";
+		if (Constants.ORDER_STATE.BUYER_RECEIVE.equals(status) || Constants.ORDER_STATE.BUYER_REFUSE.equals(status)) {
 			route = "redirect:/user/cart";
 		}
 		return route;
 
 	}
 
-	@Override
-	public List<Order> findOrdersByMerchantIdAndStatus(Long merchant_id, String status, String status1) {
-		return orderRepository.findOrdersByMerchantIdAndStatus(merchant_id, status, status1);
-	}
+
 
 	@Override
 	public void deleteOrder(Long order_id) {
@@ -137,13 +110,37 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public List<Order> findAllOrderByMerchant_idAndDeleteFlag(Long merchant_id, String status, int pageNumber) {
-		return orderRepository.findAllOrderByMerchantAndDeleteFlag(merchant_id, status, pageNumber);
-	}
-
-	@Override
-	public Long lastPageNumber(Long merchant_id, String status) {
-		return orderRepository.lastPageNumber(merchant_id, status);
+	public Page<Order> page(String status, int pageNumber, HttpSession session) {
+		Long merchant_id = (Long) session.getAttribute("userId");
+		Page<Order> page = new Page<Order>();
+		List<Order> orders = null;
+		int lastPageNumber = 0;
+		if (Constants.ORDER_STATE.PENDING.equals(status) || Constants.ORDER_STATE.SELLER_RECEIVE.equals(status)) {
+			orders = page.paging(pageNumber,PAGE_SIZE, orderRepository.findOrdersByMerchantId(merchant_id, status));
+			lastPageNumber = page.lastPageNumber(PAGE_SIZE, orderRepository.findOrdersByMerchantId(merchant_id, status));
+		}
+		
+		if (Constants.ORDER_STATE.HISTORY.equals(status)) {
+			orders = page.paging(pageNumber,PAGE_SIZE, 
+					orderRepository
+					.findOrdersByMerchantIdAndStatus(
+							merchant_id, 
+							Constants.ORDER_STATE.BUYER_RECEIVE, 
+							Constants.ORDER_STATE.BUYER_REFUSE));
+			
+			lastPageNumber =  page.lastPageNumber(PAGE_SIZE,
+					orderRepository
+					.findOrdersByMerchantIdAndStatus(
+							merchant_id, 
+							Constants.ORDER_STATE.BUYER_RECEIVE, 
+							Constants.ORDER_STATE.BUYER_REFUSE));
+			
+		}
+		
+		page.setPaging(orders);
+		page.setLastPageNumber(lastPageNumber);
+		
+		return page;
 	}
 
 }

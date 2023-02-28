@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -18,12 +20,13 @@ import shopbaeFood.model.Order;
 import shopbaeFood.model.Product;
 import shopbaeFood.model.ProductCartMap;
 import shopbaeFood.model.dto.CartDTO;
+import shopbaeFood.repository.IAccountRepository;
 import shopbaeFood.repository.IAppUserRepository;
 import shopbaeFood.repository.ICartRepository;
 import shopbaeFood.repository.IOrderRepository;
 import shopbaeFood.repository.IProductRepository;
 import shopbaeFood.service.ICartService;
-import shopbaeFood.util.Contants;
+import shopbaeFood.util.Constants;
 
 @Service
 @Transactional
@@ -40,6 +43,9 @@ public class CartServiceImpl implements ICartService {
 
 	@Autowired
 	private IOrderRepository orderRepository;
+	
+	@Autowired
+	private IAccountRepository accountRepository;
 
 	@Override
 	public List<Cart> findAllCartByUserIdAndDeleteFlag(Long userId) {
@@ -50,10 +56,11 @@ public class CartServiceImpl implements ICartService {
 	@Override
 	public String addToCart(CartDTO cartDTO, HttpSession session) {
 
-		Account account = (Account) session.getAttribute("user");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Account account = accountRepository.findByName(authentication.getName());
 
 		if (account == null) {
-			return "redirect:/shopbaeFood/login?mess=not-logged-in";
+			return "redirect:/login?mess=not-logged-in";
 		}
 
 		Cart cart = cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
@@ -105,16 +112,16 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	public String showCart(Model model, HttpSession session) {
-		Long userId = (Long) session.getAttribute("userId");
-		Account account = (Account) session.getAttribute("user");
-		if(account ==null) {
-			return "redirect: /shopbaeFood/login?mess=not-logged-in";
-		}
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Account account = accountRepository.findByName(authentication.getName());
+		Long userId = account.getUser().getId();
+		
 		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
 		List<Order> orders = orderRepository.findOrdersByUserId(userId);
 		String message = " ";
 		if (carts.isEmpty()) {
-			message = Contants.CART_MESSAGE.NO_DATA;
+			message = Constants.CART_MESSAGE.NO_DATA;
 		}
 
 		Double totalPrice = 0.0;

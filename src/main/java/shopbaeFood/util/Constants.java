@@ -1,6 +1,6 @@
 package shopbaeFood.util;
 
-public class Contants {
+public class Constants {
 	
 	 public static class RESPONSE_MESSAGE{
 		 public static final String LOGIN_FAILE = "Tài khoản hoặc mật khẩu không chính xác !!";

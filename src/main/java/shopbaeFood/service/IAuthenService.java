@@ -1,7 +1,5 @@
 package shopbaeFood.service;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,22 +14,11 @@ public interface IAuthenService {
 	void register(AccountRegisterDTO accountRegisterDTO, String role);
 
 	/**
-	 * This method is used to check role Admin
-	 */
-	boolean isAdmin(HttpSession session);
-
-	/**
-	 * This method is used to load list merchant by status: ACTIVE
-	 * @return view homepage
-	 */
-	String home(Model model, HttpSession session);
-
-	/**
 	 * This method is used to show message 
 	 * @param mess: not-logged-in/ time-out
 	 * @return message
 	 */
-	String showLoginForm(String mess);
+	String showMessageLogin(String mess);
 
 	/**
 	 * This method is used to show form register by role
@@ -43,13 +30,13 @@ public interface IAuthenService {
 	/**
 	 * This method checks if the user is logged in, if logged in, what role?
 	 */
-	void checkLogin(Model model, HttpSession session);
+	void checkLogin(Model model);
 
 	/**
 	 * This method is used to create otp and send otp mail to the user
 	 * @param session
 	 */
-	void createOtp(HttpSession session);
+	void createOtp();
 
 	/**
 	 * This method is used to change password and set otp= null
@@ -74,5 +61,5 @@ public interface IAuthenService {
 	 * @param session
 	 * @return view merchant-details
 	 */
-	String merchantDetails(Long id, Model model, HttpSession session);
+	String merchantDetails(Long id, Model model);
 }

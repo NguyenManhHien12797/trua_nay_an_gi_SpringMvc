@@ -20,7 +20,7 @@ function connect() {
 		    	})
 		    	.then((ok) => {
 		    	  if (ok) {
-		    		  window.location="https://localhost:8443/shopbaeFood/merchant/order-manager/order-pending"; 
+		    		  window.location="https://localhost:8443/shopbaeFood/merchant/order-manager/order-pending/1"; 
 		    	  } 
 		    	});
 				}else{

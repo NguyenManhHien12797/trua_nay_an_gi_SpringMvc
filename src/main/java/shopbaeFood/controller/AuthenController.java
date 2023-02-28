@@ -1,9 +1,15 @@
 package shopbaeFood.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,12 +22,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import shopbaeFood.exception.CheckOtpException;
 import shopbaeFood.model.Account;
 import shopbaeFood.model.AppUser;
+import shopbaeFood.model.Merchant;
+import shopbaeFood.model.Status;
 import shopbaeFood.model.UserForm;
 import shopbaeFood.model.dto.AccountRegisterDTO;
+import shopbaeFood.service.IAccountService;
 import shopbaeFood.service.IAppUserSevice;
 import shopbaeFood.service.IAuthenService;
+import shopbaeFood.service.IMerchantService;
 
 @Controller
 public class AuthenController {
@@ -31,6 +42,12 @@ public class AuthenController {
 
 	@Autowired
 	private IAppUserSevice userSevice;
+	
+	@Autowired
+	private IMerchantService merchantService;
+	
+	@Autowired
+	private IAccountService accountService;
 	
 	public static final String USER = "user";
 	public static final String MECHANT = "merchant";
@@ -44,9 +61,18 @@ public class AuthenController {
 	 * @return view login
 	 */
 	@GetMapping(value = { "/login" })
-	public String showLoginForm(@RequestParam(required = false) String message, Model model) {
-		model.addAttribute("mess", authenService.showLoginForm(message));
-		return "login";
+	public String showLoginForm(@RequestParam(required = false) String mess, Model model, HttpServletResponse response) {
+		
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+	    	model.addAttribute("mess", authenService.showMessageLogin(mess));
+	    	  response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
+	          response.setHeader("Pragma","no-cache");
+	          response.setDateHeader("Expires", 0);
+	    	return "login";
+	    }
+ 
+        return "redirect:/";
 
 	}
 
@@ -57,34 +83,34 @@ public class AuthenController {
 	 * @return view homePage
 	 */
 	@GetMapping(value = { "/home", "/" })
-	public String home(Model model, HttpSession session) {
-		String homePage = authenService.home(model, session);
-		return homePage;
+	public String home(Model model) {
+		authenService.checkLogin(model);
+		List<Merchant> merchants = merchantService.findMerchantsByStatus(Status.ACTIVE);
+		model.addAttribute("merchants", merchants);
+		return "homepage";
 	}
 
 	/**
 	 * This method returns merchant details page
 	 * @param id : merchant_id
 	 * @param model
-	 * @param session
 	 * @return view merchant-detail
 	 */
 	@GetMapping(value = { "/home/merchant-detail/{id}" })
-	public String merchantDetails(@PathVariable Long id, Model model, HttpSession session) {
-
-		return authenService.merchantDetails(id, model, session);
+	public String merchantDetails(@PathVariable Long id, Model model) {
+		return authenService.merchantDetails(id, model);
 	}
 	
 	/**
 	 * This method returns fragments: user_info/ user_update_info by route
 	 * @param route : user_info/ user_update_info
-	 * @param session
 	 * @param model
 	 * @return view user_info page
 	 */
 	@GetMapping(value = { "/home/{route}" })
-	public String userInfo(@PathVariable String route, HttpSession session, Model model) {
-		Account account = (Account) session.getAttribute("user");
+	public String userInfo(@PathVariable String route, Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Account account = accountService.findByName(authentication.getName());
 
 		if (account == null) {
 			return "redirect:/login?mess=not-logged-in";
@@ -160,8 +186,8 @@ public class AuthenController {
 	 */
 	@RequestMapping(value = { "/home/create-otp" })
 	@ResponseBody
-	private String createOTP(HttpSession session) {
-		authenService.createOtp(session);
+	private String createOTP() {
+		authenService.createOtp();
 		return "create otp ok";
 	}
 

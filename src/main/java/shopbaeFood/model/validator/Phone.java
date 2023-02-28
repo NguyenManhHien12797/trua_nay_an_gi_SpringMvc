@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import shopbaeFood.util.Contants;
+import shopbaeFood.util.Constants;
 
 
 
@@ -19,7 +19,7 @@ import shopbaeFood.util.Contants;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Phone {
 
-	String message() default Contants.VALIDATOR_MESSAGE.PHONE_NUMBER_FORMAT;
+	String message() default Constants.VALIDATOR_MESSAGE.PHONE_NUMBER_FORMAT;
 
 	Class<?>[] groups() default {};
 

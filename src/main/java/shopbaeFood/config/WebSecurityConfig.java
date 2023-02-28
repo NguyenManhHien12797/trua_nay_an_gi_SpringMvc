@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.authenticationProvider(customIdentityAuthenticationProvider);
 
 	}
+	
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -48,7 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 						"/image/**","/chat/**")
 				.permitAll().antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/merchant/**").hasRole("MERCHANT")
 				.antMatchers("/**").hasAnyRole("ADMIN").and().formLogin().loginPage("/login")
-				.usernameParameter("userName").successHandler(customSuccessHandler).and().logout()
+				.usernameParameter("userName").successHandler(customSuccessHandler)
+				.and().logout().logoutSuccessUrl("/login")
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).clearAuthentication(true)
 				.deleteCookies("JSESSIONID").invalidateHttpSession(true).and().csrf().disable();
 

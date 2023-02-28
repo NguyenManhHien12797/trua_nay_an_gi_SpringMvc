@@ -2,14 +2,13 @@ package shopbaeFood.service.seviceImpl;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +33,7 @@ import shopbaeFood.service.IMailService;
 import shopbaeFood.service.IMerchantService;
 import shopbaeFood.service.IProductService;
 import shopbaeFood.service.IRoleService;
-import shopbaeFood.util.Contants;
+import shopbaeFood.util.Constants;
 
 @Service
 @Transactional
@@ -97,54 +96,37 @@ public class AuthenServiceImpl implements IAuthenService {
 
 	}
 
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean isAdmin(HttpSession session) {
-		Collection<? extends GrantedAuthority> attribute = (Collection<? extends GrantedAuthority>) session
-				.getAttribute("authorities");
-		
-		Collection<? extends GrantedAuthority> authorities = attribute;
-		List<String> roles = new ArrayList<String>();
-		for (GrantedAuthority a : authorities) {
-			roles.add(a.getAuthority());
+	private List<String>authorities(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+			return null;
 		}
-		if (roles.contains("ROLE_ADMIN")) {
-			return true;
+		List<String> authorities = new ArrayList<String>();
+		for (GrantedAuthority a : authentication.getAuthorities()) {
+			authorities.add(a.getAuthority());
 		}
-		return false;
+		return authorities;
 	}
 	
-
 	@Override
-	public String home(Model model, HttpSession session) {
-		checkLogin(model, session);
-		List<Merchant> merchants = merchantService.findMerchantsByStatus(Status.ACTIVE);
-		model.addAttribute("merchants", merchants);
-		return "homepage";
-	}
-
-	
-	@Override
-	public void checkLogin(Model model, HttpSession session) {
-		Account account = (Account) session.getAttribute("user");
+	public void checkLogin(Model model) {
 		String message = " ";
 		String role = "";
-		if (account == null) {
-			message = "chua dang nhap";
-		} else {
-			if (account.getUser() != null) {
+	    if (authorities()==null) {
+	    	message = "chua dang nhap";
+	    }else {
+	    	if (authorities().contains("ROLE_USER")) {
 				role = "user";
 			}
-			if (isAdmin(session)) {
+			if (authorities().contains("ROLE_ADMIN")) {
 				role = "admin";
 			}
-			if (account.getMerchant() != null) {
+			if (authorities().contains("ROLE_MERCHANT")) {
 				role = "merchant";
 			}
 
 			model.addAttribute("role", role);
-		}
+	    }
 		model.addAttribute("message", message);
 	}
 
@@ -169,18 +151,19 @@ public class AuthenServiceImpl implements IAuthenService {
 	}
 
 	@Override
-	public String merchantDetails(Long id, Model model, HttpSession session) {
-		checkLogin(model, session);
+	public String merchantDetails(Long id, Model model) {
+		checkLogin(model);
 		Merchant merchant = merchantService.findById(id);
-		List<Product> products = productService.findAllProductByDeleteFlag(merchant);
+		List<Product> products = productService.findAllProductByMerchantAndDeleteFlag(merchant);
 		model.addAttribute("merchant", merchant);
 		model.addAttribute("products", products);
 		return "merchant-details";
 	}
 
 	@Override
-	public void createOtp(HttpSession session) {
-		Account account = (Account) session.getAttribute("user");
+	public void createOtp() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Account account = accountRepository.findByName(authentication.getName());
 		double randomDouble = Math.random();
 		randomDouble = randomDouble * 1000000 + 1;
 		int OTP = (int) randomDouble;
@@ -204,7 +187,7 @@ public class AuthenServiceImpl implements IAuthenService {
 		if (otp.equals(account.getOtp())) {
 			return "ok";
 		}
-		throw new CheckOtpException(500, Contants.RESPONSE_MESSAGE.WRONG_OTP);
+		throw new CheckOtpException(500, Constants.RESPONSE_MESSAGE.WRONG_OTP);
 	}
 
 	@Override
@@ -217,13 +200,13 @@ public class AuthenServiceImpl implements IAuthenService {
 	}
 
 	@Override
-	public String showLoginForm(String mess) {
+	public String showMessageLogin(String mess) {
 		String message = " ";
-		if (Contants.LOGIN_STATE.NOT_LOGIN.equals(mess)) {
-			message = Contants.RESPONSE_MESSAGE.NOT_LOGIN;
+		if (Constants.LOGIN_STATE.NOT_LOGIN.equals(mess)) {
+			message = Constants.RESPONSE_MESSAGE.NOT_LOGIN;
 		}
-		if (Contants.LOGIN_STATE.TIME_OUT.equals(mess)) {
-			message = Contants.RESPONSE_MESSAGE.TIME_OUT;
+		if (Constants.LOGIN_STATE.TIME_OUT.equals(mess)) {
+			message = Constants.RESPONSE_MESSAGE.TIME_OUT;
 		}
 
 		return message;

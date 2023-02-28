@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
@@ -76,7 +78,8 @@ public class AppUserServiceImpl implements IAppUserSevice {
 
 	@Override
 	public void updateUserInfo(UserForm userForm, Account accountInput, HttpSession session) {
-		Account accountUpdate = (Account) session.getAttribute("user");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Account accountUpdate = accountRepository.findByName(authentication.getName());
 
 		accountUpdate.setEmail(accountInput.getEmail());
 		accountRepository.update(accountUpdate);

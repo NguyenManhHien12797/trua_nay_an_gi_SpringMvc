@@ -6,8 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import shopbaeFood.model.Merchant;
 import shopbaeFood.model.Order;
+import shopbaeFood.util.Page;
 
-public interface IOrderService extends IGeneralService<Order> {
+public interface IOrderService{
 	
 	/**
 	 * This method is used to checkout 
@@ -25,23 +26,6 @@ public interface IOrderService extends IGeneralService<Order> {
 	String updateOrderStatus(Long order_id, String status);
 
 	/**
-	 * This method is used to find Order by Merchant and status
-	 * @param merchant_id
-	 * @param status
-	 * @return List<Order>
-	 */
-	List<Order> findOrdersByMerchant(Long merchant_id, String status);
-
-	/**
-	 * This method is used to find Orders by Merchant and two status
-	 * @param merchant_id
-	 * @param status
-	 * @param status1
-	 * @return List<Order>
-	 */
-	List<Order> findOrdersByMerchantIdAndStatus(Long merchant_id, String status, String status1);
-
-	/**
 	 * This method is used to find Orders by user_id
 	 * @param user_id
 	 * @return List<Order.
@@ -53,9 +37,13 @@ public interface IOrderService extends IGeneralService<Order> {
 	 * @param order_id
 	 */
 	void deleteOrder(Long order_id);
-	
-	List<Order> findAllOrderByMerchant_idAndDeleteFlag(Long merchant_id, String status, int pageNumber);
-	
-	Long lastPageNumber(Long merchant_id, String status);
+	/**
+	 * This method is used to paging
+	 * @param status
+	 * @param pageNumber
+	 * @param session
+	 * @return
+	 */
+	Page<Order> page(String status, int pageNumber, HttpSession session);
 
 }

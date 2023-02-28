@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import shopbaeFood.util.Contants;
+import shopbaeFood.util.Constants;
 
 
 @Documented
@@ -18,7 +18,7 @@ import shopbaeFood.util.Contants;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserNameUnique {
 
-	String message() default Contants.VALIDATOR_MESSAGE.USERNAME_EXISTS;
+	String message() default Constants.VALIDATOR_MESSAGE.USERNAME_EXISTS;
 
 	Class<?>[] groups() default {};
 

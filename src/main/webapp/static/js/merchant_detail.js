@@ -2,7 +2,7 @@ function addToCart(price,user_id,product_id) {
 	if(user_id == null){
 		window.location="https://localhost:8443/shopbaeFood/login?mess=not-logged-in";
 	}
-
+	console.log("user_id: "+user_id);
     let CartDTO = {
     	price: price,
     	user_id: user_id,

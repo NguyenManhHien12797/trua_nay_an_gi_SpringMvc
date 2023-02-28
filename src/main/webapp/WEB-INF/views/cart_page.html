@@ -14,7 +14,7 @@
 <script type="text/javascript"  th:src="@{/static/js/stomp.min.js}"></script>
 
 
-<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css}">
+<!-- <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css}"> -->
 
 <style>
   .font15 {
@@ -136,6 +136,7 @@
                 </tr>
                 </tbody>
               </table>
+              
             </div>
 
           </div>
@@ -203,10 +204,6 @@
                   <tr>
                     <td scope="col">Ghi chú </td>
                     <td scope="col" colspan="2"><input class="note"  type="text" placeholder="Ghi chú" th:field= "*{note}"></td>
-                  </tr>
-                     <tr>
-                    <td scope="col">Mess </td>
-                    <td scope="col" colspan="2"><input class="note" id="message"  type="text" placeholder="Ghi chú" th:field= "*{note}"></td>
                   </tr>
                   <tr>
                     <td scope="col">Địa chỉ</td>

@@ -1,7 +1,5 @@
 package shopbaeFood.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import shopbaeFood.model.Status;
 import shopbaeFood.service.IMerchantService;
+import shopbaeFood.util.Page;
 
 @Controller
 public class AdminController {
@@ -25,9 +24,9 @@ public class AdminController {
 	 * @param model
 	 * @return addmin_page
 	 */
-	@GetMapping(value = { "/admin/{navRoute}/{status}" })
-	public String adminPage(@PathVariable String navRoute, @PathVariable Status status, Model model) {
-		addListAttribute(status, navRoute, model);
+	@GetMapping(value = { "/admin/{navRoute}/{status}/{pageNumber}" })
+	public String adminPage(@PathVariable String navRoute, @PathVariable Status status, @PathVariable int pageNumber, Model model) {
+		addListAttribute(status, navRoute, pageNumber, model);
 		return "admin_page";
 	}
 
@@ -44,7 +43,7 @@ public class AdminController {
 	public String updateStatus(@PathVariable String navRoute, @PathVariable Long id, @PathVariable Status status,
 			@PathVariable Status route, Model model) {
 		merchantService.updateStatus(id, status, navRoute);
-		addListAttribute(route, navRoute, model);
+		addListAttribute(route, navRoute, 1, model);
 		return "fragments/app-fragments ::${route}";
 	}
 	
@@ -52,14 +51,18 @@ public class AdminController {
 	 * This method is used to add Attribute 
 	 * @param status
 	 * @param navRoute
+	 * @param pageNumber
 	 * @param model
 	 */
 
-	private void addListAttribute(Status status, String navRoute, Model model) {
+	private void addListAttribute(Status status, String navRoute, int pageNumber, Model model) {
 		String navTitle = "Kênh Admin";
-		List<?> usersOrMechants = merchantService.findMerchantsOrUsersByStatus(status, navRoute);
-		model.addAttribute("usersOrMechants", usersOrMechants);
+		Page<?> page = merchantService.page(status, navRoute, pageNumber);
+		int lastPageNumber = page.getLastPageNumber();
+		model.addAttribute("usersOrMechants", page.getPaging());
+		model.addAttribute("lastPageNumber", lastPageNumber);
 		model.addAttribute("navTitle", navTitle);
+		model.addAttribute("page", pageNumber);
 		model.addAttribute("navRoute", navRoute);
 		model.addAttribute("status", status);
 		model.addAttribute("role", "admin");
