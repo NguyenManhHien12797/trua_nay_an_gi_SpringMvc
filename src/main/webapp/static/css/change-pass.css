@@ -1,0 +1,59 @@
+@charset "ISO-8859-1";
+.now-change-pass{
+	width: 360px;
+    margin: auto;
+    clear: both;
+    padding: 30px 0;
+}
+
+.now-change-pass .title {
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 17px;
+}
+.now-change-pass .content {
+    padding: 30px;
+    background-color: #fff;
+}
+.form-change-pass-input{
+	width: 300px;
+}
+.now-change-pass .field-group {
+    border: 1px solid #959595;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+.now-change-pass .form-change-pass-input input {
+    border: 0;
+    border-radius: 0;
+    width: 100%;
+    padding: 9px 10px 9px 33px;
+}
+.now-change-pass .form-change-pass-input .far, .now-change-pass .form-change-pass-input .fas {
+    color: #9fa9aa;
+    position: absolute;
+    top: 13px;
+    left: 8px;
+}
+
+.now-change-pass .form-change-pass-input .fa-solid{
+    color: #9fa9aa;
+    position: absolute;
+    top: 13px;
+    right: 8px;
+}
+.now-change-pass .form-change-pass-input .fa-solid:hover{
+	cursor: pointer;
+}
+.now-change-pass .form-change-pass-input .fa-eye-slash{
+	display: none;
+}
+
+.now-change-pass .form-login-input .input-group:last-child {
+    border: 0;
+}
+.btn-change-pass{
+	background-color: #f97d47;
+}

@@ -25,6 +25,7 @@ import shopbaeFood.model.Merchant;
 import shopbaeFood.model.Product;
 import shopbaeFood.model.Status;
 import shopbaeFood.model.dto.AccountRegisterDTO;
+import shopbaeFood.model.dto.PasswordDTO;
 import shopbaeFood.repository.IAccountRepository;
 import shopbaeFood.service.IAccountService;
 import shopbaeFood.service.IAppUserSevice;
@@ -95,8 +96,9 @@ public class AuthenServiceImpl implements IAuthenService {
 		}
 
 	}
-
-	private List<String>authorities(){
+	
+	@Override
+	public List<String>authorities(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
 			return null;
@@ -210,6 +212,24 @@ public class AuthenServiceImpl implements IAuthenService {
 		}
 
 		return message;
+	}
+
+	@Override
+	public boolean changePass(PasswordDTO passwordDTO) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Account account = accountRepository.findByName(authentication.getName());
+		if(passwordEncoder.matches(passwordDTO.getCurrentPassword(), account.getPassword())) {
+			if(passwordDTO.getNewPassword().equals(passwordDTO.getConfirmPassword())) {
+				account.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
+				account.setOtp(null);
+				account.setFirstLogin(false);
+				accountRepository.update(account);
+				return true;
+			}
+		}
+	
+		return false;
+		
 	}
 
 }

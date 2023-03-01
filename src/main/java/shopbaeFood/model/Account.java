@@ -1,5 +1,6 @@
 package shopbaeFood.model;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -29,6 +31,15 @@ public class Account {
 	private boolean isEnabled;
 	private String email;
 	private String otp;
+	@Column(name = "first_login")
+	@ColumnDefault("1")
+	private boolean firstLogin;
+	@Column(name = "account_non_locked")
+	private boolean accountNonLocked;
+	@Column(name = "failed_attempt")
+	private int failedAttempt;
+	@Column(name = "lock_time")
+	private Date lockTime;
 	@OneToOne(mappedBy = "account")
 	private AppUser user;
 	@OneToOne(mappedBy = "account")
@@ -134,5 +145,40 @@ public class Account {
 	public void setAccountRoleMapSet(Set<AccountRoleMap> accountRoleMapSet) {
 		this.accountRoleMapSet = accountRoleMapSet;
 	}
+
+	public boolean isAccountNonLocked() {
+		return accountNonLocked;
+	}
+
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+
+	public int getFailedAttempt() {
+		return failedAttempt;
+	}
+
+	public void setFailedAttempt(int failedAttempt) {
+		this.failedAttempt = failedAttempt;
+	}
+
+	public Date getLockTime() {
+		return lockTime;
+	}
+
+	public void setLockTime(Date lockTime) {
+		this.lockTime = lockTime;
+	}
+
+	public boolean isFirstLogin() {
+		return firstLogin;
+	}
+
+	public void setFirstLogin(boolean firstLogin) {
+		this.firstLogin = firstLogin;
+	}
+	
+	
+	
 
 }

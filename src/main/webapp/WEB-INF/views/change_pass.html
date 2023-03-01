@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Change pass</title>
+
+ <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/change-pass.css}">
+ <script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
+</head>
+<style>
+  .font15 {
+    font-size: 15px;
+  }
+
+  .font14 {
+    font-size: 14px;
+  }
+</style>
+
+<body class="portal" style="font-size:calc(8px + 0.5vw);">
+
+<div id="app">
+  <div class="wrapper">
+    <header class="main-header">
+
+      <div class="container-header">
+        <div class="container">
+          <div class="header-content navbar row  justify-content-between align-items-center">
+            <div class="logo-now col-auto"><span>
+            <a th:href="@{/home}">Logo
+          <!--   <img th:src="@{/static/img/shopeefoodvn.png}" alt="ShopBaeFood"> -->
+              </a></span></div>
+          </div>
+        </div>
+      </div>
+      
+  
+    </header>
+    <!--form login-->
+    <div class="now-change-pass">
+      <div class="content">
+        <div class="title">Đổi mật khẩu</div>
+
+        <!--        form login-->
+        
+        <div th:if= "${param.error}" >
+        <p style="color:red">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        
+        </div>
+        
+ 	 	<div th:if= "${mess}" >
+        <p style="color:red">[[${mess}]]</p>
+        
+        </div>
+        
+        <form th:action="@{/home/change-pass}" method="post"  th:object="${passwordDTO}">
+               <div th:if= "${error}" >
+        			<p style="color:red">[[${error}]]</p>
+        		</div>
+          <div class="form-change-pass-input">
+            	<div style="color:red" th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}"></div>
+            <div class="field-group">
+              <div class="input-group">
+              <input type="password" name="currentPassword" th:field="*{currentPassword}" placeholder="Nhập mật hiện nay">
+              <i class="fa-solid fa-eye show-password"></i>
+              <i class="fa-solid fa-eye-slash hide-password"></i>
+              </div>
+            </div>
+            	<div style="color:red" th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"></div>
+             <div class="field-group">
+                <div class="input-group">
+                <input type="password" name="newPassword"  th:field="*{newPassword}" placeholder="Nhập mật khẩu mới">
+                <i class="fa-solid fa-eye show-password"></i>
+                <i class="fa-solid fa-eye-slash hide-password"></i>
+                </div>
+             </div>
+             <div style="color:red" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+                <div class="field-group">
+                <div class="input-group">
+                <input type="password" name="confirmPassword"  th:field="*{confirmPassword}" placeholder="Nhập lại mật khẩu mới">
+                <i class="fa-solid fa-eye show-password"></i>
+                <i class="fa-solid fa-eye-slash hide-password"></i>
+                </div>
+             </div>
+            
+            <button class="btn btn-block btn-submit btn-change-pass" >Đổi mật khẩu</button></div>
+          <br>
+
+        </form>
+      </div>
+    </div>
+    <!-- end form login -->
+
+
+    <div th:replace="~{/fragments/app-fragments :: footer}">
+        Footer
+    </div>
+    
+  </div>
+
+
+</div>
+<script
+	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
+</script>
+<script th:inline="javascript" th:src="@{/static/js/change-pass.js}"></script>
+</body>
+</html>

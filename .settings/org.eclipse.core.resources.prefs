@@ -3,6 +3,7 @@ encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/application.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/views/cart_page.html=UTF-8
+encoding//src/main/webapp/WEB-INF/views/change_pass.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/fragments/app-fragments.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/homepage.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/login.html=UTF-8

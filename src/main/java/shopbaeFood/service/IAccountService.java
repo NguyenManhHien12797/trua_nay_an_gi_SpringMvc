@@ -25,6 +25,36 @@ public interface IAccountService extends IGeneralService<Account> {
 	 */
 	UserDetails loadUserByUsername(String username);
 	
+	/**
+	 * This method is used to increase failedAttempts
+	 * @param account
+	 */
+	void increaseFailedAttempts(Account account);
+	
+	/**
+	 * This method is used to reset failedAttempts
+	 * @param account
+	 */
+	void resetFailedAttempts(Account account);
+	
+	/**
+	 * This method is used to lock account
+	 * @param account
+	 */
+	void lock(Account account);
+	
+	/**
+	 * This method is used to unlock account when time expired
+	 * @param account
+	 * @return
+	 */
+	boolean unlockWhenTimeExpired(Account account);
+	
+	/**
+	 * This method is used to check extis acount by username
+	 * @param userName
+	 * @return
+	 */
 	Boolean existsByUserName(String userName);
 
 }

@@ -1,10 +1,13 @@
 package shopbaeFood.service;
 
+import java.util.List;
+
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import shopbaeFood.exception.CheckOtpException;
 import shopbaeFood.model.dto.AccountRegisterDTO;
+import shopbaeFood.model.dto.PasswordDTO;
 
 public interface IAuthenService {
 
@@ -44,6 +47,8 @@ public interface IAuthenService {
 	 * @param account_id
 	 */
 	void changePass(String pass, Long account_id);
+	
+	boolean changePass(PasswordDTO passwordDTO);
 
 	/**
 	 * This method is used to check otp 
@@ -62,4 +67,6 @@ public interface IAuthenService {
 	 * @return view merchant-details
 	 */
 	String merchantDetails(Long id, Model model);
+	
+	List<String>authorities();
 }

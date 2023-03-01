@@ -29,6 +29,7 @@ import shopbaeFood.model.Merchant;
 import shopbaeFood.model.Status;
 import shopbaeFood.model.UserForm;
 import shopbaeFood.model.dto.AccountRegisterDTO;
+import shopbaeFood.model.dto.PasswordDTO;
 import shopbaeFood.service.IAccountService;
 import shopbaeFood.service.IAppUserSevice;
 import shopbaeFood.service.IAuthenService;
@@ -204,7 +205,33 @@ public class AuthenController {
 
 		return authenService.checkOtp(account_id, otp);
 	}
-
+	
+	@GetMapping("/home/change-pass")
+	private String showChangePassPage(Model model) {
+		model.addAttribute("passwordDTO", new PasswordDTO());
+		return "change_pass";
+	}
+	
+	@PostMapping(value = { "/home/change-pass" })
+	private String changePass(@Valid @ModelAttribute("passwordDTO") PasswordDTO passwordDTO, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "change_pass";
+		}
+		if(authenService.changePass(passwordDTO)) {
+			List<String>authorities = authenService.authorities();
+			if(authorities.contains("ROLE_ADMIN")) {
+				return "redirect:/admin";	
+			}
+			if(authorities.contains("ROLE_MERCHANT")) {
+				return "redirect:/merchant";	
+			}
+			if(authorities.contains("ROLE_USER")) {
+				return "redirect:/";	
+			}
+		}
+		model.addAttribute("error", "Mật khẩu không đúng");
+		return "change_pass";
+	}
 	/**
 	 * This method is used to change pass
 	 * @param account_id

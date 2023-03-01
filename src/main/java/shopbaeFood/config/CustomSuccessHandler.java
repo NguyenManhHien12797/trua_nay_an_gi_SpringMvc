@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,21 +33,19 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
 	public static final String ROLE_USER = "ROLE_USER";
 	public static final String ROLE_MERCHANT = "ROLE_MERCHANT";
+
 	
 
 	@Override
-	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-			throws IOException {
-		String targetUrl = determineTargetUrl(authentication);
-
-		if (response.isCommitted()) {
-			System.out.println("Can't redirect");
-			return;
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws IOException, ServletException {
+		Account account = accountService.findByName(authentication.getName());
+		if(account.getFailedAttempt()> 0 ) {
+			accountService.resetFailedAttempts(account);
 		}
-
+	
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(Constants.SESSION_EXPIRATION);
-		Account account = accountService.findByName(authentication.getName());
 		session.setAttribute("user", account);
 		if (account.getUser() != null) {
 			session.setAttribute("userId", account.getUser().getId());
@@ -60,7 +59,26 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
 		}
 		session.setAttribute("authorities", authentication.getAuthorities());
+		
+		super.onAuthenticationSuccess(request, response, authentication);
+	}
 
+	@Override
+	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+			throws IOException {
+		if (response.isCommitted()) {
+			System.out.println("Can't redirect");
+			return;
+		}
+		String targetUrl = " ";
+		Account account = accountService.findByName(authentication.getName());
+		if(account.isFirstLogin()) {
+			targetUrl = "/home/change-pass";
+		}
+		else {
+			targetUrl = determineTargetUrl(authentication);
+		}
+		
 		redirectStrategy.sendRedirect(request, response, targetUrl);
 	}
 

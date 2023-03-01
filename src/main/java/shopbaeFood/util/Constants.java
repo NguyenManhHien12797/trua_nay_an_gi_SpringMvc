@@ -5,6 +5,10 @@ public class Constants {
 	 public static class RESPONSE_MESSAGE{
 		 public static final String LOGIN_FAILE = "Tài khoản hoặc mật khẩu không chính xác !!";
 		 public static final String LOGIN_FAILE_ACCOUNT_BLOCK = "Tài khoản của bạn đã bị khóa !!";
+		 public static final String LOGIN_FAILE_ACCOUNT_BLOCK_FIRST_ALERT = "Bạn có 3 lần nhập sai liên tiếp!";
+		 public static final String LOGIN_FAILE_ACCOUNT_BLOCK_LAST_ALERT = "Lần này sai tài khoản của bạn sẽ bị khóa!";
+		 public static final String LOGIN_FAILE_ACCOUNT_BLOCK_ALERT = "Bạn đã nhập sai liên tiếp 3 lần. Tài khoản của bạn đã bị khóa!";
+		 public static final String LOGIN_FAILE_ACCOUNT_UNBLOCK = "Tài khoản của bạn đã được mở khóa. Vui lòng đăng nhập lại!";
 		 public static final String LOGIN_FAILE_ACCOUNT_PENDING = "Tài khoản đang chờ admin duyệt !!";
 		 public static final String LOGIN_FAILE_ACCOUNT_REFUSE = "Admin từ chối đăng ký Merchant !!";
 		 public static final String NOT_LOGIN = "Vui lòng đăng nhập để tiếp tục!";

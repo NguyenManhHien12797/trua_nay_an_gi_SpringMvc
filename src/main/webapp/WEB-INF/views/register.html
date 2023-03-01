@@ -60,19 +60,13 @@
           	<div style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></div>
             <div class="field-group">
               <div class="input-group"><i class="far fa-user"></i><input type="text"  th:field="*{userName}"
-                                                                         placeholder="Tên đăng ký" value=""
-                                                                        >
-                                                                         
-                                                                         
-                  
+                                                                         placeholder="Tên đăng ký" value="">
                 </div>
               </div>
-              
               <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
              <div class="field-group">
-              <div class="input-group"><i class="fas fa-lock"></i><input type="password" th:field="*{password}" placeholder="Mật khẩu"
-                                                                         value="">
-                                                                         
+              <div class="input-group"><i class="fas fa-lock"></i>
+              <input type="password" th:field="*{password}" placeholder="Mật khẩu"  value="">
                 
               </div>
 
@@ -135,6 +129,5 @@
     </div>
 
   </div>
-
 </body>
 </html>

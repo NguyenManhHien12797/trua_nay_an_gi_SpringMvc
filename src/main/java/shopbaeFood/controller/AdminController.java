@@ -16,6 +16,11 @@ public class AdminController {
 
 	@Autowired
 	private IMerchantService merchantService;
+	
+	@GetMapping(value = { "/admin" })
+	public String redirectMerchantList() {
+		return "redirect:/admin/merchant-list/ACTIVE/1";
+	}
 
 	/**
 	 * This method return the admin page

@@ -3,6 +3,8 @@ package shopbaeFood.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -54,11 +56,13 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 		UserDetails userDetails = isValidUser(username, password);
 
 		if (userDetails != null) {
+			if(userDetails.isAccountNonLocked()) {
+				throw new LockedException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK);
+			}
 			Account account = accountService.findByName(username);
 			if (account.getUser() != null && Status.BLOCK.equals(account.getUser().getStatus())) {
-				throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK);
+				throw new LockedException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK);
 			}
-
 			if (account.getMerchant() != null) {
 				if (Status.PENDING.equals(account.getMerchant().getStatus())) {
 					throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_PENDING);
@@ -70,7 +74,6 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 					throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_REFUSE);
 				}
 			}
-
 			return new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
 		} else {
 			throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE);
