@@ -1,8 +1,6 @@
 package shopbaeFood.service;
 
 
-import java.util.List;
-
 import org.springframework.security.core.userdetails.UserDetails;
 
 import shopbaeFood.model.Account;
