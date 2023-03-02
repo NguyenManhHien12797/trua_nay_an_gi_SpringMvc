@@ -3,7 +3,6 @@ package shopbaeFood.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -74,7 +73,7 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 					throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_REFUSE);
 				}
 			}
-			return new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
+			return new UsernamePasswordAuthenticationToken(userDetails, username, userDetails.getAuthorities());
 		} else {
 			throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE);
 		}

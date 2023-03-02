@@ -23,6 +23,7 @@ import shopbaeFood.model.Status;
 import shopbaeFood.repository.IAccountRepository;
 import shopbaeFood.repository.IAppUserRepository;
 import shopbaeFood.repository.IMerchantRepository;
+import shopbaeFood.service.IAccountService;
 import shopbaeFood.service.IMailService;
 import shopbaeFood.service.IMerchantService;
 import shopbaeFood.util.Page;
@@ -44,6 +45,9 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Autowired
 	private IAccountRepository accountRepository;
+	
+	@Autowired
+	private IAccountService accountService;
 
 	@Autowired
 	private IMailService mailService;
@@ -159,7 +163,7 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Override
 	public void updateMerchantInfo(MerchantForm merchantForm, Account accountInput, HttpSession session) {
-		Account accountUpdate = (Account) session.getAttribute("user");
+		Account accountUpdate = accountService.getAccount();
 		accountUpdate.setEmail(accountInput.getEmail());
 		accountRepository.update(accountUpdate);
 

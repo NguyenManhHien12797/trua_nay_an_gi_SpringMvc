@@ -1,10 +1,7 @@
 package shopbaeFood.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,8 +23,8 @@ public class OrderController {
 	 * @return view cart_page
 	 */
 	@PostMapping("/user/checkout")
-	public String checkout(@ModelAttribute("order") Order order, HttpSession session) {
-		orderService.checkout(order, session);
+	public String checkout(@ModelAttribute("order") Order order) {
+		orderService.checkout(order);
 
 		return "redirect: /shopbaeFood/user/cart";
 	}

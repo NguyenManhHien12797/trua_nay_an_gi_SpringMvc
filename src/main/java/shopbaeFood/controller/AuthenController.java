@@ -7,9 +7,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -64,8 +61,8 @@ public class AuthenController {
 	@GetMapping(value = { "/login" })
 	public String showLoginForm(@RequestParam(required = false) String mess, Model model, HttpServletResponse response) {
 		
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+		Account account = accountService.getAccount();
+	    if (account == null) {
 	    	model.addAttribute("mess", authenService.showMessageLogin(mess));
 	    	  response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
 	          response.setHeader("Pragma","no-cache");
@@ -110,19 +107,24 @@ public class AuthenController {
 	 */
 	@GetMapping(value = { "/home/{route}" })
 	public String userInfo(@PathVariable String route, Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Account account = accountService.findByName(authentication.getName());
-
+		Account account = accountService.getAccount();
+		List<String> roleList = authenService.authorities();
+		String role = "user";
 		if (account == null) {
 			return "redirect:/login?mess=not-logged-in";
 		}
+		if(roleList.contains("ROLE_ADMIN")) {
+			role = "admin";
+		}
+		System.out.println(account.getAccountRoleMapSet().size());
+		System.out.println(account.getAccountRoleMapSet());
 		AppUser user = userSevice.findById(account.getUser().getId());
 		UserForm userForm = new UserForm(user.getId(), user.getName(), user.getPhone(), user.getAddress());
 		model.addAttribute("user", user);
 		model.addAttribute("account", account);
 		model.addAttribute("userForm", userForm);
 		model.addAttribute("route", route);
-		model.addAttribute("role", "user");
+		model.addAttribute("role", role);
 		return "user-info";
 	}
 
@@ -208,6 +210,10 @@ public class AuthenController {
 	
 	@GetMapping("/home/change-pass")
 	private String showChangePassPage(Model model) {
+		Account account = accountService.getAccount();
+		if(account == null) {
+			return "redirect:/login?mess=not-logged-in";
+		}
 		model.addAttribute("passwordDTO", new PasswordDTO());
 		return "change_pass";
 	}
@@ -219,15 +225,20 @@ public class AuthenController {
 		}
 		if(authenService.changePass(passwordDTO)) {
 			List<String>authorities = authenService.authorities();
-			if(authorities.contains("ROLE_ADMIN")) {
-				return "redirect:/admin";	
+			if(authorities == null) {
+				return "redirect:/login?mess=not-logged-in";
+			}else {
+				if(authorities.contains("ROLE_ADMIN")) {
+					return "redirect:/admin";	
+				}
+				if(authorities.contains("ROLE_MERCHANT")) {
+					return "redirect:/merchant";	
+				}
+				if(authorities.contains("ROLE_USER")) {
+					return "redirect:/";	
+				}
 			}
-			if(authorities.contains("ROLE_MERCHANT")) {
-				return "redirect:/merchant";	
-			}
-			if(authorities.contains("ROLE_USER")) {
-				return "redirect:/";	
-			}
+	
 		}
 		model.addAttribute("error", "Mật khẩu không đúng");
 		return "change_pass";

@@ -56,19 +56,21 @@ public class Account {
 		this.password = password;
 	}
 
-	public Account(String userName, String password, boolean isEnabled, String email) {
+	public Account(String userName, String password, boolean isEnabled, boolean firstLogin, String email) {
 		this.userName = userName;
 		this.password = password;
 		this.isEnabled = isEnabled;
+		this.firstLogin = firstLogin;
 		this.email = email;
 	}
 
-	public Account(Long id, String userName, String password, boolean isEnabled, String email, String otp,
+	public Account(Long id, String userName, String password, boolean isEnabled,boolean firstLogin, String email, String otp,
 			Set<AccountRoleMap> accountRoleMapSet) {
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
 		this.isEnabled = isEnabled;
+		this.firstLogin = firstLogin;
 		this.email = email;
 		this.otp = otp;
 		this.accountRoleMapSet = accountRoleMapSet;

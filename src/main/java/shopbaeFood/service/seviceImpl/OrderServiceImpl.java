@@ -17,6 +17,7 @@ import shopbaeFood.model.dto.OrderDTO;
 import shopbaeFood.repository.ICartRepository;
 import shopbaeFood.repository.IOrderDetailRepository;
 import shopbaeFood.repository.IOrderRepository;
+import shopbaeFood.service.IAccountService;
 import shopbaeFood.service.IMerchantService;
 import shopbaeFood.service.IOrderService;
 import shopbaeFood.util.Constants;
@@ -38,13 +39,16 @@ public class OrderServiceImpl implements IOrderService {
 	private IMerchantService merchantService;
 	
 	@Autowired
+	private IAccountService accountService;
+	
+	@Autowired
 	private SimpMessagingTemplate messagingTemplate;
 	
 	private final int PAGE_SIZE = 5;
 
 	@Override
-	public void checkout(Order order, HttpSession session) {
-		Account account = (Account) session.getAttribute("user");
+	public void checkout(Order order) {
+		Account account = accountService.getAccount();
 		order.setAppUser(account.getUser());
 		order.setStatus(Constants.ORDER_STATE.PENDING);
 		orderRepository.save(order);

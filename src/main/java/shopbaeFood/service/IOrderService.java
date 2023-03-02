@@ -3,8 +3,6 @@ package shopbaeFood.service;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-
-import shopbaeFood.model.Merchant;
 import shopbaeFood.model.Order;
 import shopbaeFood.util.Page;
 
@@ -15,7 +13,7 @@ public interface IOrderService{
 	 * @param order
 	 * @param session
 	 */
-	void checkout(Order order, HttpSession session);
+	void checkout(Order order);
 	
 	/**
 	 * This method is used to update Order status

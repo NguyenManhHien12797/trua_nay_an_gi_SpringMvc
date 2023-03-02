@@ -16,9 +16,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+	
 	@Autowired
-	private CustomSuccessHandler customSuccessHandler;
+	private CustomLoginSuccessHandler customLoginSuccessHandler;
 
 	@Autowired
 	private CustomIdentityAuthenticationProvider customIdentityAuthenticationProvider;
@@ -38,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.authenticationProvider(customIdentityAuthenticationProvider);
 
 	}
-	
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -53,9 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll().antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/merchant/**").hasRole("MERCHANT")
 				.antMatchers("/**").hasAnyRole("ADMIN").and().formLogin().loginPage("/login")
 				.usernameParameter("userName")
-				.successHandler(customSuccessHandler)
+				.successHandler(customLoginSuccessHandler)
 				.failureHandler(customLoginFailureHandler)
-				.and().logout().logoutSuccessUrl("/login")
+				.and().logout()
+				.logoutSuccessUrl("/home")
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).clearAuthentication(true)
 				.deleteCookies("JSESSIONID").invalidateHttpSession(true).and().csrf().disable();
 

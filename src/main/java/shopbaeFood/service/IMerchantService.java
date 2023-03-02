@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import shopbaeFood.model.Account;
 import shopbaeFood.model.Merchant;
 import shopbaeFood.model.MerchantForm;
-import shopbaeFood.model.Order;
 import shopbaeFood.model.Status;
 import shopbaeFood.util.Page;
 

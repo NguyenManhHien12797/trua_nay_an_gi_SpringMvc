@@ -1,6 +1,8 @@
 package shopbaeFood.service;
 
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
 import shopbaeFood.model.Account;
@@ -56,5 +58,7 @@ public interface IAccountService extends IGeneralService<Account> {
 	 * @return
 	 */
 	Boolean existsByUserName(String userName);
+	
+	Account getAccount();
 
 }

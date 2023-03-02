@@ -1,0 +1,9 @@
+khi mua hàng check product có còn không. Lưu giá từ thời điểm mua.
+Khi block tài khoản phải logout người dùng.
+Xóa thì hỏi trước.
+Set thời gian sống cho OTP.
+Sắp xếp sản phẩm khi mới khởi tạo lên đầu.
+Thêm số lượng vào cho sản phẩm. Kiểm tra sản phẩm có còn không.
+Validate mật khẩu.
+format số tiền.
+kiểm tra dung lượng file ảnh nhập vào.

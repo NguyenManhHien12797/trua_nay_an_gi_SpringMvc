@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -51,6 +54,17 @@ public class AccountServiceImpl implements IAccountService, UserDetailsService {
 		return this.accountRepository.findAll();
 	}
 
+	@Override
+	public Account getAccount() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+			return null;
+		}else {
+			Account account = accountRepository.findByName(authentication.getName());
+			return account;
+		}
+	}
+	
 
 	@Override
 	public Account findByName(String name) {

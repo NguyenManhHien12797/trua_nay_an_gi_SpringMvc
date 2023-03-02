@@ -7,8 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -20,11 +18,11 @@ import shopbaeFood.model.Order;
 import shopbaeFood.model.Product;
 import shopbaeFood.model.ProductCartMap;
 import shopbaeFood.model.dto.CartDTO;
-import shopbaeFood.repository.IAccountRepository;
 import shopbaeFood.repository.IAppUserRepository;
 import shopbaeFood.repository.ICartRepository;
 import shopbaeFood.repository.IOrderRepository;
 import shopbaeFood.repository.IProductRepository;
+import shopbaeFood.service.IAccountService;
 import shopbaeFood.service.ICartService;
 import shopbaeFood.util.Constants;
 
@@ -45,7 +43,7 @@ public class CartServiceImpl implements ICartService {
 	private IOrderRepository orderRepository;
 	
 	@Autowired
-	private IAccountRepository accountRepository;
+	private IAccountService accountService;
 
 	@Override
 	public List<Cart> findAllCartByUserIdAndDeleteFlag(Long userId) {
@@ -55,9 +53,7 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	public String addToCart(CartDTO cartDTO, HttpSession session) {
-
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Account account = accountRepository.findByName(authentication.getName());
+		Account account = accountService.getAccount();
 
 		if (account == null) {
 			return "redirect:/login?mess=not-logged-in";
@@ -112,9 +108,10 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	public String showCart(Model model, HttpSession session) {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Account account = accountRepository.findByName(authentication.getName());
+		Account account = accountService.getAccount();
+		if (account == null) {
+			return "redirect:/login?mess=not-logged-in";
+		}
 		Long userId = account.getUser().getId();
 		
 		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);

@@ -74,8 +74,9 @@ public class AuthenServiceImpl implements IAuthenService {
 	public void register(AccountRegisterDTO accountRegisterDTO, String role) {
 		Status status = Status.PENDING;
 		boolean isEnabled = true;
+		boolean firstLogin = true;
 		String pass = passwordEncoder.encode(accountRegisterDTO.getPassword());
-		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, accountRegisterDTO.getEmail());
+		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, firstLogin, accountRegisterDTO.getEmail());
 		accountService.save(account);
 
 		String avatar = "images.jpg";
@@ -110,6 +111,7 @@ public class AuthenServiceImpl implements IAuthenService {
 		return authorities;
 	}
 	
+
 	@Override
 	public void checkLogin(Model model) {
 		String message = " ";
@@ -164,8 +166,7 @@ public class AuthenServiceImpl implements IAuthenService {
 
 	@Override
 	public void createOtp() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Account account = accountRepository.findByName(authentication.getName());
+		Account account = accountService.getAccount();
 		double randomDouble = Math.random();
 		randomDouble = randomDouble * 1000000 + 1;
 		int OTP = (int) randomDouble;
@@ -216,8 +217,7 @@ public class AuthenServiceImpl implements IAuthenService {
 
 	@Override
 	public boolean changePass(PasswordDTO passwordDTO) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Account account = accountRepository.findByName(authentication.getName());
+		Account account =accountService.getAccount();
 		if(passwordEncoder.matches(passwordDTO.getCurrentPassword(), account.getPassword())) {
 			if(passwordDTO.getNewPassword().equals(passwordDTO.getConfirmPassword())) {
 				account.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
