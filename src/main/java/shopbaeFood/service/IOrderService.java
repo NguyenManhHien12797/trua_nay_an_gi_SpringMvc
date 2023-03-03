@@ -3,7 +3,11 @@ package shopbaeFood.service;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import shopbaeFood.model.Order;
+import shopbaeFood.model.Product;
 import shopbaeFood.util.Page;
 
 public interface IOrderService{
@@ -13,7 +17,14 @@ public interface IOrderService{
 	 * @param order
 	 * @param session
 	 */
-	void checkout(Order order);
+	boolean checkout(Order order, RedirectAttributes redirectAttributes);
+	
+	List<Product> listProductChangePrice();
+	
+	List<Product> listProductDelete();
+	
+	List<Product> listProductOutOfStock();
+	
 	
 	/**
 	 * This method is used to update Order status

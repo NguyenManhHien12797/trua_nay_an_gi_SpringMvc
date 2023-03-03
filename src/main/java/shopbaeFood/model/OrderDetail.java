@@ -24,6 +24,7 @@ public class OrderDetail {
 	private Order order;
 
 	private int quantity;
+	private Double price;
 
 	@Column(name = "deleteFlag")
 	private boolean deleteFlag;
@@ -31,12 +32,13 @@ public class OrderDetail {
 	public OrderDetail() {
 	}
 
-	public OrderDetail(Long id, Product product, Order order, int quantity, boolean deleteFlag) {
+	public OrderDetail(Long id, Product product, Order order, int quantity,Double price, boolean deleteFlag) {
 		super();
 		this.id = id;
 		this.product = product;
 		this.order = order;
 		this.quantity = quantity;
+		this.price = price;
 		this.deleteFlag = deleteFlag;
 	}
 
@@ -62,6 +64,15 @@ public class OrderDetail {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	public boolean isDeleteFlag() {

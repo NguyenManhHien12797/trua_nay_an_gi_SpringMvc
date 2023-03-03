@@ -1,5 +1,6 @@
 package shopbaeFood.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,8 @@ public class CartController {
 	 * @return view cart_page
 	 */
 	@GetMapping("/user/cart")
-	private String showCart(Model model, HttpSession session) {
-		return cartService.showCart(model, session);
+	private String showCart(Model model, HttpServletRequest request) {
+		return cartService.showCart(model, request);
 	}
 
 	/**

@@ -2,6 +2,7 @@ package shopbaeFood.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
@@ -32,7 +33,7 @@ public interface ICartService {
 	 * @param session
 	 * @return view cart_page
 	 */
-	String showCart(Model model, HttpSession session);
+	String showCart(Model model, HttpServletRequest request);
 
 	/**
 	 * This method is used to delete cart

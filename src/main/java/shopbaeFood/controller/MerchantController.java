@@ -161,7 +161,7 @@ public class MerchantController {
 	 * @return view merchant_page
 	 */
 	@GetMapping(value = { "/merchant/{status}/order-detail/{order_id}" })
-	private String showFormOrderDetail(@PathVariable String status, @PathVariable Long order_id, Model model) {
+	private String showOrderDetail(@PathVariable String status, @PathVariable Long order_id, Model model) {
 		List<OrderDetail> orderDetails = orderDetailService.findOrderDetailsByOrderId(order_id);
 		addListAttribute(status,"order-detail","order-manager", model);
 		model.addAttribute("orderDetails", orderDetails);
@@ -176,14 +176,15 @@ public class MerchantController {
 	 * @param model
 	 * @return view merchant_page
 	 */
-	@GetMapping(value = { "/merchant/merchant-product-manager/merchant-edit-product/{id}" })
-	private String showFormUpdateProduct( @PathVariable Long id, Model model) {
+	@GetMapping(value = { "/merchant/merchant-product-manager/merchant-edit-product/{id}/page/{pageNumber}" })
+	private String showFormUpdateProduct( @PathVariable Long id,@PathVariable int pageNumber, Model model) {
 		Product product = productService.findById(id);
 		ProductForm productForm = new ProductForm(product.getId(), product.getName(), product.getShortDescription(),
 				product.getNumberOrder(), product.getOldPrice(), product.getNewPrice(), null);
 		
 		addListAttribute(null,"merchant-edit-product", "merchant-product-manager", model);
 		model.addAttribute("productForm", productForm);
+		model.addAttribute("page", pageNumber);
 		return "merchant_page";
 	}
 	
@@ -193,10 +194,11 @@ public class MerchantController {
 	 * @param productForm
 	 * @return view merchant-product-manager
 	 */
-	@PostMapping(value = { "/merchant/merchant-edit-product/{id}" })
-	private String updateProduct(@PathVariable Long id, @ModelAttribute("productForm") ProductForm productForm) {
+	@PostMapping(value = { "/merchant/merchant-edit-product/{id}/page/{pageNumber}" })
+	private String updateProduct(@PathVariable Long id, @PathVariable int pageNumber, @ModelAttribute("productForm") ProductForm productForm) {
 		productService.updateProduct(id, productForm);
-		return "redirect: /shopbaeFood/merchant/merchant-product-manager";
+		System.out.println(pageNumber);
+		return "redirect: /shopbaeFood/merchant/merchant-product-manager/page/"+pageNumber;
 	}
 
 	/**
