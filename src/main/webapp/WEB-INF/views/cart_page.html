@@ -173,6 +173,10 @@
               <span>Chưa có sản phẩm</span>
             </div>
             
+             <div th:if="${mess}">
+              <span class="checkout-mess">[[${mess}]]</span>
+            </div>
+            
              <div th:if="${listProductChangePrice}">
               <span class="checkout-mess">Những sản phẩm sau đã bị thay đổi giá. Bạn có muốn đặt hàng nữa không!</span>
               <div th:each="product,i : ${listProductChangePrice}">
@@ -190,6 +194,16 @@
               		<span class="checkout-mess" th:text = "${product.name}"></span>
               </div>
             </div>
+            
+            <div th:if="${listProductOutOfStock}">
+              <span class="checkout-mess">Các sản phẩm này đã hết hàng hoặc không đủ số lượng. Vui lòng kiểm tra lại!</span>
+              <div th:each="product,i : ${listProductOutOfStock}">
+              		<span class="checkout-mess" th:text = "${i.index}+1"></span>
+              		<span class="checkout-mess" >: </span>
+              		<span class="checkout-mess" th:text = "${product.name}"></span>
+             </div>
+            </div>
+            
             <div th:unless="${message == 'khong co du lieu'}">
                   <table class="table table-striped table-sm"  >
                   <thead>
@@ -241,13 +255,20 @@
               Vẫn đặt hàng
               </button>
             
+            
             </form>
+            
+                 <button  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout-a">
+              Vẫn đặt hàng
+              </button>
+            
             </div>
             </div>
           </div>
         </div>
         
-              <div class="modal-checkout">
+          <div class="modal-checkout">
+          	<div class="modal-overlay"></div>
       		<div class="modal-checkout-content">
           <div class="card-header py-3">
             <h5 class="mb-0">Hóa đơn</h5>
@@ -334,5 +355,6 @@
 </script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script th:src="@{/static/js/socketJs.js}"></script>
+<script th:src="@{/static/js/checkout.js}"></script>
 </body>
 </html>

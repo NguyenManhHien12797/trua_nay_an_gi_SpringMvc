@@ -19,6 +19,7 @@ public class Constants {
 	 public static class LOGIN_STATE{
 		 public static final String NOT_LOGIN = "not-logged-in";
 		 public static final String TIME_OUT = "timeout";
+		 public static final String BAN_ACCOUNT = "ban-account";
 	 }
 	 
 	 public static class CART_MESSAGE{

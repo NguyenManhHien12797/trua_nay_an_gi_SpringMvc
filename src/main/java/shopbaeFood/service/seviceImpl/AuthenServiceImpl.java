@@ -211,7 +211,10 @@ public class AuthenServiceImpl implements IAuthenService {
 		if (Constants.LOGIN_STATE.TIME_OUT.equals(mess)) {
 			message = Constants.RESPONSE_MESSAGE.TIME_OUT;
 		}
-
+		if (Constants.LOGIN_STATE.BAN_ACCOUNT.equals(mess)) {
+			message = Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK;
+		}
+		
 		return message;
 	}
 

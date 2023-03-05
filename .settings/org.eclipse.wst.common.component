@@ -81,7 +81,7 @@
         
         
         <property name="java-output-path" value="/shopbaeFood/target/classes"/>
-        <property name="context-root" value="shopbaeFood"/>
+        <property name="context-root" value="trua_nay_an_gi"/>
                                                                                             
     
     
