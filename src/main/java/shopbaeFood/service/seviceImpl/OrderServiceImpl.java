@@ -1,5 +1,6 @@
 package shopbaeFood.service.seviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -7,16 +8,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import shopbaeFood.model.Account;
 import shopbaeFood.model.Cart;
 import shopbaeFood.model.Merchant;
 import shopbaeFood.model.Order;
 import shopbaeFood.model.OrderDetail;
+import shopbaeFood.model.Product;
 import shopbaeFood.model.dto.OrderDTO;
 import shopbaeFood.repository.ICartRepository;
 import shopbaeFood.repository.IOrderDetailRepository;
 import shopbaeFood.repository.IOrderRepository;
+import shopbaeFood.repository.IProductRepository;
 import shopbaeFood.service.IAccountService;
 import shopbaeFood.service.IMerchantService;
 import shopbaeFood.service.IOrderService;
@@ -42,38 +46,88 @@ public class OrderServiceImpl implements IOrderService {
 	private IAccountService accountService;
 	
 	@Autowired
+	private IProductRepository productRepository;
+	
+	@Autowired
 	private SimpMessagingTemplate messagingTemplate;
 	
 	private final int PAGE_SIZE = 5;
 
 	@Override
-	public void checkout(Order order) {
+	public boolean checkout(Order order, RedirectAttributes redirectAttributes) {
 		Account account = accountService.getAccount();
+		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
+		if(carts.isEmpty()) {
+			System.out.println("cart null");
+			redirectAttributes.addFlashAttribute("mess", "Mời bạn thêm sản phẩm vào giỏ hàng!");
+			return true;
+		}
+		
 		order.setAppUser(account.getUser());
 		order.setStatus(Constants.ORDER_STATE.PENDING);
 		orderRepository.save(order);
-
-		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
-
 		OrderDetail orderDetail = new OrderDetail();
-
 		for (Cart cart : carts) {
 			orderDetail.setProduct(cart.getProduct());
 			orderDetail.setQuantity(cart.getQuantity());
+			orderDetail.setPrice(cart.getProduct().getNewPrice());
 			orderDetail.setOrder(order);
 			orderDetail.setDeleteFlag(false);
 			orderDetailRepository.save(orderDetail);
 			cart.setDeleteFlag(true);
 			cartRepository.update(cart);
 		}
-		
 		messagingTemplate.convertAndSend("/topic/"+ order.getMerchant_id(),
-			new OrderDTO(order.getId(), 
-					account.getUser().getName(),
-					order.getStatus(), 
-					orderDetail.getProduct().getMerchant().getName()
-					));
+		new OrderDTO(order.getId(), 
+				account.getUser().getName(),
+				order.getStatus(), 
+				orderDetail.getProduct().getMerchant().getName()
+				));
+		return true;
+
 		
+	}
+	
+	@Override
+	public List<Product> listProductDelete() {
+		Account account = accountService.getAccount();
+		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
+		List<Product>listProductDelete = new ArrayList<>();
+		for (Cart cart : carts) {
+			if(cart.getProduct().isDeleteFlag()) {
+				System.out.println("Product đã bị xóa");
+				listProductDelete.add(cart.getProduct());
+			}
+		}
+		return listProductDelete;
+	}
+	
+	@Override
+	public List<Product> listProductChangePrice() {
+		Account account = accountService.getAccount();
+		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
+		List<Product>listProductChangePrice = new ArrayList<>();
+		for (Cart cart : carts) {
+			System.out.println("Tiền product: "+cart.getProduct().getNewPrice());
+			System.out.println("Tiền cart: "+cart.getPrice());
+			if(!cart.getProduct().getNewPrice().equals(cart.getPrice())){
+				listProductChangePrice.add(cart.getProduct());
+			}
+		}
+		return listProductChangePrice;
+	}
+	
+	@Override
+	public List<Product> listProductOutOfStock() {
+		Account account = accountService.getAccount();
+		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
+		List<Product>listProductOutOfStock = new ArrayList<>();
+		for (Cart cart : carts) {
+			if(cart.getProduct().getQuantity()< 0 || cart.getProduct().getQuantity()< cart.getQuantity()){
+				listProductOutOfStock.add(cart.getProduct());
+			}
+		}
+		return listProductOutOfStock;
 	}
 
 	@Override
@@ -146,5 +200,7 @@ public class OrderServiceImpl implements IOrderService {
 		
 		return page;
 	}
+
+	
 
 }

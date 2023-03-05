@@ -65,7 +65,8 @@
                     <!-- Data -->
                     <p><strong th:text="${cart.getProduct().getName()}"></strong></p>
                     <p>Mô tả: [[${cart.getProduct().getShortDescription()}]]</p>
-                    <p>Đơn giá: [[${cart.getProduct().getNewPrice()}]] đ</p>
+                    <span>Giá mới : [[${cart.getProduct().getNewPrice()}]] đ</span>
+                    <span  class = "cart-old-price">Giá cũ: [[${cart.getProduct().getOldPrice()}]] đ</span>
                     <p>Cửa hàng: [[${cart.getProduct().getMerchant().getName()}]]</p>
                     <a  class="btn btn-primary btn-sm me-1 mb-2" 
                            th:href= "@{/user/delete/__${cart.id}__}">
@@ -164,12 +165,30 @@
             <h5 class="mb-0">Hóa đơn</h5>
           </div>
           <div class="card-body">
-			<form th:action="@{/user/checkout}" th:object="${order}" method="post" id="messageForm" name="messageForm">
+			<form th:action="@{/user/checkout}" th:object="${order}" method="post" >
 
             <div class="table-responsive">
 
             <div th:if="${message == 'khong co du lieu'}">
               <span>Chưa có sản phẩm</span>
+            </div>
+            
+             <div th:if="${listProductChangePrice}">
+              <span class="checkout-mess">Những sản phẩm sau đã bị thay đổi giá. Bạn có muốn đặt hàng nữa không!</span>
+              <div th:each="product,i : ${listProductChangePrice}">
+              		<span class="checkout-mess" th:text = "${i.index}+1"></span>
+              		<span class="checkout-mess" >: </span>
+              		<span class="checkout-mess" th:text = "${product.name}"></span>
+              </div>
+            </div>
+            
+              <div th:if="${listProductDelete}">
+              <span class="checkout-mess">Các sản phẩm này đã bị cửa hàng xóa. Vui lòng xóa khỏi giỏ hàng để tiếp tục.</span>
+              <div th:each="product,i : ${listProductDelete}">
+              		<span class="checkout-mess" th:text = "${i.index}+1"></span>
+              		<span class="checkout-mess" >: </span>
+              		<span class="checkout-mess" th:text = "${product.name}"></span>
+              </div>
             </div>
             <div th:unless="${message == 'khong co du lieu'}">
                   <table class="table table-striped table-sm"  >
@@ -178,19 +197,19 @@
                     <th scope="col">Stt </th>
                     <th scope="col">Tên </th>
                     <th scope="col">Số lượng</th>
-                    <th scope="col">Đơn giá</th>
+                    <th scope="col" class="order-price" >Đơn giá</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr th:each="cart,i : ${carts}">
                     <td class="merchant-item" th:text="${i.index + 1}"></td>
-                    <td class="merchant-item" th:text="${cart.getProduct().getName()}"></td>
+                    <td class="merchant-item order-name" th:text="${cart.getProduct().getName()}"></td>
                     <td style="text-align: center" class="merchant-item" th:text="${cart.getQuantity()}"></td>
-                    <td class="merchant-item">[[${cart.getProduct().getNewPrice()}]] đ</td>
+                    <td class="merchant-item order-price">[[${cart.getProduct().getNewPrice()}]] đ</td>
                   </tr>
                   <tr>
                     <th scope="col" colspan="3">Tổng tiền </th>
-                    <th scope="col" >[[${totalPrice}]] đ</th>
+                    <th scope="col" class="order-price" >[[${totalPrice}]] đ</th>
                
                   </tr>
                    <tr>
@@ -215,16 +234,89 @@
             </div>
          
             </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block btn-checkout">
+            <button th:unless="${listProductChangePrice}"  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout">
               Đặt hàng
             </button>
+              <button th:if="${listProductChangePrice}"  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout"  name="action" th:formaction="@{/user/checkout/continute}">
+              Vẫn đặt hàng
+              </button>
             
             </form>
             </div>
             </div>
           </div>
         </div>
+        
+              <div class="modal-checkout">
+      		<div class="modal-checkout-content">
+          <div class="card-header py-3">
+            <h5 class="mb-0">Hóa đơn</h5>
+          </div>
+          <div class="card-body">
+			<form th:action="@{/user/checkout}" th:object="${order}" method="post" id="messageForm" name="messageForm">
+			
+            <div class="table-responsive">
+
+            <div th:if="${message == 'khong co du lieu'}">
+              <span>Chưa có sản phẩm</span>
+            </div>
+            <div >
+              <span class="checkout-mess">Có sản phẩm đã được nhà hàng cập nhật giá. Bạn có muốn tiếp tục mua không?</span>
+            </div>
+            
+            <div th:unless="${message == 'khong co du lieu'}">
+                  <table class="table table-striped table-sm checkout-table"  >
+                  <thead>
+                  <tr>
+                    <th scope="col">Stt </th>
+                    <th scope="col">Tên </th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Đơn giá</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="cart,i : ${carts}">
+                    <td class="merchant-item" th:text="${i.index + 1}"></td>
+                    <td class="merchant-item order-name" th:text="${cart.getProduct().getName()}"></td>
+                    <td style="text-align: center" class="merchant-item" th:text="${cart.getQuantity()}"></td>
+                    <td class="merchant-item order-price">[[${cart.getProduct().getNewPrice()}]] đ</td>
+                  </tr>
+                   <tr>
+                    <th scope="col" ><input type="text" id="merchant_id" style="display:none" th:field = "*{merchant_id}" ></th>
+                    <th scope="col" ><input type="text" style="display:none" th:field = "*{totalPrice}"></th>
+                    <th scope="col" ><input type="text" style="display:none" th:field = "*{orderdate}"></th>
+              
+                  </tr>
+                  <tr>
+                  </tr>
+                  </tbody>
+                </table>
+              
+            </div>
+         
+            </div>
+            
+            <div class="checkout-note">
+                    <strong><span >Tổng tiền: </span></strong>
+                    <span class="checkout-total-price">[[${totalPrice}]] đ</span>
+                    <br />
+                    <label for="note">Ghi chú: </label>
+                    <input class="note" id="note"  type="text" placeholder="Ghi chú" th:field= "*{note}">
+                    <label for="address">Địa chỉ:</label>
+                    <input class="note" id="address" type="text" placeholder="Địa chỉ giao hàng" th:field= "*{address}">
+            </div>
+            <button type="submit" class="btn  btn-checkout btn-modal-checkout">
+              Đặt hàng
+            </button>
+            
+            </form>
+            </div>
+      		</div>
       </div>
+        
+      </div>
+      
+
 </section>
 
 

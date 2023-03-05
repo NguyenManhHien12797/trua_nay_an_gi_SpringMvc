@@ -336,3 +336,51 @@
     height: 40px;
     border-radius: 50%;
 }
+
+.modal-checkout{
+    background-color: rgb(74 73 73 / 30%);
+    position: fixed;
+    top: 70px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: none;
+    outline: 0;
+}
+
+.modal-checkout-content{
+	position: absolute;
+	top: 72px;
+    left: 430px;
+	width: 400px;
+	height: 500px;
+	border-radius: 5px;
+    box-shadow: 5px 5px 8px #8f8c8c;
+	background-color: #ddd;
+}
+.btn-modal-checkout{
+	position: absolute;
+    bottom: 0;
+    width: 92%;
+}
+.checkout-table{
+	width: 100%
+}
+
+.checkout-total-price, .order-price{
+    position: absolute;
+    right: 30px;
+}
+.order-name{
+	width: 150px;
+	word-wrap: break-word;
+}
+.checkout-mess{
+	color:red;
+}
+.cart-old-price{
+	color:red;
+	margin-left: 20px;
+	text-decoration: line-through;
+}
