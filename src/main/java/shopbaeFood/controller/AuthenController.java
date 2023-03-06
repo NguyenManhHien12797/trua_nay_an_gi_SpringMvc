@@ -189,7 +189,7 @@ public class AuthenController {
 	 */
 	@RequestMapping(value = { "/home/create-otp" })
 	@ResponseBody
-	private String createOTP() {
+	public String createOTP() {
 		authenService.createOtp();
 		return "create otp ok";
 	}
@@ -203,13 +203,13 @@ public class AuthenController {
 	 */
 	@PostMapping(value = { "/home/checkotp/{account_id}/{otp}" })
 	@ResponseBody
-	private String checkOTP(@PathVariable Long account_id, @PathVariable String otp) {
+	public String checkOTP(@PathVariable Long account_id, @PathVariable String otp) {
 
 		return authenService.checkOtp(account_id, otp);
 	}
 	
 	@GetMapping("/home/change-pass")
-	private String showChangePassPage(Model model) {
+	public String showChangePassPage(Model model) {
 		Account account = accountService.getAccount();
 		if(account == null) {
 			return "redirect:/login?mess=not-logged-in";
@@ -219,7 +219,7 @@ public class AuthenController {
 	}
 	
 	@PostMapping(value = { "/home/change-pass" })
-	private String changePass(@Valid @ModelAttribute("passwordDTO") PasswordDTO passwordDTO, BindingResult bindingResult, Model model) {
+	public String changePass(@Valid @ModelAttribute("passwordDTO") PasswordDTO passwordDTO, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "change_pass";
 		}
@@ -251,7 +251,7 @@ public class AuthenController {
 	 */
 	@PostMapping(value = { "/home/change-pass/{account_id}/{pass}" })
 	@ResponseBody
-	private String changePass(@PathVariable Long account_id, @PathVariable String pass) {
+	public String changePass(@PathVariable Long account_id, @PathVariable String pass) {
 		authenService.changePass(pass, account_id);
 		return "change pass ok";
 	}

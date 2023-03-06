@@ -1,6 +1,4 @@
 package shopbaeFood.controller;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +26,10 @@ public class CartController {
 	 * @return view merchant-detail page
 	 */
 	@PostMapping("/user/addToCart")
-	private String addToCart(@RequestBody CartDTO cartDTO, HttpSession session) {
-
-		return cartService.addToCart(cartDTO, session);
+	public String addToCart(@RequestBody CartDTO cartDTO, HttpSession session) {
+		return cartService.addToCart(cartDTO);
 	}
-
+	
 	/**
 	 * This method returns cart_page page
 	 * @param model
@@ -40,8 +37,8 @@ public class CartController {
 	 * @return view cart_page
 	 */
 	@GetMapping("/user/cart")
-	private String showCart(Model model, HttpServletRequest request) {
-		return cartService.showCart(model, request);
+	public String showCart(Model model) {
+		return cartService.showCart(model);
 	}
 
 	/**
@@ -50,7 +47,7 @@ public class CartController {
 	 * @return view car_page
 	 */
 	@RequestMapping(value = { "/user/delete/{id}" })
-	private String deleteProduct(@PathVariable Long id) {
+	public String deleteProduct(@PathVariable Long id) {
 		cartService.deleteCart(id);
 		return "redirect: /shopbaeFood/user/cart";
 	}

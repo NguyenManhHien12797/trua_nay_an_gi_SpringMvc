@@ -172,10 +172,11 @@
             <div th:if="${message == 'khong co du lieu'}">
               <span>Chưa có sản phẩm</span>
             </div>
-            
              <div th:if="${mess}">
               <span class="checkout-mess">[[${mess}]]</span>
             </div>
+            
+            <div  th:unless="${removeProductMap == 'removeProductMap'}">
             
              <div th:if="${listProductChangePrice}">
               <span class="checkout-mess">Những sản phẩm sau đã bị thay đổi giá. Bạn có muốn đặt hàng nữa không!</span>
@@ -202,6 +203,9 @@
               		<span class="checkout-mess" >: </span>
               		<span class="checkout-mess" th:text = "${product.name}"></span>
              </div>
+            </div>
+            
+            
             </div>
             
             <div th:unless="${message == 'khong co du lieu'}">
@@ -248,19 +252,18 @@
             </div>
          
             </div>
-            <button th:unless="${listProductChangePrice}"  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout">
+            <button  th:unless="${showButton == 'showButton'}"  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout">
               Đặt hàng
             </button>
-              <button th:if="${listProductChangePrice}"  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout"  name="action" th:formaction="@{/user/checkout/continute}">
-              Vẫn đặt hàng
+             <button th:if="${showButton} == 'showButton' "  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout"  name="action" th:formaction="@{/user/checkout/continute}">
+             	 Vẫn đặt hàng
               </button>
-            
-            
+     
             </form>
             
-                 <button  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout-a">
+<!--                  <button  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout-a">
               Vẫn đặt hàng
-              </button>
+              </button> -->
             
             </div>
             </div>

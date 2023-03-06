@@ -1,5 +1,9 @@
 package shopbaeFood.controller;
 
+
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import shopbaeFood.model.Order;
+import shopbaeFood.model.Product;
 import shopbaeFood.service.IOrderService;
 
 @Controller
@@ -26,30 +31,31 @@ public class OrderController {
 	 * @return view cart_page
 	 */
 	@PostMapping("/user/checkout")
-	public RedirectView checkPrice(@ModelAttribute("order") Order order, Model model, RedirectAttributes redirectAttributes) {
-		if(!orderService.listProductChangePrice().isEmpty()) {
-			redirectAttributes.addFlashAttribute("listProductChangePrice", orderService.listProductChangePrice());
-			return new RedirectView("/user/cart", true);
-		}
-		if(!orderService.listProductDelete().isEmpty()) {
-			redirectAttributes.addFlashAttribute("listProductDelete", orderService.listProductDelete());
-			return new RedirectView("/user/cart", true);
-		}
-		if(!orderService.listProductOutOfStock().isEmpty()) {
-			redirectAttributes.addFlashAttribute("listProductOutOfStock", orderService.listProductOutOfStock());
-			return new RedirectView("/user/cart", true);
-		}
-		orderService.checkout(order, redirectAttributes);
+	public RedirectView checkProductOrCheckout(@ModelAttribute("order") Order order, Model model, RedirectAttributes redirectAttributes) {
+		Map<String, List<Product>> productMap = orderService.productMap(order,redirectAttributes);
+	
+			if(productMap.containsKey("listProductChangePrice") && 
+					!productMap.containsKey("listProductDelete") && 
+					!productMap.containsKey("listProductOutOfStock")) {
+				redirectAttributes.addFlashAttribute("showButton", "showButton");
+			}
+
 		return new RedirectView("/user/cart", true);
 	}
 
+
 	@PostMapping("/user/checkout/continute")
 	public RedirectView checkout(@ModelAttribute("order") Order order, Model model, RedirectAttributes redirectAttributes) {
-		if(!orderService.listProductDelete().isEmpty()) {
-			redirectAttributes.addFlashAttribute("listProductDelete", orderService.listProductDelete());
+		Map<String, List<Product>> productMap = orderService.productMap(order,redirectAttributes);
+		
+		if(productMap.containsKey("listProductDelete") || productMap.containsKey("listProductOutOfStock")) {
 			return new RedirectView("/user/cart", true);
 		}
+
 		orderService.checkout(order, redirectAttributes);
+		redirectAttributes.addFlashAttribute("removeProductMap", "removeProductMap");
+		
+	
 		return new RedirectView("/user/cart", true);
 	}
 

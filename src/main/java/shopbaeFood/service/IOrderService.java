@@ -1,6 +1,7 @@
 package shopbaeFood.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +25,9 @@ public interface IOrderService{
 	List<Product> listProductDelete();
 	
 	List<Product> listProductOutOfStock();
+	
+	Map<String, List<Product>> productMap(Order order,RedirectAttributes redirectAttributes);
+	
 	
 	
 	/**

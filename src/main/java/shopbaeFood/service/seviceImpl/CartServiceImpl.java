@@ -3,16 +3,12 @@ package shopbaeFood.service.seviceImpl;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import shopbaeFood.model.Account;
 import shopbaeFood.model.AppUser;
@@ -55,7 +51,7 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public String addToCart(CartDTO cartDTO, HttpSession session) {
+	public String addToCart(CartDTO cartDTO) {
 		Account account = accountService.getAccount();
 
 		if (account == null) {
@@ -74,7 +70,9 @@ public class CartServiceImpl implements ICartService {
 		}
 
 		if (cart != null) {
-
+			if(product.getQuantity()==0 || product.getQuantity()<cart.getQuantity()) {
+				return "het product";
+			}
 			cart.setQuantity(cart.getQuantity() + 1);
 			totalPrice = cart.getQuantity() * cartDTO.getPrice();
 			cart.setTotalPrice(totalPrice);
@@ -83,7 +81,9 @@ public class CartServiceImpl implements ICartService {
 			merchant_id = cart.getProduct().getMerchant().getId();
 			return MessageFormat.format("redirect:/home/merchant-detail/{0}", merchant_id) ;
 		} else {
-
+			if(product.getQuantity()==0) {
+				return "het product";
+			}
 			totalPrice = quantity * cartDTO.getPrice();
 			AppUser user = userRepository.findById(cartDTO.getUser_id());
 			boolean deleteFlag = false;
@@ -110,7 +110,7 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public String showCart(Model model, HttpServletRequest request) {
+	public String showCart(Model model) {
 		Account account = accountService.getAccount();
 		if (account == null) {
 			return "redirect:/login?mess=not-logged-in";
@@ -132,11 +132,6 @@ public class CartServiceImpl implements ICartService {
 
 		}
 
-		Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-		if (inputFlashMap != null) {
-			System.out.println(inputFlashMap.get("mess"));
-		      model.addAttribute("mess", inputFlashMap.get("mess"));
-		}
 		Order order = new Order();
 		order.setMerchant_id(merchant_id);
 		LocalDateTime time = LocalDateTime.now();

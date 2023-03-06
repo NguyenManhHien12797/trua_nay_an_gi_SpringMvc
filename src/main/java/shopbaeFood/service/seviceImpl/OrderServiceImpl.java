@@ -1,7 +1,9 @@
 package shopbaeFood.service.seviceImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -91,6 +93,47 @@ public class OrderServiceImpl implements IOrderService {
 		return true;
 
 		
+	}
+	
+	@Override
+	public Map<String, List<Product>> productMap(Order order,RedirectAttributes redirectAttributes) {
+		Account account = accountService.getAccount();
+		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
+		List<Product>listProductDelete = new ArrayList<>();
+		List<Product>listProductChangePrice = new ArrayList<>();
+		List<Product>listProductOutOfStock = new ArrayList<>();
+		Map<String, List<Product>> productMap = new HashMap<>(); 
+		for (Cart cart : carts) {
+			if(cart.getProduct().isDeleteFlag()) {
+				listProductDelete.add(cart.getProduct());
+			}
+			
+			if(!cart.getProduct().getNewPrice().equals(cart.getPrice())){
+				listProductChangePrice.add(cart.getProduct());
+			}
+			
+			if(cart.getProduct().getQuantity()< 0 || cart.getProduct().getQuantity()< cart.getQuantity()){
+				listProductOutOfStock.add(cart.getProduct());
+			}
+		}
+		if(listProductDelete.isEmpty() && listProductChangePrice.isEmpty() && listProductOutOfStock.isEmpty()) {
+			checkout(order, redirectAttributes);
+			return productMap;
+		}
+		if(!listProductDelete.isEmpty()) {
+			redirectAttributes.addFlashAttribute("listProductDelete", listProductDelete);
+			productMap.put("listProductDelete", listProductDelete);
+		}
+		if(!listProductChangePrice.isEmpty()) {
+			redirectAttributes.addFlashAttribute("listProductChangePrice", listProductChangePrice);
+			productMap.put("listProductChangePrice", listProductChangePrice);
+		}
+		if(!listProductOutOfStock.isEmpty()) {
+			redirectAttributes.addFlashAttribute("listProductOutOfStock", listProductOutOfStock);
+			productMap.put("listProductOutOfStock", listProductOutOfStock);
+		}
+		
+		return productMap;
 	}
 	
 	@Override
@@ -205,6 +248,8 @@ public class OrderServiceImpl implements IOrderService {
 		
 		return page;
 	}
+
+
 
 	
 
