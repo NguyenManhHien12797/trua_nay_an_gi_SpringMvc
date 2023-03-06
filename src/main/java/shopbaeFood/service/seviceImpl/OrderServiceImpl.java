@@ -67,6 +67,7 @@ public class OrderServiceImpl implements IOrderService {
 		order.setStatus(Constants.ORDER_STATE.PENDING);
 		orderRepository.save(order);
 		OrderDetail orderDetail = new OrderDetail();
+		int quantity;
 		for (Cart cart : carts) {
 			orderDetail.setProduct(cart.getProduct());
 			orderDetail.setQuantity(cart.getQuantity());
@@ -74,6 +75,10 @@ public class OrderServiceImpl implements IOrderService {
 			orderDetail.setOrder(order);
 			orderDetail.setDeleteFlag(false);
 			orderDetailRepository.save(orderDetail);
+			Product product = productRepository.findById(cart.getProduct().getId());
+			quantity = product.getQuantity() - cart.getQuantity();
+			product.setQuantity(quantity);
+			productRepository.update(product);
 			cart.setDeleteFlag(true);
 			cartRepository.update(cart);
 		}

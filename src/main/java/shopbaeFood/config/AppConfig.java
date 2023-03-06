@@ -20,6 +20,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -28,6 +29,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
+import shopbaeFood.interceptor.UserInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -109,5 +111,17 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 		resolver.setMaxUploadSizePerFile(52428800);
 		return resolver;
 	}
+	
+	@Bean
+	public UserInterceptor userInterceptor() {
+		return new UserInterceptor();
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(userInterceptor());
+	}
+	
+	
 
 }
