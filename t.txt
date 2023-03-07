@@ -1,13 +1,16 @@
-Lưu giá từ thời điểm mua. --- done
-Khi block tài khoản phải logout người dùng. -- Đã logout những ở user nhấn vào cart vẫn lỗi
+
+Khi block tài khoản phải logout người dùng.  -- Đã logout những ở user nhấn vào cart vẫn lỗi
 Xóa thì hỏi trước.
 Set thời gian sống cho OTP.
-Sắp xếp sản phẩm khi mới khởi tạo lên đầu.
-Thêm số lượng vào cho sản phẩm. Kiểm tra sản phẩm có còn không. trong cart: --done
-Kiểm tra sản phẩm trước khi thêm vào giỏ hàng:---chưa done
+
 Validate mật khẩu.
-format số tiền.
 kiểm tra dung lượng file ảnh nhập vào.
+
+Thêm số lượng vào cho sản phẩm. Kiểm tra sản phẩm có còn không. trong cart: --done
+Kiểm tra sản phẩm trước khi thêm vào giỏ hàng:-- done
+Lưu giá từ thời điểm mua. --- done
+format số tiền. --done
+Sắp xếp sản phẩm khi mới khởi tạo lên đầu. --done
 
 khi update status ở admin set lại lastPage;
 https://github1s.com/eugenp/tutorials/blob/master/spring-security-modules/spring-security-web-mvc-custom/src/main/java/com/baeldung/web/interceptor/SessionTimerInterceptor.java

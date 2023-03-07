@@ -1,5 +1,4 @@
 package shopbaeFood.controller;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import shopbaeFood.model.dto.CartDTO;
+import shopbaeFood.model.dto.MessageResponse;
 import shopbaeFood.service.ICartService;
 
 @Controller
@@ -26,9 +27,11 @@ public class CartController {
 	 * @return view merchant-detail page
 	 */
 	@PostMapping("/user/addToCart")
-	public String addToCart(@RequestBody CartDTO cartDTO, HttpSession session) {
+	@ResponseBody
+	public MessageResponse addToCart(@RequestBody CartDTO cartDTO) {
 		return cartService.addToCart(cartDTO);
 	}
+
 	
 	/**
 	 * This method returns cart_page page

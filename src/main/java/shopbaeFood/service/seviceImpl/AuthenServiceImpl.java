@@ -173,14 +173,14 @@ public class AuthenServiceImpl implements IAuthenService {
 		account.setOtp(String.valueOf(OTP));
 
 		accountRepository.update(account);
-		Mail mail = new Mail();
-		mail.setMailTo(account.getEmail());
-		mail.setMailFrom(MAIL_FROM);
-		mail.setMailSubject(MAIL_SUBJECT);
-		String content = MessageFormat.format("Mã OTP của bạn là: {0} \nVui lòng không chia sẻ với ai",
-				String.valueOf(OTP));
-		mail.setMailContent(content);
-		mailService.sendEmail(mail);
+//		Mail mail = new Mail();
+//		mail.setMailTo(account.getEmail());
+//		mail.setMailFrom(MAIL_FROM);
+//		mail.setMailSubject(MAIL_SUBJECT);
+//		String content = MessageFormat.format("Mã OTP của bạn là: {0} \nVui lòng không chia sẻ với ai",
+//				String.valueOf(OTP));
+//		mail.setMailContent(content);
+//		mailService.sendEmail(mail);
 
 	}
 

@@ -54,19 +54,22 @@
                 <div class="row" th:each="cart : ${carts}">
                   <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                     <!-- Image -->
+                    <a th:href="@{/home/merchant-detail/__${cart.getProduct().getMerchant().getId()}__}">
                     <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
                       <img th:src="@{'/image/'+${cart.getProduct().getImage()}}"
                            class="w-100 bg-image-img" alt="" />
                     </div>
                     <!-- Image -->
                   </div>
+                    </a>
+        
 
                   <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                     <!-- Data -->
                     <p><strong th:text="${cart.getProduct().getName()}"></strong></p>
                     <p>Mô tả: [[${cart.getProduct().getShortDescription()}]]</p>
-                    <span>Giá mới : [[${cart.getProduct().getNewPrice()}]] đ</span>
-                    <span  class = "cart-old-price">Giá cũ: [[${cart.getProduct().getOldPrice()}]] đ</span>
+                    <span>Giá mới : [[${#numbers.formatDecimal(cart.getProduct().getNewPrice(), 0, 'COMMA', 0, 'POINT')}]] đ</span>
+                    <span  class = "cart-old-price">Giá cũ: [[${#numbers.formatDecimal(cart.getProduct().getOldPrice(), 0, 'COMMA', 0, 'POINT')}]] đ</span>
                     <p>Cửa hàng: [[${cart.getProduct().getMerchant().getName()}]]</p>
                     <a  class="btn btn-primary btn-sm me-1 mb-2" 
                            th:href= "@{/user/delete/__${cart.id}__}">
@@ -94,7 +97,7 @@
                     <!-- Price -->
                     <p class="text-start text-md-center">
                       <strong>Giá tiền: </strong>
-                      <strong >[[${cart.getTotalPrice()}]] đ</strong>
+                      <strong >[[${#numbers.formatDecimal(cart.getTotalPrice(), 0, 'COMMA', 0, 'POINT')}]] đ</strong>
                     </p>
                     <!-- Price -->
                   </div>
@@ -223,11 +226,11 @@
                     <td class="merchant-item" th:text="${i.index + 1}"></td>
                     <td class="merchant-item order-name" th:text="${cart.getProduct().getName()}"></td>
                     <td style="text-align: center" class="merchant-item" th:text="${cart.getQuantity()}"></td>
-                    <td class="merchant-item order-price">[[${cart.getProduct().getNewPrice()}]] đ</td>
+                    <td class="merchant-item order-price">[[${#numbers.formatDecimal(cart.getProduct().getNewPrice(), 0, 'COMMA', 0, 'POINT')}]] đ</td>
                   </tr>
                   <tr>
                     <th scope="col" colspan="3">Tổng tiền </th>
-                    <th scope="col" class="order-price" >[[${totalPrice}]] đ</th>
+                    <th scope="col" class="order-price" >[[${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}]] đ</th>
                
                   </tr>
                    <tr>

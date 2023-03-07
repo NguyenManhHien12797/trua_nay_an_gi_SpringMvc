@@ -1,6 +1,8 @@
 package shopbaeFood.controller;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -100,7 +102,10 @@ public class MerchantController {
 		Account account = accountService.findByName(authentication.getName());
 		Merchant merchant = account.getMerchant();
 		Page<Product> page = new Page<Product>();
-		List<Product> products = page.paging(pageNumber,PAGE_SIZE, productService.findAllProductByMerchantAndDeleteFlag(merchant));
+		List<Product> products = page.paging(pageNumber,PAGE_SIZE, 
+				productService.findAllProductByMerchantAndDeleteFlag(merchant)
+				.stream().sorted(Comparator.comparingLong(Product::getId)
+						.reversed()).collect(Collectors.toList()));
 		
 		int lastPageNumber = page.lastPageNumber(PAGE_SIZE, productService.findAllProductByMerchantAndDeleteFlag(merchant));
 		

@@ -2,12 +2,11 @@ package shopbaeFood.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.ui.Model;
 
 import shopbaeFood.model.Cart;
 import shopbaeFood.model.dto.CartDTO;
+import shopbaeFood.model.dto.MessageResponse;
 
 public interface ICartService {
 	
@@ -24,7 +23,7 @@ public interface ICartService {
 	 * @param session
 	 * @return
 	 */
-	String addToCart(CartDTO cart);
+	MessageResponse addToCart(CartDTO cart);
 
 	/**
 	 * This method is used to show cart_page
