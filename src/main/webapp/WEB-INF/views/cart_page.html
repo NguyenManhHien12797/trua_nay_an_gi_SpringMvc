@@ -175,7 +175,7 @@
             <div th:if="${message == 'khong co du lieu'}">
               <span>Chưa có sản phẩm</span>
             </div>
-             <div th:if="${mess}">
+<!--              <div th:if="${mess}">
               <span class="checkout-mess">[[${mess}]]</span>
             </div>
             
@@ -209,7 +209,7 @@
             </div>
             
             
-            </div>
+            </div> -->
             
             <div th:unless="${message == 'khong co du lieu'}">
                   <table class="table table-striped table-sm"  >
@@ -255,17 +255,21 @@
             </div>
          
             </div>
-            <button  th:unless="${showButton == 'showButton'}"  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout">
+<!--             <button  th:unless="${showButton == 'showButton'}"  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout">
               Đặt hàng
             </button>
              <button th:if="${showButton} == 'showButton' "  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout"  name="action" th:formaction="@{/user/checkout/continute}">
              	 Vẫn đặt hàng
-              </button>
+              </button> -->
      
             </form>
             
-<!--                  <button  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout-a">
-              Vẫn đặt hàng
+                 <button  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout-b" th:onclick= "checkout([[${order}]], [[${carts}]])">
+                 Đặt hàng
+              </button>
+              
+<!--              <button  type="submit" class="btn btn-primary btn-lg btn-block btn-checkout-a" th:onclick= "checkout([[${order}]])">
+              Checkout
               </button> -->
             
             </div>
@@ -279,7 +283,7 @@
           <div class="card-header py-3">
             <h5 class="mb-0">Hóa đơn</h5>
           </div>
-          <div class="card-body">
+          <div class="card-body" id="card-body">
 			<form th:action="@{/user/checkout}" th:object="${order}" method="post" id="messageForm" name="messageForm">
 			
             <div class="table-responsive">

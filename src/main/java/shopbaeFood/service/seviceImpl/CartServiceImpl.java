@@ -132,12 +132,6 @@ public class CartServiceImpl implements ICartService {
 			merchant_id = cart.getProduct().getMerchant().getId();
 
 		}
-	         
-		    // tạo 1 NumberFormat để định dạng tiền tệ theo tiêu chuẩn của Việt Nam
-		    // đơn vị tiền tệ của Việt Nam là đồng
-		    Locale localeVN = new Locale("vi", "VN");
-		    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
-		    String str1 = currencyVN.format(totalPrice);
 		Order order = new Order();
 		order.setMerchant_id(merchant_id);
 		LocalDateTime time = LocalDateTime.now();

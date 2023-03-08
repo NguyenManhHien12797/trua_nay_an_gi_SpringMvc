@@ -10,10 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import shopbaeFood.model.Cart;
+import shopbaeFood.model.Cart;
 import shopbaeFood.model.Order;
 import shopbaeFood.model.Product;
 import shopbaeFood.service.IOrderService;
@@ -30,17 +34,29 @@ public class OrderController {
 	 * @param session
 	 * @return view cart_page
 	 */
-	@PostMapping("/user/checkout")
-	public RedirectView checkProductOrCheckout(@ModelAttribute("order") Order order, Model model, RedirectAttributes redirectAttributes) {
-		Map<String, List<Product>> productMap = orderService.productMap(order,redirectAttributes);
+//	@PostMapping("/user/checkout")
+//	public RedirectView checkProductOrCheckout(@ModelAttribute("order") Order order, Model model, RedirectAttributes redirectAttributes) {
+//		Map<String, List<Product>> productMap = orderService.productMap(order,redirectAttributes);
+//	
+//			if(productMap.containsKey("listProductChangePrice") && 
+//					!productMap.containsKey("listProductDelete") && 
+//					!productMap.containsKey("listProductOutOfStock")) {
+//				redirectAttributes.addFlashAttribute("showButton", "showButton");
+//			}
+//
+//		return new RedirectView("/user/cart", true);
+//	}
 	
-			if(productMap.containsKey("listProductChangePrice") && 
-					!productMap.containsKey("listProductDelete") && 
-					!productMap.containsKey("listProductOutOfStock")) {
-				redirectAttributes.addFlashAttribute("showButton", "showButton");
-			}
+	@PostMapping("/user/checkout")
+	@ResponseBody
+	public Map<String, List<Cart>> checkProductOrCheckout(@RequestBody Order order, RedirectAttributes redirectAttributes) {
+		Map<String, List<Cart>> productMap = orderService.productMap(order);
+		System.out.println(productMap.isEmpty());
+		if(productMap.isEmpty()) {
+			orderService.checkout(order, redirectAttributes);
+		}
 
-		return new RedirectView("/user/cart", true);
+		return productMap;
 	}
 
 

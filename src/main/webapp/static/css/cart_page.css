@@ -339,6 +339,8 @@
 
 .modal-checkout{
 	display: none;
+	 transition:  .5s;
+
 }
 
 .modal-checkout-content{

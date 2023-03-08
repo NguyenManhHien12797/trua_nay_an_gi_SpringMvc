@@ -137,45 +137,40 @@ public class OrderServiceImpl implements IOrderService {
 	}
 	
 	@Override
-	public List<Product> listProductDelete() {
+	public Map<String, List<Cart>> productMap(Order order) {
 		Account account = accountService.getAccount();
 		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
-		List<Product>listProductDelete = new ArrayList<>();
+		List<Cart>listProductDelete = new ArrayList<>();
+		List<Cart>listProductChangePrice = new ArrayList<>();
+		List<Cart>listProductOutOfStock = new ArrayList<>();
+		Map<String, List<Cart>> productMap = new HashMap<>(); 
 		for (Cart cart : carts) {
 			if(cart.getProduct().isDeleteFlag()) {
-				System.out.println("Product đã bị xóa");
-				listProductDelete.add(cart.getProduct());
+				listProductDelete.add(cart);
 			}
-		}
-		return listProductDelete;
-	}
-	
-	@Override
-	public List<Product> listProductChangePrice() {
-		Account account = accountService.getAccount();
-		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
-		List<Product>listProductChangePrice = new ArrayList<>();
-		for (Cart cart : carts) {
-			System.out.println("Tiền product: "+cart.getProduct().getNewPrice());
-			System.out.println("Tiền cart: "+cart.getPrice());
+			
 			if(!cart.getProduct().getNewPrice().equals(cart.getPrice())){
-				listProductChangePrice.add(cart.getProduct());
+				listProductChangePrice.add(cart);
 			}
-		}
-		return listProductChangePrice;
-	}
-	
-	@Override
-	public List<Product> listProductOutOfStock() {
-		Account account = accountService.getAccount();
-		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
-		List<Product>listProductOutOfStock = new ArrayList<>();
-		for (Cart cart : carts) {
+			
 			if(cart.getProduct().getQuantity()< 0 || cart.getProduct().getQuantity()< cart.getQuantity()){
-				listProductOutOfStock.add(cart.getProduct());
+				listProductOutOfStock.add(cart);
 			}
 		}
-		return listProductOutOfStock;
+		if(listProductDelete.isEmpty() && listProductChangePrice.isEmpty() && listProductOutOfStock.isEmpty()) {
+			return productMap;
+		}
+		if(!listProductDelete.isEmpty()) {
+			productMap.put("listProductDelete", listProductDelete);
+		}
+		if(!listProductChangePrice.isEmpty()) {
+			productMap.put("listProductChangePrice", listProductChangePrice);
+		}
+		if(!listProductOutOfStock.isEmpty()) {
+			productMap.put("listProductOutOfStock", listProductOutOfStock);
+		}
+		
+		return productMap;
 	}
 
 	@Override

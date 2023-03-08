@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import shopbaeFood.model.Cart;
 import shopbaeFood.model.Order;
 import shopbaeFood.model.Product;
 import shopbaeFood.util.Page;
@@ -20,13 +21,8 @@ public interface IOrderService{
 	 */
 	boolean checkout(Order order, RedirectAttributes redirectAttributes);
 	
-	List<Product> listProductChangePrice();
-	
-	List<Product> listProductDelete();
-	
-	List<Product> listProductOutOfStock();
-	
 	Map<String, List<Product>> productMap(Order order,RedirectAttributes redirectAttributes);
+	Map<String, List<Cart>> productMap(Order order);
 	
 	
 	
