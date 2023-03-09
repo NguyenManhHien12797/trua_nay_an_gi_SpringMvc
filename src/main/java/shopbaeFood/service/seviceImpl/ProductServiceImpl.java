@@ -64,6 +64,7 @@ public class ProductServiceImpl implements IProductService {
 		product.setShortDescription(productForm.getShortDescription());
 		product.setOldPrice(null);
 		product.setNewPrice(productForm.getNewPrice());
+		product.setQuantity(productForm.getQuantity());
 		product.setImage(fileName);
 		product.setMerchant(account.getMerchant());
 		productRepository.save(product);
@@ -89,6 +90,7 @@ public class ProductServiceImpl implements IProductService {
 		product.setShortDescription(productForm.getShortDescription());
 		product.setOldPrice(product.getNewPrice());
 		product.setNewPrice(productForm.getNewPrice());
+		product.setQuantity(productForm.getQuantity());
 		product.setImage(fileName);
 		productRepository.update(product);
 

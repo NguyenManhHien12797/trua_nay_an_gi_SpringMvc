@@ -1,9 +1,10 @@
 package shopbaeFood.service.seviceImpl;
 
-import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,11 +48,20 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public MessageResponse addToCart(CartDTO cartDTO) {
+	public MessageResponse addToCart( HttpServletRequest request, CartDTO cartDTO) {
 		Account account = accountService.getAccount();
 		MessageResponse mess = new MessageResponse();
 		if (account == null) {
 			mess.setMessage("not-logged-in");
+			return mess;
+		}
+		if (account.getUser() == null) {
+			try {
+				request.logout();
+			} catch (ServletException e) {
+				e.printStackTrace();
+			}
+			mess.setMessage("user-not-logged-in");
 			return mess;
 		}
 
@@ -108,9 +118,17 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public String showCart(Model model) {
+	public String showCart(HttpServletRequest request, Model model) {
 		Account account = accountService.getAccount();
-		if (account == null) {
+		if (account == null ) {
+			return "redirect:/login?mess=not-logged-in";
+		}
+		if (account.getUser() ==null) {
+			try {
+				request.logout();
+			} catch (ServletException e) {
+				e.printStackTrace();
+			}
 			return "redirect:/login?mess=not-logged-in";
 		}
 		Long userId = account.getUser().getId();

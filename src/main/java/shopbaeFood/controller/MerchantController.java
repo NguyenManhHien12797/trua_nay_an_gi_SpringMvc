@@ -185,7 +185,7 @@ public class MerchantController {
 	private String showFormUpdateProduct( @PathVariable Long id,@PathVariable int pageNumber, Model model) {
 		Product product = productService.findById(id);
 		ProductForm productForm = new ProductForm(product.getId(), product.getName(), product.getShortDescription(),
-				product.getNumberOrder(), product.getOldPrice(), product.getNewPrice(), null);
+				product.getNumberOrder(), product.getOldPrice(), product.getNewPrice(), product.getQuantity(), null);
 		
 		addListAttribute(null,"merchant-edit-product", "merchant-product-manager", model);
 		model.addAttribute("productForm", productForm);

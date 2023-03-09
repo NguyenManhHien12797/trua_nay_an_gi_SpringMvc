@@ -81,18 +81,22 @@ public class AuthenController {
 	 * @return view homePage
 	 */
 	@GetMapping(value = { "/home", "/" })
-	public String home(@RequestParam(required = false) String address, Model model) {
+	public String home(@RequestParam(required = false) String address, Model model, HttpSession session) {
 		authenService.checkLogin(model);
 		Account account = accountService.getAccount();
-		
-		if(account != null && account.getUser() != null && address ==null) {
-			address = accountService.getAccount().getUser().getAddress();
-		}
-		else {
-			address = "Hà Nội";
-		}
+		System.out.println(address);
+//		if( address ==null) {
+//			if(account != null && account.getUser() != null ) {
+//				address = accountService.getAccount().getUser().getAddress();
+//			}
+//		}
+		session.setAttribute("address", address);
 		List<Merchant> merchants = merchantService.findMerchantsByStatusAndAddress(Status.ACTIVE,address);
 		model.addAttribute("merchants", merchants);
+		System.out.println("model address: "+session.getAttribute("address"));
+	
+		
+		
 		return "homepage";
 	}
 

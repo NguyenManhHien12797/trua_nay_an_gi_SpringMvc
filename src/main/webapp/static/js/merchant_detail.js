@@ -25,6 +25,9 @@ function addToCart(price,user_id,product_id) {
         success: function (data) {
       	console.log("suss");  
       	console.log(data); 
+      	if(data.message == "user-not-logged-in"){
+			  window.location="https://localhost:8443/shopbaeFood/login?mess=not-logged-in";
+			}
       	if(data.message == "not-logged-in"){
 			  window.location="https://localhost:8443/shopbaeFood/login?mess=not-logged-in";
 			}
@@ -66,7 +69,7 @@ function addToCart(price,user_id,product_id) {
 		    	})
 		    	.then((ok) => {
 		    	  if (ok) {
-		    		  window.location="https://localhost:8443/shopbaeFood/user/cart"; 
+		    		  window.location="https://localhost:8443/shopbaeFood/user/cart";
 		    	  } 
 		    	});
         	

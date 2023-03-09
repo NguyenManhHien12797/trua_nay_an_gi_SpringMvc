@@ -533,9 +533,15 @@
     </div>
   </div>
   <div class="mb-3 row">
-    <label for="newPrice" class="col-sm-2 col-form-label">Giá mới</label>
+    <label for="newPrice" class="col-sm-2 col-form-label">Giá tiền</label>
     <div class="col-sm-10">
       <input type="number" class="form-control" id="newPrice" th:field="*{newPrice}"><br>
+    </div>
+  </div>
+    <div class="mb-3 row">
+    <label for="quantity" class="col-sm-2 col-form-label">Số lượng</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="quantity" th:field="*{quantity}"><br>
     </div>
   </div>
 
@@ -583,11 +589,16 @@
       <input type="number" class="form-control" id="newPrice"  th:field="*{newPrice}" ><br>
     </div>
   </div>
-
   <div class="mb-3 row">
     <label for="oldPrice" class="col-sm-2 col-form-label">Giá cũ</label>
     <div class="col-sm-10">
       <span class="form-control" id="oldPrice" >[[${#numbers.formatDecimal(productForm.oldPrice, 0, 'COMMA', 0, 'POINT')}]] đ</span><br>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="quantity" class="col-sm-2 col-form-label">Số lượng</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="quantity" th:field="*{quantity}"><br>
     </div>
   </div>
 
@@ -1189,21 +1200,8 @@
               </a></span></div>
             <div class="select-local col-auto">
               <div class="dropdown">
-              <form action="">
-                  <select name="address" id="">
-                  <option value="">Hà Nội</option>
-                  <option value="">TP. HCM</option>
-                  <option value="">Đà Nẵng</option>
-                  <option value="">Cần Thơ</option>
-                  <option value="">Hải Phòng</option>
-                  <option value="">Huế</option>
-                  <option value="">Khánh Hoà</option>
-                  <option value="">Đồng Nai</option>
-                  <option value="">Bắc Ninh</option>
-                  <option value="">Thái Nguyên</option>
-                  <option value="">Quảng Ninh</option>
-                </select>
-              </form>
+                  <a th:href="@{?address=Hà%20Nội}" name="address">Hà Nội</a>
+                  <a th:href="@{?address=TP.%20HCM}" name="address">TP. HCM</a>
 
               </div>
 
