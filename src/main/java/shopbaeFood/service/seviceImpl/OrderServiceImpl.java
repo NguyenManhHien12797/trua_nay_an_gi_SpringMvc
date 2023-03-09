@@ -158,7 +158,7 @@ public class OrderServiceImpl implements IOrderService {
 			}
 		}
 		if(listProductDelete.isEmpty() && listProductChangePrice.isEmpty() && listProductOutOfStock.isEmpty()) {
-			return productMap;
+			return null;
 		}
 		if(!listProductDelete.isEmpty()) {
 			productMap.put("listProductDelete", listProductDelete);

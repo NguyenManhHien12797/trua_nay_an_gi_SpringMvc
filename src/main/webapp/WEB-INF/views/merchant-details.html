@@ -6,6 +6,7 @@
 
  <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/merchant-detail.css}">
   <script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
 </head>
 <body>
@@ -157,7 +158,7 @@
                   <br>
                   <br>
 
-                  <table style="width: 100%">
+                  <table style="width: 94%" class = "table-item-product">
 
                   <!--  demo -->
                   
@@ -169,14 +170,17 @@
 
                     <div class="row" style="width: 800px">
                       <div class="col-auto item-restaurant-img">
-                        <button class="inline"><img
-                          th:src="@{'/image/' +${product.image}}"
-                          alt="img" width="60" height="60"></button>
+                        <button class="inline">
+                        <img  th:src="@{'/image/' +${product.image}}" style= "border-radius: 4px;width:90px"
+                          alt="img" width="90" height="70"></button>
                       </div>
                       <div class="col item-restaurant-info"><h2 class="item-restaurant-name" th:text = "${product.name}"></h2>
                         <div class="item-restaurant-desc" th:text = "${product.shortDescription}">
                         
                         </div>
+                        <span>Số lượng: </span>
+                        <span th:if="${product.quantity} == 0" style="color:red">Hết hàng</span>
+                        <span th:unless="${product.quantity} == 0" th:text = "${product.quantity}"></span>
                       </div>
                       <div class="col-auto item-restaurant-more" style="margin-right: 0px;top: 30px; flex-wrap: wrap-reverse">
                         <div class="row ">

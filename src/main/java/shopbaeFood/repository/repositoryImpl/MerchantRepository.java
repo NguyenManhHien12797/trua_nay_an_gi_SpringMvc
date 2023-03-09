@@ -71,4 +71,28 @@ public class MerchantRepository implements IMerchantRepository {
 	
 	}
 
+	@Override
+	public List<Merchant> findMerchantsByStatusAndAddress(Status status, String address) {
+		TypedQuery<Merchant> query = getSession().createQuery("FROM Merchant m Where m.status= :status and m.address = :address", Merchant.class);
+		query.setParameter("status", status);
+		query.setParameter("address", address);
+		try {
+		return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Merchant> findMerchantsByStatusAndSearch(Status status, String search) {
+		TypedQuery<Merchant> query = getSession().createQuery("FROM Merchant m Where m.status= :status and m.address like :search or m.name like :search " , Merchant.class);
+		query.setParameter("status", status);
+		query.setParameter("address", search +"%");
+		try {
+		return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
 }

@@ -41,6 +41,10 @@ public interface IMerchantService extends IGeneralService<Merchant> {
 	 * @return List<Merchant>
 	 */
 	List<Merchant> findMerchantsByStatus(Status status);
+	
+	List<Merchant> findMerchantsByStatusAndAddress(Status status, String address);
+	
+	List<Merchant> findMerchantsByStatusAndSearch(Status status, String search);
 
 	/**
 	 * This method is used to update Merchant info

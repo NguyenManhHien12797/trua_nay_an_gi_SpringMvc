@@ -81,9 +81,17 @@ public class AuthenController {
 	 * @return view homePage
 	 */
 	@GetMapping(value = { "/home", "/" })
-	public String home(Model model) {
+	public String home(@RequestParam(required = false) String address, Model model) {
 		authenService.checkLogin(model);
-		List<Merchant> merchants = merchantService.findMerchantsByStatus(Status.ACTIVE);
+		Account account = accountService.getAccount();
+		
+		if(account != null && account.getUser() != null && address ==null) {
+			address = accountService.getAccount().getUser().getAddress();
+		}
+		else {
+			address = "Hà Nội";
+		}
+		List<Merchant> merchants = merchantService.findMerchantsByStatusAndAddress(Status.ACTIVE,address);
 		model.addAttribute("merchants", merchants);
 		return "homepage";
 	}
@@ -254,6 +262,13 @@ public class AuthenController {
 	public String changePass(@PathVariable Long account_id, @PathVariable String pass) {
 		authenService.changePass(pass, account_id);
 		return "change pass ok";
+	}
+	
+	@PostMapping(value = { "/home/search" })
+	@ResponseBody
+	public List<Merchant> searchMerchant(String search) {
+		List<Merchant> merchants = merchantService.findMerchantsByStatusAndSearch(Status.ACTIVE, search);
+		return merchants;
 	}
 
 }

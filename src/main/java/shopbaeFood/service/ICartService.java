@@ -32,6 +32,8 @@ public interface ICartService {
 	 * @return view cart_page
 	 */
 	String showCart(Model model);
+	
+	List<Cart>getCarts(Long userId);
 
 	/**
 	 * This method is used to delete cart

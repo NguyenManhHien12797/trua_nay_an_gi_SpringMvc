@@ -147,4 +147,11 @@ public class CartServiceImpl implements ICartService {
 		return "/cart_page";
 	}
 
+	@Override
+	public List<Cart> getCarts(Long userId) {
+		
+		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
+		return carts;
+	}
+
 }

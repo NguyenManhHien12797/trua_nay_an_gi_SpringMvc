@@ -1,5 +1,7 @@
 package shopbaeFood.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import shopbaeFood.model.Cart;
 import shopbaeFood.model.dto.CartDTO;
 import shopbaeFood.model.dto.MessageResponse;
 import shopbaeFood.service.ICartService;
@@ -42,6 +45,12 @@ public class CartController {
 	@GetMapping("/user/cart")
 	public String showCart(Model model) {
 		return cartService.showCart(model);
+	}
+	
+	@GetMapping("/user/getCart/{userId}")
+	@ResponseBody
+	public List<Cart> getCarts(@PathVariable Long userId) {
+		return cartService.getCarts(userId);
 	}
 
 	/**

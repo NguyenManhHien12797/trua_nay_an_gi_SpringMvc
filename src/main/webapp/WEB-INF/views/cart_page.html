@@ -45,13 +45,13 @@
           <div class="card-header py-3">
             <h5 class="mb-0">Sản phẩm</h5>
           </div>
-          <div class="card-body">
-            <div th:if="${message == 'khong co du lieu'}">
+          <div class="card-body  card-body-cart">
+            <div th:if="${message == 'khong co du lieu'}" class="card-body-noimage-contain">
               <img class="card-body-noimage" src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png" alt="">
             </div>
             <!-- Single item -->
 
-                <div class="row" th:each="cart : ${carts}">
+                <div class="row "  th:id=" 'cart'+${cart.id}"  th:each="cart : ${carts}">
                   <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                     <!-- Image -->
                     <a th:href="@{/home/merchant-detail/__${cart.getProduct().getMerchant().getId()}__}">
@@ -167,7 +167,7 @@
           <div class="card-header py-3">
             <h5 class="mb-0">Hóa đơn</h5>
           </div>
-          <div class="card-body">
+          <div class="card-body card-body-bill">
 			<form th:action="@{/user/checkout}" th:object="${order}" method="post" >
 
             <div class="table-responsive">

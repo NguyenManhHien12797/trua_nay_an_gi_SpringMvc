@@ -1,0 +1,7 @@
+@charset "ISO-8859-1";
+.table-item-product tbody tr:hover{
+	background-color: #f5e1e1;
+}
+.table-item-product tbody tr div{
+	    margin-left: 2px;
+}
