@@ -2,6 +2,8 @@ package shopbaeFood.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +33,8 @@ public class CartController {
 	 */
 	@PostMapping("/user/addToCart")
 	@ResponseBody
-	public MessageResponse addToCart(@RequestBody CartDTO cartDTO) {
-		return cartService.addToCart(cartDTO);
+	public MessageResponse addToCart(@RequestBody CartDTO cartDTO, HttpServletRequest request) {
+		return cartService.addToCart(request, cartDTO);
 	}
 
 	
@@ -43,8 +45,9 @@ public class CartController {
 	 * @return view cart_page
 	 */
 	@GetMapping("/user/cart")
-	public String showCart(Model model) {
-		return cartService.showCart(model);
+	public String showCart(HttpServletRequest request, Model model) {
+		System.out.println("show cart");
+		return cartService.showCart(request, model);
 	}
 	
 	@GetMapping("/user/getCart/{userId}")

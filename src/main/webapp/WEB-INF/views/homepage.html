@@ -29,27 +29,17 @@
               <div class="local">có 37422 địa điểm ở Hà Nội từ 00:00 - 23:59</div>
             </div>
             <div class="form-search">
-              <div class="input-group"><input style="color: black;" type="text" id="txtSearchHome"
+              <div class="input-group"><input style="color: black;" type="text" id="txtSearchHome" th:oninput="searchMerchant(this.value, [[${category}]])"
                                               placeholder="Tìm địa điểm, món ăn, địa chỉ..." ><a>
                 <button  type="button"
                         class="btn btn-search"><span class="fa fa-search"></span></button>
               </a></div>
             </div>
-            <div class="category-list-filter"><a ><span
-              class="category-item ">All</span></a><a ><span
-              class="category-item ">Đồ ăn</span></a><a ><span class="category-item ">Đồ uống</span></a><a
-              ><span
-              class="category-item ">Đồ chay</span></a>
-              <a><span class="category-item ">Bánh kem</span></a>
-              <a><span class="category-item ">Tráng miệng</span></a><a><span
-              class="category-item ">Homemade</span></a>
-              <a><span class="category-item ">Vỉa hè</span></a>
-              <a><span class="category-item ">Pizza/Burger</span></a>
-              <a><span class="category-item ">Món gà</span></a>
-              <a><span class="category-item ">Món lẩu</span></a>
-              <a><span class="category-item ">Sushi</span></a>
-              <a><span class="category-item ">Mì phở</span></a>
-              <a><span class="category-item ">Cơm hộp</span></a></div>
+            <div class="category-list-filter">
+            		<th:block. th:each= "quickSearch: ${quickSearchs}">
+            				<a th:href = "@{?quickSearch=__${quickSearch}}"><span class="category-item ">All</span></a>
+            		</th:block.>
+      		</div>
             <div>
               <div class="font18 mb-2 mt-3">Sử dụng App ShopeeFood để có nhiều giảm giá <br>và trải nghiệm
                 tốt hơn
@@ -80,64 +70,9 @@
                   <div class="title-wrapper">
                     <h2 class="title">Danh sách quán</h2>
                   </div>
-                  <div class="list-restaurant">
-                    <div class="now-loading-restaurant ">
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                    </div>
-                    <div th:each="merchant: ${merchants}">
+                  <div class="list-restaurant" id="list-restaurant-item">
+
+                    <div class="list-restaurant-item"   th:each="merchant: ${merchants}">
                       <div class="item-restaurant">
                       <a class="item-content" th:href="@{/home/merchant-detail/__${merchant.id}__}">
                         <div class="img-restaurant">
@@ -153,6 +88,11 @@
                             <h4 class="name-res" title="" th:text="${merchant.name}"></h4>
                             <div class="address-res"
                                 th:text="${merchant.address}"></div>
+                          </div>
+                          <div >
+                          <span style="margin-left: 10px; font-size: 12px;color: #959595;" th:text="${merchant.openTime}"></span>
+                          <span style="margin-left: 10px; font-size: 12px;color: #959595;" >--</span>
+                          <span style="margin-left: 10px; font-size: 12px;color: #959595;" th:text="${merchant.closeTime}"> </span>
                           </div>
                           <div class="opentime-status"><span class="stt online" title="Mở cửa"
                                                              style="color: rgb(35, 152, 57); background-color: rgb(35, 152, 57);"></span>
@@ -183,80 +123,9 @@
                     <div class="col-auto"><select name="districtId">
                       <option value="-1">Chọn quận/ huyện</option>
                       <option value="20">Ba Đình</option>
-                      <option value="21">Cầu Giấy</option>
-                      <option value="22">Đống Đa</option>
-                      <option value="23">Hà Đông</option>
-                      <option value="24">Hai Bà Trưng</option>
-                      <option value="25">Hoàn Kiếm</option>
-                      <option value="26">Hoàng Mai</option>
-                      <option value="27">Long Biên</option>
-                      <option value="28">Tây Hồ</option>
-                      <option value="29">Thanh Xuân</option>
-                      <option value="678">Gia Lâm</option>
-                      <option value="679">Hoài Đức</option>
-                      <option value="688">Thanh Trì</option>
-                      <option value="689">Thường Tín</option>
-                      <option value="690">Bắc Từ Liêm</option>
-                      <option value="945">Nam Từ Liêm</option>
                     </select></div>
                   </div>
                   <div class="list-restaurant">
-                    <div class="now-loading-restaurant  ">
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                      <div class="box-loading">
-                        <div class="box-thumbnail"></div>
-                        <div class="box-line-df"></div>
-                        <div class="box-line-lgx"></div>
-                        <div class="box-line-lg"></div>
-                      </div>
-                    </div>
                     <div class="item-restaurant">
                     <a class="item-content" href="/thuong-hieu/the-1989-vietnam-milktea">
                       <div class="row no-gutters">
@@ -640,6 +509,10 @@
 </div>
 
 
-
+<script
+	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script th:src="@{/static/js/home-page.js}"></script>
 </body>
 </html>

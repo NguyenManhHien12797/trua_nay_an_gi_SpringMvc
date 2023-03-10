@@ -28,6 +28,7 @@ public class Merchant {
 	private String avatar;
 	private String openTime;
 	private String closeTime;
+	private String category;
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	@OneToOne(cascade = CascadeType.ALL)
@@ -39,7 +40,7 @@ public class Merchant {
 	}
 
 	public Merchant(Long id, String name, String phone, String address, String avatar, String openTime,
-			String closeTime, Status status, Account account) {
+			String closeTime, String category, Status status, Account account) {
 		this.id = id;
 		this.name = name;
 		this.phone = phone;
@@ -47,16 +48,18 @@ public class Merchant {
 		this.avatar = avatar;
 		this.openTime = openTime;
 		this.closeTime = closeTime;
+		this.category = category;
 		this.status = status;
 		this.account = account;
 	}
 
-	public Merchant(String address, String avatar, String name, String phone, Status status, Account account) {
+	public Merchant(String address, String avatar, String name, String phone, Status status, String category, Account account) {
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
 		this.avatar = avatar;
 		this.status = status;
+		this.category = category;
 		this.account = account;
 	}
 
@@ -131,5 +134,15 @@ public class Merchant {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	
 
 }

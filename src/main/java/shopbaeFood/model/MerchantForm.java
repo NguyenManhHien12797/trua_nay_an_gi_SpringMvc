@@ -8,11 +8,10 @@ public class MerchantForm {
 	private String name;
 	private String phone;
 	private String address;
-
 	private MultipartFile avatar;
 	private String openTime;
 	private String closeTime;
-
+	private String category;
 	private String status;
 	private Account account;
 
@@ -20,7 +19,7 @@ public class MerchantForm {
 	}
 
 	public MerchantForm(Long id, String name, String phone, String address, MultipartFile avatar, String openTime,
-			String closeTime, String status, Account account) {
+			String closeTime, String category, String status, Account account) {
 		this.id = id;
 		this.name = name;
 		this.phone = phone;
@@ -28,17 +27,19 @@ public class MerchantForm {
 		this.avatar = avatar;
 		this.openTime = openTime;
 		this.closeTime = closeTime;
+		this.category = category;
 		this.status = status;
 		this.account = account;
 	}
 
-	public MerchantForm(Long id, String name, String address, String phone, String openTime, String closeTime) {
+	public MerchantForm(Long id, String name, String address, String phone, String openTime, String closeTime, String category) {
 		this.id = id;
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
 		this.openTime = openTime;
 		this.closeTime = closeTime;
+		this.category = category;
 	}
 
 	public Long getId() {
@@ -112,5 +113,14 @@ public class MerchantForm {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 
 }

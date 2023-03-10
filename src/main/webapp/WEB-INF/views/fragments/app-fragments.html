@@ -533,9 +533,15 @@
     </div>
   </div>
   <div class="mb-3 row">
-    <label for="newPrice" class="col-sm-2 col-form-label">Giá mới</label>
+    <label for="newPrice" class="col-sm-2 col-form-label">Giá tiền</label>
     <div class="col-sm-10">
       <input type="number" class="form-control" id="newPrice" th:field="*{newPrice}"><br>
+    </div>
+  </div>
+    <div class="mb-3 row">
+    <label for="quantity" class="col-sm-2 col-form-label">Số lượng</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="quantity" th:field="*{quantity}"><br>
     </div>
   </div>
 
@@ -583,11 +589,16 @@
       <input type="number" class="form-control" id="newPrice"  th:field="*{newPrice}" ><br>
     </div>
   </div>
-
   <div class="mb-3 row">
     <label for="oldPrice" class="col-sm-2 col-form-label">Giá cũ</label>
     <div class="col-sm-10">
       <span class="form-control" id="oldPrice" >[[${#numbers.formatDecimal(productForm.oldPrice, 0, 'COMMA', 0, 'POINT')}]] đ</span><br>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="quantity" class="col-sm-2 col-form-label">Số lượng</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="quantity" th:field="*{quantity}"><br>
     </div>
   </div>
 
@@ -1189,34 +1200,26 @@
               </a></span></div>
             <div class="select-local col-auto">
               <div class="dropdown">
-              <form action="">
-                  <select name="address" id="">
-                  <option value="">Hà Nội</option>
-                  <option value="">TP. HCM</option>
-                  <option value="">Đà Nẵng</option>
-                  <option value="">Cần Thơ</option>
-                  <option value="">Hải Phòng</option>
-                  <option value="">Huế</option>
-                  <option value="">Khánh Hoà</option>
-                  <option value="">Đồng Nai</option>
-                  <option value="">Bắc Ninh</option>
-                  <option value="">Thái Nguyên</option>
-                  <option value="">Quảng Ninh</option>
-                </select>
-              </form>
-
+				  <select th:if="${listAddress }" class="dropdown-address" name="dropdown-address"  th:value="${session.address}">
+				  		<option th:if= "${session.address}"  th:value="${session.address}">[[${session.address}]]</option>
+				  		<th:block th:each ="address : ${listAddress }">
+				  				<option th:value="${address}">[[${address}]]</option>
+				  		</th:block>
+  				</select>
               </div>
 
             </div>
 
-            <div class="main-nav col"><a class="nav-item active" href="/ha-noi/food">Đồ ăn</a><a
-              class="nav-item " href="/ha-noi/fresh">Thực phẩm</a><a class="nav-item "
-                                                                     href="/ha-noi/liquor">Bia</a><a class="nav-item "
-                                                                                                     href="/ha-noi/flowers">Hoa</a><a
-              class="nav-item " href="/ha-noi/fmcg">Siêu thị</a><a class="nav-item "
-                                                                   href="/ha-noi/medicine">Thuốc</a><a class="nav-item "
-                                                                                                       href="/ha-noi/pets">Thú
-              cưng</a></div>
+            <div class="main-nav col" th:if= "${categories}">
+            		<th:block th:each = "categoryItem: ${categories}">
+            				<a th:classappend="${categoryItem == category}? 'active'" class="nav-item" th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
+            		</th:block>
+              </div>
+              <div class="main-nav col" >
+            			<span th:if= "${carts}" style="color: #f56043; font-size: 25px;">Giỏ hàng</span>
+            			<span th:if= "${route == 'user-update-info'}" style="color: #f56043; font-size: 25px;">Thông tin người dùng</span>
+            			<span th:if= "${route == 'user-info'}" style="color: #f56043; font-size: 25px;">Thông tin người dùng</span>
+              </div>
 
             <div class="user-acc col-auto user-acc-wr" th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
               <div th:if="${message == 'chua dang nhap'}">

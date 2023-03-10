@@ -107,7 +107,20 @@
                                                                          
               </div>
           	</div>
+          	  
             </div>
+            
+                      <label th:if = "${role == 'merchant'}">
+  								Chọn phân loại :
+  								<select class="select-category" name="select-category" th:field= *{category}>
+    								<option value=" ">Chọn một...</option>
+    								<option value="Đồ ăn">Đồ ăn</option>
+    								<option value="Thực phẩm">Thực phẩm</option>
+    								<option value="Bia">Bia </option>
+    								<option value="Hoa">Hoa </option>
+    								<option value="Thuốc">Thuốc </option>
+  								</select>
+						</label>
             
             <button class="btn btn-block btn-submit">Đăng ký</button>
           </div>

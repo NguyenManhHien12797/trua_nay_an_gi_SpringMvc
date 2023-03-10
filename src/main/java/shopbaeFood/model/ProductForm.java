@@ -9,19 +9,21 @@ public class ProductForm {
 	private String numberOrder;
 	private Double oldPrice;
 	private Double newPrice;
+	private int quantity;
 	private MultipartFile image;
 
 	public ProductForm() {
 	}
 
 	public ProductForm(Long id, String name, String shortDescription, String numberOrder, Double oldPrice,
-			Double newPrice, MultipartFile image) {
+			Double newPrice, int quantity, MultipartFile image) {
 		this.id = id;
 		this.name = name;
 		this.shortDescription = shortDescription;
 		this.numberOrder = numberOrder;
 		this.oldPrice = oldPrice;
 		this.newPrice = newPrice;
+		this.quantity = quantity;
 		this.image = image;
 	}
 
@@ -80,5 +82,15 @@ public class ProductForm {
 	public void setImage(MultipartFile image) {
 		this.image = image;
 	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	
 
 }

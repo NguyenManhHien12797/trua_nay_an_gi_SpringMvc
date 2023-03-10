@@ -196,13 +196,13 @@ public class MerchantServiceImpl implements IMerchantService {
 	}
 
 	@Override
-	public List<Merchant> findMerchantsByStatusAndAddress(Status status, String address) {
-		return merchantRepository.findMerchantsByStatusAndAddress(status, address);
+	public List<Merchant> findMerchantsByStatusAndAddressAndCategory(Status status, String address, String category) {
+		return merchantRepository.findMerchantsByStatusAndAddressAndCategory(status, address,category);
 	}
 
 	@Override
-	public List<Merchant> findMerchantsByStatusAndSearch(Status status, String search) {
-		return merchantRepository.findMerchantsByStatusAndSearch(status, search);
+	public List<Merchant> findMerchantsByStatusAndCategoryAndSearch(Status status, String category, String search) {
+		return merchantRepository.findMerchantsByStatusAndCategoryAndSearch(status,category, search);
 	}
 
 }

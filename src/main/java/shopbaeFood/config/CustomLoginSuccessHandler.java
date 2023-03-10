@@ -58,13 +58,16 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			session.setAttribute("userId", account.getUser().getId());
 			session.setAttribute("username", account.getUser().getName());
 			session.setAttribute("avatar", account.getUser().getAvatar());
+			session.setAttribute("address", account.getUser().getAddress());
 		}
 		if (account.getMerchant() != null) {
 			session.setAttribute("userId", account.getMerchant().getId());
 			session.setAttribute("username", account.getMerchant().getName());
 			session.setAttribute("avatar", account.getMerchant().getAvatar());
+			session.setAttribute("address", account.getMerchant().getAddress());
 
 		}
+		
 		session.setAttribute("authorities", authentication.getAuthorities());
     	
     	handle(request, response, authentication);

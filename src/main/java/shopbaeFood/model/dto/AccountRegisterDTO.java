@@ -23,12 +23,14 @@ public class AccountRegisterDTO {
 	private String phone;
 	@NotEmpty(message = "{address.not.empty}")
 	private String address;
+	
+	private String category;
 
 	public AccountRegisterDTO() {
 	}
 
 	public AccountRegisterDTO(Long id, String userName, String password, String email, String name, String phone,
-			String address) {
+			String address, String category) {
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
@@ -36,6 +38,7 @@ public class AccountRegisterDTO {
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
+		this.category = category;
 	}
 
 	public Long getId() {
@@ -94,4 +97,13 @@ public class AccountRegisterDTO {
 		this.address = address;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	
 }

@@ -185,7 +185,7 @@ public class MerchantController {
 	private String showFormUpdateProduct( @PathVariable Long id,@PathVariable int pageNumber, Model model) {
 		Product product = productService.findById(id);
 		ProductForm productForm = new ProductForm(product.getId(), product.getName(), product.getShortDescription(),
-				product.getNumberOrder(), product.getOldPrice(), product.getNewPrice(), null);
+				product.getNumberOrder(), product.getOldPrice(), product.getNewPrice(), product.getQuantity(), null);
 		
 		addListAttribute(null,"merchant-edit-product", "merchant-product-manager", model);
 		model.addAttribute("productForm", productForm);
@@ -242,7 +242,7 @@ public class MerchantController {
 		Account account = (Account) session.getAttribute("user");
 		Merchant merchant = merchantService.findById(account.getMerchant().getId());
 		MerchantForm merchantForm = new MerchantForm(merchant.getId(), merchant.getName(), merchant.getAddress(),
-				merchant.getPhone(), merchant.getOpenTime(), merchant.getCloseTime());
+				merchant.getPhone(), merchant.getOpenTime(), merchant.getCloseTime(), merchant.getCategory());
 
 		addListAttribute(null, "merchant-update-info", "merchant-info", model);
 		model.addAttribute("account", account);

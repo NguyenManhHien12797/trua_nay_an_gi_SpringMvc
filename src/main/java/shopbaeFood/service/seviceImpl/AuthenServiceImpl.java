@@ -93,7 +93,7 @@ public class AuthenServiceImpl implements IAuthenService {
 			roleService.setDefaultRole(new AccountRoleMap(account, appRole));
 
 			merchantService.save(new Merchant(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
-					accountRegisterDTO.getPhone(), status, account));
+					accountRegisterDTO.getPhone(), status,accountRegisterDTO.getCategory(), account));
 		}
 
 	}
