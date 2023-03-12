@@ -32,7 +32,7 @@ public class OrderDetail {
 	public OrderDetail() {
 	}
 
-	public OrderDetail(Long id, Product product, Order order, int quantity,Double price, boolean deleteFlag) {
+	public OrderDetail(Long id, Product product, Order order, int quantity, Double price, boolean deleteFlag) {
 		super();
 		this.id = id;
 		this.product = product;
@@ -66,7 +66,6 @@ public class OrderDetail {
 		this.quantity = quantity;
 	}
 
-	
 	public Double getPrice() {
 		return price;
 	}

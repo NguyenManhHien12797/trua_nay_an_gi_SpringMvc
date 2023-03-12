@@ -68,7 +68,32 @@ function drawListMerchant(merchant){
 
 const selectElement = document.querySelector(".dropdown-address");
 
+
 selectElement.addEventListener("change", (event) => {
 
   window.location=`https://localhost:8443/shopbaeFood/?address=${event.target.value}`;
 });
+
+
+window.addEventListener("scroll", () =>{
+	console.log(window.scrollY)
+	
+	let scrollable = document.documentElement.scrollHeight -window.innerHeight;
+	console.log(document.querySelector(".main-right-home").clientHeight - 877);
+/*	console.log(document.documentElement.scrollHeight- document.querySelector(".main-right-home").clientHeight);*/
+	let mainRight = document.querySelector(".main-right-home");
+	let height = document.querySelector(".main-right-home").clientHeight - 780;
+	var position = mainRight.getBoundingClientRect();
+	let banner = document.querySelector(".now-banner");
+	console.log("position: "+(position.bottom - window.innerHeight))
+	if((position.bottom - window.innerHeight) <= 0) {
+		console.log('Element is partially visible in screen');
+		 $(".now-banner").css({position:"absolute",top: height+"px"});
+	}else{
+		 $(".now-banner").css({position:"fixed",top: "70px"});
+	}
+	
+})
+
+
+

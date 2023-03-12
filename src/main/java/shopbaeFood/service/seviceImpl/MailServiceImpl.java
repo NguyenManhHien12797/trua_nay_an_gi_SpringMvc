@@ -19,7 +19,7 @@ public class MailServiceImpl implements IMailService {
 
 	@Autowired
 	JavaMailSender mailSender;
-	
+
 	public static final String MAIL_FROM = "ShopBeaFood nhóm 3";
 
 	public void sendEmail(Mail mail) {

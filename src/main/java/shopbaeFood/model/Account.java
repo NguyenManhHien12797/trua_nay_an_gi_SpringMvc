@@ -64,8 +64,8 @@ public class Account {
 		this.email = email;
 	}
 
-	public Account(Long id, String userName, String password, boolean isEnabled,boolean firstLogin, String email, String otp,
-			Set<AccountRoleMap> accountRoleMapSet) {
+	public Account(Long id, String userName, String password, boolean isEnabled, boolean firstLogin, String email,
+			String otp, Set<AccountRoleMap> accountRoleMapSet) {
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
@@ -179,8 +179,5 @@ public class Account {
 	public void setFirstLogin(boolean firstLogin) {
 		this.firstLogin = firstLogin;
 	}
-	
-	
-	
 
 }

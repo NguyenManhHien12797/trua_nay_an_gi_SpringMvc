@@ -21,7 +21,7 @@ public class AppUserRepository implements IAppUserRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	private Session getSession() {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session;

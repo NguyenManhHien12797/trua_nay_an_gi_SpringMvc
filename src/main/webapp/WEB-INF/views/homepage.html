@@ -9,20 +9,20 @@
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
   <script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
 </head>
-<body>
+<body class="portal">
 
 
 <div id="app">
-  <div class="wrapper now-banner">
+  <div class="wrapper" th:onscroll ="scrollChangePosition()">
   
-  
+ <!--  	<div class ="now-banner"> -->
+  		
     <header class="main-header" th:replace="~{/fragments/app-fragments :: home-header}">
 
     </header>
 
-
-      <div class="now-banner ver_vi" style=" top: 70px;">
-        <div class="container  now-banner-container">
+      <div class="now-banner ver_vi" style="position: fixed; top: 70px;" >
+        <div class="container ">
           <div class="now-search">
             <div>
               <h1 class="title">Đặt Đồ ăn, giao hàng từ 20'...</h1>
@@ -36,9 +36,9 @@
               </a></div>
             </div>
             <div class="category-list-filter">
-            		<th:block. th:each= "quickSearch: ${quickSearchs}">
-            				<a th:href = "@{?quickSearch=__${quickSearch}}"><span class="category-item ">All</span></a>
-            		</th:block.>
+            		<th:block th:each= "quickSearch: ${quickSearchs}">
+            			<a th:href = "@{?quickSearch=__${quickSearch}__}"><span class="category-item ">[[${quickSearch}]]</span></a>
+            		</th:block>
       		</div>
             <div>
               <div class="font18 mb-2 mt-3">Sử dụng App ShopeeFood để có nhiều giảm giá <br>và trải nghiệm
@@ -54,9 +54,19 @@
             </div>
           </div>
 
-          <div class="contain-main-home clearfix">
-            <div class="container">
-              <div class="main-right-home">
+
+        </div>
+       
+     
+        <br>
+
+      </div>
+
+     <div class="contain-main-home clearfix">
+  
+  		  
+      <div class="container">
+              <div class="main-right-home" >
                 <div class="user-get-local">
                   <div class="row align-items-center no-gutters pointer">
                     <div class="col-auto"><span class="txt-blue txt-bold">Đồ ăn</span><i
@@ -451,14 +461,12 @@
                 <div class="end-check-point"></div>
               </div>
             </div>
-          </div>
 
-        </div>
-        <br>
-
-      </div>
-
+     </div>
+     
+     
       <div class="container">
+      
         <div class="now-container-coporation">
           <h4 class="title"><span>Đơn hàng của bạn sẽ được bảo quản như thế nào?</span></h4><span>
                         <span class="font15"> ShopeeBae sẽ bảo quản đơn của bạn bằng túi &amp; thùng để chống nắng mưa,
@@ -466,6 +474,7 @@
                     </span><img th:src="@{/static/img/Box-food-preservation-footer.png}"
                                 alt="food preservation">
         </div>
+        
         <div class="now-container-coporation img-right">
           <h4 class="title"><span>Ứng dụng ShopeeBae</span></h4><span>
                         <span class="font14">- <b>Ứng dụng ShopeeBae</b> là ứng dụng quản lý đơn hàng cho các nhà hàng
@@ -502,7 +511,13 @@
         
  </div>
 
+     
+ 
+  <!-- 	</div> -->
+  
   </div>
+
+  
   <footer class="main-footer"  th:replace="~{/fragments/app-fragments :: footer}">
 
   </footer>

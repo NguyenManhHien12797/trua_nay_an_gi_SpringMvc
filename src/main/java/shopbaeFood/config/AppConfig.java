@@ -84,23 +84,22 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 		viewResolver.setCharacterEncoding("UTF-8");
 		return viewResolver;
 	}
-	
-	
-    @Bean
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:application"); 
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
 
-    @Bean
-    @Override
-    public Validator getValidator() {
-        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-        bean.setValidationMessageSource(messageSource());
-        return bean;
-    }
+	@Bean
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:application");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
+	}
+
+	@Bean
+	@Override
+	public Validator getValidator() {
+		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+		bean.setValidationMessageSource(messageSource());
+		return bean;
+	}
 
 	/**
 	 * This function is used to config file upload
@@ -111,7 +110,7 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 		resolver.setMaxUploadSizePerFile(52428800);
 		return resolver;
 	}
-	
+
 	@Bean
 	public UserInterceptor userInterceptor() {
 		return new UserInterceptor();
@@ -121,7 +120,5 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(userInterceptor());
 	}
-	
-	
 
 }

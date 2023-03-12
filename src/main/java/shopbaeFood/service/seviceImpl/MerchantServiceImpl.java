@@ -34,7 +34,7 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Value("${file-upload}")
 	private String fileUpload;
-	
+
 	private final int PAGE_SIZE = 5;
 
 	@Autowired
@@ -45,13 +45,13 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Autowired
 	private IAccountRepository accountRepository;
-	
+
 	@Autowired
 	private IAccountService accountService;
 
 	@Autowired
 	private IMailService mailService;
-	
+
 	public static final String NAV_ROUTE_MERCHANT = "merchant-list";
 	public static final String NAV_ROUTE_USER = "user-list";
 	public static final String MAIL_FROM = "nguyenhuuquyet07092001@gmail.com";
@@ -90,7 +90,7 @@ public class MerchantServiceImpl implements IMerchantService {
 			Account account = accountRepository.findById(merchant.getAccount().getId());
 			merchant.setStatus(status);
 			merchantRepository.update(merchant);
-			if(Status.PENDING.equals(status)) {
+			if (Status.PENDING.equals(status)) {
 				Mail mail = new Mail();
 				mail.setMailFrom(MAIL_FROM);
 				mail.setMailTo(account.getEmail());
@@ -134,14 +134,15 @@ public class MerchantServiceImpl implements IMerchantService {
 		return null;
 
 	}
-	
+
 	@Override
 	public Page<?> page(Status status, String navRoute, int pageNumber) {
-		
+
 		int lastPageNumber = 0;
 		if (NAV_ROUTE_MERCHANT.equals(navRoute)) {
 			Page<Merchant> page = new Page<Merchant>();
-			List<Merchant> merchants = page.paging(pageNumber,PAGE_SIZE, merchantRepository.findMerchantsByStatus(status));
+			List<Merchant> merchants = page.paging(pageNumber, PAGE_SIZE,
+					merchantRepository.findMerchantsByStatus(status));
 			lastPageNumber = page.lastPageNumber(PAGE_SIZE, merchantRepository.findMerchantsByStatus(status));
 			page.setPaging(merchants);
 			page.setLastPageNumber(lastPageNumber);
@@ -149,15 +150,13 @@ public class MerchantServiceImpl implements IMerchantService {
 		}
 		if (NAV_ROUTE_USER.equals(navRoute)) {
 			Page<AppUser> page = new Page<AppUser>();
-			List<AppUser> users = page.paging(pageNumber,PAGE_SIZE, userRepository.findAppUsersByStatus(status));
+			List<AppUser> users = page.paging(pageNumber, PAGE_SIZE, userRepository.findAppUsersByStatus(status));
 			lastPageNumber = page.lastPageNumber(PAGE_SIZE, userRepository.findAppUsersByStatus(status));
 			page.setPaging(users);
 			page.setLastPageNumber(lastPageNumber);
 			return page;
 		}
-	
-		
-		
+
 		return null;
 	}
 
@@ -197,12 +196,12 @@ public class MerchantServiceImpl implements IMerchantService {
 
 	@Override
 	public List<Merchant> findMerchantsByStatusAndAddressAndCategory(Status status, String address, String category) {
-		return merchantRepository.findMerchantsByStatusAndAddressAndCategory(status, address,category);
+		return merchantRepository.findMerchantsByStatusAndAddressAndCategory(status, address, category);
 	}
 
 	@Override
 	public List<Merchant> findMerchantsByStatusAndCategoryAndSearch(Status status, String category, String search) {
-		return merchantRepository.findMerchantsByStatusAndCategoryAndSearch(status,category, search);
+		return merchantRepository.findMerchantsByStatusAndCategoryAndSearch(status, category, search);
 	}
 
 }

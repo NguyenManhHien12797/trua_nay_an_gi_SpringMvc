@@ -24,12 +24,13 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 
 	@Autowired
 	private IAccountService accountService;
-	
+
 	/**
 	 * This method is used to check user is valid
+	 * 
 	 * @param username
 	 * @param password
-	 * @return user 
+	 * @return user
 	 */
 	private UserDetails isValidUser(String username, String password) {
 		Account account = accountService.findByName(username);
@@ -43,9 +44,9 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 		return null;
 	}
 
-	
 	/**
-	 * This method is used to authenticate and check the login status: PENDING/ ACTIVE/ BLOCK/ REFUSE
+	 * This method is used to authenticate and check the login status: PENDING/
+	 * ACTIVE/ BLOCK/ REFUSE
 	 */
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -55,7 +56,7 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 		UserDetails userDetails = isValidUser(username, password);
 
 		if (userDetails != null) {
-			if(userDetails.isAccountNonLocked()) {
+			if (userDetails.isAccountNonLocked()) {
 				throw new LockedException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK);
 			}
 			Account account = accountService.findByName(username);
@@ -78,7 +79,6 @@ public class CustomIdentityAuthenticationProvider implements AuthenticationProvi
 			throw new BadCredentialsException(Constants.RESPONSE_MESSAGE.LOGIN_FAILE);
 		}
 	}
-
 
 	@Override
 	public boolean supports(Class<?> authenticationType) {

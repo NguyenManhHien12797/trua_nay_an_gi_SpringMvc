@@ -10,6 +10,5 @@ public interface IAppUserRepository extends IGeneralRepository<AppUser> {
 	List<AppUser> findAppUsersByStatus(Status status);
 
 	AppUser findByName(String name);
-	
 
 }

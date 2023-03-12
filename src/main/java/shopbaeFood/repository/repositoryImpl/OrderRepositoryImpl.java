@@ -21,10 +21,10 @@ public class OrderRepositoryImpl implements IOrderRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Autowired
 	private IAppUserRepository userRepository;
-	
+
 	private Session getSession() {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session;
@@ -74,8 +74,9 @@ public class OrderRepositoryImpl implements IOrderRepository {
 
 	@Override
 	public List<Order> findOrdersByMerchantIdAndStatus(Long merchant_id, String status, String status1) {
-		TypedQuery<Order> query = getSession().createQuery("FROM Order o Where o.deleteFlag = false and o.merchant_id= :merchant_id"
-				+ " and o.status = :status or o.status = :status1 order by o.id DESC", Order.class);
+		TypedQuery<Order> query = getSession()
+				.createQuery("FROM Order o Where o.deleteFlag = false and o.merchant_id= :merchant_id"
+						+ " and o.status = :status or o.status = :status1 order by o.id DESC", Order.class);
 		query.setParameter("merchant_id", merchant_id);
 		query.setParameter("status", status);
 		query.setParameter("status1", status1);

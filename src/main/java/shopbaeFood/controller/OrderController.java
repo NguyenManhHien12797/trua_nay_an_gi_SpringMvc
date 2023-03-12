@@ -1,6 +1,5 @@
 package shopbaeFood.controller;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +25,7 @@ public class OrderController {
 
 	/**
 	 * This method is used to checkout
+	 * 
 	 * @param order
 	 * @param session
 	 * @return view cart_page
@@ -42,38 +42,38 @@ public class OrderController {
 //
 //		return new RedirectView("/user/cart", true);
 //	}
-	
+
 	@PostMapping("/user/checkout")
 	@ResponseBody
-	public Map<String, List<Cart>> checkProductOrCheckout(@RequestBody Order order, RedirectAttributes redirectAttributes) {
+	public Map<String, List<Cart>> checkProductOrCheckout(@RequestBody Order order,
+			RedirectAttributes redirectAttributes) {
 		Map<String, List<Cart>> productMap = orderService.productMap(order);
-		if(productMap == null) {
+		if (productMap == null) {
 			orderService.checkout(order, redirectAttributes);
 		}
 
 		return productMap;
 	}
-	
+
 	@PostMapping("/user/checkout/continute")
 	@ResponseBody
 	public MessageResponse checkout(@RequestBody Order order, RedirectAttributes redirectAttributes) {
 		Map<String, List<Cart>> productMap = orderService.productMap(order);
 		MessageResponse mess = new MessageResponse("suss");
-		if(productMap == null) {
+		if (productMap == null) {
 			orderService.checkout(order, redirectAttributes);
 			return mess;
 		}
-		
-		if(productMap.containsKey("listProductDelete") || productMap.containsKey("listProductOutOfStock")) {
+
+		if (productMap.containsKey("listProductDelete") || productMap.containsKey("listProductOutOfStock")) {
 			mess.setMessage("error");
 			return mess;
 		}
 
 		orderService.checkout(order, redirectAttributes);
-	
+
 		return mess;
 	}
-
 
 	/*
 	 * @PostMapping("/user/checkout/continute") public RedirectView
@@ -94,9 +94,10 @@ public class OrderController {
 
 	/**
 	 * This method is used to update order status
+	 * 
 	 * @param order_id
 	 * @param status
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping("/user/update-order-status/{order_id}/{status}")
 	public String updateOrderStatus(@PathVariable Long order_id, @PathVariable String status) {
@@ -106,10 +107,11 @@ public class OrderController {
 
 	/**
 	 * This method is used to delete order
+	 * 
 	 * @param order_id
 	 * @return view cart_page
 	 */
-	@RequestMapping(value={"/user/delete-order/{order_id}"})
+	@RequestMapping(value = { "/user/delete-order/{order_id}" })
 	public String deleteOrder(@PathVariable Long order_id) {
 		orderService.deleteOrder(order_id);
 		return "redirect:/user/cart";

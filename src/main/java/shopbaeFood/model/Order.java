@@ -37,7 +37,7 @@ public class Order {
 
 	public Order() {
 	}
-	
+
 	public Order(Long id, AppUser user_id, String note, LocalDateTime orderdate, String status, Long merchant_id,
 			double totalPrice, String address, boolean deleteFlag, boolean userDeleteFlag) {
 		this.id = id;
@@ -51,7 +51,7 @@ public class Order {
 		this.deleteFlag = deleteFlag;
 		this.userDeleteFlag = userDeleteFlag;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -139,7 +139,5 @@ public class Order {
 	public void setUserDeleteFlag(boolean userDeleteFlag) {
 		this.userDeleteFlag = userDeleteFlag;
 	}
-	
-	
 
 }

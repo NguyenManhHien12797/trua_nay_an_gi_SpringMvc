@@ -16,7 +16,7 @@ public class CartDTO {
 		this.user_id = user_id;
 		this.product_id = product_id;
 	}
-	
+
 	public CartDTO(double price, Long user_id, Long product_id) {
 		this.price = price;
 		this.user_id = user_id;

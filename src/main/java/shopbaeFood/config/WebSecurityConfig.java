@@ -16,13 +16,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private CustomLoginSuccessHandler customLoginSuccessHandler;
 
 	@Autowired
 	private CustomIdentityAuthenticationProvider customIdentityAuthenticationProvider;
-	
+
 	@Autowired
 	private CustomLoginFailureHandler customLoginFailureHandler;
 
@@ -48,14 +48,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/", "/login", "/register/**", "/product", "/user/**", "/home/**", "/static/**",
-						"/image/**","/chat/**")
+						"/image/**", "/chat/**")
 				.permitAll().antMatchers("/admin/**").hasRole("ADMIN").antMatchers("/merchant/**").hasRole("MERCHANT")
 				.antMatchers("/**").hasAnyRole("ADMIN").and().formLogin().loginPage("/login")
-				.usernameParameter("userName")
-				.successHandler(customLoginSuccessHandler)
-				.failureHandler(customLoginFailureHandler)
-				.and().logout()
-				.logoutSuccessUrl("/home")
+				.usernameParameter("userName").successHandler(customLoginSuccessHandler)
+				.failureHandler(customLoginFailureHandler).and().logout().logoutSuccessUrl("/home")
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).clearAuthentication(true)
 				.deleteCookies("JSESSIONID").invalidateHttpSession(true).and().csrf().disable();
 
@@ -63,7 +60,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.invalidSessionUrl("/login?mess=timeout"));
 
 	}
-	
-	
 
 }

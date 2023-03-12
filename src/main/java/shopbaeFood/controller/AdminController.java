@@ -14,9 +14,12 @@ import shopbaeFood.util.Page;
 @Controller
 public class AdminController {
 
-	@Autowired
-	private IMerchantService merchantService;
-	
+	private final IMerchantService merchantService;
+
+	public AdminController(IMerchantService merchantService) {
+		this.merchantService = merchantService;
+	}
+
 	@GetMapping(value = { "/admin" })
 	public String redirectMerchantList() {
 		return "redirect:/admin/merchant-list/ACTIVE/1";
@@ -24,23 +27,26 @@ public class AdminController {
 
 	/**
 	 * This method return the admin page
+	 * 
 	 * @param navRoute : merchant-list/ user-list
-	 * @param status : PENDING/ ACTIVE/ BLOCK
+	 * @param status   : PENDING/ ACTIVE/ BLOCK
 	 * @param model
 	 * @return addmin_page
 	 */
 	@GetMapping(value = { "/admin/{navRoute}/{status}/{pageNumber}" })
-	public String adminPage(@PathVariable String navRoute, @PathVariable Status status, @PathVariable int pageNumber, Model model) {
+	public String adminPage(@PathVariable String navRoute, @PathVariable Status status, @PathVariable int pageNumber,
+			Model model) {
 		addListAttribute(status, navRoute, pageNumber, model);
 		return "admin_page";
 	}
 
 	/**
 	 * This method is used to update status and return fragments by route
+	 * 
 	 * @param navRoute : merchant-list/ user-list
 	 * @param id
-	 * @param status : PENDING/ ACTIVE/ BLOCK
-	 * @param route : PENDING/ ACTIVE/ BLOCK
+	 * @param status   : PENDING/ ACTIVE/ BLOCK
+	 * @param route    : PENDING/ ACTIVE/ BLOCK
 	 * @param model
 	 * @return fragments/app-fragments: PENDING/ ACTIVE/ BLOCK
 	 */
@@ -51,9 +57,10 @@ public class AdminController {
 		addListAttribute(route, navRoute, 1, model);
 		return "fragments/app-fragments ::${route}";
 	}
-	
+
 	/**
-	 * This method is used to add Attribute 
+	 * This method is used to add Attribute
+	 * 
 	 * @param status
 	 * @param navRoute
 	 * @param pageNumber

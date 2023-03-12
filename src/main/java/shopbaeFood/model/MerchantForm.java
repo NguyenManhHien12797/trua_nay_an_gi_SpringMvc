@@ -32,7 +32,8 @@ public class MerchantForm {
 		this.account = account;
 	}
 
-	public MerchantForm(Long id, String name, String address, String phone, String openTime, String closeTime, String category) {
+	public MerchantForm(Long id, String name, String address, String phone, String openTime, String closeTime,
+			String category) {
 		this.id = id;
 		this.name = name;
 		this.phone = phone;
@@ -121,6 +122,5 @@ public class MerchantForm {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
 
 }

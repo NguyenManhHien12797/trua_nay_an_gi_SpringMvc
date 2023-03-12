@@ -21,12 +21,12 @@ public class OrderDetailRepositoryImpl implements IOrderDetailRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	private Session getSession() {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session;
 	}
-	
+
 	@Autowired
 	private IOrderRepository orderRepository;
 
@@ -49,10 +49,11 @@ public class OrderDetailRepositoryImpl implements IOrderDetailRepository {
 
 	@Override
 	public List<OrderDetail> findAll() {
-		List<OrderDetail> orderDetails = getSession().createQuery("FROM OrderDetail", OrderDetail.class).getResultList();
+		List<OrderDetail> orderDetails = getSession().createQuery("FROM OrderDetail", OrderDetail.class)
+				.getResultList();
 		return orderDetails;
 	}
-	
+
 	@Override
 	public List<OrderDetail> findOrderDetailsByOrderId(Long order_id) {
 		Order order = orderRepository.findById(order_id);

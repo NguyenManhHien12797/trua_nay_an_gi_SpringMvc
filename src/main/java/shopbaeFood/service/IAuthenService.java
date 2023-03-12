@@ -17,7 +17,8 @@ public interface IAuthenService {
 	void register(AccountRegisterDTO accountRegisterDTO, String role);
 
 	/**
-	 * This method is used to show message 
+	 * This method is used to show message
+	 * 
 	 * @param mess: not-logged-in/ time-out
 	 * @return message
 	 */
@@ -25,6 +26,7 @@ public interface IAuthenService {
 
 	/**
 	 * This method is used to show form register by role
+	 * 
 	 * @param role user/ merchant
 	 * @return view register
 	 */
@@ -37,21 +39,24 @@ public interface IAuthenService {
 
 	/**
 	 * This method is used to create otp and send otp mail to the user
+	 * 
 	 * @param session
 	 */
 	void createOtp();
 
 	/**
 	 * This method is used to change password and set otp= null
-	 * @param pass password
+	 * 
+	 * @param pass       password
 	 * @param account_id
 	 */
 	void changePass(String pass, Long account_id);
-	
+
 	boolean changePass(PasswordDTO passwordDTO);
 
 	/**
-	 * This method is used to check otp 
+	 * This method is used to check otp
+	 * 
 	 * @param account_id
 	 * @param otp
 	 * @return mess: 'ok'
@@ -61,12 +66,13 @@ public interface IAuthenService {
 
 	/**
 	 * This method is used to show merchant-detail page
+	 * 
 	 * @param id
 	 * @param model
 	 * @param session
 	 * @return view merchant-details
 	 */
 	String merchantDetails(Long id, Model model);
-	
-	List<String>authorities();
+
+	List<String> authorities();
 }

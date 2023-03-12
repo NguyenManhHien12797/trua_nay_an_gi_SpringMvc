@@ -20,7 +20,7 @@ public class AcountRepository implements IAccountRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	private Session getSession() {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session;
@@ -28,13 +28,13 @@ public class AcountRepository implements IAccountRepository {
 
 	@Override
 	public void save(Account account) {
-		 getSession().save(account);
+		getSession().save(account);
 
 	}
 
 	@Override
 	public void update(Account account) {
-		 getSession().update(account);
+		getSession().update(account);
 
 	}
 
@@ -46,12 +46,13 @@ public class AcountRepository implements IAccountRepository {
 
 	@Override
 	public Account findById(Long id) {
-		return  getSession().get(Account.class, id);
+		return getSession().get(Account.class, id);
 	}
 
 	@Override
 	public Account findByName(String name) {
-		TypedQuery<Account> query =  getSession().createQuery("FROM Account a WHERE a.userName = :userName", Account.class);
+		TypedQuery<Account> query = getSession().createQuery("FROM Account a WHERE a.userName = :userName",
+				Account.class);
 		query.setParameter("userName", name);
 		try {
 			return query.getSingleResult();

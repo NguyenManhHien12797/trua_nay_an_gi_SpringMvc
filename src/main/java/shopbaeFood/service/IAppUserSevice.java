@@ -11,17 +11,19 @@ public interface IAppUserSevice extends IGeneralService<AppUser> {
 
 	/**
 	 * This method is used to find AppUser by name
+	 * 
 	 * @return AppUser
 	 */
 	AppUser findByName(String name);
 
 	/**
-	 * This method is used to update status 
+	 * This method is used to update status
 	 */
 	void updateStatus(Long id, Status status);
 
 	/**
-	 * This method is used to update user info and set attribute user, avatar and userName
+	 * This method is used to update user info and set attribute user, avatar and
+	 * userName
 	 */
 	void updateUserInfo(UserForm userForm, Account account, HttpSession session);
 

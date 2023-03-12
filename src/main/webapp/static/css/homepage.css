@@ -18588,20 +18588,19 @@ button.history-table-status.gray {
 
 .now-banner {
   height: 100vh;
-  /*position: relative;*/
-  top: 70px;
+  position: relative;
   left: 0;
   right: 0;
   z-index: 0;
   background-image: url(/shopbaeFood/static/img/main-banner.jpg);
   background-size: cover;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 
-.now-banner::-webkit-scrollbar {
+/* .now-banner::-webkit-scrollbar {
   width: 0 !important;
   display: none;
-}
+} */
 
 .now-banner .container {
   height: 100%;
@@ -18682,13 +18681,27 @@ button.history-table-status.gray {
 }
 
 .contain-main-home .main-right-home {
-  float: right;
+/*   float: right;
   width: 670px;
   margin-top: 48px;
-  /*position: absolute;*/
-  /*z-index: 100;*/
+  position: absolute;
+  z-index: 100;
   margin-bottom: 75px;
-  min-height: calc(100vh - 123px);
+  min-height: calc(100vh - 123px); */
+  
+    float: right;
+    width: 670px;
+    margin-top: 48px;
+    position: relative;
+    z-index: auto;
+    margin-bottom: 75px;
+    min-height: calc(100vh - 123px);
+}
+
+.clearfix:after{
+	display: block;
+    clear: both;
+    content: "";
 }
 
 .main-right-home .now-list-restaurant {

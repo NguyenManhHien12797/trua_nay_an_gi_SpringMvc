@@ -19,12 +19,11 @@ public class ProductRepositoryImpl implements IProductRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	private Session getSession() {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session;
 	}
-	
 
 	@Override
 	public Product findById(Long id) {
@@ -51,8 +50,8 @@ public class ProductRepositoryImpl implements IProductRepository {
 
 	@Override
 	public List<Product> findAllProductByMerchantAndDeleteFlag(Merchant merchant) {
-		TypedQuery<Product> query = getSession().createQuery(
-				"From Product p where p.deleteFlag = false and p.merchant = :merchant", Product.class);
+		TypedQuery<Product> query = getSession()
+				.createQuery("From Product p where p.deleteFlag = false and p.merchant = :merchant", Product.class);
 		query.setParameter("merchant", merchant);
 		return query.getResultList();
 
@@ -60,13 +59,11 @@ public class ProductRepositoryImpl implements IProductRepository {
 
 	@Override
 	public Long findMerchantIdByProduct(String name) {
-		TypedQuery<Long> query = getSession().createQuery("Select p.merchant_id FROM Product p where p.name = :name", Long.class);
+		TypedQuery<Long> query = getSession().createQuery("Select p.merchant_id FROM Product p where p.name = :name",
+				Long.class);
 		query.setParameter("name", name);
 		Long merchantId = query.getSingleResult();
 		return merchantId;
 	}
-
-
-
 
 }

@@ -37,7 +37,7 @@ public class CartServiceImpl implements ICartService {
 
 	@Autowired
 	private IOrderRepository orderRepository;
-	
+
 	@Autowired
 	private IAccountService accountService;
 
@@ -48,7 +48,7 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public MessageResponse addToCart( HttpServletRequest request, CartDTO cartDTO) {
+	public MessageResponse addToCart(HttpServletRequest request, CartDTO cartDTO) {
 		Account account = accountService.getAccount();
 		MessageResponse mess = new MessageResponse();
 		if (account == null) {
@@ -67,7 +67,7 @@ public class CartServiceImpl implements ICartService {
 
 		Cart cart = cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), account.getUser().getId());
 		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
-		
+
 		int quantity = 1;
 		Double totalPrice = 0.0;
 		Product product = productRepository.findById(cartDTO.getProduct_id());
@@ -77,7 +77,7 @@ public class CartServiceImpl implements ICartService {
 		}
 
 		if (cart != null) {
-			if(product.getQuantity()<=0) {
+			if (product.getQuantity() <= 0) {
 				mess.setMessage("out of stock");
 				return mess;
 			}
@@ -89,14 +89,15 @@ public class CartServiceImpl implements ICartService {
 			mess.setMessage("add suscess");
 			return mess;
 		} else {
-			if(product.getQuantity()<=0) {
+			if (product.getQuantity() <= 0) {
 				mess.setMessage("out of stock");
 				return mess;
 			}
 			totalPrice = quantity * cartDTO.getPrice();
 			boolean deleteFlag = false;
 
-			cartRepository.save(new Cart(quantity, cartDTO.getPrice(), account.getUser(), product, totalPrice, deleteFlag));
+			cartRepository
+					.save(new Cart(quantity, cartDTO.getPrice(), account.getUser(), product, totalPrice, deleteFlag));
 			Cart cart1 = cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
 
 			ProductCartMap productCartMap = new ProductCartMap(cart1, product);
@@ -120,10 +121,10 @@ public class CartServiceImpl implements ICartService {
 	@Override
 	public String showCart(HttpServletRequest request, Model model) {
 		Account account = accountService.getAccount();
-		if (account == null ) {
+		if (account == null) {
 			return "redirect:/login?mess=not-logged-in";
 		}
-		if (account.getUser() ==null) {
+		if (account.getUser() == null) {
 			try {
 				request.logout();
 			} catch (ServletException e) {
@@ -132,7 +133,7 @@ public class CartServiceImpl implements ICartService {
 			return "redirect:/login?mess=not-logged-in";
 		}
 		Long userId = account.getUser().getId();
-		
+
 		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
 		List<Order> orders = orderRepository.findOrdersByUserId(userId);
 		String message = " ";
@@ -144,7 +145,7 @@ public class CartServiceImpl implements ICartService {
 		Double cartTotalPrice = 0.0;
 		Long merchant_id = null;
 		for (Cart cart : carts) {
-			cartTotalPrice = cart.getQuantity()* cart.getProduct().getNewPrice();
+			cartTotalPrice = cart.getQuantity() * cart.getProduct().getNewPrice();
 			cart.setTotalPrice(cartTotalPrice);
 			totalPrice += cart.getTotalPrice();
 			merchant_id = cart.getProduct().getMerchant().getId();
@@ -167,7 +168,7 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	public List<Cart> getCarts(Long userId) {
-		
+
 		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
 		return carts;
 	}

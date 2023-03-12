@@ -11,7 +11,6 @@ import javax.validation.Payload;
 
 import shopbaeFood.util.Constants;
 
-
 @Documented
 @Constraint(validatedBy = UserNameValidator.class)
 @Target({ ElementType.METHOD, ElementType.FIELD })

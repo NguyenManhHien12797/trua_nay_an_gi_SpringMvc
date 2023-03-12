@@ -69,20 +69,20 @@ public class AuthenServiceImpl implements IAuthenService {
 	public static final String MAIL_SUBJECT = "Mã xác nhận OTP";
 	public static final String MAIL_FROM = "nguyenhuuquyet07092001@gmail.com";
 
-
 	@Override
 	public void register(AccountRegisterDTO accountRegisterDTO, String role) {
 		Status status = Status.PENDING;
 		boolean isEnabled = true;
 		boolean firstLogin = true;
 		String pass = passwordEncoder.encode(accountRegisterDTO.getPassword());
-		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, firstLogin, accountRegisterDTO.getEmail());
+		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, firstLogin,
+				accountRegisterDTO.getEmail());
 		accountService.save(account);
 
 		String avatar = "images.jpg";
 
 		if (USER.equals(role)) {
-		
+
 			AppRoles appRole = roleService.findById(1L);
 			roleService.setDefaultRole(new AccountRoleMap(account, appRole));
 			userSevice.save(new AppUser(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
@@ -93,15 +93,15 @@ public class AuthenServiceImpl implements IAuthenService {
 			roleService.setDefaultRole(new AccountRoleMap(account, appRole));
 
 			merchantService.save(new Merchant(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
-					accountRegisterDTO.getPhone(), status,accountRegisterDTO.getCategory(), account));
+					accountRegisterDTO.getPhone(), status, accountRegisterDTO.getCategory(), account));
 		}
 
 	}
-	
+
 	@Override
-	public List<String>authorities(){
+	public List<String> authorities() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if(authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
 			return null;
 		}
 		List<String> authorities = new ArrayList<String>();
@@ -110,16 +110,15 @@ public class AuthenServiceImpl implements IAuthenService {
 		}
 		return authorities;
 	}
-	
 
 	@Override
 	public void checkLogin(Model model) {
 		String message = " ";
 		String role = "";
-	    if (authorities()==null) {
-	    	message = "chua dang nhap";
-	    }else {
-	    	if (authorities().contains("ROLE_USER")) {
+		if (authorities() == null) {
+			message = "chua dang nhap";
+		} else {
+			if (authorities().contains("ROLE_USER")) {
 				role = "user";
 			}
 			if (authorities().contains("ROLE_ADMIN")) {
@@ -130,7 +129,7 @@ public class AuthenServiceImpl implements IAuthenService {
 			}
 
 			model.addAttribute("role", role);
-	    }
+		}
 		model.addAttribute("message", message);
 	}
 
@@ -214,15 +213,15 @@ public class AuthenServiceImpl implements IAuthenService {
 		if (Constants.LOGIN_STATE.BAN_ACCOUNT.equals(mess)) {
 			message = Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK;
 		}
-		
+
 		return message;
 	}
 
 	@Override
 	public boolean changePass(PasswordDTO passwordDTO) {
-		Account account =accountService.getAccount();
-		if(passwordEncoder.matches(passwordDTO.getCurrentPassword(), account.getPassword())) {
-			if(passwordDTO.getNewPassword().equals(passwordDTO.getConfirmPassword())) {
+		Account account = accountService.getAccount();
+		if (passwordEncoder.matches(passwordDTO.getCurrentPassword(), account.getPassword())) {
+			if (passwordDTO.getNewPassword().equals(passwordDTO.getConfirmPassword())) {
 				account.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
 				account.setOtp(null);
 				account.setFirstLogin(false);
@@ -230,9 +229,9 @@ public class AuthenServiceImpl implements IAuthenService {
 				return true;
 			}
 		}
-	
+
 		return false;
-		
+
 	}
 
 }

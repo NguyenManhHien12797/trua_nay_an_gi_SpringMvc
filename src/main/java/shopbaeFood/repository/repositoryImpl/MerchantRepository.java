@@ -44,17 +44,13 @@ public class MerchantRepository implements IMerchantRepository {
 
 	@Override
 	public List<Merchant> findAll() {
-		List<Merchant> merchants = getSession()
-			.createQuery("FROM Merchant", Merchant.class)
-			.getResultList();
+		List<Merchant> merchants = getSession().createQuery("FROM Merchant", Merchant.class).getResultList();
 		return merchants;
 	}
 
 	@Override
 	public Merchant findByName(String name) {
-		TypedQuery<Merchant> query = getSession()
-			.createQuery("FROM Merchant m WHERE m.name = :name"
-			, Merchant.class);
+		TypedQuery<Merchant> query = getSession().createQuery("FROM Merchant m WHERE m.name = :name", Merchant.class);
 		query.setParameter("name", name);
 		try {
 			return query.getSingleResult();
@@ -65,50 +61,42 @@ public class MerchantRepository implements IMerchantRepository {
 
 	@Override
 	public List<Merchant> findMerchantsByStatus(Status status) {
-		TypedQuery<Merchant> query = getSession()
-			.createQuery("FROM Merchant m Where m.status= :status"
-			, Merchant.class);
+		TypedQuery<Merchant> query = getSession().createQuery("FROM Merchant m Where m.status= :status",
+				Merchant.class);
 		query.setParameter("status", status);
 		try {
-		return query.getResultList();
+			return query.getResultList();
 		} catch (NoResultException e) {
 			return null;
 		}
-	
+
 	}
 
 	@Override
 	public List<Merchant> findMerchantsByStatusAndAddressAndCategory(Status status, String address, String category) {
-		TypedQuery<Merchant> query = getSession()
-			.createQuery("FROM Merchant m Where m.status= :status and m.category = :category and m.address = :address"
-			, Merchant.class);
+		TypedQuery<Merchant> query = getSession().createQuery(
+				"FROM Merchant m Where m.status= :status and m.category = :category and m.address = :address",
+				Merchant.class);
 		query.setParameter("status", status);
 		query.setParameter("address", address);
 		query.setParameter("category", category);
 		try {
-		return query.getResultList();
+			return query.getResultList();
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
 
 	@Override
-	public List<Merchant> findMerchantsByStatusAndCategoryAndSearch(Status status,String category, String search) {
-		TypedQuery<Merchant> query = getSession()
-			.createQuery(
-			"SELECT DISTINCT m "
-			+ "FROM Merchant m "
-			+ "Join Product p "
-			+ "ON m.id = p.merchant "
-			+ "and m.status= :status "
-			+ "and m.category= :category "
-			+ "and (m.name like :search or m.address like :search or p.name like :search)"
-			,Merchant.class);
+	public List<Merchant> findMerchantsByStatusAndCategoryAndSearch(Status status, String category, String search) {
+		TypedQuery<Merchant> query = getSession().createQuery("SELECT DISTINCT m " + "FROM Merchant m "
+				+ "Join Product p " + "ON m.id = p.merchant " + "and m.status= :status " + "and m.category= :category "
+				+ "and (m.name like :search or m.address like :search or p.name like :search)", Merchant.class);
 		query.setParameter("status", status);
 		query.setParameter("category", category);
-		query.setParameter("search","%"+ search +"%");
+		query.setParameter("search", "%" + search + "%");
 		try {
-		return query.getResultList();
+			return query.getResultList();
 		} catch (NoResultException e) {
 			return null;
 		}

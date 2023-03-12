@@ -6,6 +6,7 @@ public interface IGeneralService<T> {
 
 	/**
 	 * This method is used to find T by id
+	 * 
 	 * @return T
 	 */
 	T findById(Long id);
@@ -22,6 +23,7 @@ public interface IGeneralService<T> {
 
 	/**
 	 * This method is used to find all T
+	 * 
 	 * @return List<T>
 	 */
 	List<T> findAll();

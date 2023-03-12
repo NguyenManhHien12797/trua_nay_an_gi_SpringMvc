@@ -27,7 +27,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Autowired
 	private IAccountService accountService;
-	
+
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
 	public static final String ROLE_USER = "ROLE_USER";
 	public static final String ROLE_MERCHANT = "ROLE_MERCHANT";
@@ -35,22 +35,22 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 	public static final String ADMIN_PATH = "/admin/merchant-list/ACTIVE/1";
 	public static final String MERCHANT_PATH = "/merchant/merchant-dashboard";
 	public static final String CHANGE_PASS_PATH = "/home/change-pass";
-	
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    public CustomLoginSuccessHandler() {
-        super();
-    }
+	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
+	public CustomLoginSuccessHandler() {
+		super();
+	}
 
-    @Override
-    public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
+	@Override
+	public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response,
+			final Authentication authentication) throws IOException {
 		Account account = accountService.findByName(authentication.getName());
-		
-		if(account.getFailedAttempt()> 0 ) {
+
+		if (account.getFailedAttempt() > 0) {
 			accountService.resetFailedAttempts(account);
 		}
-	
+
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(Constants.SESSION_EXPIRATION);
 		session.setAttribute("user", account);
@@ -67,63 +67,63 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			session.setAttribute("address", account.getMerchant().getAddress());
 
 		}
-		
-		session.setAttribute("authorities", authentication.getAuthorities());
-    	
-    	handle(request, response, authentication);
-        clearAuthenticationAttributes(request);
-    }
 
-    protected void handle(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
-       
-    	String targetUrl = " ";
+		session.setAttribute("authorities", authentication.getAuthorities());
+
+		handle(request, response, authentication);
+		clearAuthenticationAttributes(request);
+	}
+
+	protected void handle(final HttpServletRequest request, final HttpServletResponse response,
+			final Authentication authentication) throws IOException {
+
+		String targetUrl = " ";
 		Account account = accountService.findByName(authentication.getName());
-		if(account.isFirstLogin()) {
+		if (account.isFirstLogin()) {
 			targetUrl = CHANGE_PASS_PATH;
-		}
-		else {
+		} else {
 			targetUrl = determineTargetUrl(authentication);
 		}
-		
-        if (response.isCommitted()) {
-        	System.out.println("Can't redirect");
-            return;
-        }
 
-        redirectStrategy.sendRedirect(request, response, targetUrl);
-    }
+		if (response.isCommitted()) {
+			System.out.println("Can't redirect");
+			return;
+		}
 
-    protected String determineTargetUrl(final Authentication authentication) {
+		redirectStrategy.sendRedirect(request, response, targetUrl);
+	}
 
-        Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put(ROLE_USER, HOME_PATH);
-        roleTargetUrlMap.put(ROLE_ADMIN, ADMIN_PATH);
-        roleTargetUrlMap.put(ROLE_MERCHANT, MERCHANT_PATH);
+	protected String determineTargetUrl(final Authentication authentication) {
 
-        final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        for (final GrantedAuthority grantedAuthority : authorities) {
+		Map<String, String> roleTargetUrlMap = new HashMap<>();
+		roleTargetUrlMap.put(ROLE_USER, HOME_PATH);
+		roleTargetUrlMap.put(ROLE_ADMIN, ADMIN_PATH);
+		roleTargetUrlMap.put(ROLE_MERCHANT, MERCHANT_PATH);
 
-            String authorityName = grantedAuthority.getAuthority();
-            if(roleTargetUrlMap.containsKey(authorityName)) {
-                return roleTargetUrlMap.get(authorityName);
-            }
-        }
+		final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		for (final GrantedAuthority grantedAuthority : authorities) {
 
-        throw new IllegalStateException();
-    }
+			String authorityName = grantedAuthority.getAuthority();
+			if (roleTargetUrlMap.containsKey(authorityName)) {
+				return roleTargetUrlMap.get(authorityName);
+			}
+		}
 
-    /**
-     * Removes temporary authentication-related data which may have been stored in the session
-     * during the authentication process.
-     */
-    protected final void clearAuthenticationAttributes(final HttpServletRequest request) {
-        final HttpSession session = request.getSession(false);
+		throw new IllegalStateException();
+	}
 
-        if (session == null) {
-            return;
-        }
+	/**
+	 * Removes temporary authentication-related data which may have been stored in
+	 * the session during the authentication process.
+	 */
+	protected final void clearAuthenticationAttributes(final HttpServletRequest request) {
+		final HttpSession session = request.getSession(false);
 
-        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-    }
+		if (session == null) {
+			return;
+		}
+
+		session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+	}
 
 }

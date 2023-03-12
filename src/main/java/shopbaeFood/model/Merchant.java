@@ -35,7 +35,7 @@ public class Merchant {
 	@JoinColumn(name = "account_id")
 	@JsonBackReference
 	private Account account;
-	
+
 	public Merchant() {
 	}
 
@@ -53,7 +53,8 @@ public class Merchant {
 		this.account = account;
 	}
 
-	public Merchant(String address, String avatar, String name, String phone, Status status, String category, Account account) {
+	public Merchant(String address, String avatar, String name, String phone, Status status, String category,
+			Account account) {
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
@@ -142,7 +143,5 @@ public class Merchant {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	
 
 }

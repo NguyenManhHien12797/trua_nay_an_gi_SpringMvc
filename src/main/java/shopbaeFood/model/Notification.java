@@ -5,32 +5,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 public class Notification {
-	
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private Long id;
-	 private MessageType type;
-	 private String sender;
-	 
 
-	 public enum MessageType {
-	        CHAT, JOIN, LEAVE
-	    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private MessageType type;
+	private String sender;
 
+	public enum MessageType {
+		CHAT, JOIN, LEAVE
+	}
 
 	public Notification() {
 	}
-	
+
 	public Notification(Long id, MessageType type, String sender) {
 		super();
 		this.id = id;
 		this.type = type;
 		this.sender = sender;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -44,7 +40,6 @@ public class Notification {
 		return type;
 	}
 
-
 	public void setType(MessageType type) {
 		this.type = type;
 	}
@@ -57,5 +52,4 @@ public class Notification {
 		this.sender = sender;
 	}
 
-	    
 }

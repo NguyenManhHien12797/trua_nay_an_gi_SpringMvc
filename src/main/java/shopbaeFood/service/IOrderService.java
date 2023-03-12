@@ -12,22 +12,23 @@ import shopbaeFood.model.Order;
 import shopbaeFood.model.Product;
 import shopbaeFood.util.Page;
 
-public interface IOrderService{
-	
+public interface IOrderService {
+
 	/**
-	 * This method is used to checkout 
+	 * This method is used to checkout
+	 * 
 	 * @param order
 	 * @param session
 	 */
 	boolean checkout(Order order, RedirectAttributes redirectAttributes);
-	
-	Map<String, List<Product>> productMap(Order order,RedirectAttributes redirectAttributes);
+
+	Map<String, List<Product>> productMap(Order order, RedirectAttributes redirectAttributes);
+
 	Map<String, List<Cart>> productMap(Order order);
-	
-	
-	
+
 	/**
 	 * This method is used to update Order status
+	 * 
 	 * @param order_id
 	 * @param status
 	 * @return view
@@ -36,18 +37,22 @@ public interface IOrderService{
 
 	/**
 	 * This method is used to find Orders by user_id
+	 * 
 	 * @param user_id
 	 * @return List<Order.
 	 */
 	List<Order> findOrdersByUserId(Long user_id);
-	
+
 	/**
 	 * This method is used to delete Order
+	 * 
 	 * @param order_id
 	 */
 	void deleteOrder(Long order_id);
+
 	/**
 	 * This method is used to paging
+	 * 
 	 * @param status
 	 * @param pageNumber
 	 * @param session

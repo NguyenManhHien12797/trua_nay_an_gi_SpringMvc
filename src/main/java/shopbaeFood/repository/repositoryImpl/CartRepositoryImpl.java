@@ -25,15 +25,15 @@ public class CartRepositoryImpl implements ICartRepository {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	private Session getSession() {
 		Session session = this.sessionFactory.getCurrentSession();
 		return session;
 	}
-	
+
 	@Autowired
 	private IAppUserRepository userRepository;
-	
+
 	@Autowired
 	private IProductRepository productRepository;
 
@@ -53,7 +53,7 @@ public class CartRepositoryImpl implements ICartRepository {
 		TypedQuery<Cart> query = getSession().createQuery(
 				"Select c FROM Cart c WHERE c.deleteFlag = false and c.product = :product and  c.user_id = :user_id",
 				Cart.class);
-		
+
 		query.setParameter("product", product);
 		query.setParameter("user_id", user);
 		try {

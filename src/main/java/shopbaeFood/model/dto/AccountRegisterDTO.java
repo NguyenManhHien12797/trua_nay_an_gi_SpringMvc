@@ -23,7 +23,7 @@ public class AccountRegisterDTO {
 	private String phone;
 	@NotEmpty(message = "{address.not.empty}")
 	private String address;
-	
+
 	private String category;
 
 	public AccountRegisterDTO() {
@@ -105,5 +105,4 @@ public class AccountRegisterDTO {
 		this.category = category;
 	}
 
-	
 }

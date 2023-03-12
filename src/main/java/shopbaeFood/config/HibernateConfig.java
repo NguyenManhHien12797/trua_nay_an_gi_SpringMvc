@@ -22,6 +22,7 @@ public class HibernateConfig {
 
 	/**
 	 * The method is used to creates a Hibernate SessionFactory
+	 * 
 	 * @return
 	 */
 	@Bean
@@ -32,9 +33,10 @@ public class HibernateConfig {
 		sessionFactory.setHibernateProperties(hibernateProperties());
 		return sessionFactory;
 	}
-	
+
 	/**
 	 * The method is used to set Hibernate properties
+	 * 
 	 * @return
 	 */
 	public Properties hibernateProperties() {
@@ -57,9 +59,11 @@ public class HibernateConfig {
 			}
 		};
 	}
-	
+
 	/**
-	 * The method is used to set dataSource() contains connection information to the database
+	 * The method is used to set dataSource() contains connection information to the
+	 * database
+	 * 
 	 * @return dataSource
 	 */
 	@Bean
@@ -73,8 +77,9 @@ public class HibernateConfig {
 		return dataSource;
 	}
 
-	/** 
+	/**
 	 * The method is used to transaction management for queries via sessionFactory
+	 * 
 	 * @param sessionFactory
 	 * @return transactionManager
 	 */
