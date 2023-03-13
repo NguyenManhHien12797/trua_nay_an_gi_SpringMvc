@@ -1,11 +1,3 @@
-$(".btn-checkout-a").click(function(){
-  $(".modal-checkout").show();
-});
-
-$(".modal-overlay").click(function(){
-  $(".modal-checkout").hide();
-});
-
 
 function deleteCart(cart_id, user_id){
 	
@@ -35,12 +27,7 @@ function deleteCart(cart_id, user_id){
 		
 		})
 }
-
-
-
 function getCarts(userId){
-		console.log("getCart")
-		console.log(userId)
 		$.ajax({
         //tên API
         url:`/shopbaeFood/user/getCart/${userId}`,
@@ -251,5 +238,79 @@ function checkout(order, carts) {
 }
 
 
+function changeQuantity(cartId,quantity){
+		$.ajax({
+       	headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        type: "POST",
+        data: quantity ,
+        url:`/shopbaeFood/user/change-quantity/${cartId}`,
+        //xử lý khi thành công
+        success: function (data) {
+			if(data.message == "success"){
+				location.reload();
+			}
+			let content = " ";
+      		if(data.message == "wrong format"){
+				  content = "Không nhập số âm";
+		  	}
+      	  	document.getElementById('wrong-message').innerHTML = content;
+      	
+        },
+        error: function(xhr, textStatus, error) {
+        console.log(xhr.responseText);
+        console.log(xhr.statusText);
+        console.log(textStatus);
+        console.log(error);
+		    
+        }
+      });
+}
 
+function getOrderDetails(orderId){
+	
+		$.ajax({
+       	headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        type: "GET",
+        url:`/shopbaeFood/user/getOrderDetail/${orderId}`,
+        //xử lý khi thành công
+        success: function (data) {
+			let content =" ";
+      		if(data != null){
+				$(".table-responsive-history").show();
+				for(let i=0; i< data.length; i++){
+				  content += drawOrderDetails(data[i]);
+			  	}
+		  	}
+      	  	document.getElementById('table-orderDetails').innerHTML = content;
+      	
+        },
+        error: function(xhr, textStatus, error) {
+        console.log(xhr.responseText);
+        console.log(xhr.statusText);
+        console.log(textStatus);
+        console.log(error);
+		    
+        }
+      });
+	
+}
+
+function drawOrderDetails(orderDetail){
+	return `
+                <tr>
+                  <td><img src="/shopbaeFood/image/${orderDetail.product.image}" alt="" style="height: 40px;
+        			width: 40px;
+        			border-radius: 50%;"></td>
+                  <td class="merchant-item">${orderDetail.product.name}</td>
+                  <td class="merchant-item">${orderDetail.quantity}</td>
+                  <td class="merchant-item">${orderDetail.price}</td>
+                </tr>
+			`
+}
 

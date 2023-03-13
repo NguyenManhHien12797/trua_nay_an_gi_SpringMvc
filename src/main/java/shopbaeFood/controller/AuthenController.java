@@ -1,6 +1,5 @@
 package shopbaeFood.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -64,7 +63,6 @@ public class AuthenController {
 	@GetMapping(value = { "/login" })
 	public String showLoginForm(@RequestParam(required = false) String mess, Model model,
 			HttpServletResponse response) {
-
 		Account account = accountService.getAccount();
 		if (account == null) {
 			model.addAttribute("mess", authenService.showMessageLogin(mess));
@@ -73,9 +71,7 @@ public class AuthenController {
 			response.setDateHeader("Expires", 0);
 			return "login";
 		}
-
 		return "redirect:/";
-
 	}
 
 	/**
@@ -86,81 +82,17 @@ public class AuthenController {
 	 * @return view homePage
 	 */
 	@GetMapping(value = { "/home", "/" })
-	public String home(@RequestParam(required = false) String address, @RequestParam(required = false) String category,
+	public String home(@RequestParam(required = false) String address, 
+			@RequestParam(required = false) String category,
+			@RequestParam(required = false) String quickSearch,
 			Model model, HttpSession session) {
-		authenService.checkLogin(model);
-		Account account = accountService.getAccount();
-		List<String> listAddress = new ArrayList<String>();
-		List<String> categories = new ArrayList<String>();
-		listAddress.add("Hà Nội");
-		listAddress.add("Tp.HCM");
-		listAddress.add("Đà Nẵng");
-		categories.add("Đồ ăn");
-		categories.add("Thực phẩm");
-		categories.add("Bia");
-		categories.add("Hoa");
-		categories.add("Thuốc");
-		if (address == null) {
-			if (session.getAttribute("address") != null) {
-				address = (String) session.getAttribute("address");
-			} else {
-				if (account != null) {
-					if (account.getUser() != null) {
-						address = accountService.getAccount().getUser().getAddress();
-					}
-
-					if (account.getMerchant() != null) {
-						address = accountService.getAccount().getMerchant().getAddress();
-					}
-				}
-			}
-
-		} else {
-			session.setAttribute("address", address);
-			listAddress.remove(address);
-		}
-
-		if (category == null) {
-			category = "Đồ ăn";
-		}
-		List<Merchant> merchants = merchantService.findMerchantsByStatusAndAddressAndCategory(Status.ACTIVE, address,
-				category);
-		getListQuickSearch(category, model);
+		List<Merchant>merchants =  authenService
+				.getMerchants(address, category, quickSearch, session, model);
 		model.addAttribute("merchants", merchants);
-		model.addAttribute("listAddress", listAddress);
-		session.setAttribute("categories", categories);
-		model.addAttribute("categories", categories);
-		model.addAttribute("category", category);
-		System.out.println(session.getAttribute("address"));
-		System.out.println("list search: " + getListQuickSearch(category, model));
-
 		return "homepage";
 	}
+	
 
-	private List<String> getListQuickSearch(String category, Model model) {
-		List<String> quickSearchs1 = new ArrayList<String>();
-		List<String> quickSearchs2 = new ArrayList<String>();
-		quickSearchs1.add("All");
-		quickSearchs1.add("Bún");
-		quickSearchs1.add("Phở");
-		quickSearchs1.add("Hamburger");
-		quickSearchs1.add("Đồ chay");
-		quickSearchs1.add("Đồ uống");
-		quickSearchs1.add("Tráng miệng");
-		quickSearchs2.add("Thịt");
-		quickSearchs2.add("Thịt bò");
-		quickSearchs2.add("Thịt lợn");
-		quickSearchs2.add("Thịt gà");
-		if ("Đồ ăn".equals(category)) {
-			model.addAttribute("quickSearchs", quickSearchs1);
-			return quickSearchs1;
-		}
-		if ("Thực phẩm".equals(category)) {
-			model.addAttribute("quickSearchs", quickSearchs2);
-			return quickSearchs2;
-		}
-		return null;
-	}
 
 	/**
 	 * This method returns merchant details page

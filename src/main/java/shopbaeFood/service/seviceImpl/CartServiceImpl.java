@@ -173,4 +173,37 @@ public class CartServiceImpl implements ICartService {
 		return carts;
 	}
 
+	@Override
+	public void increaseQuantity(Long cart_id) {
+		Cart cart = cartRepository.findById(cart_id);
+		cart.setQuantity(cart.getQuantity()+1);
+		cartRepository.update(cart);
+	}
+
+	@Override
+	public void decreaseQuantity(Long cart_id) {
+		Cart cart = cartRepository.findById(cart_id);
+		int quantity = cart.getQuantity();
+		if(quantity<=1) {
+			deleteCart(cart_id);
+		}
+		cart.setQuantity(quantity -1);
+		cartRepository.update(cart);
+	}
+
+	@Override
+	public MessageResponse changeQuantity(Long cart_id, int quantity) {
+		Cart cart = cartRepository.findById(cart_id);
+		MessageResponse mess = new MessageResponse();
+		if(quantity <= 0) {
+			mess.setMessage("wrong format");
+		}else {
+			cart.setQuantity(quantity);
+			cartRepository.update(cart);
+			mess.setMessage("success");
+		}
+		
+		return mess;
+	}
+
 }

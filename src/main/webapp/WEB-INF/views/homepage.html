@@ -29,28 +29,24 @@
               <div class="local">có 37422 địa điểm ở Hà Nội từ 00:00 - 23:59</div>
             </div>
             <div class="form-search">
-              <div class="input-group"><input style="color: black;" type="text" id="txtSearchHome" th:oninput="searchMerchant(this.value, [[${category}]])"
-                                              placeholder="Tìm địa điểm, món ăn, địa chỉ..." ><a>
-                <button  type="button"
+              <div class="input-group">
+              		<input style="color: black;" type="text" id="txtSearchHome" th:oninput="searchMerchant(this.value, [[${category}]])"
+                                              placeholder="Tìm địa điểm, món ăn, địa chỉ..." >
+                	<button  type="button"
                         class="btn btn-search"><span class="fa fa-search"></span></button>
-              </a></div>
+
+              </div>
             </div>
+     
             <div class="category-list-filter">
             		<th:block th:each= "quickSearch: ${quickSearchs}">
-            			<a th:href = "@{?quickSearch=__${quickSearch}__}"><span class="category-item ">[[${quickSearch}]]</span></a>
+            			<a th:href = "@{?quickSearch=__${quickSearch.key}__}"><span class="category-item ">[[${quickSearch.value}]]</span></a>
             		</th:block>
       		</div>
             <div>
               <div class="font18 mb-2 mt-3">Sử dụng App ShopeeFood để có nhiều giảm giá <br>và trải nghiệm
                 tốt hơn
               </div>
-              <a target="_blank" rel="noopener noreferrer"
-                 href="https://itunes.apple.com/us/app/deliverynow/id1137866760" title="App Store"><span
-                class="icon icon-app-store-big"></span></a><a target="_blank"
-                                                              rel="noopener noreferrer"
-                                                              href="https://play.google.com/store/apps/details?id=com.deliverynow"
-                                                              title="Google play"><span
-              class="icon icon-gg-play-big"></span></a>
             </div>
           </div>
 

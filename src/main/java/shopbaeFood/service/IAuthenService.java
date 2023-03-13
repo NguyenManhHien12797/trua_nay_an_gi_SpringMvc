@@ -2,10 +2,13 @@ package shopbaeFood.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import shopbaeFood.exception.CheckOtpException;
+import shopbaeFood.model.Merchant;
 import shopbaeFood.model.dto.AccountRegisterDTO;
 import shopbaeFood.model.dto.PasswordDTO;
 
@@ -73,6 +76,8 @@ public interface IAuthenService {
 	 * @return view merchant-details
 	 */
 	String merchantDetails(Long id, Model model);
+	
+	List<Merchant> getMerchants(String address, String category, String quickSearch, HttpSession session, Model model);
 
 	List<String> authorities();
 }

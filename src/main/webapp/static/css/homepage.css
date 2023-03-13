@@ -23547,3 +23547,17 @@ input.required-data, select.required-data {
 	height:30px;
 	font-size: 16px;
 }
+
+.right-button{
+	display: block;
+    width: 80px;
+    border: 2px solid #ef6262;
+    padding: 5px 10px;
+    border-radius: 7px;
+    color: #ef6262;
+}
+.right-button:hover{
+	background-color: #ef6262;
+	color: white;
+	border: 2px solid white;
+}

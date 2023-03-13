@@ -10,6 +10,8 @@ public interface IMerchantRepository extends IGeneralRepository<Merchant> {
 	List<Merchant> findMerchantsByStatus(Status status);
 
 	List<Merchant> findMerchantsByStatusAndAddressAndCategory(Status status, String address, String category);
+	
+	List<Merchant> findMerchantsByStatusAndAddressAndCategoryAndProducName(Status status, String address, String category, String quickSearch);
 
 	List<Merchant> findMerchantsByStatusAndCategoryAndSearch(Status status, String category, String search);
 

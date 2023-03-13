@@ -14,17 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import shopbaeFood.model.Cart;
+import shopbaeFood.model.OrderDetail;
 import shopbaeFood.model.dto.CartDTO;
 import shopbaeFood.model.dto.MessageResponse;
 import shopbaeFood.service.ICartService;
+import shopbaeFood.service.IOrderDetailService;
 
 @Controller
 public class CartController {
 
 	private final ICartService cartService;
+	private final IOrderDetailService orderDetailService;
 
-	public CartController(ICartService cartService) {
+	public CartController(ICartService cartService, IOrderDetailService orderDetailService) {
 		this.cartService = cartService;
+		this.orderDetailService = orderDetailService;
 	}
 
 	/**
@@ -49,7 +53,6 @@ public class CartController {
 	 */
 	@GetMapping("/user/cart")
 	public String showCart(HttpServletRequest request, Model model) {
-		System.out.println("show cart");
 		return cartService.showCart(request, model);
 	}
 
@@ -57,6 +60,13 @@ public class CartController {
 	@ResponseBody
 	public List<Cart> getCarts(@PathVariable Long userId) {
 		return cartService.getCarts(userId);
+	}
+	
+	@GetMapping("/user/getOrderDetail/{orderId}")
+	@ResponseBody
+	public List<OrderDetail> getOrderDetail(@PathVariable Long orderId) {
+		List<OrderDetail> orderDetails = orderDetailService.findOrderDetailsByOrderId(orderId);
+		return orderDetails;
 	}
 
 	/**
@@ -69,6 +79,24 @@ public class CartController {
 	public String deleteProduct(@PathVariable Long id) {
 		cartService.deleteCart(id);
 		return "redirect: /shopbaeFood/user/cart";
+	}
+	
+	@RequestMapping(value = { "/user/increase/{cart_id}" })
+	public String increaseQuantity(@PathVariable Long cart_id) {
+		cartService.increaseQuantity(cart_id);
+		return "redirect: /shopbaeFood/user/cart";
+	}
+	
+	@RequestMapping(value = { "/user/decrease/{cart_id}" })
+	public String decreaseQuantity(@PathVariable Long cart_id) {
+		cartService.decreaseQuantity(cart_id);
+		return "redirect: /shopbaeFood/user/cart";
+	}
+	
+	@PostMapping("/user/change-quantity/{cart_id}")
+	@ResponseBody
+	public MessageResponse changeQuantity(@RequestBody int quantity, @PathVariable Long cart_id) {
+		return cartService.changeQuantity(cart_id, quantity);
 	}
 
 }

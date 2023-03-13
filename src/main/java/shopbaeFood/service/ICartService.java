@@ -39,6 +39,13 @@ public interface ICartService {
 	String showCart(HttpServletRequest request, Model model);
 
 	List<Cart> getCarts(Long userId);
+	
+	void increaseQuantity(Long cart_id);
+	
+	void decreaseQuantity(Long cart_id);
+	
+	MessageResponse changeQuantity(Long cart_id, int quantity);
+
 
 	/**
 	 * This method is used to delete cart

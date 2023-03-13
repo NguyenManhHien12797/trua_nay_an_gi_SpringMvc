@@ -30,19 +30,6 @@ public class OrderController {
 	 * @param session
 	 * @return view cart_page
 	 */
-//	@PostMapping("/user/checkout")
-//	public RedirectView checkProductOrCheckout(@ModelAttribute("order") Order order, Model model, RedirectAttributes redirectAttributes) {
-//		Map<String, List<Product>> productMap = orderService.productMap(order,redirectAttributes);
-//	
-//			if(productMap.containsKey("listProductChangePrice") && 
-//					!productMap.containsKey("listProductDelete") && 
-//					!productMap.containsKey("listProductOutOfStock")) {
-//				redirectAttributes.addFlashAttribute("showButton", "showButton");
-//			}
-//
-//		return new RedirectView("/user/cart", true);
-//	}
-
 	@PostMapping("/user/checkout")
 	@ResponseBody
 	public Map<String, List<Cart>> checkProductOrCheckout(@RequestBody Order order,
@@ -75,22 +62,6 @@ public class OrderController {
 		return mess;
 	}
 
-	/*
-	 * @PostMapping("/user/checkout/continute") public RedirectView
-	 * checkout(@ModelAttribute("order") Order order, Model model,
-	 * RedirectAttributes redirectAttributes) { Map<String, List<Product>>
-	 * productMap = orderService.productMap(order,redirectAttributes);
-	 * 
-	 * if(productMap.containsKey("listProductDelete") ||
-	 * productMap.containsKey("listProductOutOfStock")) { return new
-	 * RedirectView("/user/cart", true); }
-	 * 
-	 * orderService.checkout(order, redirectAttributes);
-	 * redirectAttributes.addFlashAttribute("removeProductMap", "removeProductMap");
-	 * 
-	 * 
-	 * return new RedirectView("/user/cart", true); }
-	 */
 
 	/**
 	 * This method is used to update order status

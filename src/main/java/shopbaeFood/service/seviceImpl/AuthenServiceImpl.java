@@ -1,8 +1,11 @@
 package shopbaeFood.service.seviceImpl;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -232,6 +235,105 @@ public class AuthenServiceImpl implements IAuthenService {
 
 		return false;
 
+	}
+
+	@Override
+	public List<Merchant> getMerchants(String address, String category, String quickSearch, HttpSession session, Model model) {
+		checkLogin(model);
+		Account account = accountService.getAccount();
+		if (address == null) {
+			if (session.getAttribute("address") != null) {
+				address = (String) session.getAttribute("address");
+			} else {
+				if (account != null) {
+					if (account.getUser() != null) {
+						address = accountService.getAccount().getUser().getAddress();
+					}
+
+					if (account.getMerchant() != null) {
+						address = accountService.getAccount().getMerchant().getAddress();
+					}
+				}else {
+					address="Hà Nội";
+				}
+			}
+
+		} else {
+			session.setAttribute("address", address);
+			getAddress().remove(address);
+		}
+		if (category == null) {
+			if (session.getAttribute("category") != null) {
+				category = (String) session.getAttribute("category");
+			}else {
+				category = "Đồ ăn";
+			}
+			
+		}else {
+			session.setAttribute("category", category);
+		}
+		List<Merchant> merchants = new ArrayList<>();
+		if("all".equals(quickSearch) || quickSearch == null) {
+			merchants = merchantService
+					.findMerchantsByStatusAndAddressAndCategory(
+							Status.ACTIVE,
+							address,
+							category);
+		}else {
+			Map<String, String> quickSearchs = getListQuickSearch(category);
+			merchants = merchantService
+					.findMerchantsByStatusAndAddressAndCategoryAndProducName(
+							Status.ACTIVE,
+							address, 
+							category, 
+							quickSearchs.get(quickSearch));
+		}
+		model.addAttribute("listAddress", getAddress());
+		session.setAttribute("categories", getCategories());
+		model.addAttribute("categories", getCategories());
+		model.addAttribute("quickSearchs", getListQuickSearch(category));
+		model.addAttribute("category", category);
+		return merchants;
+	}
+	
+	private List<String>getAddress(){
+		List<String> listAddress = new ArrayList<String>();
+		listAddress.add("Hà Nội");
+		listAddress.add("Tp.HCM");
+		listAddress.add("Đà Nẵng");
+		return listAddress;
+	}
+	
+	
+	private List<String>getCategories(){
+		List<String> categories = new ArrayList<String>();
+		categories.add("Đồ ăn");
+		categories.add("Thực phẩm");
+		categories.add("Bia");
+		categories.add("Hoa");
+		categories.add("Thuốc");
+		return categories;
+	}
+	
+	private Map<String, String> getListQuickSearch(String category) {
+		Map<String, String> quickSearchs = new HashMap<String, String>();
+		if ("Đồ ăn".equals(category)) {
+			quickSearchs.put("all", "All");
+			quickSearchs.put("bun", "Bún");
+			quickSearchs.put("pho", "Phở");
+			quickSearchs.put("hamburger", "Hamburger");
+			quickSearchs.put("do-chay", "Đồ chay");
+			quickSearchs.put("do-uong", "Đồ uống");
+			quickSearchs.put("trang-mieng", "Tráng miệng");
+		}
+		if ("Thực phẩm".equals(category)) {
+			quickSearchs.put("all", "All");
+			quickSearchs.put("thit", "Thịt");
+			quickSearchs.put("thit-bo", "Thịt bò");
+			quickSearchs.put("thit-cho", "Thịt chó");
+			quickSearchs.put("thit-ga", "Thịt gà");
+		}
+		return quickSearchs;
 	}
 
 }

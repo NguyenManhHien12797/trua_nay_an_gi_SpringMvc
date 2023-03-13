@@ -86,6 +86,7 @@
 
 .nav-bar-cart:hover{
   cursor: pointer;
+   color: #f56043;
 }
 
 .cart-detail{
@@ -288,11 +289,25 @@
 /*footer*/
 
 .btn-order{
-  border: 1px solid #ddd;
-  border-radius: 10px;
+	width: 80px;
+    height: 35px;
+    text-align: center;
+    display: block;
+    padding-top: 5px;
+  	border: 1px solid #e57171;
+  	border-radius: 10px;
+  	color: #e57171;
 }
 .btn-order:hover{
-  background-color: white;
+  color: white;
+  background-color:  #e57171;
+}
+.btn-order-icon{
+	font-size: 24px;
+	color:greay;
+}
+.btn-order-icon:hover{
+	color:#e57171;
 }
 .note{
   width: 100%;
@@ -429,4 +444,9 @@
 .alert-product-item li:nth-child(3) span:nth-child(2){
 	display:block;
 	transform: translateX(-40px);
+}
+
+.table-responsive-history table tbody tr:hover{
+	cursor:pointer;
+	border: 1px solid #eb4d4d;
 }

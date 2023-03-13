@@ -88,13 +88,44 @@ public class MerchantRepository implements IMerchantRepository {
 	}
 
 	@Override
-	public List<Merchant> findMerchantsByStatusAndCategoryAndSearch(Status status, String category, String search) {
+	public List<Merchant> findMerchantsByStatusAndCategoryAndSearch(
+			Status status,
+			String category,
+			String search) {
 		TypedQuery<Merchant> query = getSession().createQuery("SELECT DISTINCT m " + "FROM Merchant m "
-				+ "Join Product p " + "ON m.id = p.merchant " + "and m.status= :status " + "and m.category= :category "
+				+ "Join Product p " 
+				+ "ON m.id = p.merchant " 
+				+ "and m.status= :status " 
+				+ "and m.category= :category "
 				+ "and (m.name like :search or m.address like :search or p.name like :search)", Merchant.class);
 		query.setParameter("status", status);
 		query.setParameter("category", category);
 		query.setParameter("search", "%" + search + "%");
+		try {
+			return query.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Merchant> findMerchantsByStatusAndAddressAndCategoryAndProducName(
+			Status status,
+			String address,
+			String category,
+			String quickSearch) {
+		TypedQuery<Merchant> query = getSession().createQuery("SELECT DISTINCT m " 
+				+ "FROM Merchant m "
+				+ "Join Product p " 
+				+ "ON m.id = p.merchant " 
+				+ "and m.status= :status " 
+				+ "and m.category= :category "
+				+ "and m.address= :address "
+				+ "and p.name like :quickSearch", Merchant.class);
+		query.setParameter("status", status);
+		query.setParameter("category", category);
+		query.setParameter("address", address);
+		query.setParameter("quickSearch", "%" + quickSearch + "%");
 		try {
 			return query.getResultList();
 		} catch (NoResultException e) {
