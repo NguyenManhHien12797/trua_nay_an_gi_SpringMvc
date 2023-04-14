@@ -448,5 +448,59 @@
 
 .table-responsive-history table tbody tr:hover{
 	cursor:pointer;
-	border: 1px solid #eb4d4d;
+	/* border: 1px solid #eb4d4d; */
+}
+.table-responsive-history table thead tr{
+	text-align: center;
+}
+.table-orderdetail-history table thead tr{
+	text-align: center;
+}
+.table-orderdetail-history table tbody tr{
+	height: 48px;
+}
+.table-responsive-history table tbody tr td:nth-child(4){
+	width: 120px;
+    text-align: center;
+}
+.table-responsive-history table tbody tr td:nth-child(2){
+	width: 130px;
+    text-align: center;
+}
+.table-responsive-history table tbody tr td:nth-child(3){
+	width: 236px;
+    text-align: center;
+}
+.table-orderdetail-history table thead tr th:nth-child(1){
+	width: 64px;
+}
+.table-orderdetail-history table thead tr th:nth-child(2){
+	width: 220px;
+}
+.table-orderdetail-history table thead tr th:nth-child(3){
+	width: 80px;
+}
+.table-orderdetail-history table thead tr th:nth-child(4){
+	width: 150px;
+}
+.table-orderdetail-history table tbody tr td:nth-child(3), .table-orderdetail-history table tbody tr td:nth-child(4){
+	text-align: center;
+}
+.table-orderdetail-history table tbody tr td:nth-child(2){
+	 padding-left: 10px;
+}
+
+.merchant-item-icon{
+	 width: 27px;
+	 text-align: center;
+}
+.merchant-item-end{
+	text-align: end;
+}
+#order-detail-total-price{
+	margin: 20px 0;
+}
+#order-detail-total-price span:nth-child(2){
+	position: absolute;
+    right: 60px;
 }

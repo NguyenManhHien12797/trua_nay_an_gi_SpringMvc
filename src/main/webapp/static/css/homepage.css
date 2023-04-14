@@ -17569,7 +17569,6 @@ span.flatpickr-weekday {
 }
 
 .now-login .content {
-  padding: 30px;
   background-color: #fff
 }
 
@@ -18901,7 +18900,6 @@ button.history-table-status.gray {
   box-shadow: 0 2px 2px 0 rgba(50, 50, 50, .1);
   -moz-box-shadow: 0 2px 2px 0 rgba(50, 50, 50, .1);
   -webkit-box-shadow: 0 2px 2px 0 rgba(50, 50, 50, .1);
-  padding: 20px 150px 50px;
   border-radius: 4px;
   margin-top: 60px;
   position: relative

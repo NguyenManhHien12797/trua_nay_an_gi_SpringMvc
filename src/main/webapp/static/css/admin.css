@@ -32,18 +32,34 @@
 }
 
 .btn-orderDetail{
-	padding: 6px;
-    border-radius: 8px;
-    margin-right: 10px
+	width: 80px;
+    height: 35px;
+    text-align: center;
+    display: block;
+    padding-top: 5px;
+    border: 1px solid #e57171;
+    border-radius: 10px;
+    color: #e57171;
+    margin-right: 15px;
 }
-
+.btn-orderDetail:hover{
+  color: white;
+  background-color:  #e57171;
+}
 .active{
 	color: white;
 }
 
 .activeli{
-	background-color: #ee4d2d;
+	background-color: #e57171;
 	padding: 2px;
+}
+.active-sup-nav{
+	border-bottom: 4px solid #e57171;
+}
+.active-sup-nav a{
+	color: #e57171;
+	font-size: 16px;
 }
 
 .activeli a{

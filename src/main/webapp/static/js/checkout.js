@@ -281,13 +281,22 @@ function getOrderDetails(orderId){
         //xử lý khi thành công
         success: function (data) {
 			let content =" ";
+			console.log(data)
+			let totalPrice = 0;
       		if(data != null){
-				$(".table-responsive-history").show();
+				$(".table-orderdetail-history").show();
 				for(let i=0; i< data.length; i++){
 				  content += drawOrderDetails(data[i]);
+				  totalPrice += data[i].quantity * data[i].price;
 			  	}
 		  	}
+		  	console.log(totalPrice)
+		  	let totalPriceElement = `
+		  			<span><strong>Tổng tiền: </strong></span>
+		  			<span><strong>${totalPrice} đ</strong></span>
+		  	`
       	  	document.getElementById('table-orderDetails').innerHTML = content;
+      	  	document.getElementById('order-detail-total-price').innerHTML = totalPriceElement;
       	
         },
         error: function(xhr, textStatus, error) {
@@ -304,13 +313,30 @@ function getOrderDetails(orderId){
 function drawOrderDetails(orderDetail){
 	return `
                 <tr>
-                  <td><img src="/shopbaeFood/image/${orderDetail.product.image}" alt="" style="height: 40px;
-        			width: 40px;
-        			border-radius: 50%;"></td>
+                
+                  <td>
+                  	<a href="/shopbaeFood/home/merchant-detail/${orderDetail.order.merchant_id}">
+                  		<img src="/shopbaeFood/image/${orderDetail.product.image}" alt="" style="height: 40px;
+        					width: 60px;
+        					border-radius:4px;">
+        			</a>
+        		  </td>
                   <td class="merchant-item">${orderDetail.product.name}</td>
                   <td class="merchant-item">${orderDetail.quantity}</td>
-                  <td class="merchant-item">${orderDetail.price}</td>
+                  <td class="merchant-item">${orderDetail.price} đ</td>
+                 
                 </tr>
+            
 			`
 }
 
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+    let element = document.querySelectorAll(".seller-receive");
+    if(element.length >0){
+		console.log(element);
+		$(".merchant-item-icon").css({"text-align":"end"});
+	}
+	
+});

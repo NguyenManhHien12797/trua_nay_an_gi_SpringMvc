@@ -39,7 +39,7 @@
 
 	<div th:fragment="admin-nav-sup">
 		<ul class="nav nav-pills mb-3 shadow-sm">
-			<li style="display: inline-block" th:class="${#strings.equals(status, 'PENDING')} ? activeli"><a
+			<li style="display: inline-block" th:class="${#strings.equals(status, 'PENDING')} ? active-sup-nav"><a
 				class="nav-link link fw-bold"
 				th:href="@{/admin/__${navRoute}__/PENDING/1}"> <svg style=" width:16px; height:16px"
 						fill="currentColor" class="bi bi-bookmark-plus-fill"
@@ -48,7 +48,7 @@
 							d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z" />
       </svg> Chờ duyệt
 			</a></li>
-			<li style="display: inline-block" th:class="${#strings.equals(status, 'ACTIVE')} ? activeli"><a
+			<li style="display: inline-block" th:class="${#strings.equals(status, 'ACTIVE')} ? active-sup-nav"><a
 				class="nav-link link fw-bold"
 				th:href="@{'/admin/'+${navRoute}+'/ACTIVE/1'}"> <svg
 						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
@@ -57,7 +57,7 @@
 							d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
     			</svg> Đang hoạt động
 			</a></li>
-			<li style="display: inline-block" th:class="${#strings.equals(status, 'BLOCK')} ? activeli"><a
+			<li style="display: inline-block" th:class="${#strings.equals(status, 'BLOCK')} ? active-sup-nav"><a
 				class="nav-link link fw-bold"
 				th:href="@{'/admin/'+${navRoute}+'/BLOCK/1'}"> <svg
 						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
@@ -239,7 +239,7 @@
 	<div th:fragment="merchant-nav-sup">
 
 		<ul class="nav nav-pills mb-3 shadow-sm">
-			<li  style="display: inline-block" th:class="${status == 'order-pending'} ? activeli"><a
+			<li  style="display: inline-block" th:class="${status == 'order-pending'} ? active-sup-nav"><a
 				th:href="@{/merchant/order-manager/order-pending/1}"
 				class="nav-link link fw-bold"> <svg
 						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
@@ -249,7 +249,7 @@
 							d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z" />
         		</svg> Chờ duyệt
 			</a></li>
-			<li  style="display: inline-block" th:class="${status == 'seller-receive'} ? activeli"><a
+			<li  style="display: inline-block" th:class="${status == 'seller-receive'} ? active-sup-nav"><a
 				class="nav-link link fw-bold"
 				th:href="@{/merchant/order-manager/seller-receive/1}"> <svg
 						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
@@ -258,7 +258,7 @@
 							d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
         		</svg> Đã nhận đơn
 			</a></li>
-			<li style="display: inline-block" th:class="${status == 'order-history'} ? activeli "><a
+			<li style="display: inline-block" th:class="${status == 'order-history'} ? active-sup-nav "><a
 				class="nav-link link fw-bold"
 				th:href="@{/merchant/order-manager/order-history/1}"> <svg
 						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
@@ -348,9 +348,9 @@
     </tr>
     </tbody>
   </table>
-  <div th:if="${status =='order-pending'}" style=" margin: 20px">
-    <a class="btn-primary btn-orderDetail" th:href="@{/user/update-order-status/__${order_id}__/seller-receive}">Nhận đơn</a>
-    <a class="btn-primary btn-orderDetail" th:href="@{/user/update-order-status/__${order_id}__/seller-refuse}">Từ chối</a>
+  <div th:if="${status =='order-pending'}" style=" margin: 20px; display:flex;">
+    <a class="btn-orderDetail" th:href="@{/user/update-order-status/__${order_id}__/seller-receive}">Nhận đơn</a>
+    <a class="btn-orderDetail" th:href="@{/user/update-order-status/__${order_id}__/seller-refuse}">Từ chối</a>
   </div>
 
 </div>
@@ -1584,10 +1584,10 @@
 
 	<div th:fragment="footer">
 		
-		<div class="now-container-coporation">
+		<div class="now-container-coporation container">
 			<p class="seo-footer-link__head">Danh mục</p>
-			<div class="seo-footer-link__body">
-				<div class="seo-footer-link__item">
+			<div class="seo-footer-link__body row">
+				<div class="seo-footer-link__item col-6 col-lg-3">
 					<a>
 						<span class="seo-footer-link__title">Thuốc</span>
 					</a>
@@ -1600,7 +1600,7 @@
 					<li><a class="seo-footer-link__sub-item">Khẩn cấp</a></li>
 					</ul>
 				</div>
-				<div class="seo-footer-link__item">
+				<div class="seo-footer-link__item col-6 col-lg-3">
 					<a href="#">
 						<span class="seo-footer-link__title">Thú cưng</span>
 					</a>
@@ -1608,7 +1608,7 @@
 					<li><a class="seo-footer-link__sub-item">Thú cưng</a></li>
 					</ul>
 				</div>
-				<div class="seo-footer-link__item">
+				<div class="seo-footer-link__item col-6 col-lg-3">
 					<a href="#">
 						<span class="seo-footer-link__title">Đồ ăn HN</span>
 					</a>
@@ -1616,25 +1616,25 @@
 						<li><a href="#" class="seo-footer-link__sub-item">Đồ ăn HN</a></li>
 					</ul>
 				</div>
-				<div class="seo-footer-link__item">
+				<div class="seo-footer-link__item col-6 col-lg-3">
 					<a href="#">
 						<span class="seo-footer-link__title">Đặt bàn HN</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper"></ul>
 				</div>
-				<div class="seo-footer-link__item">
+				<div class="seo-footer-link__item col-6 col-lg-3">
 					<a href="#">
 						<span class="seo-footer-link__title">Thực phẩm HN</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper"></ul>
 				</div>
-				<div class="seo-footer-link__item">
+				<div class="seo-footer-link__item col-6 col-lg-3">
 					<a href="#">
 						<span class="seo-footer-link__title">Sản phẩm HN</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper"></ul>
 				</div>
-				<div class="seo-footer-link__item">
+				<div class="seo-footer-link__item col-6 col-lg-3">
 					<a href="#">
 						<span class="seo-footer-link__title">Sản phẩm</span>
 					</a>
@@ -1668,7 +1668,7 @@
 					</li>
 					</ul>
 				</div>
-				<div class="seo-footer-link__item">
+				<div class="seo-footer-link__item col-6 col-lg-3">
 					<a href="https://shopeefood.vn/ha-noi/flowers">
 						<span class="seo-footer-link__title">Hoa</span>
 					</a>
@@ -1682,10 +1682,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="now-container-coporation" style="margin-top: 0px;">
-			<div class="container-inner">
+		<div class="now-container-coporation container">
+			<div class="container-inner row">
 
-				<div class="block-last">
+				<div class="block-last col-12 mb-5">
 					<p class="title-block">Địa chỉ công ty</p>
 					<span>
 						<span>Công Ty Cổ Phần...</span>
