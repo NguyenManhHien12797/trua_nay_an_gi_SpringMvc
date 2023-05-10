@@ -1,7 +1,5 @@
 $( document ).ready(function() {
     console.log( "ready!" );
-    
-    
     $(".btn-change-pass").click(function() {
     	swal("Vui lòng check email để lấy OTP!", " ","success");
     	$(".create-otp").show();

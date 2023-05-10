@@ -5,9 +5,9 @@
 <title>Homepage</title>
 
  <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
-
+<meta name="context-path" th:content="@{/}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
-  <script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
+<script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
 </head>
 <body>
 
@@ -639,7 +639,9 @@
   </footer>
 </div>
 
-
-
 </body>
+<script
+	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
+</script>
+<script th:src="@{/static/js/home.js}"></script>
 </html>
