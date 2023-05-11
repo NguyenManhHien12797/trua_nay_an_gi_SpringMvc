@@ -3,144 +3,171 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Register</title>
-
- <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
- <script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
 
 <style>
-  .font15 {
-    font-size: 15px;
-  }
+.font15 {
+	font-size: 15px;
+}
 
-  .font14 {
-    font-size: 14px;
-  }
+.font14 {
+	font-size: 14px;
+}
 </style>
 </head>
 
-<body class="portal" style="font-size:calc(8px + 0.5vw);">
-<div id="app">
-  <div class="wrapper">
-    <header class="main-header">
+<body class="portal" style="font-size: calc(8px + 0.5vw);">
+	<div id="app">
+		<div class="wrapper">
+			<header class="main-header">
 
-      <div class="container-header">
-        <div class="container">
-          <div class="header-content navbar row  justify-content-between align-items-center">
-            <div class="logo-now col-auto"><span>
-            <a th:href="@{/home}">Logo
-<!--             <img th:src="@{/static/img/shopeefoodvn.png}" alt="ShopeeFood"> -->
-            </a></span></div>
-        
-            <div class="user-acc col-auto">
-              <a th:href="@{/login}" type="button" class="btn btn-none-bg btn-login">
-                <span  class="font14">Đăng nhập</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    
-    </header>
-    <!--form login-->
-    <div class="now-login ">
-      <div class="content">
-        <div class="title" th:text= "${title}"></div>
-        <div class="login-via">
-          <div class="item phone"><span class="fas fa-mobile-alt"></span>Số điện thoại</div>
-          <div class="item fb"><span class="fab fa-facebook-f"></span>Facebook</div>
-          
-              <div class="item plus"><i class="fab fa-google-plus-g"></i>Google</div>
-          
-        </div>
-        <!--        <p class="text">Hoặc đăng nhập bằng tài khoản của bạn</p>-->
-        <form th:action="@{${register}}" th:object="${accountRegisterDTO}" method="post">
-          <div class="form-login-input">
-          
-          	<div style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></div>
-            <div class="field-group">
-              <div class="input-group"><i class="far fa-user"></i><input type="text"  th:field="*{userName}"
-                                                                         placeholder="Tên đăng ký" value="">
-                </div>
-              </div>
-              <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-             <div class="field-group">
-              <div class="input-group"><i class="fas fa-lock"></i>
-              <input type="password" th:field="*{password}" placeholder="Mật khẩu"  value="">
-                
-              </div>
+				<div class="container-header">
+					<div class="container">
+						<div
+							class="header-content navbar row  justify-content-between align-items-center">
+							<div class="logo-now col-auto">
+								<span> <a th:href="@{/home}">Logo <!--             <img th:src="@{/static/img/shopeefoodvn.png}" alt="ShopeeFood"> -->
+								</a></span>
+							</div>
 
-		     </div>
-				<div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-				
-				<div class="field-group">
-              <div class="input-group"><i class="far fa-envelope"></i><input type="text" th:field="*{email}" placeholder="Nhập email"
-                                                                             value="" >
-             
-              </div>
-             
-             	</div>
-             	
-            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-            <div class="field-group">
-              <div class="input-group"><i class="far fa-user"></i><input type="text" th:field="*{name}"
-                                                                         placeholder="Nhập tên chủ tài khoản"
-                                                                         value="" >
-             
-              </div>
-            </div>
-            
-             <div style="color:red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
-            <div class="field-group">
-              <div class="input-group"><i class="fas fa-phone"></i><input type="text" th:field="*{phone}" placeholder="Nhập số điện thoại"
-                                                                          value="" >
-                                                                          
-                
-                
-              </div>
-            </div>  
-             
-           <div style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
-            <div class="field-group"> 
-              <div class="input-group"><i class="fas fa-home"></i><input type="text" th:field="*{address}" placeholder="Nhập địa chỉ"
-                                                                         value="" >
-                                                                         
-              </div>
-          	</div>
-          	  
-            </div>
-            
-                      <label th:if = "${role == 'merchant'}">
-  								Chọn phân loại :
-  								<select class="select-category" name="select-category" th:field= *{category}>
-    								<option value=" ">Chọn một...</option>
-    								<option value="Đồ ăn">Đồ ăn</option>
-    								<option value="Thực phẩm">Thực phẩm</option>
-    								<option value="Bia">Bia </option>
-    								<option value="Hoa">Hoa </option>
-    								<option value="Thuốc">Thuốc </option>
-  								</select>
-						</label>
-            
-            <button class="btn btn-block btn-submit">Đăng ký</button>
-          </div>
-        </form>       
-        
-        <br>
-        <div class="login-mess-policy">Chúng tôi không sử dụng thông tin của bạn với bất kỳ mục đích nào. Bằng cách đăng
-          nhập hoặc đăng ký, bạn đồng ý với <a
-            style="color: #0495ba; border-bottom: 2px solid; text-decoration: none !important;" target="_blank"
-            href="https://shopeefood.vn/gioi-thieu#footer-bottom">Chính sách quy định của Foody</a>
-        </div>
-      </div>
-    </div>
-    <!-- end form login -->
+							<div class="user-acc col-auto">
+								<a th:href="@{/login}" type="button"
+									class="btn btn-none-bg btn-login"> <span class="font14">Đăng
+										nhập</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+			<!--form login-->
+			<div class="now-login container">
+				<div class="content row justify-content-center">
+					<div class="col-xl-6 col-lg-8 col-md-10 col-sm-12">
+						<div class="title row" >
+							<h1 th:text="${title}"></h1>
+						</div>
+						<div class="login-via">
+							<div class="item phone">
+								<span class="fas fa-mobile-alt"></span>Số điện thoại
+							</div>
+							<div class="item fb">
+								<span class="fab fa-facebook-f"></span>Facebook
+							</div>
+							<div class="item plus">
+								<i class="fab fa-google-plus-g"></i>Google
+							</div>
+						</div>
+						<!--        <p class="text">Hoặc đăng nhập bằng tài khoản của bạn</p>-->
+						<form th:action="@{${register}}" th:object="${accountRegisterDTO}"
+							method="post">
+							<div class="form-login-input">
+
+								<div style="color: red" th:if="${#fields.hasErrors('userName')}"
+									th:errors="*{userName}"></div>
+								<div class="field-group">
+									<div class="input-group">
+										<i class="far fa-user"></i><input type="text"
+											th:field="*{userName}" placeholder="Tên đăng ký" value="">
+									</div>
+								</div>
+								<div style="color: red" th:if="${#fields.hasErrors('password')}"
+									th:errors="*{password}"></div>
+								<div class="field-group">
+									<div class="input-group">
+										<i class="fas fa-lock"></i> <input type="password"
+											th:field="*{password}" placeholder="Mật khẩu" value="">
+
+									</div>
+
+								</div>
+								<div style="color: red" th:if="${#fields.hasErrors('email')}"
+									th:errors="*{email}"></div>
+
+								<div class="field-group">
+									<div class="input-group">
+										<i class="far fa-envelope"></i><input type="text"
+											th:field="*{email}" placeholder="Nhập email" value="">
+
+									</div>
+
+								</div>
+
+								<div style="color: red" th:if="${#fields.hasErrors('name')}"
+									th:errors="*{name}"></div>
+								<div class="field-group">
+									<div class="input-group">
+										<i class="far fa-user"></i><input type="text"
+											th:field="*{name}" placeholder="Nhập tên chủ tài khoản"
+											value="">
+
+									</div>
+								</div>
+
+								<div style="color: red" th:if="${#fields.hasErrors('phone')}"
+									th:errors="*{phone}"></div>
+								<div class="field-group">
+									<div class="input-group">
+										<i class="fas fa-phone"></i><input type="text"
+											th:field="*{phone}" placeholder="Nhập số điện thoại" value="">
 
 
-    <div th:replace="~{/fragments/app-fragments :: footer}">
-        Footer
-    </div>
 
-  </div>
+									</div>
+								</div>
+
+								<div style="color: red" th:if="${#fields.hasErrors('address')}"
+									th:errors="*{address}"></div>
+								<div class="field-group">
+									<div class="input-group">
+										<i class="fas fa-home"></i><input type="text"
+											th:field="*{address}" placeholder="Nhập địa chỉ" value="">
+
+									</div>
+								</div>
+
+							</div>
+
+							<label th:if="${role == 'merchant'}"> Chọn phân loại : <select
+								class="select-category" name="select-category"
+								th:field=*{category}>
+									<option value=" ">Chọn một...</option>
+									<option value="Đồ ăn">Đồ ăn</option>
+									<option value="Thực phẩm">Thực phẩm</option>
+									<option value="Bia">Bia</option>
+									<option value="Hoa">Hoa</option>
+									<option value="Thuốc">Thuốc</option>
+							</select>
+							</label>
+
+							<button class="btn btn-block btn-submit btn-primary">Đăng ký</button>
+
+						</form>
+
+						<br>
+						<div class="login-mess-policy">
+							Chúng tôi không sử dụng thông tin của bạn với bất kỳ mục đích
+							nào. Bằng cách đăng nhập hoặc đăng ký, bạn đồng ý với <a
+								style="color: #0495ba; border-bottom: 2px solid; text-decoration: none !important;"
+								target="_blank"
+								href="https://shopeefood.vn/gioi-thieu#footer-bottom">Chính
+								sách quy định của Foody</a>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+		<!-- end form login -->
+
+	</div>
 </body>
 </html>

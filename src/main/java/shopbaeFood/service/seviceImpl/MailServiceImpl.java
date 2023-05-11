@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import shopbaeFood.model.Mail;
 import shopbaeFood.service.IMailService;
@@ -17,30 +18,37 @@ import shopbaeFood.service.IMailService;
 @Service
 public class MailServiceImpl implements IMailService {
 
-	@Autowired
-	JavaMailSender mailSender;
+    @Autowired
+    JavaMailSender mailSender;
 
-	public static final String MAIL_FROM = "ShopBeaFood nhóm 3";
+    @Autowired
+    private SpringTemplateEngine thymeleafTemplateEngine;
 
-	public void sendEmail(Mail mail) {
-		MimeMessage mimeMessage = mailSender.createMimeMessage();
+    public static final String MAIL_FROM = "ShopBeaFood nhóm 3";
 
-		try {
+    public void sendEmail(Mail mail) {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
 
-			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        try {
 
-			mimeMessageHelper.setSubject(mail.getMailSubject());
-			mimeMessageHelper.setFrom(new InternetAddress(mail.getMailFrom(), MAIL_FROM));
-			mimeMessageHelper.setTo(mail.getMailTo());
-			mimeMessageHelper.setText(mail.getMailContent());
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
-			mailSender.send(mimeMessageHelper.getMimeMessage());
+//            Context thymeleafContext = new Context();
+//
+//            String htmlBody = thymeleafTemplateEngine.process("template-thymeleaf.html", thymeleafContext);
 
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-	}
+            mimeMessageHelper.setSubject(mail.getMailSubject());
+            mimeMessageHelper.setFrom(new InternetAddress(mail.getMailFrom(), MAIL_FROM));
+            mimeMessageHelper.setTo(mail.getMailTo());
+            mimeMessageHelper.setText(mail.getMailContent());
+
+            mailSender.send(mimeMessageHelper.getMimeMessage());
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

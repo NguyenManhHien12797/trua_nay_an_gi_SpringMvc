@@ -1,5 +1,6 @@
 package shopbaeFood.service.seviceImpl;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,297 +44,289 @@ import shopbaeFood.util.Constants;
 @Transactional
 public class AuthenServiceImpl implements IAuthenService {
 
-	@Autowired
-	PasswordEncoder passwordEncoder;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private IAccountService accountService;
+    @Autowired
+    private IAccountService accountService;
 
-	@Autowired
-	private IRoleService roleService;
+    @Autowired
+    private IRoleService roleService;
 
-	@Autowired
-	private IAppUserSevice userSevice;
+    @Autowired
+    private IAppUserSevice userSevice;
 
-	@Autowired
-	private IMerchantService merchantService;
+    @Autowired
+    private IMerchantService merchantService;
 
-	@Autowired
-	private IProductService productService;
+    @Autowired
+    private IProductService productService;
 
-	@Autowired
-	private IAccountRepository accountRepository;
+    @Autowired
+    private IAccountRepository accountRepository;
 
-	@Autowired
-	private IMailService mailService;
+    @Autowired
+    private IMailService mailService;
 
-	public static final String USER = "user";
-	public static final String MECHANT = "merchant";
-	public static final String MAIL_SUBJECT = "Mã xác nhận OTP";
-	public static final String MAIL_FROM = "nguyenhuuquyet07092001@gmail.com";
+    public static final String USER = "user";
+    public static final String MECHANT = "merchant";
+    public static final String MAIL_SUBJECT = "Mã xác nhận OTP";
+    public static final String MAIL_FROM = "nguyenhien81f@gmail.com";
 
-	@Override
-	public void register(AccountRegisterDTO accountRegisterDTO, String role) {
-		Status status = Status.PENDING;
-		boolean isEnabled = true;
-		boolean firstLogin = true;
-		String pass = passwordEncoder.encode(accountRegisterDTO.getPassword());
-		Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, firstLogin,
-				accountRegisterDTO.getEmail());
-		accountService.save(account);
+    @Override
+    public void register(AccountRegisterDTO accountRegisterDTO, String role) {
+        Status status = Status.PENDING;
+        boolean isEnabled = true;
+        boolean firstLogin = true;
+        String pass = passwordEncoder.encode(accountRegisterDTO.getPassword());
+        Account account = new Account(accountRegisterDTO.getUserName(), pass, isEnabled, firstLogin,
+                accountRegisterDTO.getEmail());
+        accountService.save(account);
 
-		String avatar = "images.jpg";
+        String avatar = "images.jpg";
 
-		if (USER.equals(role)) {
+        if (USER.equals(role)) {
 
-			AppRoles appRole = roleService.findById(1L);
-			roleService.setDefaultRole(new AccountRoleMap(account, appRole));
-			userSevice.save(new AppUser(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
-					accountRegisterDTO.getPhone(), status, account));
-		}
-		if (MECHANT.equals(role)) {
-			AppRoles appRole = roleService.findById(3L);
-			roleService.setDefaultRole(new AccountRoleMap(account, appRole));
+            AppRoles appRole = roleService.findById(1L);
+            roleService.setDefaultRole(new AccountRoleMap(account, appRole));
+            userSevice.save(new AppUser(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
+                    accountRegisterDTO.getPhone(), status, account));
+        }
+        if (MECHANT.equals(role)) {
+            AppRoles appRole = roleService.findById(3L);
+            roleService.setDefaultRole(new AccountRoleMap(account, appRole));
 
-			merchantService.save(new Merchant(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
-					accountRegisterDTO.getPhone(), status, accountRegisterDTO.getCategory(), account));
-		}
+            merchantService.save(new Merchant(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
+                    accountRegisterDTO.getPhone(), status, accountRegisterDTO.getCategory(), account));
+        }
 
-	}
+    }
 
-	@Override
-	public List<String> authorities() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-			return null;
-		}
-		List<String> authorities = new ArrayList<String>();
-		for (GrantedAuthority a : authentication.getAuthorities()) {
-			authorities.add(a.getAuthority());
-		}
-		return authorities;
-	}
+    @Override
+    public List<String> authorities() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return null;
+        }
+        List<String> authorities = new ArrayList<String>();
+        for (GrantedAuthority a : authentication.getAuthorities()) {
+            authorities.add(a.getAuthority());
+        }
+        return authorities;
+    }
 
-	@Override
-	public void checkLogin(Model model) {
-		String message = " ";
-		String role = "";
-		if (authorities() == null) {
-			message = "chua dang nhap";
-		} else {
-			if (authorities().contains("ROLE_USER")) {
-				role = "user";
-			}
-			if (authorities().contains("ROLE_ADMIN")) {
-				role = "admin";
-			}
-			if (authorities().contains("ROLE_MERCHANT")) {
-				role = "merchant";
-			}
+    @Override
+    public void checkLogin(Model model) {
+        String message = " ";
+        String role = "";
+        if (authorities() == null) {
+            message = "chua dang nhap";
+        } else {
+            if (authorities().contains("ROLE_USER")) {
+                role = "user";
+            }
+            if (authorities().contains("ROLE_ADMIN")) {
+                role = "admin";
+            }
+            if (authorities().contains("ROLE_MERCHANT")) {
+                role = "merchant";
+            }
 
-			model.addAttribute("role", role);
-		}
-		model.addAttribute("message", message);
-	}
+            model.addAttribute("role", role);
+        }
+        model.addAttribute("message", message);
+    }
 
-	@Override
-	public ModelAndView showFormRegister(String role) {
-		ModelAndView modelAndView = new ModelAndView("/register");
-		String path = "";
-		String title = "";
-		if ("user".equals(role)) {
-			path = "/register/user";
-			title = "Đăng ký người dùng";
-		}
-		if ("merchant".equals(role)) {
-			path = "/register/merchant";
-			title = "Đăng ký người bán";
-		}
+    @Override
+    public ModelAndView showFormRegister(String role) {
+        ModelAndView modelAndView = new ModelAndView("/register");
+        String path = "";
+        String title = "";
+        if ("user".equals(role)) {
+            path = "/register/user";
+            title = "Đăng ký người dùng";
+        }
+        if ("merchant".equals(role)) {
+            path = "/register/merchant";
+            title = "Đăng ký người bán";
+        }
 
-		modelAndView.addObject("register", path);
-		modelAndView.addObject("title", title);
-		modelAndView.addObject("accountRegisterDTO", new AccountRegisterDTO());
-		return modelAndView;
-	}
+        modelAndView.addObject("register", path);
+        modelAndView.addObject("title", title);
+        modelAndView.addObject("accountRegisterDTO", new AccountRegisterDTO());
+        return modelAndView;
+    }
 
-	@Override
-	public String merchantDetails(Long id, Model model) {
-		checkLogin(model);
-		Merchant merchant = merchantService.findById(id);
-		List<Product> products = productService.findAllProductByMerchantAndDeleteFlag(merchant);
-		model.addAttribute("merchant", merchant);
-		model.addAttribute("products", products);
-		return "merchant-details";
-	}
+    @Override
+    public String merchantDetails(Long id, Model model) {
+        checkLogin(model);
+        Merchant merchant = merchantService.findById(id);
+        List<Product> products = productService.findAllProductByMerchantAndDeleteFlag(merchant);
+        model.addAttribute("merchant", merchant);
+        model.addAttribute("products", products);
+        return "merchant-details";
+    }
 
-	@Override
-	public void createOtp() {
-		Account account = accountService.getAccount();
-		double randomDouble = Math.random();
-		randomDouble = randomDouble * 1000000 + 1;
-		int OTP = (int) randomDouble;
-		account.setOtp(String.valueOf(OTP));
+    @Override
+    public void createOtp() {
+        Account account = accountService.getAccount();
+        double randomDouble = Math.random();
+        randomDouble = randomDouble * 1000000 + 1;
+        int OTP = (int) randomDouble;
+        account.setOtp(String.valueOf(OTP));
 
-		accountRepository.update(account);
-//		Mail mail = new Mail();
-//		mail.setMailTo(account.getEmail());
-//		mail.setMailFrom(MAIL_FROM);
-//		mail.setMailSubject(MAIL_SUBJECT);
-//		String content = MessageFormat.format("Mã OTP của bạn là: {0} \nVui lòng không chia sẻ với ai",
-//				String.valueOf(OTP));
-//		mail.setMailContent(content);
-//		mailService.sendEmail(mail);
+        accountRepository.update(account);
+        Mail mail = new Mail();
+        mail.setMailTo(account.getEmail());
+        mail.setMailFrom(MAIL_FROM);
+        mail.setMailSubject(MAIL_SUBJECT);
+        String content = MessageFormat.format("Mã OTP của bạn là: {0} \nVui lòng không chia sẻ với ai",
+                String.valueOf(OTP));
+        mail.setMailContent(content);
+        mailService.sendEmail(mail);
 
-	}
+    }
 
-	@Override
-	public String checkOtp(Long account_id, String otp) {
-		Account account = accountRepository.findById(account_id);
-		if (otp.equals(account.getOtp())) {
-			return "ok";
-		}
-		throw new CheckOtpException(500, Constants.RESPONSE_MESSAGE.WRONG_OTP);
-	}
+    @Override
+    public String checkOtp(Long account_id, String otp) {
+        Account account = accountRepository.findById(account_id);
+        if (otp.equals(account.getOtp())) {
+            return "ok";
+        }
+        throw new CheckOtpException(500, Constants.RESPONSE_MESSAGE.WRONG_OTP);
+    }
 
-	@Override
-	public void changePass(String pass, Long account_id) {
-		Account account = accountRepository.findById(account_id);
+    @Override
+    public void changePass(String pass, Long account_id) {
+        Account account = accountRepository.findById(account_id);
 
-		account.setPassword(passwordEncoder.encode(pass));
-		account.setOtp(null);
-		accountRepository.update(account);
-	}
+        account.setPassword(passwordEncoder.encode(pass));
+        account.setOtp(null);
+        accountRepository.update(account);
+    }
 
-	@Override
-	public String showMessageLogin(String mess) {
-		String message = " ";
-		if (Constants.LOGIN_STATE.NOT_LOGIN.equals(mess)) {
-			message = Constants.RESPONSE_MESSAGE.NOT_LOGIN;
-		}
-		if (Constants.LOGIN_STATE.TIME_OUT.equals(mess)) {
-			message = Constants.RESPONSE_MESSAGE.TIME_OUT;
-		}
-		if (Constants.LOGIN_STATE.BAN_ACCOUNT.equals(mess)) {
-			message = Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK;
-		}
+    @Override
+    public String showMessageLogin(String mess) {
+        String message = " ";
+        if (Constants.LOGIN_STATE.NOT_LOGIN.equals(mess)) {
+            message = Constants.RESPONSE_MESSAGE.NOT_LOGIN;
+        }
+        if (Constants.LOGIN_STATE.TIME_OUT.equals(mess)) {
+            message = Constants.RESPONSE_MESSAGE.TIME_OUT;
+        }
+        if (Constants.LOGIN_STATE.BAN_ACCOUNT.equals(mess)) {
+            message = Constants.RESPONSE_MESSAGE.LOGIN_FAILE_ACCOUNT_BLOCK;
+        }
 
-		return message;
-	}
+        return message;
+    }
 
-	@Override
-	public boolean changePass(PasswordDTO passwordDTO) {
-		Account account = accountService.getAccount();
-		if (passwordEncoder.matches(passwordDTO.getCurrentPassword(), account.getPassword())) {
-			if (passwordDTO.getNewPassword().equals(passwordDTO.getConfirmPassword())) {
-				account.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
-				account.setOtp(null);
-				account.setFirstLogin(false);
-				accountRepository.update(account);
-				return true;
-			}
-		}
+    @Override
+    public boolean changePass(PasswordDTO passwordDTO) {
+        Account account = accountService.getAccount();
+        if (passwordEncoder.matches(passwordDTO.getCurrentPassword(), account.getPassword())) {
+            if (passwordDTO.getNewPassword().equals(passwordDTO.getConfirmPassword())) {
+                account.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
+                account.setOtp(null);
+                account.setFirstLogin(false);
+                accountRepository.update(account);
+                return true;
+            }
+        }
 
-		return false;
+        return false;
 
-	}
+    }
 
-	@Override
-	public List<Merchant> getMerchants(String address, String category, String quickSearch, HttpSession session, Model model) {
-		checkLogin(model);
-		Account account = accountService.getAccount();
-		if (address == null) {
-			if (session.getAttribute("address") != null) {
-				address = (String) session.getAttribute("address");
-			} else {
-				if (account != null) {
-					if (account.getUser() != null) {
-						address = accountService.getAccount().getUser().getAddress();
-					}
+    @Override
+    public List<Merchant> getMerchants(String address, String category, String quickSearch, HttpSession session,
+            Model model) {
+        checkLogin(model);
+        Account account = accountService.getAccount();
+        if (address == null) {
+            if (session.getAttribute("address") != null) {
+                address = (String) session.getAttribute("address");
+            } else {
+                if (account != null) {
+                    if (account.getUser() != null) {
+                        address = accountService.getAccount().getUser().getAddress();
+                    }
 
-					if (account.getMerchant() != null) {
-						address = accountService.getAccount().getMerchant().getAddress();
-					}
-				}else {
-					address="Hà Nội";
-				}
-			}
+                    if (account.getMerchant() != null) {
+                        address = accountService.getAccount().getMerchant().getAddress();
+                    }
+                } else {
+                    address = "Hà Nội";
+                }
+            }
 
-		} else {
-			session.setAttribute("address", address);
-			getAddress().remove(address);
-		}
-		if (category == null) {
-			if (session.getAttribute("category") != null) {
-				category = (String) session.getAttribute("category");
-			}else {
-				category = "Đồ ăn";
-			}
-			
-		}else {
-			session.setAttribute("category", category);
-		}
-		List<Merchant> merchants = new ArrayList<>();
-		if("all".equals(quickSearch) || quickSearch == null) {
-			merchants = merchantService
-					.findMerchantsByStatusAndAddressAndCategory(
-							Status.ACTIVE,
-							address,
-							category);
-		}else {
-			Map<String, String> quickSearchs = getListQuickSearch(category);
-			merchants = merchantService
-					.findMerchantsByStatusAndAddressAndCategoryAndProducName(
-							Status.ACTIVE,
-							address, 
-							category, 
-							quickSearchs.get(quickSearch));
-		}
-		model.addAttribute("listAddress", getAddress());
-		session.setAttribute("categories", getCategories());
-		model.addAttribute("categories", getCategories());
-		model.addAttribute("quickSearchs", getListQuickSearch(category));
-		model.addAttribute("category", category);
-		return merchants;
-	}
-	
-	private List<String>getAddress(){
-		List<String> listAddress = new ArrayList<String>();
-		listAddress.add("Hà Nội");
-		listAddress.add("Tp.HCM");
-		listAddress.add("Đà Nẵng");
-		return listAddress;
-	}
-	
-	
-	private List<String>getCategories(){
-		List<String> categories = new ArrayList<String>();
-		categories.add("Đồ ăn");
-		categories.add("Thực phẩm");
-		categories.add("Bia");
-		categories.add("Hoa");
-		categories.add("Thuốc");
-		return categories;
-	}
-	
-	private Map<String, String> getListQuickSearch(String category) {
-		Map<String, String> quickSearchs = new HashMap<String, String>();
-		if ("Đồ ăn".equals(category)) {
-			quickSearchs.put("all", "All");
-			quickSearchs.put("bun", "Bún");
-			quickSearchs.put("pho", "Phở");
-			quickSearchs.put("hamburger", "Hamburger");
-			quickSearchs.put("do-chay", "Đồ chay");
-			quickSearchs.put("do-uong", "Đồ uống");
-			quickSearchs.put("trang-mieng", "Tráng miệng");
-		}
-		if ("Thực phẩm".equals(category)) {
-			quickSearchs.put("all", "All");
-			quickSearchs.put("thit", "Thịt");
-			quickSearchs.put("thit-bo", "Thịt bò");
-			quickSearchs.put("thit-cho", "Thịt chó");
-			quickSearchs.put("thit-ga", "Thịt gà");
-		}
-		return quickSearchs;
-	}
+        } else {
+            session.setAttribute("address", address);
+            getAddress().remove(address);
+        }
+        if (category == null) {
+            if (session.getAttribute("category") != null) {
+                category = (String) session.getAttribute("category");
+            } else {
+                category = "Đồ ăn";
+            }
+
+        } else {
+            session.setAttribute("category", category);
+        }
+        List<Merchant> merchants = new ArrayList<>();
+        if ("all".equals(quickSearch) || quickSearch == null) {
+            merchants = merchantService.findMerchantsByStatusAndAddressAndCategory(Status.ACTIVE, address, category);
+        } else {
+            Map<String, String> quickSearchs = getListQuickSearch(category);
+            merchants = merchantService.findMerchantsByStatusAndAddressAndCategoryAndProducName(Status.ACTIVE, address,
+                    category, quickSearchs.get(quickSearch));
+        }
+        model.addAttribute("listAddress", getAddress());
+        session.setAttribute("categories", getCategories());
+        model.addAttribute("categories", getCategories());
+        model.addAttribute("quickSearchs", getListQuickSearch(category));
+        model.addAttribute("category", category);
+        return merchants;
+    }
+
+    private List<String> getAddress() {
+        List<String> listAddress = new ArrayList<String>();
+        listAddress.add("Hà Nội");
+        listAddress.add("Tp.HCM");
+        listAddress.add("Đà Nẵng");
+        return listAddress;
+    }
+
+    private List<String> getCategories() {
+        List<String> categories = new ArrayList<String>();
+        categories.add("Đồ ăn");
+        categories.add("Thực phẩm");
+        categories.add("Bia");
+        categories.add("Hoa");
+        categories.add("Thuốc");
+        return categories;
+    }
+
+    private Map<String, String> getListQuickSearch(String category) {
+        Map<String, String> quickSearchs = new HashMap<String, String>();
+        if ("Đồ ăn".equals(category)) {
+            quickSearchs.put("all", "All");
+            quickSearchs.put("bun", "Bún");
+            quickSearchs.put("pho", "Phở");
+            quickSearchs.put("hamburger", "Hamburger");
+            quickSearchs.put("do-chay", "Đồ chay");
+            quickSearchs.put("do-uong", "Đồ uống");
+            quickSearchs.put("trang-mieng", "Tráng miệng");
+        }
+        if ("Thực phẩm".equals(category)) {
+            quickSearchs.put("all", "All");
+            quickSearchs.put("thit", "Thịt");
+            quickSearchs.put("thit-bo", "Thịt bò");
+            quickSearchs.put("thit-cho", "Thịt chó");
+            quickSearchs.put("thit-ga", "Thịt gà");
+        }
+        return quickSearchs;
+    }
 
 }
