@@ -16,9 +16,6 @@
     padding: 30px;
     background-color: #fff;
 }
-.form-change-pass-input{
-	width: 300px;
-}
 .now-change-pass .field-group {
     border: 1px solid #959595;
     border-radius: 4px;
@@ -55,5 +52,5 @@
     border: 0;
 }
 .btn-change-pass{
-	background-color: #f97d47;
+	background-color: #f97d47 !important;
 }

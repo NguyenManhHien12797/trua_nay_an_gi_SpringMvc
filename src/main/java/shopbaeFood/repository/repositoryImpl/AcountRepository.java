@@ -18,63 +18,58 @@ import shopbaeFood.repository.IAccountRepository;
 @Transactional(rollbackFor = Exception.class)
 public class AcountRepository implements IAccountRepository {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
-	private Session getSession() {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session;
-	}
+    private Session getSession() {
+        Session session = this.sessionFactory.getCurrentSession();
+        return session;
+    }
 
-	@Override
-	public void save(Account account) {
-		getSession().save(account);
+    @Override
+    public void save(Account account) {
+        getSession().save(account);
+    }
 
-	}
+    @Override
+    public void update(Account account) {
+        getSession().update(account);
+    }
 
-	@Override
-	public void update(Account account) {
-		getSession().update(account);
+    @Override
+    public List<Account> findAll() {
+        List<Account> accounts = getSession().createQuery("FROM Account", Account.class).getResultList();
+        return accounts;
+    }
 
-	}
+    @Override
+    public Account findById(Long id) {
+        return getSession().get(Account.class, id);
+    }
 
-	@Override
-	public List<Account> findAll() {
-		List<Account> accounts = getSession().createQuery("FROM Account", Account.class).getResultList();
-		return accounts;
-	}
+    @Override
+    public Account findByName(String name) {
+        TypedQuery<Account> query = getSession().createQuery("FROM Account a WHERE a.userName = :userName",
+                Account.class);
+        query.setParameter("userName", name);
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
-	@Override
-	public Account findById(Long id) {
-		return getSession().get(Account.class, id);
-	}
+    @Override
+    public Long findIdUserByUserName(String userName) {
+        Account account = this.findByName(userName);
 
-	@Override
-	public Account findByName(String name) {
-		TypedQuery<Account> query = getSession().createQuery("FROM Account a WHERE a.userName = :userName",
-				Account.class);
-		query.setParameter("userName", name);
-		try {
-			return query.getSingleResult();
-		} catch (NoResultException e) {
-			return null;
-		}
-	}
+        return account == null ? null : account.getId();
+    }
 
-	@Override
-	public Long findIdUserByUserName(String userName) {
-		Account account = this.findByName(userName);
-		if (account != null) {
-			return account.getId();
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public Boolean existsByUserName(String userName) {
-		Account account = findByName(userName);
-		return getSession().contains(account);
-	}
+    @Override
+    public Boolean existsByUserName(String userName) {
+        Account account = findByName(userName);
+        return getSession().contains(account);
+    }
 
 }
