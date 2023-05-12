@@ -59,6 +59,21 @@ body {
   padding-top: 70px
 }
 
+.modal-toggle{
+  width: 200px;
+  height: 300px;
+  position: absolute;
+  background-color: #0ccaff;
+  z-index: 999999;
+}
+.modal-toggle1{
+  top: 560px;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  background-color: #3b707e;
+}
+
 [tabindex="-1"]:focus {
   outline: 0 !important
 }

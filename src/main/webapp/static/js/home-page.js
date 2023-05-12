@@ -89,3 +89,20 @@ window.addEventListener("scroll", () =>{
 
 
 
+// window.onclick = e => {
+// 	console.log(e.target.className);
+// 	if(e.target.className === 'title'){
+// 		console.log("true")
+// 		$(".modal-toggle").toggle();
+// 	}else {
+// 		console.log("false")
+// 		$(".modal-toggle").hide();
+// 	}
+// 	if(e.target.className === 'font18 mb-2 mt-3'){
+// 		console.log("true")
+// 		$(".modal-toggle1").toggle();
+// 	}else {
+// 		console.log("false")
+// 		$(".modal-toggle1").hide();
+// 	}
+// }
