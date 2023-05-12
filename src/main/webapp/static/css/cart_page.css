@@ -1,8 +1,8 @@
 @charset "ISO-8859-1";
 
 .btn{
-  background-color: #f56043;
-  border: #f56043;
+  background-color: #f56043 !important;
+  border: #f56043 !important;
 }
 .row{
   margin-bottom: 20px;

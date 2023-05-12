@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"  
-      xmlns:svg="http://www.w3.org/2000/svg" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:svg="http://www.w3.org/2000/svg"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -12,19 +14,23 @@
 	<div th:fragment="admin-nav"
 		class="position-sticky pt-3 sidebar-sticky">
 		<ul class="nav flex-column" style="list-style: none; padding-left: 0;">
-			<li class="nav-item " th:class="${navRoute == 'merchant-list'} ? activeli : nav-item "><a class="nav-link nav-item-hover"
+			<li class="nav-item "
+				th:class="${navRoute == 'merchant-list'} ? activeli : nav-item "><a
+				class="nav-link nav-item-hover"
 				th:href="@{/admin/merchant-list/ACTIVE/1}"> <svg
-						style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-shop-window" viewBox="0 0 16 16">
                 <path
 							d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zm2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5z" />
               </svg><span data-feather="file" class="align-text-bottom"></span>
 					Quản lý nguời bán
 			</a></li>
-			<li class="nav-item " th:class="${navRoute == 'user-list'} ? activeli : nav-item "><a class="nav-link nav-item-hover"
+			<li class="nav-item "
+				th:class="${navRoute == 'user-list'} ? activeli : nav-item "><a
+				class="nav-link nav-item-hover"
 				th:href="@{/admin/user-list/ACTIVE/1}"> <svg
-						style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-people-fill" viewBox="0 0 16 16">
                 <path
 							d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
               </svg><span data-feather="shopping-cart"
@@ -39,29 +45,34 @@
 
 	<div th:fragment="admin-nav-sup">
 		<ul class="nav nav-pills mb-3 shadow-sm">
-			<li style="display: inline-block" th:class="${#strings.equals(status, 'PENDING')} ? active-sup-nav"><a
+			<li style="display: inline-block"
+				th:class="${#strings.equals(status, 'PENDING')} ? active-sup-nav"><a
 				class="nav-link link fw-bold"
-				th:href="@{/admin/__${navRoute}__/PENDING/1}"> <svg style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-bookmark-plus-fill"
-						viewBox="0 0 16 16">
+				th:href="@{/admin/__${navRoute}__/PENDING/1}"> <svg
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
         <path fill-rule="evenodd"
 							d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z" />
       </svg> Chờ duyệt
 			</a></li>
-			<li style="display: inline-block" th:class="${#strings.equals(status, 'ACTIVE')} ? active-sup-nav"><a
+			<li style="display: inline-block"
+				th:class="${#strings.equals(status, 'ACTIVE')} ? active-sup-nav"><a
 				class="nav-link link fw-bold"
 				th:href="@{'/admin/'+${navRoute}+'/ACTIVE/1'}"> <svg
-						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+						xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-gear-fill" viewBox="0 0 16 16">
        			 <path
 							d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
     			</svg> Đang hoạt động
 			</a></li>
-			<li style="display: inline-block" th:class="${#strings.equals(status, 'BLOCK')} ? active-sup-nav"><a
+			<li style="display: inline-block"
+				th:class="${#strings.equals(status, 'BLOCK')} ? active-sup-nav"><a
 				class="nav-link link fw-bold"
 				th:href="@{'/admin/'+${navRoute}+'/BLOCK/1'}"> <svg
-						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+						xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-lock-fill" viewBox="0 0 16 16">
         <path
 							d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
       </svg> Đang bị khóa
@@ -72,112 +83,119 @@
 
 	</div>
 
-	<div  th:fragment="PENDING">
-	<div class="table-responsive" style="height:300px">
-	
-		<table class="table table-striped table-sm">
-			<thead>
-				<tr>
-					<th scope="col">Ảnh</th>
-					<th scope="col">Tên</th>
-					<th scope="col">Điện thoại</th>
-					<th scope="col">Địa chỉ</th>
-					<th scope="col" colspan="2">Hành động</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="user : ${usersOrMechants}">
-					<td><img th:src="@{${'/image/'+user.avatar}}" alt=""
-						style="height: 40px; width: 40px; border-radius: 50%;"></td>
-					<td class="merchant-item" th:text="${user.name}"></td>
-					<td class="merchant-item" th:text="${user.phone}"></td>
-					<td class="merchant-item" th:text="${user.address}"></td>
-					<td class="action-icon"><button class="btn-action-icon"
-							th:onclick="updateStatus([[${user.id}]],[[${navRoute}]],'ACTIVE',[[${status}]])">
-							<i class="fa-solid fa-check" style="color: green"></i>
-						</button></td>
-					<td class="action-icon"><button class="btn-action-icon"
-							th:onclick="updateStatus([[${user.id}]],[[${navRoute}]],'REFUSE',[[${status}]])">
-							<i class="fa-solid fa-x" style="color: red"></i>
-						</button></td>
-				</tr>
+	<div th:fragment="PENDING">
+		<div class="table-responsive" style="height: 300px">
 
-			</tbody>
-		</table>
-		
-	</div>
-	
-		<th:block th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
-			<a th:text="${i}" th:href="@{/admin/__${navRoute}__/PENDING/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th scope="col">Ảnh</th>
+						<th scope="col">Tên</th>
+						<th scope="col">Điện thoại</th>
+						<th scope="col">Địa chỉ</th>
+						<th scope="col" colspan="2">Hành động</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${usersOrMechants}">
+						<td><img th:src="@{${'/image/'+user.avatar}}" alt=""
+							style="height: 40px; width: 40px; border-radius: 50%;"></td>
+						<td class="merchant-item" th:text="${user.name}"></td>
+						<td class="merchant-item" th:text="${user.phone}"></td>
+						<td class="merchant-item" th:text="${user.address}"></td>
+						<td class="action-icon"><button class="btn-action-icon"
+								th:onclick="updateStatus([[${user.id}]],[[${navRoute}]],'ACTIVE',[[${status}]])">
+								<i class="fa-solid fa-check" style="color: green"></i>
+							</button></td>
+						<td class="action-icon"><button class="btn-action-icon"
+								th:onclick="updateStatus([[${user.id}]],[[${navRoute}]],'REFUSE',[[${status}]])">
+								<i class="fa-solid fa-x" style="color: red"></i>
+							</button></td>
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
+
+		<th:block
+			th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
+			<a th:text="${i}"
+				th:href="@{/admin/__${navRoute}__/PENDING/__${i}__}" class="paging"
+				th:classappend="${page == i } ? activeli"></a>
 		</th:block>
 	</div>
 
 	<div th:fragment="ACTIVE">
-		<div class="table-responsive" style="height:300px">
-			
-		<table class="table table-striped table-sm">
-			<thead>
-				<tr>
-					<th scope="col">Ảnh</th>
-					<th scope="col">Tên</th>
-					<th scope="col">Điện thoại</th>
-					<th scope="col">Địa chỉ</th>
-					<th scope="col" colspan="2">Hành động</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="user : ${usersOrMechants}">
-					<td><img th:src="@{${'/image/'+user.avatar}}" alt=""
-						style="height: 40px; width: 40px; border-radius: 50%;"></td>
-					<td class="merchant-item" th:text="${user.name}"></td>
-					<td class="merchant-item" th:text="${user.phone}"></td>
-					<td class="merchant-item" th:text="${user.address}"></td>
-					<td class="action-icon"><button class="btn-action-icon"
-							th:onclick="updateStatus([[${user.id}]],[[${navRoute}]],'BLOCK',[[${status}]])">
-							<i class="fa-regular fas fa-lock" style="color: #f15050"></i>
-						</button></td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="table-responsive" style="height: 300px">
+
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th scope="col">Ảnh</th>
+						<th scope="col">Tên</th>
+						<th scope="col">Điện thoại</th>
+						<th scope="col">Địa chỉ</th>
+						<th scope="col" colspan="2">Hành động</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${usersOrMechants}">
+						<td><img th:src="@{${'/image/'+user.avatar}}" alt=""
+							style="height: 40px; width: 40px; border-radius: 50%;"></td>
+						<td class="merchant-item" th:text="${user.name}"></td>
+						<td class="merchant-item" th:text="${user.phone}"></td>
+						<td class="merchant-item" th:text="${user.address}"></td>
+						<td class="action-icon"><button class="btn-action-icon"
+								th:onclick="updateStatus([[${user.id}]],[[${navRoute}]],'BLOCK',[[${status}]])">
+								<i class="fa-regular fas fa-lock" style="color: #f15050"></i>
+							</button></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		<th:block th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
-			<a th:text="${i}" th:href="@{/admin/__${navRoute}__/ACTIVE/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+		<th:block
+			th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
+			<a th:text="${i}" th:href="@{/admin/__${navRoute}__/ACTIVE/__${i}__}"
+				class="paging" th:classappend="${page == i } ? activeli"></a>
 		</th:block>
 	</div>
 
-	<div  th:fragment="BLOCK">
-	
-	<div class="table-responsive" style="height:300px">
-	
-		<table class="table table-striped table-sm">
-			<thead>
-				<tr>
-					<th scope="col">Ảnh</th>
-					<th scope="col">Tên</th>
-					<th scope="col">Điện thoại</th>
-					<th scope="col">Địa chỉ</th>
-					<th scope="col" th:colspan="2">Hành động</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="user : ${usersOrMechants}">
-					<!--    <tr th:each="user : ${role} == 'merchant-list'? ${merchants} : ${users}"> -->
-					<td><img th:src="@{${'/image/'+user.avatar}}" alt=""
-						style="height: 40px; width: 40px; border-radius: 50%;"></td>
-					<td class="merchant-item" th:text="${user.name}"></td>
-					<td class="merchant-item" th:text="${user.phone}"></td>
-					<td class="merchant-item" th:text="${user.address}"></td>
-					<td class="action-icon"><button class="btn-action-icon"
-							th:onclick="updateStatus([[${user.id}]],[[${navRoute}]],'ACTIVE',[[${status}]])">
-							<i class="fa-regular fas fa-unlock" style="color: #3bbd3b"></i>
-						</button></td>
-				</tr>
+	<div th:fragment="BLOCK">
 
-			</tbody>
-		</table>
-	</div>
-		<th:block th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
-			<a th:text="${i}" th:href="@{/admin/__${navRoute}__/BLOCK/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+		<div class="table-responsive" style="height: 300px">
+
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th scope="col">Ảnh</th>
+						<th scope="col">Tên</th>
+						<th scope="col">Điện thoại</th>
+						<th scope="col">Địa chỉ</th>
+						<th scope="col" th:colspan="2">Hành động</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${usersOrMechants}">
+						<!--    <tr th:each="user : ${role} == 'merchant-list'? ${merchants} : ${users}"> -->
+						<td><img th:src="@{${'/image/'+user.avatar}}" alt=""
+							style="height: 40px; width: 40px; border-radius: 50%;"></td>
+						<td class="merchant-item" th:text="${user.name}"></td>
+						<td class="merchant-item" th:text="${user.phone}"></td>
+						<td class="merchant-item" th:text="${user.address}"></td>
+						<td class="action-icon"><button class="btn-action-icon"
+								th:onclick="updateStatus([[${user.id}]],[[${navRoute}]],'ACTIVE',[[${status}]])">
+								<i class="fa-regular fas fa-unlock" style="color: #3bbd3b"></i>
+							</button></td>
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+		<th:block
+			th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
+			<a th:text="${i}" th:href="@{/admin/__${navRoute}__/BLOCK/__${i}__}"
+				class="paging" th:classappend="${page == i } ? activeli"></a>
 		</th:block>
 	</div>
 
@@ -187,21 +205,26 @@
 
 	<div th:fragment="merchant-nav"
 		class="position-sticky pt-3 sidebar-sticky">
-		<ul class="nav flex-column" style=" padding-left: 0;list-style: none;">
-			<li class="nav-item" th:class="${route == 'merchant-dashboard'} ? activeli : nav-item "><a class="nav-link" 
-				aria-current="page" th:href="@{/merchant/merchant-dashboard}"> <svg
-						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-house-door-fill"
-						viewBox="0 0 16 16">
+		<ul class="nav flex-column" style="padding-left: 0; list-style: none;">
+			<li class="nav-item"
+				th:class="${route == 'merchant-dashboard'} ? activeli : nav-item "><a
+				class="nav-link" aria-current="page"
+				th:href="@{/merchant/merchant-dashboard}"> <svg
+						xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-house-door-fill" viewBox="0 0 16 16">
                 <path
 							d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z" />
               </svg><span data-feather="home" class="align-text-bottom"></span>
 					Dashboard
 			</a></li>
-			<li class="nav-item " th:class="${navRoute == 'order-manager'} ? activeli : nav-item "><a class="nav-link nav-item-hover"
+			<li class="nav-item "
+				th:class="${navRoute == 'order-manager'} ? activeli : nav-item "><a
+				class="nav-link nav-item-hover"
 				th:href="@{/merchant/order-manager/order-pending/1}"> <svg
-						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+						xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-journal-text" viewBox="0 0 16 16">
                 <path
 							d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
                 <path
@@ -211,19 +234,24 @@
               </svg><span data-feather="file" class="align-text-bottom"></span>
 					Quản lý đơn hàng
 			</a></li>
-			<li class="nav-item " th:class="${navRoute == 'merchant-product-manager'} ? activeli : nav-item "><a class="nav-link nav-item-hover"
+			<li class="nav-item "
+				th:class="${navRoute == 'merchant-product-manager'} ? activeli : nav-item "><a
+				class="nav-link nav-item-hover"
 				th:href="@{/merchant/merchant-product-manager}"> <svg
-						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+						xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-bag" viewBox="0 0 16 16">
                 <path
 							d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
               </svg><span data-feather="shopping-cart"
 					class="align-text-bottom"></span> Quản lý sản phẩm
 			</a></li>
-			<li class="nav-item " th:class="${navRoute == 'merchant-info' || route == 'merchant-info'} ? activeli : nav-item "><a class="nav-link nav-item-hover"
-				th:href="@{/merchant/merchant-info}"> <svg
-						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-postage" viewBox="0 0 16 16">
+			<li class="nav-item "
+				th:class="${navRoute == 'merchant-info' || route == 'merchant-info'} ? activeli : nav-item "><a
+				class="nav-link nav-item-hover" th:href="@{/merchant/merchant-info}">
+					<svg xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-postage" viewBox="0 0 16 16">
                 <path
 							d="M4.75 3a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h6.5a.75.75 0 0 0 .75-.75v-8.5a.75.75 0 0 0-.75-.75h-6.5ZM11 12H5V4h6v8Z" />
                 <path
@@ -239,31 +267,35 @@
 	<div th:fragment="merchant-nav-sup">
 
 		<ul class="nav nav-pills mb-3 shadow-sm">
-			<li  style="display: inline-block" th:class="${status == 'order-pending'} ? active-sup-nav"><a
+			<li style="display: inline-block"
+				th:class="${status == 'order-pending'} ? active-sup-nav"><a
 				th:href="@{/merchant/order-manager/order-pending/1}"
 				class="nav-link link fw-bold"> <svg
-						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-bookmark-plus-fill"
-						viewBox="0 0 16 16">
+						xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
           		<path fill-rule="evenodd"
 							d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z" />
         		</svg> Chờ duyệt
 			</a></li>
-			<li  style="display: inline-block" th:class="${status == 'seller-receive'} ? active-sup-nav"><a
+			<li style="display: inline-block"
+				th:class="${status == 'seller-receive'} ? active-sup-nav"><a
 				class="nav-link link fw-bold"
 				th:href="@{/merchant/order-manager/seller-receive/1}"> <svg
-						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+						xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-gear-fill" viewBox="0 0 16 16">
          	 	<path
 							d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
         		</svg> Đã nhận đơn
 			</a></li>
-			<li style="display: inline-block" th:class="${status == 'order-history'} ? active-sup-nav "><a
+			<li style="display: inline-block"
+				th:class="${status == 'order-history'} ? active-sup-nav "><a
 				class="nav-link link fw-bold"
 				th:href="@{/merchant/order-manager/order-history/1}"> <svg
-						xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-rocket-takeoff-fill"
-						viewBox="0 0 16 16">
+						xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-rocket-takeoff-fill" viewBox="0 0 16 16">
           		<path
 							d="M12.17 9.53c2.307-2.592 3.278-4.684 3.641-6.218.21-.887.214-1.58.16-2.065a3.578 3.578 0 0 0-.108-.563 2.22 2.22 0 0 0-.078-.23V.453c-.073-.164-.168-.234-.352-.295a2.35 2.35 0 0 0-.16-.045 3.797 3.797 0 0 0-.57-.093c-.49-.044-1.19-.03-2.08.188-1.536.374-3.618 1.343-6.161 3.604l-2.4.238h-.006a2.552 2.552 0 0 0-1.524.734L.15 7.17a.512.512 0 0 0 .433.868l1.896-.271c.28-.04.592.013.955.132.232.076.437.16.655.248l.203.083c.196.816.66 1.58 1.275 2.195.613.614 1.376 1.08 2.191 1.277l.082.202c.089.218.173.424.249.657.118.363.172.676.132.956l-.271 1.9a.512.512 0 0 0 .867.433l2.382-2.386c.41-.41.668-.949.732-1.526l.24-2.408Zm.11-3.699c-.797.8-1.93.961-2.528.362-.598-.6-.436-1.733.361-2.532.798-.799 1.93-.96 2.528-.361.599.599.437 1.732-.36 2.531Z" />
           		<path
@@ -286,174 +318,189 @@
 
 	<div th:fragment="order-pending">
 		<h2>Pending</h2>
-			<div class="table-responsive" style="height:300px">
-			
-		<table class="table table-striped table-sm">
-			<thead>
-				<tr>
-					<th scope="col">Stt</th>
-					<th scope="col">Ảnh</th>
-					<th scope="col">Người đặt</th>
-					<th scope="col">Điện thoại</th>
-					<th scope="col">Địa chỉ</th>
-					<th scope="col">Thời gian</th>
-					<th scope="col">Ghi chú</th>
-					<th scope="col">Xem chi tiết</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="order,i : ${orders}">
-					<td th:text="${i.index +1}"></td>
-					<td><img th:src="@{'/image/'+${order.getAppUser().getAvatar()}}" alt=""
-						style="height: 40px; width: 40px; border-radius: 50%;"></td>
-					<td class="merchant-item">[[${order.getAppUser().getName()}]]</td>
-					<td class="merchant-item">[[${order.getAppUser().phone}]]</td>
-					<td th:if="${order.address == null}">[[${order.getAppUser().address}]]</td>
-					<td th:if="${order.address != null}">[[${order.address}]]</td>
-					<td class="merchant-item">[[${order.orderdate}]]</td>
-					<td class="merchant-item">[[${order.note}]]</td>
-					<td class="action-icon show-detail"><a
-						th:href="@{/merchant/order-pending/order-detail/__${order.id}__}"><i
-							class="fa-solid fa-eye fa-solid-icon"></i></a></td>
-				</tr>
-			</tbody>
-		</table>
-			</div>
-		<th:block th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
-			<a th:text="${i}" th:href="@{/merchant/order-manager/order-pending/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+		<div class="table-responsive" style="height: 300px">
+
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th scope="col">Stt</th>
+						<th scope="col">Ảnh</th>
+						<th scope="col">Người đặt</th>
+						<th scope="col">Điện thoại</th>
+						<th scope="col">Địa chỉ</th>
+						<th scope="col">Thời gian</th>
+						<th scope="col">Ghi chú</th>
+						<th scope="col">Xem chi tiết</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="order,i : ${orders}">
+						<td th:text="${i.index +1}"></td>
+						<td><img
+							th:src="@{'/image/'+${order.getAppUser().getAvatar()}}" alt=""
+							style="height: 40px; width: 40px; border-radius: 50%;"></td>
+						<td class="merchant-item">[[${order.getAppUser().getName()}]]</td>
+						<td class="merchant-item">[[${order.getAppUser().phone}]]</td>
+						<td th:if="${order.address == null}">[[${order.getAppUser().address}]]</td>
+						<td th:if="${order.address != null}">[[${order.address}]]</td>
+						<td class="merchant-item">[[${order.orderdate}]]</td>
+						<td class="merchant-item">[[${order.note}]]</td>
+						<td class="action-icon show-detail"><a
+							th:href="@{/merchant/order-pending/order-detail/__${order.id}__}"><i
+								class="fa-solid fa-eye fa-solid-icon"></i></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<th:block
+			th:each="i: ${#numbers.sequence(1,(lastPageNumber == 0 ? 1: lastPageNumber))}">
+			<a th:text="${i}"
+				th:href="@{/merchant/order-manager/order-pending/__${i}__}"
+				class="paging" th:classappend="${page == i } ? activeli"></a>
 		</th:block>
 	</div>
-	
-	<div th:fragment="order-detail">
-	<div class="table-responsive container">
-  <strong>Chi tiết đơn hàng</strong>
-  <table class="table table-striped table-sm">
-    <thead>
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">Ảnh món</th>
-      <th scope="col">Tên món </th>
-      <th scope="col">Số lượng</th>
-      <th scope="col">Đơn giá</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="orderDetail,i : ${orderDetails}">
-      	<td th:text="${i.index +1}"></td>
-     	<td><img th:src="@{'/image/'+${orderDetail.product.image}}" alt=""
-						style="height: 40px; width: 40px; border-radius: 50%;"></td>
-      <td class="merchant-item">[[${orderDetail.product.name}]]</td>
-      <td class="merchant-item">[[${orderDetail.quantity}]]</td>
-      <td class="merchant-item">[[${#numbers.formatDecimal(orderDetail.price, 0, 'COMMA', 0, 'POINT')}]] đ</td>
-    </tr>
-    </tbody>
-  </table>
-  <div th:if="${status =='order-pending'}" style=" margin: 20px; display:flex;">
-    <a class="btn-orderDetail" th:href="@{/user/update-order-status/__${order_id}__/seller-receive}">Nhận đơn</a>
-    <a class="btn-orderDetail" th:href="@{/user/update-order-status/__${order_id}__/seller-refuse}">Từ chối</a>
-  </div>
 
-</div>
+	<div th:fragment="order-detail">
+		<div class="table-responsive container">
+			<strong>Chi tiết đơn hàng</strong>
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th scope="col">id</th>
+						<th scope="col">Ảnh món</th>
+						<th scope="col">Tên món</th>
+						<th scope="col">Số lượng</th>
+						<th scope="col">Đơn giá</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="orderDetail,i : ${orderDetails}">
+						<td th:text="${i.index +1}"></td>
+						<td><img th:src="@{'/image/'+${orderDetail.product.image}}"
+							alt="" style="height: 40px; width: 40px; border-radius: 50%;"></td>
+						<td class="merchant-item">[[${orderDetail.product.name}]]</td>
+						<td class="merchant-item">[[${orderDetail.quantity}]]</td>
+						<td class="merchant-item">[[${#numbers.formatDecimal(orderDetail.price,
+							0, 'COMMA', 0, 'POINT')}]] đ</td>
+					</tr>
+				</tbody>
+			</table>
+			<div th:if="${status =='order-pending'}"
+				style="margin: 20px; display: flex;">
+				<a class="btn-orderDetail"
+					th:href="@{/user/update-order-status/__${order_id}__/seller-receive}">Nhận
+					đơn</a> <a class="btn-orderDetail"
+					th:href="@{/user/update-order-status/__${order_id}__/seller-refuse}">Từ
+					chối</a>
+			</div>
+
+		</div>
 	</div>
 
 	<div th:fragment="seller-receive">
 		<h2>Receive</h2>
-			
-			<div class="table-responsive" style="height:300px">
-			<table class="table table-striped table-sm" >
-			<thead>
-				<tr>
-					<th scope="col">Stt</th>
-					<th scope="col">Ảnh</th>
-					<th scope="col">Người đặt</th>
-					<th scope="col">Điện thoại</th>
-					<th scope="col">Địa chỉ</th>
-					<th scope="col">Thời gian</th>
-					<th scope="col">Ghi chú</th>
-					<th scope="col">Xem chi tiết</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="order,i : ${orders}">
-					<td th:text="${i.index +1}"></td>
-					<td><img th:src="@{'/image/'+${order.getAppUser().getAvatar()}}" alt=""
-						style="height: 40px; width: 40px; border-radius: 50%;"></td>
-					<td class="merchant-item">[[${order.getAppUser().getName()}]]</td>
-					<td class="merchant-item">[[${order.getAppUser().phone}]]</td>
-					<td th:if="${order.address == null}">[[${order.getAppUser().address}]]</td>
-					<td th:if="${order.address != null}">[[${order.address}]]</td>
-					<td class="merchant-item">[[${order.orderdate}]]</td>
-					<td class="merchant-item">[[${order.note}]]</td>
-					<td class="action-icon show-detail"><a
-						th:href="@{/merchant/seller-receive/order-detail/__${order.id}__}"><i
-							class="fa-solid fa-eye fa-solid-icon"></i></a></td>
-				</tr>
-			</tbody>
-		</table>
-			</div>
-		
+
+		<div class="table-responsive" style="height: 300px">
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th scope="col">Stt</th>
+						<th scope="col">Ảnh</th>
+						<th scope="col">Người đặt</th>
+						<th scope="col">Điện thoại</th>
+						<th scope="col">Địa chỉ</th>
+						<th scope="col">Thời gian</th>
+						<th scope="col">Ghi chú</th>
+						<th scope="col">Xem chi tiết</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="order,i : ${orders}">
+						<td th:text="${i.index +1}"></td>
+						<td><img
+							th:src="@{'/image/'+${order.getAppUser().getAvatar()}}" alt=""
+							style="height: 40px; width: 40px; border-radius: 50%;"></td>
+						<td class="merchant-item">[[${order.getAppUser().getName()}]]</td>
+						<td class="merchant-item">[[${order.getAppUser().phone}]]</td>
+						<td th:if="${order.address == null}">[[${order.getAppUser().address}]]</td>
+						<td th:if="${order.address != null}">[[${order.address}]]</td>
+						<td class="merchant-item">[[${order.orderdate}]]</td>
+						<td class="merchant-item">[[${order.note}]]</td>
+						<td class="action-icon show-detail"><a
+							th:href="@{/merchant/seller-receive/order-detail/__${order.id}__}"><i
+								class="fa-solid fa-eye fa-solid-icon"></i></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
 
 		<th:block th:each="i: ${#numbers.sequence(1, lastPageNumber)}">
-			<a th:text="${i}" th:href="@{/merchant/order-manager/seller-receive/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+			<a th:text="${i}"
+				th:href="@{/merchant/order-manager/seller-receive/__${i}__}"
+				class="paging" th:classappend="${page == i } ? activeli"></a>
 		</th:block>
 	</div>
 
-	<div  th:fragment="order-history">
+	<div th:fragment="order-history">
 
 		<h2>Send</h2>
-			<div class="table-responsive" style="height:300px">
-				
+		<div class="table-responsive" style="height: 300px">
+
 			<table class="table table-striped table-sm">
-			<thead>
-				<tr>
-					<th scope="col">Stt</th>
-					<th scope="col">Ảnh</th>
-					<th scope="col">Người đặt</th>
-					<th scope="col">Điện thoại</th>
-					<th scope="col">Địa chỉ</th>
-					<th scope="col">Trạng thái</th>
-					<th scope="col">Xem chi tiết</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="order,i : ${orders}">
-					<td th:text="${i.index + 1}"></td>
-					<td><img th:src="@{'/image/'+${order.getAppUser().getAvatar()}}" alt=""
-						style="height: 40px; width: 40px; border-radius: 50%;"></td>
-					<td class="merchant-item">[[${order.getAppUser().getName()}]]</td>
-					<td class="merchant-item">[[${order.getAppUser().phone}]]</td>
-					<td th:if="${order.address == null}">[[${order.getAppUser().address}]]</td>
-					<td th:if="${order.address != null}">[[${order.address}]]</td>
-					<td class="merchant-item">[[${order.status}]]</td>
-					<td class="action-icon show-detail"><a
-						th:href="@{/merchant/order-history/order-detail/__${order.id}__}"><i
-							class="fa-solid fa-eye fa-solid-icon"></i></a></td>
-				</tr>
-			</tbody>
-		</table>
-			</div>
-		
-		<th:block th:each="i: ${#numbers.sequence(1, (lastPageNumber == 0 ? 1: lastPageNumber))}">
-			<a th:text="${i}" th:href="@{/merchant/order-manager/order-history/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
+				<thead>
+					<tr>
+						<th scope="col">Stt</th>
+						<th scope="col">Ảnh</th>
+						<th scope="col">Người đặt</th>
+						<th scope="col">Điện thoại</th>
+						<th scope="col">Địa chỉ</th>
+						<th scope="col">Trạng thái</th>
+						<th scope="col">Xem chi tiết</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="order,i : ${orders}">
+						<td th:text="${i.index + 1}"></td>
+						<td><img
+							th:src="@{'/image/'+${order.getAppUser().getAvatar()}}" alt=""
+							style="height: 40px; width: 40px; border-radius: 50%;"></td>
+						<td class="merchant-item">[[${order.getAppUser().getName()}]]</td>
+						<td class="merchant-item">[[${order.getAppUser().phone}]]</td>
+						<td th:if="${order.address == null}">[[${order.getAppUser().address}]]</td>
+						<td th:if="${order.address != null}">[[${order.address}]]</td>
+						<td class="merchant-item">[[${order.status}]]</td>
+						<td class="action-icon show-detail"><a
+							th:href="@{/merchant/order-history/order-detail/__${order.id}__}"><i
+								class="fa-solid fa-eye fa-solid-icon"></i></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<th:block
+			th:each="i: ${#numbers.sequence(1, (lastPageNumber == 0 ? 1: lastPageNumber))}">
+			<a th:text="${i}"
+				th:href="@{/merchant/order-manager/order-history/__${i}__}"
+				class="paging" th:classappend="${page == i } ? activeli"></a>
 		</th:block>
 	</div>
 
 	<div th:fragment="merchant-product-manager">
 
-		<div class="container-merchant-page" style=" width:900px; ">
+		<div class="container-merchant-page" style="width: 900px;">
 			<div class="row">
 				<a type="button" class="col-2 btn btn-outline-danger"
 					th:href="@{/merchant/merchant-product-manager/merchant-add-product}">
-					<svg xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-						fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+					<svg xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-plus-circle" viewBox="0 0 16 16">
         <path
 							d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
         <path
 							d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path>
-      </svg>
-					Thêm sản phẩm
-				</a>
-				&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+      </svg> Thêm sản phẩm
+				</a> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;
@@ -466,7 +513,7 @@
 			</div>
 
 
-			<div class="table-responsive" style="height:300px">
+			<div class="table-responsive" style="height: 300px">
 				<table class="table table-striped table-sm ">
 					<thead>
 						<tr>
@@ -483,250 +530,279 @@
 							<td th:text="${i.index + 1}"></td>
 							<td><img th:src="@{'/image/' +${product.image}}" alt=""
 								style="height: 40px; width: 40px; border-radius: 50%;"></td>
-							<td class="merchant-item" th:text="${product.name}" style="width: 200px;"></td>
-							<td class="merchant-item-price" style="position: absolute;transform: translate(40px, 12px); ">
-							[[${#numbers.formatDecimal(product.newPrice, 0, 'COMMA', 0, 'POINT')}]] đ
-							</td>
-							<td class="merchant-item" th:text="${product.shortDescription}" style="width: 250px;"></td>
-							<td class="merchant-item-btn" style=" transform: translateX(16px); font-size: 20px;">
-								<a th:href="@{/merchant/merchant-product-manager/merchant-edit-product/__${product.id}__/page/__${page}__}">
+							<td class="merchant-item" th:text="${product.name}"
+								style="width: 200px;"></td>
+							<td class="merchant-item-price"
+								style="position: absolute; transform: translate(40px, 12px);">
+								[[${#numbers.formatDecimal(product.newPrice, 0, 'COMMA', 0,
+								'POINT')}]] đ</td>
+							<td class="merchant-item" th:text="${product.shortDescription}"
+								style="width: 250px;"></td>
+							<td class="merchant-item-btn"
+								style="transform: translateX(16px); font-size: 20px;"><a
+								th:href="@{/merchant/merchant-product-manager/merchant-edit-product/__${product.id}__/page/__${page}__}">
 									<i class="fa-regular fa-pen-to-square action-icon"></i>
-								</a>
-							</td>
-							<td class="merchant-item-btn" style=" transform: translateX(-20px); font-size: 20px;">
-								<a th:href= @{/merchant/delete/__${product.id}__}>
-									<i class="fa-solid fa-trash action-icon"></i>
-								</a>
-							</td>
+							</a></td>
+							<td class="merchant-item-btn"
+								style="transform: translateX(-20px); font-size: 20px;"><a
+								th:href=@{/merchant/delete/__${product.id}__}> <i
+									class="fa-solid fa-trash action-icon"></i>
+							</a></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
-		
-		<th:block th:each="i: ${#numbers.sequence(1, (lastPageNumber == 0 ? 1: lastPageNumber))}">
-			<a th:text="${i}" th:href="@{/merchant/merchant-product-manager/page/__${i}__}" class="paging"  th:classappend="${page == i } ? activeli"></a>
-		</th:block>
-		
+
+			<th:block
+				th:each="i: ${#numbers.sequence(1, (lastPageNumber == 0 ? 1: lastPageNumber))}">
+				<a th:text="${i}"
+					th:href="@{/merchant/merchant-product-manager/page/__${i}__}"
+					class="paging" th:classappend="${page == i } ? activeli"></a>
+			</th:block>
+
 		</div>
-		</div>
+	</div>
 
 
 	<div th:fragment="merchant-add-product">
 		<h2>Create product</h2>
 
-		
-<form  th:action="@{/merchant/create}" th:object="${productForm}" method="post" enctype="multipart/form-data">
-  <div class="mb-3 row">
-  
-    <label for="name" class="col-sm-2 col-form-label">Tên</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id= "name" name="name" th:field="*{name}" ><br>
 
-    </div>
+		<form th:action="@{/merchant/create}" th:object="${productForm}"
+			method="post" enctype="multipart/form-data">
+			<div class="mb-3 row">
 
-  </div>
-  <div class="mb-3 row">
-    <label for="customFile" class="col-sm-2 col-form-label" >Thêm ảnh</label>
-    <div class="col-sm-10">
-      <input type="file" class="form-control" id="customFile" th:field=*{image} th:onchange = "changeHandler(event)"/><br>
-      <img style="display:none" id="myimage" class="img" height="125" width="100" alt="Img"><br>
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="newPrice" class="col-sm-2 col-form-label">Giá tiền</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="newPrice" th:field="*{newPrice}"><br>
-    </div>
-  </div>
-    <div class="mb-3 row">
-    <label for="quantity" class="col-sm-2 col-form-label">Số lượng</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="quantity" th:field="*{quantity}"><br>
-    </div>
-  </div>
+				<label for="name" class="col-sm-2 col-form-label">Tên</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="name" name="name"
+						th:field="*{name}"><br>
 
-  <div class="mb-3 row">
-    <label for="shortDescription" class="col-sm-2 col-form-label">Mô tả</label>
-    <div class="col-sm-10">
-      <textarea rows="5" class="form-control" id="shortDescription" th:field="*{shortDescription}"></textarea><br>
-  </div>
-  </div>
+				</div>
+
+			</div>
+			<div class="mb-3 row">
+				<label for="customFile" class="col-sm-2 col-form-label">Thêm
+					ảnh</label>
+				<div class="col-sm-10">
+					<input type="file" class="form-control" id="customFile"
+						th:field=*{image} th:onchange="changeHandler(event)" /><br>
+					<img style="display: none" id="myimage" class="img" height="125"
+						width="100" alt="Img"><br>
+				</div>
+			</div>
+			<div class="mb-3 row">
+				<label for="newPrice" class="col-sm-2 col-form-label">Giá
+					tiền</label>
+				<div class="col-sm-10">
+					<input type="number" class="form-control" id="newPrice"
+						th:field="*{newPrice}"><br>
+				</div>
+			</div>
+			<div class="mb-3 row">
+				<label for="quantity" class="col-sm-2 col-form-label">Số
+					lượng</label>
+				<div class="col-sm-10">
+					<input type="number" class="form-control" id="quantity"
+						th:field="*{quantity}"><br>
+				</div>
+			</div>
+
+			<div class="mb-3 row">
+				<label for="shortDescription" class="col-sm-2 col-form-label">Mô
+					tả</label>
+				<div class="col-sm-10">
+					<textarea rows="5" class="form-control" id="shortDescription"
+						th:field="*{shortDescription}"></textarea>
+					<br>
+				</div>
+			</div>
 
 
-  <button class="btn btn-dark" >Hủy</button>
-&nbsp;
-  <button class="btn btn-danger" type="submit">Create</button>
-</form>
+			<button class="btn btn-dark">Hủy</button>
+			&nbsp;
+			<button class="btn btn-danger" type="submit">Create</button>
+		</form>
 
-</div>
-	
-	
+	</div>
+
+
 	<div th:fragment="merchant-edit-product">
 		<h2>Update product</h2>
 
-<form  th:action="@{/merchant/merchant-edit-product/__${id}__/page/__${page}__}" th:object="${productForm}" method="post" enctype="multipart/form-data">
-  <div class="mb-3 row">
-  
-  
- 
-    <label for="name" class="col-sm-2 col-form-label">Tên</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id= "name" name="name" th:field="*{name}" ><br>
-
-    </div>
-
-  </div>
-  <div class="mb-3 row">
-    <label for="customFile" class="col-sm-2 col-form-label" >Thêm ảnh</label>
-    <div class="col-sm-10">
-      <input type="file" class="form-control" id="customFile" th:field=*{image}  th:onchange = "changeHandler(event)"/><br>
-      <img style="display:none" id="myimage" class="img" height="125" width="100" alt="Img"><br>
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="newPrice" class="col-sm-2 col-form-label">Giá mới</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="newPrice"  th:field="*{newPrice}" ><br>
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="oldPrice" class="col-sm-2 col-form-label">Giá cũ</label>
-    <div class="col-sm-10">
-      <span class="form-control" id="oldPrice" >[[${#numbers.formatDecimal(productForm.oldPrice, 0, 'COMMA', 0, 'POINT')}]] đ</span><br>
-    </div>
-  </div>
-  <div class="mb-3 row">
-    <label for="quantity" class="col-sm-2 col-form-label">Số lượng</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="quantity" th:field="*{quantity}"><br>
-    </div>
-  </div>
-
-  <div class="mb-3 row">
-    <label for="shortDescription" class="col-sm-2 col-form-label">Mô tả</label>
-    <div class="col-sm-10">
-      <textarea rows="5" class="form-control" id="shortDescription" th:field="*{shortDescription}"></textarea><br>
-  </div>
-  </div>
+		<form
+			th:action="@{/merchant/merchant-edit-product/__${id}__/page/__${page}__}"
+			th:object="${productForm}" method="post"
+			enctype="multipart/form-data">
+			<div class="mb-3 row">
 
 
-  <button class="btn btn-dark">Hủy</button>
-&nbsp;
-  <button class="btn btn-danger" type="submit">Update</button>
-</form>
 
-</div>
-	
-	
-	
+				<label for="name" class="col-sm-2 col-form-label">Tên</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="name" name="name"
+						th:field="*{name}"><br>
+
+				</div>
+
+			</div>
+			<div class="mb-3 row">
+				<label for="customFile" class="col-sm-2 col-form-label">Thêm
+					ảnh</label>
+				<div class="col-sm-10">
+					<input type="file" class="form-control" id="customFile"
+						th:field=*{image} th:onchange="changeHandler(event)" /><br>
+					<img style="display: none" id="myimage" class="img" height="125"
+						width="100" alt="Img"><br>
+				</div>
+			</div>
+			<div class="mb-3 row">
+				<label for="newPrice" class="col-sm-2 col-form-label">Giá
+					mới</label>
+				<div class="col-sm-10">
+					<input type="number" class="form-control" id="newPrice"
+						th:field="*{newPrice}"><br>
+				</div>
+			</div>
+			<div class="mb-3 row">
+				<label for="oldPrice" class="col-sm-2 col-form-label">Giá cũ</label>
+				<div class="col-sm-10">
+					<span class="form-control" id="oldPrice">[[${#numbers.formatDecimal(productForm.oldPrice,
+						0, 'COMMA', 0, 'POINT')}]] đ</span><br>
+				</div>
+			</div>
+			<div class="mb-3 row">
+				<label for="quantity" class="col-sm-2 col-form-label">Số
+					lượng</label>
+				<div class="col-sm-10">
+					<input type="number" class="form-control" id="quantity"
+						th:field="*{quantity}"><br>
+				</div>
+			</div>
+
+			<div class="mb-3 row">
+				<label for="shortDescription" class="col-sm-2 col-form-label">Mô
+					tả</label>
+				<div class="col-sm-10">
+					<textarea rows="5" class="form-control" id="shortDescription"
+						th:field="*{shortDescription}"></textarea>
+					<br>
+				</div>
+			</div>
+
+
+			<button class="btn btn-dark">Hủy</button>
+			&nbsp;
+			<button class="btn btn-danger" type="submit">Update</button>
+		</form>
+
+	</div>
+
+
+
 	<div th:fragment="merchant-info">
 
 		<div class="title title-strong">Tài Khoản</div>
-			
+
 		<div class="desc">Thay đổi thiết lập cơ bản</div>
 		<div class="setting-card">
 			<div class="setting-card-inner">
 				<div class="">
 					<div class="setting-card-row desc">
-							<i data-v-0e576418="" class="icon shopee-icon"> <svg
-									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+						<i data-v-0e576418="" class="icon shopee-icon"> <svg
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
               <path
-										d="M8 1a4 4 0 0 1 2.126 7.389A5.999 5.999 0 0 1 14 14v.5a.5.5 0 1 1-1 0V14a5 5 0 0 0-10 0v.5a.5.5 0 1 1-1 0V14a6.002 6.002 0 0 1 3.874-5.612A4 4 0 0 1 8 1zm0 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+									d="M8 1a4 4 0 0 1 2.126 7.389A5.999 5.999 0 0 1 14 14v.5a.5.5 0 1 1-1 0V14a5 5 0 0 0-10 0v.5a.5.5 0 1 1-1 0V14a6.002 6.002 0 0 1 3.874-5.612A4 4 0 0 1 8 1zm0 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
             </svg>
-							</i>
-							<div class=" width-info ">
-								<div class="title-t">Hồ sơ của tôi</div>
-								<!---->
-							</div>
-							<div class="info">
-								<div class="account-profile">
-									<div class="account-profile-item">
-										<label for="image">
-										 <img th:src="@{'/image/'+${merchant.avatar}}" class="account-profile-avatar">
-										</label> 
-										<input type="file" id="image" style="display:none"> 
-										<span class="account-profile-text" style="margin-left: 8px;"
-											th:text="${merchant.name}">
-										</span>
+						</i>
+						<div class=" width-info ">
+							<div class="title-t">Hồ sơ của tôi</div>
+							<!---->
+						</div>
+						<div class="info">
+							<div class="account-profile">
+								<div class="account-profile-item">
+									<label for="image"> <img
+										th:src="@{'/image/'+${merchant.avatar}}"
+										class="account-profile-avatar">
+									</label> <input type="file" id="image" style="display: none"> <span
+										class="account-profile-text" style="margin-left: 8px;"
+										th:text="${merchant.name}"> </span>
 
-									</div>
 								</div>
 							</div>
-							<div class="shopee-popover shopee-popover--light">
-								<div class="shopee-popover__ref"></div>
-							</div>
+						</div>
+						<div class="shopee-popover shopee-popover--light">
+							<div class="shopee-popover__ref"></div>
+						</div>
 					</div>
 
 
 
 					<div class="setting-card-row desc">
-							<i class="icon shopee-icon"> <svg
-									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+						<i class="icon shopee-icon"> <svg
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
               <path
-										d="M13.473 10.365c2.035 1.298 1.368 2.653-1.092 4.015-2.337 1.294-5.135-.642-7.889-3.396l-.417-.424-.413-.436c-2.29-2.47-3.72-4.93-2.561-7.024C2.462.64 3.818-.027 5.116 2.007c1.119 1.754.801 2.468.432 3.065l-.176.28c-.278.463-.675.85-.566 1.316.045.192.47.876 1.596 2.027l.184.186c1.263 1.263 2.048 1.752 2.227 1.794.424.1.782-.22 1.19-.488l.478-.298.143-.08.151-.075c.546-.24 1.284-.271 2.698.63zm-2.355.313l-.107.06-.46.286-.387.263-.177.108c-.452.26-.897.372-1.402.254-.463-.109-1.3-.715-2.302-1.666l-.408-.4-.385-.393c-.959-1.005-1.545-1.812-1.658-2.295-.105-.448-.028-.85.173-1.25l.125-.226.305-.457.31-.498c.243-.424.234-.743-.263-1.58l-.21-.339-.137-.204c-.65-.91-1.106-.66-2.16 1.243-.808 1.462.13 3.498 2.813 6.275l.411.418c2.997 2.997 5.163 4.078 6.697 3.228l.37-.21c1.62-.94 1.73-1.376.776-2.018l-.286-.181c-.923-.566-1.3-.598-1.638-.418z"></path>
+									d="M13.473 10.365c2.035 1.298 1.368 2.653-1.092 4.015-2.337 1.294-5.135-.642-7.889-3.396l-.417-.424-.413-.436c-2.29-2.47-3.72-4.93-2.561-7.024C2.462.64 3.818-.027 5.116 2.007c1.119 1.754.801 2.468.432 3.065l-.176.28c-.278.463-.675.85-.566 1.316.045.192.47.876 1.596 2.027l.184.186c1.263 1.263 2.048 1.752 2.227 1.794.424.1.782-.22 1.19-.488l.478-.298.143-.08.151-.075c.546-.24 1.284-.271 2.698.63zm-2.355.313l-.107.06-.46.286-.387.263-.177.108c-.452.26-.897.372-1.402.254-.463-.109-1.3-.715-2.302-1.666l-.408-.4-.385-.393c-.959-1.005-1.545-1.812-1.658-2.295-.105-.448-.028-.85.173-1.25l.125-.226.305-.457.31-.498c.243-.424.234-.743-.263-1.58l-.21-.339-.137-.204c-.65-.91-1.106-.66-2.16 1.243-.808 1.462.13 3.498 2.813 6.275l.411.418c2.997 2.997 5.163 4.078 6.697 3.228l.37-.21c1.62-.94 1.73-1.376.776-2.018l-.286-.181c-.923-.566-1.3-.598-1.638-.418z"></path>
             </svg>
-							</i>
-							<div class=" width-info">
-								<div class="title-t">Số điện thoại</div>
-							</div>
-							<div class="info">
-								<div class="info-input" th:text="${merchant.phone}">
-								</div>
-							</div>
+						</i>
+						<div class=" width-info">
+							<div class="title-t">Số điện thoại</div>
+						</div>
+						<div class="info">
+							<div class="info-input" th:text="${merchant.phone}"></div>
+						</div>
 					</div>
 
 					<div class="setting-card-row desc ">
-							<i class="icon shopee-icon"> 
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-              				<path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zm0 1.6L8.277 8.416a.5.5 0 0 1-.467.047l-.087-.047L2 4.601V12h12V4.6zm-.903-.6H2.902L8 7.4 13.097 4z"></path>
+						<i class="icon shopee-icon"> <svg
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              				<path
+									d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zm0 1.6L8.277 8.416a.5.5 0 0 1-.467.047l-.087-.047L2 4.601V12h12V4.6zm-.903-.6H2.902L8 7.4 13.097 4z"></path>
             				</svg>
-							</i>
-							<div class="width-info">
-								<div class="title-t">Email</div>
-							</div>
-							<div class="info">
-								<div class="info-input" th:text="${account.email}">
-								</div>
-							</div>
+						</i>
+						<div class="width-info">
+							<div class="title-t">Email</div>
+						</div>
+						<div class="info">
+							<div class="info-input" th:text="${account.email}"></div>
+						</div>
 					</div>
 
 					<div class="setting-card-row desc">
-							<i class="icon shopee-icon">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-              		<path fill-rule="evenodd" d="M8 1a4 4 0 0 1 4 4v1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1V5a4 4 0 0 1 4-4zm5 6H3v7h10V7zM8 9a.5.5 0 0 1 .5.5v2a.5.5 0 1 1-1 0v-2A.5.5 0 0 1 8 9zm0-7a3 3 0 0 0-2.995 2.824L5 5v1h6V5a3 3 0 0 0-2.824-2.995L8 2z"></path>
+						<i class="icon shopee-icon"> <svg
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              		<path fill-rule="evenodd"
+									d="M8 1a4 4 0 0 1 4 4v1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1V5a4 4 0 0 1 4-4zm5 6H3v7h10V7zM8 9a.5.5 0 0 1 .5.5v2a.5.5 0 1 1-1 0v-2A.5.5 0 0 1 8 9zm0-7a3 3 0 0 0-2.995 2.824L5 5v1h6V5a3 3 0 0 0-2.824-2.995L8 2z"></path>
             		</svg>
-							</i>
-							<div class=" width-info">
-								<div class="title-t">Mật khẩu đăng nhập</div>
-							</div>
-							<div class="info">
-								<a class="info-input subtitle btn btn-dark"><svg
-										xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-										fill="currentColor" class="bi bi-envelope-exclamation"
-										viewBox="0 0 16 16">
+						</i>
+						<div class=" width-info">
+							<div class="title-t">Mật khẩu đăng nhập</div>
+						</div>
+						<div class="info">
+							<a class="info-input subtitle btn btn-dark"><svg
+									xmlns="http://www.w3.org/2000/svg"
+									style="width: 16px; height: 16px" fill="currentColor"
+									class="bi bi-envelope-exclamation" viewBox="0 0 16 16">
                 <path
-											d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
+										d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
                 <path
-											d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1.5a.5.5 0 0 1-1 0V11a.5.5 0 0 1 1 0Zm0 3a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+										d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1.5a.5.5 0 0 1-1 0V11a.5.5 0 0 1 1 0Zm0 3a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
               </svg> Nhận otp để đổi mật khẩu</a>
-							</div>
+						</div>
 					</div>
 
 					<div class="setting-card-row desc">
-							<i class="shopee-icon-i fa-regular fa-clock shopee-icon"></i>
+						<i class="shopee-icon-i fa-regular fa-clock shopee-icon"></i>
 
-							<div class="width-info">
-								<div class="title-t">Giờ hoạt động</div>
-							</div>
-							<div class="info">
-								<span class="info-input-opentime info-input"
-									th:text="${merchant.openTime}">
-								</span>
-									 <span>--</span>
-								<span class="info-input-closetime info-input"
-									th:text="${merchant.closeTime}">
-								</span>
-							</div>
+						<div class="width-info">
+							<div class="title-t">Giờ hoạt động</div>
+						</div>
+						<div class="info">
+							<span class="info-input-opentime info-input"
+								th:text="${merchant.openTime}"> </span> <span>--</span> <span
+								class="info-input-closetime info-input"
+								th:text="${merchant.closeTime}"> </span>
+						</div>
 
 					</div>
 
@@ -735,9 +811,11 @@
 		</div>
 
 		<div style="align-content: center">
-			<a  class="right-button" th:href="@{/merchant/merchant-info/merchant-update-info}">
-				<span><svg xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px" fill="currentColor" class="bi bi-pencil-fill"
-						viewBox="0 0 16 16">
+			<a class="right-button"
+				th:href="@{/merchant/merchant-info/merchant-update-info}"> <span><svg
+						xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-pencil-fill" viewBox="0 0 16 16">
   <path
 							d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
 </svg> Sửa</span>
@@ -747,19 +825,20 @@
 
 	</div>
 
-	
-	
+
+
 	<div th:fragment="merchant-update-info">
-	
-	<form  th:action="@{/merchant/merchant-info}" th:object="${account}" method="post" enctype="multipart/form-data">
-	
-		<div class="title title-strong">Tài Khoản</div>
-			
-		<div class="desc">Thay đổi thiết lập cơ bản</div>
-		<div class="setting-card">
-			<div class="setting-card-inner">
-				<div class="">
-					<div class="setting-card-row desc">
+
+		<form th:action="@{/merchant/merchant-info}" th:object="${account}"
+			method="post" enctype="multipart/form-data">
+
+			<div class="title title-strong">Tài Khoản</div>
+
+			<div class="desc">Thay đổi thiết lập cơ bản</div>
+			<div class="setting-card">
+				<div class="setting-card-inner">
+					<div class="">
+						<div class="setting-card-row desc">
 							<i data-v-0e576418="" class="icon shopee-icon"> <svg
 									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
               <path
@@ -773,18 +852,21 @@
 							<div class="info">
 								<div class="account-profile">
 									<div class="account-profile-item">
-										<label for="image">
-										
-										 <img th:src="@{'/image/'+${merchant.avatar}}" class="account-profile-avatar" id="myimage1">
-										</label> 
-										<input type="file" id="image" style="display:none" th:field="${merchantForm.avatar}" th:onchange = "changeHandler(event)"> 
-										<input class="account-profile-text" style="margin-left: 8px;"
-											th:field="${merchantForm.name}">
-										<input class="account-profile-text" style="margin-left: 8px; display: none"
+										<label for="image"> <img
+											th:src="@{'/image/'+${merchant.avatar}}"
+											class="account-profile-avatar" id="myimage1">
+										</label> <input type="file" id="image" style="display: none"
+											th:field="${merchantForm.avatar}"
+											th:onchange="changeHandler(event)"> <input
+											class="account-profile-text" style="margin-left: 8px;"
+											th:field="${merchantForm.name}"> <input
+											class="account-profile-text"
+											style="margin-left: 8px; display: none"
 											th:field="${merchantForm.id}">
 
 										<div>
-											<img style="display:none" class="img" id="myimage" height="125" width="100" alt="Img"><br>
+											<img style="display: none" class="img" id="myimage"
+												height="125" width="100" alt="Img"><br>
 										</div>
 
 									</div>
@@ -793,11 +875,8 @@
 							<div class="shopee-popover shopee-popover--light">
 								<div class="shopee-popover__ref"></div>
 							</div>
-					</div>
-
-
-
-					<div class="setting-card-row desc">
+						</div>
+						<div class="setting-card-row desc">
 							<i class="icon shopee-icon"> <svg
 									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
               <path
@@ -810,12 +889,13 @@
 							<div class="info">
 								<input class="info-input" th:field="${merchantForm.phone}">
 							</div>
-					</div>
+						</div>
 
-					<div class="setting-card-row desc ">
-							<i class="icon shopee-icon"> 
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-              				<path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zm0 1.6L8.277 8.416a.5.5 0 0 1-.467.047l-.087-.047L2 4.601V12h12V4.6zm-.903-.6H2.902L8 7.4 13.097 4z"></path>
+						<div class="setting-card-row desc ">
+							<i class="icon shopee-icon"> <svg
+									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              				<path
+										d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zm0 1.6L8.277 8.416a.5.5 0 0 1-.467.047l-.087-.047L2 4.601V12h12V4.6zm-.903-.6H2.902L8 7.4 13.097 4z"></path>
             				</svg>
 							</i>
 							<div class="width-info">
@@ -825,35 +905,34 @@
 								<input class="info-input" th:field="${account.email}">
 
 							</div>
-					</div>
+						</div>
 
-					<div class="setting-card-row desc">
-							<i class="icon shopee-icon">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-              		<path fill-rule="evenodd" d="M8 1a4 4 0 0 1 4 4v1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1V5a4 4 0 0 1 4-4zm5 6H3v7h10V7zM8 9a.5.5 0 0 1 .5.5v2a.5.5 0 1 1-1 0v-2A.5.5 0 0 1 8 9zm0-7a3 3 0 0 0-2.995 2.824L5 5v1h6V5a3 3 0 0 0-2.824-2.995L8 2z"></path>
+						<div class="setting-card-row desc">
+							<i class="icon shopee-icon"> <svg
+									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              		<path fill-rule="evenodd"
+										d="M8 1a4 4 0 0 1 4 4v1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1V5a4 4 0 0 1 4-4zm5 6H3v7h10V7zM8 9a.5.5 0 0 1 .5.5v2a.5.5 0 1 1-1 0v-2A.5.5 0 0 1 8 9zm0-7a3 3 0 0 0-2.995 2.824L5 5v1h6V5a3 3 0 0 0-2.824-2.995L8 2z"></path>
             		</svg>
 							</i>
 							<div class=" width-info">
 								<div class="title-t">Mật khẩu đăng nhập</div>
 							</div>
 							<div class="info">
-								<div class="info-input subtitle btn btn-dark btn-change-pass" >
-<!-- 								<div class="info-input subtitle btn btn-dark btn-change-pass" th:href="@{/merchant/create-otp}"> -->
-								<svg
-										xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-										fill="currentColor" class="bi bi-envelope-exclamation"
-										viewBox="0 0 16 16">
+								<div class="info-input subtitle btn btn-dark btn-change-pass">
+									<!-- 								<div class="info-input subtitle btn btn-dark btn-change-pass" th:href="@{/merchant/create-otp}"> -->
+									<svg xmlns="http://www.w3.org/2000/svg"
+										style="width: 16px; height: 16px" fill="currentColor"
+										class="bi bi-envelope-exclamation" viewBox="0 0 16 16">
                 <path
 											d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
                 <path
 											d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1.5a.5.5 0 0 1-1 0V11a.5.5 0 0 1 1 0Zm0 3a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
-              </svg> Nhận otp để đổi mật khẩu</div>
+              </svg>
+									Nhận otp để đổi mật khẩu
+								</div>
 							</div>
-					</div>
-
-				
-
-					<div class="setting-card-row desc">
+						</div>
+						<div class="setting-card-row desc">
 							<i class="shopee-icon-i fa-regular fa-clock shopee-icon"></i>
 
 							<div class="width-info">
@@ -861,158 +940,142 @@
 							</div>
 							<div class="info">
 								<input class="info-input-opentime info-input"
-									th:field="${merchantForm.openTime}">
-									 <span>--</span>
-								<input class="info-input-closetime info-input"
+									th:field="${merchantForm.openTime}"> <span>--</span> <input
+									class="info-input-closetime info-input"
 									th:field="${merchantForm.closeTime}">
 							</div>
-
+						</div>
 					</div>
-
 				</div>
 			</div>
-		</div>
 
-		<div style="align-content: center">
-			<button type="submit"
-				class="right-button-2 right-button">
-				<span><svg xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px" fill="currentColor" class="bi bi-save"
-						viewBox="0 0 16 16">
+			<div style="align-content: center">
+				<button type="submit" class="right-button-2 right-button">
+					<span><svg xmlns="http://www.w3.org/2000/svg"
+							style="width: 16px; height: 16px" fill="currentColor"
+							class="bi bi-save" viewBox="0 0 16 16">
   <path
-							d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+								d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
 </svg> Lưu</span>
-			</button>
+				</button>
+			</div>
+		</form>
+		<div class="create-otp" style="display: none">
+			<span>Nhập OTP</span>
+			<div style="display: none; color: red" class="mess-otp">Sai
+				OTP! Mời nhập lại!</div>
+			<input placeholder="Nhập OTP" th:name="otp" class="otp">
+			<button type="submit" class="show-form-update-pass"
+				th:onclick="checkotp([[${account.id}]])">Check OTP</button>
 		</div>
 
-	
-	
-	
-	</form>
+		<div class="change-pass" style="display: none">
+			<span>Nhập Password</span> <input placeholder="Nhập password"
+				th:name="pass" class="pass">
+			<button type="submit" th:onclick="changePassword([[${account.id}]])">Lưu</button>
+		</div>
 
-	
-	<div  class="create-otp" style="display:none">
-		<span>Nhập OTP</span>
-		<div style="display:none; color:red" class="mess-otp">Sai OTP! Mời nhập lại!</div>
-		<input placeholder="Nhập OTP" th:name="otp" class="otp">
-		<button type="submit" class="show-form-update-pass" th:onclick ="checkotp([[${account.id}]])">Check OTP</button>
 	</div>
-	
-	<div  class="change-pass" style="display:none">
-		<span>Nhập Password</span>
-		<input placeholder="Nhập password" th:name="pass" class="pass">
-		<button type="submit" th:onclick ="changePassword([[${account.id}]])">Lưu</button>
-	</div>
-	
-	</div>
-
 
 	<!--  Merchant-Fragment -->
 
+	<div th:fragment="user-info" class="now-container-coporation">
 
+		<div class="title title-strong">Tài Khoản</div>
 
-<div th:fragment="user-info" class="now-container-coporation">
- 		
- 		<div class="title title-strong">Tài Khoản</div>
-			
 		<div class="desc">Thay đổi thiết lập cơ bản</div>
 		<div class="setting-card">
 			<div class="setting-card-inner">
 				<div class="">
 					<div class="setting-card-row desc">
-							<i data-v-0e576418="" class="icon shopee-icon"> <svg
-									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+						<i data-v-0e576418="" class="icon shopee-icon"> <svg
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
               <path
-										d="M8 1a4 4 0 0 1 2.126 7.389A5.999 5.999 0 0 1 14 14v.5a.5.5 0 1 1-1 0V14a5 5 0 0 0-10 0v.5a.5.5 0 1 1-1 0V14a6.002 6.002 0 0 1 3.874-5.612A4 4 0 0 1 8 1zm0 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
+									d="M8 1a4 4 0 0 1 2.126 7.389A5.999 5.999 0 0 1 14 14v.5a.5.5 0 1 1-1 0V14a5 5 0 0 0-10 0v.5a.5.5 0 1 1-1 0V14a6.002 6.002 0 0 1 3.874-5.612A4 4 0 0 1 8 1zm0 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path>
             </svg>
-							</i>
-							<div class=" width-info ">
-								<div class="title-t">Hồ sơ của tôi</div>
-								<!---->
-							</div>
-							<div class="info">
-								<div class="account-profile">
-									<div class="account-profile-item">
-										<label for="image">
-										 <img th:src="@{'/image/'+${user.avatar}}" class="account-profile-avatar">
-										</label> 
-										<input type="file" id="image" style="display:none"> 
-										<span class="account-profile-text" style="margin-left: 8px;"
-											th:text="${user.name}">
-										</span>
+						</i>
+						<div class=" width-info ">
+							<div class="title-t">Hồ sơ của tôi</div>
+							<!---->
+						</div>
+						<div class="info">
+							<div class="account-profile">
+								<div class="account-profile-item">
+									<label for="image"> <img
+										th:src="@{'/image/'+${user.avatar}}"
+										class="account-profile-avatar">
+									</label> <input type="file" id="image" style="display: none"> <span
+										class="account-profile-text" style="margin-left: 8px;"
+										th:text="${user.name}"> </span>
 
-									</div>
 								</div>
 							</div>
-							<div class="shopee-popover shopee-popover--light">
-								<div class="shopee-popover__ref"></div>
-							</div>
+						</div>
+						<div class="shopee-popover shopee-popover--light">
+							<div class="shopee-popover__ref"></div>
+						</div>
 					</div>
-
-
-
 					<div class="setting-card-row desc">
-							<i class="icon shopee-icon"> <svg
-									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+						<i class="icon shopee-icon"> <svg
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
               <path
-										d="M13.473 10.365c2.035 1.298 1.368 2.653-1.092 4.015-2.337 1.294-5.135-.642-7.889-3.396l-.417-.424-.413-.436c-2.29-2.47-3.72-4.93-2.561-7.024C2.462.64 3.818-.027 5.116 2.007c1.119 1.754.801 2.468.432 3.065l-.176.28c-.278.463-.675.85-.566 1.316.045.192.47.876 1.596 2.027l.184.186c1.263 1.263 2.048 1.752 2.227 1.794.424.1.782-.22 1.19-.488l.478-.298.143-.08.151-.075c.546-.24 1.284-.271 2.698.63zm-2.355.313l-.107.06-.46.286-.387.263-.177.108c-.452.26-.897.372-1.402.254-.463-.109-1.3-.715-2.302-1.666l-.408-.4-.385-.393c-.959-1.005-1.545-1.812-1.658-2.295-.105-.448-.028-.85.173-1.25l.125-.226.305-.457.31-.498c.243-.424.234-.743-.263-1.58l-.21-.339-.137-.204c-.65-.91-1.106-.66-2.16 1.243-.808 1.462.13 3.498 2.813 6.275l.411.418c2.997 2.997 5.163 4.078 6.697 3.228l.37-.21c1.62-.94 1.73-1.376.776-2.018l-.286-.181c-.923-.566-1.3-.598-1.638-.418z"></path>
+									d="M13.473 10.365c2.035 1.298 1.368 2.653-1.092 4.015-2.337 1.294-5.135-.642-7.889-3.396l-.417-.424-.413-.436c-2.29-2.47-3.72-4.93-2.561-7.024C2.462.64 3.818-.027 5.116 2.007c1.119 1.754.801 2.468.432 3.065l-.176.28c-.278.463-.675.85-.566 1.316.045.192.47.876 1.596 2.027l.184.186c1.263 1.263 2.048 1.752 2.227 1.794.424.1.782-.22 1.19-.488l.478-.298.143-.08.151-.075c.546-.24 1.284-.271 2.698.63zm-2.355.313l-.107.06-.46.286-.387.263-.177.108c-.452.26-.897.372-1.402.254-.463-.109-1.3-.715-2.302-1.666l-.408-.4-.385-.393c-.959-1.005-1.545-1.812-1.658-2.295-.105-.448-.028-.85.173-1.25l.125-.226.305-.457.31-.498c.243-.424.234-.743-.263-1.58l-.21-.339-.137-.204c-.65-.91-1.106-.66-2.16 1.243-.808 1.462.13 3.498 2.813 6.275l.411.418c2.997 2.997 5.163 4.078 6.697 3.228l.37-.21c1.62-.94 1.73-1.376.776-2.018l-.286-.181c-.923-.566-1.3-.598-1.638-.418z"></path>
             </svg>
-							</i>
-							<div class=" width-info">
-								<div class="title-t">Số điện thoại</div>
-							</div>
-							<div class="info">
-								<div class="info-input" th:text="${user.phone}">
-								</div>
-							</div>
+						</i>
+						<div class=" width-info">
+							<div class="title-t">Số điện thoại</div>
+						</div>
+						<div class="info">
+							<div class="info-input" th:text="${user.phone}"></div>
+						</div>
 					</div>
 
 					<div class="setting-card-row desc ">
-							<i class="icon shopee-icon"> 
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-              				<path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zm0 1.6L8.277 8.416a.5.5 0 0 1-.467.047l-.087-.047L2 4.601V12h12V4.6zm-.903-.6H2.902L8 7.4 13.097 4z"></path>
+						<i class="icon shopee-icon"> <svg
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              				<path
+									d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zm0 1.6L8.277 8.416a.5.5 0 0 1-.467.047l-.087-.047L2 4.601V12h12V4.6zm-.903-.6H2.902L8 7.4 13.097 4z"></path>
             				</svg>
-							</i>
-							<div class="width-info">
-								<div class="title-t">Email</div>
-							</div>
-							<div class="info">
-								<div class="info-input" th:text="${account.email}">
-								</div>
-							</div>
+						</i>
+						<div class="width-info">
+							<div class="title-t">Email</div>
+						</div>
+						<div class="info">
+							<div class="info-input" th:text="${account.email}"></div>
+						</div>
 					</div>
-					
-						<div class="setting-card-row desc ">
-							<i class="icon shopee-icon fa-solid fa-location-dot">
-							</i>
-							<div class="width-info">
-								<div class="title-t">Address</div>
-							</div>
-							<div class="info">
-								<div class="info-input" th:text="${user.address}">
-								</div>
-							</div>
+
+					<div class="setting-card-row desc ">
+						<i class="icon shopee-icon fa-solid fa-location-dot"> </i>
+						<div class="width-info">
+							<div class="title-t">Address</div>
+						</div>
+						<div class="info">
+							<div class="info-input" th:text="${user.address}"></div>
+						</div>
 					</div>
 
 					<div class="setting-card-row desc">
-							<i class="icon shopee-icon">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-              		<path fill-rule="evenodd" d="M8 1a4 4 0 0 1 4 4v1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1V5a4 4 0 0 1 4-4zm5 6H3v7h10V7zM8 9a.5.5 0 0 1 .5.5v2a.5.5 0 1 1-1 0v-2A.5.5 0 0 1 8 9zm0-7a3 3 0 0 0-2.995 2.824L5 5v1h6V5a3 3 0 0 0-2.824-2.995L8 2z"></path>
+						<i class="icon shopee-icon"> <svg
+								xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              		<path fill-rule="evenodd"
+									d="M8 1a4 4 0 0 1 4 4v1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1V5a4 4 0 0 1 4-4zm5 6H3v7h10V7zM8 9a.5.5 0 0 1 .5.5v2a.5.5 0 1 1-1 0v-2A.5.5 0 0 1 8 9zm0-7a3 3 0 0 0-2.995 2.824L5 5v1h6V5a3 3 0 0 0-2.824-2.995L8 2z"></path>
             		</svg>
-							</i>
-							<div class=" width-info">
-								<div class="title-t">Mật khẩu đăng nhập</div>
-							</div>
-							<div class="info">
-								<a class="info-input subtitle btn btn-dark"><svg
-										xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-										fill="currentColor" class="bi bi-envelope-exclamation"
-										viewBox="0 0 16 16">
+						</i>
+						<div class=" width-info">
+							<div class="title-t">Mật khẩu đăng nhập</div>
+						</div>
+						<div class="info">
+							<a class="info-input subtitle btn btn-dark"><svg
+									xmlns="http://www.w3.org/2000/svg"
+									style="width: 16px; height: 16px" fill="currentColor"
+									class="bi bi-envelope-exclamation" viewBox="0 0 16 16">
                 <path
-											d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
+										d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
                 <path
-											d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1.5a.5.5 0 0 1-1 0V11a.5.5 0 0 1 1 0Zm0 3a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
+										d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1.5a.5.5 0 0 1-1 0V11a.5.5 0 0 1 1 0Zm0 3a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
               </svg> Nhận otp để đổi mật khẩu</a>
-							</div>
+						</div>
 					</div>
 
 				</div>
@@ -1020,33 +1083,32 @@
 		</div>
 
 		<div style="align-content: center">
-			<a  class="right-button" th:href="@{/home/user-update-info}">
-				<span><svg xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px" fill="currentColor" class="bi bi-pencil-fill"
-						viewBox="0 0 16 16">
+			<a class="right-button" th:href="@{/home/user-update-info}"> <span><svg
+						xmlns="http://www.w3.org/2000/svg"
+						style="width: 16px; height: 16px" fill="currentColor"
+						class="bi bi-pencil-fill" viewBox="0 0 16 16">
   <path
 							d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
 </svg> Sửa</span>
 			</a>
 		</div>
- 
- 		
- 		</div>
 
 
+	</div>
+
+	<div th:fragment="user-update-info" class="now-container-coporation">
 
 
-<div th:fragment="user-update-info" class="now-container-coporation">
- 		
- 				
-	<form  th:action="@{/user/user-info}" th:object="${account}" method="post" enctype="multipart/form-data">
-	
-		<div class="title title-strong">Tài Khoản</div>
-			
-		<div class="desc">Thay đổi thiết lập cơ bản</div>
-		<div class="setting-card">
-			<div class="setting-card-inner">
-				<div class="">
-					<div class="setting-card-row desc">
+		<form th:action="@{/user/user-info}" th:object="${account}"
+			method="post" enctype="multipart/form-data">
+
+			<div class="title title-strong">Tài Khoản</div>
+
+			<div class="desc">Thay đổi thiết lập cơ bản</div>
+			<div class="setting-card">
+				<div class="setting-card-inner">
+					<div class="">
+						<div class="setting-card-row desc">
 							<i data-v-0e576418="" class="icon shopee-icon"> <svg
 									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
               <path
@@ -1060,18 +1122,21 @@
 							<div class="info">
 								<div class="account-profile">
 									<div class="account-profile-item">
-										<label for="image">
-										
-										 <img th:src="@{'/image/'+${user.avatar}}" class="account-profile-avatar" id="myimage1">
-										</label> 
-										<input type="file" id="image" style="display:none" th:field="${userForm.avatar}" th:onchange = "changeHandler(event)"> 
-										<input class="account-profile-text" style="margin-left: 8px;"
-											th:field="${userForm.name}">
-										<input class="account-profile-text" style="margin-left: 8px;display:none"
+										<label for="image"> <img
+											th:src="@{'/image/'+${user.avatar}}"
+											class="account-profile-avatar" id="myimage1">
+										</label> <input type="file" id="image" style="display: none"
+											th:field="${userForm.avatar}"
+											th:onchange="changeHandler(event)"> <input
+											class="account-profile-text" style="margin-left: 8px;"
+											th:field="${userForm.name}"> <input
+											class="account-profile-text"
+											style="margin-left: 8px; display: none"
 											th:field="${userForm.id}">
 
 										<div>
-											<img style="display:none" class="img" id="myimage" height="125" width="100" alt="Img"><br>
+											<img style="display: none" class="img" id="myimage"
+												height="125" width="100" alt="Img"><br>
 										</div>
 
 									</div>
@@ -1080,11 +1145,9 @@
 							<div class="shopee-popover shopee-popover--light">
 								<div class="shopee-popover__ref"></div>
 							</div>
-					</div>
+						</div>
 
-
-
-					<div class="setting-card-row desc">
+						<div class="setting-card-row desc">
 							<i class="icon shopee-icon"> <svg
 									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
               <path
@@ -1097,12 +1160,13 @@
 							<div class="info">
 								<input class="info-input" th:field="${userForm.phone}">
 							</div>
-					</div>
+						</div>
 
-					<div class="setting-card-row desc ">
-							<i class="icon shopee-icon"> 
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-              				<path d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zm0 1.6L8.277 8.416a.5.5 0 0 1-.467.047l-.087-.047L2 4.601V12h12V4.6zm-.903-.6H2.902L8 7.4 13.097 4z"></path>
+						<div class="setting-card-row desc ">
+							<i class="icon shopee-icon"> <svg
+									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              				<path
+										d="M14 3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12zm0 1.6L8.277 8.416a.5.5 0 0 1-.467.047l-.087-.047L2 4.601V12h12V4.6zm-.903-.6H2.902L8 7.4 13.097 4z"></path>
             				</svg>
 							</i>
 							<div class="width-info">
@@ -1112,9 +1176,9 @@
 								<input class="info-input" th:field="${account.email}">
 
 							</div>
-					</div>
-					
-							<div class="setting-card-row desc ">
+						</div>
+
+						<div class="setting-card-row desc ">
 							<i class="icon shopee-icon fa-solid fa-location-dot"></i>
 							<div class="width-info">
 								<div class="title-t">Address</div>
@@ -1123,251 +1187,387 @@
 								<input class="info-input" th:field="${userForm.address}">
 
 							</div>
-					</div>
+						</div>
 
-					<div class="setting-card-row desc">
-							<i class="icon shopee-icon">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-              		<path fill-rule="evenodd" d="M8 1a4 4 0 0 1 4 4v1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1V5a4 4 0 0 1 4-4zm5 6H3v7h10V7zM8 9a.5.5 0 0 1 .5.5v2a.5.5 0 1 1-1 0v-2A.5.5 0 0 1 8 9zm0-7a3 3 0 0 0-2.995 2.824L5 5v1h6V5a3 3 0 0 0-2.824-2.995L8 2z"></path>
+						<div class="setting-card-row desc">
+							<i class="icon shopee-icon"> <svg
+									xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              		<path fill-rule="evenodd"
+										d="M8 1a4 4 0 0 1 4 4v1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1V5a4 4 0 0 1 4-4zm5 6H3v7h10V7zM8 9a.5.5 0 0 1 .5.5v2a.5.5 0 1 1-1 0v-2A.5.5 0 0 1 8 9zm0-7a3 3 0 0 0-2.995 2.824L5 5v1h6V5a3 3 0 0 0-2.824-2.995L8 2z"></path>
             		</svg>
 							</i>
 							<div class=" width-info">
 								<div class="title-t">Mật khẩu đăng nhập</div>
 							</div>
 							<div class="info">
-								<div class="info-input subtitle btn btn-dark btn-change-pass" >
-<!-- 								<div class="info-input subtitle btn btn-dark btn-change-pass" th:href="@{/merchant/create-otp}"> -->
-								<svg
-										xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px"
-										fill="currentColor" class="bi bi-envelope-exclamation"
-										viewBox="0 0 16 16">
+								<div class="info-input subtitle btn btn-dark btn-change-pass">
+									<!-- 								<div class="info-input subtitle btn btn-dark btn-change-pass" th:href="@{/merchant/create-otp}"> -->
+									<svg xmlns="http://www.w3.org/2000/svg"
+										style="width: 16px; height: 16px" fill="currentColor"
+										class="bi bi-envelope-exclamation" viewBox="0 0 16 16">
                 <path
 											d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z" />
                 <path
 											d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1.5a.5.5 0 0 1-1 0V11a.5.5 0 0 1 1 0Zm0 3a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z" />
-              </svg> Nhận otp để đổi mật khẩu</div>
+              </svg>
+									Nhận otp để đổi mật khẩu
+								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div style="align-content: center">
+				<button type="submit" class="right-button-2 right-button">
+					<span><svg xmlns="http://www.w3.org/2000/svg"
+							style="width: 16px; height: 16px" fill="currentColor"
+							class="bi bi-save" viewBox="0 0 16 16">
+  <path
+								d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+</svg> Lưu</span>
+				</button>
+			</div>
+		</form>
+
+		<div class="create-otp" style="display: none">
+			<span>Nhập OTP</span>
+			<div style="display: none; color: red" class="mess-otp">Sai
+				OTP! Mời nhập lại!</div>
+			<input placeholder="Nhập OTP" th:name="otp" class="otp">
+			<button type="submit" class="show-form-update-pass"
+				th:onclick="checkotp([[${account.id}]])">Check OTP</button>
+		</div>
+
+		<div class="change-pass" style="display: none">
+			<span>Nhập Password</span> <input placeholder="Nhập password"
+				th:name="pass" class="pass">
+			<button type="submit" th:onclick="changePassword([[${account.id}]])">Lưu</button>
+		</div>
+
+
+	</div>
+
+
+	<header th:fragment="home-header">
+
+		<div class="container-header">
+			<div class="container">
+				<!-- 		<div
+					class="header-content navbar row  justify-content-between align-items-center"> -->
+				<!-- 				<div class="logo-now col-auto">
+						<span><a th:href="@{/home}">Logo     <img th:src="@{/static/img/shopeefoodvn.png}" alt="ShopBaeFood">
+						</a></span>
+					</div>
+					<div class="select-local col-auto">
+						<div class="dropdown">
+							<select th:if="${listAddress }" class="dropdown-address"
+								name="dropdown-address" th:value="${session.address}">
+								<option th:if="${session.address}" th:value="${session.address}">[[${session.address}]]</option>
+								<th:block th:each="address : ${listAddress }">
+									<option th:value="${address}">[[${address}]]</option>
+								</th:block>
+							</select>
+						</div>
+
 					</div>
 
-				
+					<div class="main-nav col" th:if="${categories}">
+						<th:block th:each="categoryItem: ${categories}">
+							<a th:classappend="${categoryItem == category}? 'active'"
+								class="nav-item" th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
+						</th:block>
+					</div>
+					<div class="main-nav col">
+						<span th:if="${carts}" style="color: #f56043; font-size: 25px;">Giỏ
+							hàng</span> <span th:if="${route == 'user-update-info'}"
+							style="color: #f56043; font-size: 25px;">Thông tin người
+							dùng</span> <span th:if="${route == 'user-info'}"
+							style="color: #f56043; font-size: 25px;">Thông tin người
+							dùng</span>
+					</div>
 
+					<div class="user-acc col-auto user-acc-wr"
+						th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
+						<div th:if="${message == 'chua dang nhap'}">
+							<a th:href="@{/login}">
+								<button type="button" class="btn btn-none-bg btn-login">
+									<span class="font14">Đăng nhập</span>
+								</button>
+							</a>
+						</div>
+
+						<div th:unless="${message == 'chua dang nhap'}">
+
+							<div class="user-acc-contain">
+								<img class="user-acc-img"
+									th:src="@{'/image/'+${session.avatar}}" alt=""> <span
+									id="username" th:text="${session.username}"></span> <input
+									id="userId" th:value="${session.userId}" style="display: none;">
+								    <span th:text="${session.userId}"></span>
+								<div class="user-acc-dropdown">
+									<div th:if="${role == 'merchant'}">
+										<a class="user-acc-admin" th:href="@{/merchant}"><i
+											class="fa-solid fa-store"></i> Kênh người bán</a>
+
+									</div>
+									<div th:unless="${role == 'merchant'}">
+										<a class="user-acc-admin" th:href="@{/register/merchant}"><i
+											class="fa-solid fa-user-plus"></i> Đăng ký người bán</a> <a
+											class="user-acc-admin" th:href="@{/home/user-info}"><i
+											class="fa-solid fa-address-card"></i> Trang cá nhân</a>
+									</div>
+									<div th:if="${role == 'admin'}">
+										<a class="user-acc-admin"
+											th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
+											class="fa-solid fa-lock"></i> Kênh admin
+										</a>
+									</div>
+									<hr>
+									<a th:href="@{/logout}"><i
+										class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div th:if="${role == 'user'}" class="col-auto">
+						<a class="nav-bar-cart position-relative" th:href="@{/user/cart}">
+							<i class="fa-solid fa-cart-shopping"></i>
+						</a>
+						<div class="cart-detail">
+							<span class="cart-detail-span">Sản phẩm trong giỏ hàng</span>
+							<div></div>
+							<img class="nocart-img"
+								src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png"
+								alt="">
+
+							<div class="cart-detai-item-container">
+								<div class="cart-detai-item">
+									<img src=" " alt=""> <span class="cart-detai-item-span">{{product.product.name}}</span>
+									<span>{{product.product.newPrice}} đ</span>
+								</div>
+							</div>
+							<div class="cart-detail-btn">
+								<span>Tổng: {{carts.length}} sản phẩm</span>
+								<button class="btn btn-cart">Xem giỏ hàng</button>
+							</div>
+						</div>
+
+					</div> -->
+				<!-- </div> -->
+
+				<nav
+					class="header-content navbar navbar-expand-sm row  justify-content-between align-items-center">
+					<div class="container-fluid">
+						<a class="navbar-brand" th:href="@{/home}">Logo</a>
+						<button class="navbar-toggler" type="button"
+							data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="collapsibleNavbar">
+							<div class="navbar-nav bg-white shadow p-3">
+								<div class="nav-item col-auto">
+									<div class="dropdown">
+										<select th:if="${listAddress }" class="dropdown-address"
+											name="dropdown-address" th:value="${session.address}">
+											<option th:if="${session.address}"
+												th:value="${session.address}">[[${session.address}]]</option>
+											<th:block th:each="address : ${listAddress }">
+												<option th:value="${address}">[[${address}]]</option>
+											</th:block>
+										</select>
+									</div>
+
+								</div>
+
+								<!-- <div class=" main-nav col " > -->
+									<th:block th:if="${categories}" th:each="categoryItem: ${categories}">
+										<a th:classappend="${categoryItem == category}? 'active'"
+											class="nav-item main-nav col " th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
+									</th:block>
+								<!-- </div> -->
+								<div class="nav-item main-nav col">
+									<span th:if="${carts}" style="color: #f56043; font-size: 25px;">Giỏ
+										hàng</span> <span th:if="${route == 'user-update-info'}"
+										style="color: #f56043; font-size: 25px;">Thông tin
+										người dùng</span> <span th:if="${route == 'user-info'}"
+										style="color: #f56043; font-size: 25px;">Thông tin
+										người dùng</span>
+								</div>
+
+								<div class="nav-item user-acc col-auto user-acc-wr"
+									th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
+									<div th:if="${message == 'chua dang nhap'}">
+										<a th:href="@{/login}">
+											<button type="button" class="btn btn-none-bg btn-login">
+												<span class="font14">Đăng nhập</span>
+											</button>
+										</a>
+									</div>
+
+									<div th:unless="${message == 'chua dang nhap'}">
+
+										<div class="user-acc-contain">
+											<img class="user-acc-img"
+												th:src="@{'/image/'+${session.avatar}}" alt=""> <span
+												id="username" th:text="${session.username}"></span> <input
+												id="userId" th:value="${session.userId}"
+												style="display: none;">
+											<!--     <span th:text="${session.userId}"></span> -->
+											<div class="user-acc-dropdown">
+												<div th:if="${role == 'merchant'}">
+													<a class="user-acc-admin" th:href="@{/merchant}"><i
+														class="fa-solid fa-store"></i> Kênh người bán</a>
+
+												</div>
+												<div th:unless="${role == 'merchant'}">
+													<a class="user-acc-admin" th:href="@{/register/merchant}"><i
+														class="fa-solid fa-user-plus"></i> Đăng ký người bán</a> <a
+														class="user-acc-admin" th:href="@{/home/user-info}"><i
+														class="fa-solid fa-address-card"></i> Trang cá nhân</a>
+												</div>
+												<div th:if="${role == 'admin'}">
+													<a class="user-acc-admin"
+														th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
+														class="fa-solid fa-lock"></i> Kênh admin
+													</a>
+												</div>
+												<hr>
+												<a th:href="@{/logout}"><i
+													class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div th:if="${role == 'user'}" class="col-auto">
+									<a class="nav-bar-cart"
+										th:href="@{/user/cart}"> <i
+										class="fa-solid fa-cart-shopping"></i>
+									</a>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</nav>
+
+			</div>
+		</div>
+		<div class="modal fade modal-search" id="modal-search" tabindex="-1"
+			role="dialog" aria-hidden="true">
+			style="display:none"
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<span class="close" data-dismiss="modal">x</span>
+					<div class="modal-search-form">
+						<span class="sub-title">Đặt Đồ ăn, giao hàng từ 20'... có
+							37422 địa điểm ở Hà Nội từ 00:00 - 23:59</span>
+						<form>
+							<input class="search-input" name="search-input" type="text"
+								autocomplete="off" value="">
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-
-		<div style="align-content: center">
-			<button type="submit"
-				class="right-button-2 right-button">
-				<span><svg xmlns="http://www.w3.org/2000/svg" style=" width:16px; height:16px" fill="currentColor" class="bi bi-save"
-						viewBox="0 0 16 16">
-  <path
-							d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
-</svg> Lưu</span>
-			</button>
+		<div class="modal fade modal-new-app" id="modal-new-app" tabindex="-1"
+			role="dialog" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<span class="close" data-dismiss="modal">x</span>
+					<div class="img-now">
+						<img src="#" alt="App now">
+					</div>
+					<div class="info-now">
+						<span> <span
+							style="font-size: 36px; font-weight: lighter; margin-bottom: 0">Hello
+								you!</span> <span
+							style="font-size: 15px; margin-top: 9px; margin-bottom: 9px;">We
+								are pleased to inform you that our application<span class="bold">
+									ShopeeFood</span> is changed its name to
+						</span><span class="btn btn-red font18" title="ShopeeFood"
+							style="cursor: pointer; font-size: 18px !important; background-color: #cf2127; color: #fff; border-color: #cf2127;"><span
+								class="txt-bold" style="font-weight: 700 !important;">ShopBeaFood</span></span>
+						</span>
+						<p class="update-version">Cập nhật phiên bản mới</p>
+						<div class="down-apps">
+							<a target="_blank" rel="noopener noreferrer"
+								href="https://itunes.apple.com/us/app/deliverynow/id1137866760"
+								class="down-app" title="App Store"><span
+								class="icon icon-app-store-sm"></span></a><a target="_blank"
+								rel="noopener noreferrer"
+								href="https://play.google.com/store/apps/details?id=com.deliverynow"
+								class="down-app" title="Google play"><span
+								class="icon icon-gg-play-sm"></span></a>
+						</div>
+					</div>
+					<div class="box-now-merchant clearfix">
+						<div class="img-merchant">
+							<div class="float-left mar-right10">
+								<span class="icon icon-merchant-lg"></span>
+							</div>
+							<div class="float-left">
+								<a target="_blank" rel="noopener noreferrer"
+									href="https://itunes.apple.com/US/app/id1296706589?mt=8"
+									class="down-apps" title="App Store"><span
+									class="icon icon-app-store-sm"></span></a><a target="_blank"
+									rel="noopener noreferrer"
+									href="https://play.google.com/store/apps/details?id=com.sea.foody.nowmerchant&amp;amp;hl=vi"
+									class="down-apps" title="Google play"><span
+									class="icon icon-gg-play-sm"></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-
-	
-	
-	
-	</form>
-
-	
-	<div  class="create-otp" style="display:none">
-		<span>Nhập OTP</span>
-		<div style="display:none; color:red" class="mess-otp">Sai OTP! Mời nhập lại!</div>
-		<input placeholder="Nhập OTP" th:name="otp" class="otp">
-		<button type="submit" class="show-form-update-pass" th:onclick ="checkotp([[${account.id}]])">Check OTP</button>
-	</div>
-	
-	<div  class="change-pass" style="display:none">
-		<span>Nhập Password</span>
-		<input placeholder="Nhập password" th:name="pass" class="pass">
-		<button type="submit" th:onclick ="changePassword([[${account.id}]])">Lưu</button>
-	</div>
-	
- 		
- 	</div>
-
-
-	<header th:fragment = "home-header">
-	
-      <div class="container-header">
-        <div class="container">
-          <div class="header-content navbar row  justify-content-between align-items-center">
-            <div class="logo-now col-auto">
-            <span><a th:href="@{/home}">Logo
-        <!--     <img th:src="@{/static/img/shopeefoodvn.png}" alt="ShopBaeFood"> -->
-              </a></span></div>
-            <div class="select-local col-auto">
-              <div class="dropdown">
-				  <select th:if="${listAddress }" class="dropdown-address" name="dropdown-address"  th:value="${session.address}">
-				  		<option th:if= "${session.address}"  th:value="${session.address}">[[${session.address}]]</option>
-				  		<th:block th:each ="address : ${listAddress }">
-				  				<option th:value="${address}">[[${address}]]</option>
-				  		</th:block>
-  				</select>
-              </div>
-
-            </div>
-
-            <div class="main-nav col" th:if= "${categories}">
-            		<th:block th:each = "categoryItem: ${categories}">
-            				<a th:classappend="${categoryItem == category}? 'active'" class="nav-item" th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
-            		</th:block>
-              </div>
-              <div class="main-nav col" >
-            			<span th:if= "${carts}" style="color: #f56043; font-size: 25px;">Giỏ hàng</span>
-            			<span th:if= "${route == 'user-update-info'}" style="color: #f56043; font-size: 25px;">Thông tin người dùng</span>
-            			<span th:if= "${route == 'user-info'}" style="color: #f56043; font-size: 25px;">Thông tin người dùng</span>
-              </div>
-
-            <div class="user-acc col-auto user-acc-wr" th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
-              <div th:if="${message == 'chua dang nhap'}">
-                <a th:href="@{/login}">
-                  <button type="button" class="btn btn-none-bg btn-login">
-                    <span class="font14">Đăng nhập</span>
-                  </button>
-                </a>
-              </div>
-              
-              <div th:unless= "${message == 'chua dang nhap'}">
-
-                <div class="user-acc-contain">
-                  <img class="user-acc-img" th:src="@{'/image/'+${session.avatar}}" alt="">
-                  <span id="username" th:text="${session.username}"></span>
-                  	<input id="userId" th:value="${session.userId}" style="display:none;">
-              <!--     <span th:text="${session.userId}"></span> -->
-                  <div class="user-acc-dropdown">
-                    <div th:if="${role == 'merchant'}">
-                      <a class="user-acc-admin" th:href="@{/merchant}"><i class="fa-solid fa-store"></i> Kênh người bán</a>
-                   
-                    </div>
-					<div th:unless="${role == 'merchant'}">
-                      <a class="user-acc-admin" th:href="@{/register/merchant}"><i class="fa-solid fa-user-plus"></i>
-                        Đăng ký người bán</a>
-                      <a class="user-acc-admin" th:href="@{/home/user-info}"><i class="fa-solid fa-address-card"></i> Trang
-                        cá nhân</a>
-                    </div>
-                    <div th:if="${role == 'admin'}">
-                      <a class="user-acc-admin" th:href="@{/admin/merchant-list/ACTIVE/1}"> <i class="fa-solid fa-lock"></i> Kênh admin</a>
-                    </div>
-                    <hr>
-                    <a th:href= "@{/logout}"><i class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-        
-          <div th:if="${role == 'user'}"  >
-          		<a class="nav-bar-cart"  th:href="@{/user/cart}">
-             		 <i class="fa-solid fa-cart-shopping"></i>
-                 </a>
-                    <div class="cart-detail">
-                      <span class="cart-detail-span">Sản phẩm trong giỏ hàng</span>
-                      <div>
-                      </div>
-                      <img class="nocart-img" src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png" alt="">
-                    
-                        <div class="cart-detai-item-container">
-                          <div class="cart-detai-item">
-                            <img src=" " alt="">
-                            <span class="cart-detai-item-span">{{product.product.name}}</span>
-                            <span>{{product.product.newPrice}} đ</span>
-                          </div>
-                        </div>
-                      <div class="cart-detail-btn">
-                        <span>Tổng: {{carts.length}} sản phẩm</span>
-                        <button class="btn btn-cart" >Xem giỏ hàng</button>
-                      </div>
-                    </div>
-       
-                </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade modal-search" id="modal-search" tabindex="-1" role="dialog" aria-hidden="true">style="display:none"    <div class="modal-dialog" role="document">
-          <div class="modal-content"><span class="close" data-dismiss="modal">x</span>
-            <div class="modal-search-form"><span class="sub-title">Đặt Đồ ăn, giao hàng từ 20'... có
-                                    37422 địa điểm ở Hà Nội từ 00:00 - 23:59</span>
-              <form><input class="search-input" name="search-input" type="text" autocomplete="off"
-                           value=""></form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade modal-new-app" id="modal-new-app" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content"><span class="close" data-dismiss="modal">x</span>
-            <div class="img-now"><img
-              src="#"
-              alt="App now"></div>
-            <div class="info-now"><span>
-                                    <span style="font-size: 36px;font-weight: lighter;margin-bottom: 0">Hello you!</span>
-                                    <span style="font-size: 15px;margin-top: 9px;margin-bottom: 9px;">We are pleased to
-                                        inform you that our application<span class="bold"> ShopeeFood</span> is changed
-                                        its name to</span><span class="btn btn-red font18" title="ShopeeFood"
-                                                             style="cursor: pointer;font-size: 18px !important;background-color: #cf2127;color: #fff;border-color: #cf2127;"><span
-              class="txt-bold"
-              style="font-weight: 700 !important;">ShopBeaFood</span></span>
-                                </span>
-              <p class="update-version">Cập nhật phiên bản mới</p>
-              <div class="down-apps"><a target="_blank" rel="noopener noreferrer"
-                                        href="https://itunes.apple.com/us/app/deliverynow/id1137866760" class="down-app"
-                                        title="App Store"><span class="icon icon-app-store-sm"></span></a><a
-                target="_blank" rel="noopener noreferrer"
-                href="https://play.google.com/store/apps/details?id=com.deliverynow"
-                class="down-app" title="Google play"><span
-                class="icon icon-gg-play-sm"></span></a></div>
-            </div>
-            <div class="box-now-merchant clearfix">
-              <div class="img-merchant">
-                <div class="float-left mar-right10"><span class="icon icon-merchant-lg"></span>
-                </div>
-                <div class="float-left"><a target="_blank" rel="noopener noreferrer"
-                                           href="https://itunes.apple.com/US/app/id1296706589?mt=8" class="down-apps"
-                                           title="App Store"><span class="icon icon-app-store-sm"></span></a><a
-                  target="_blank" rel="noopener noreferrer"
-                  href="https://play.google.com/store/apps/details?id=com.sea.foody.nowmerchant&amp;amp;hl=vi"
-                  class="down-apps" title="Google play"><span
-                  class="icon icon-gg-play-sm"></span></a></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade modal-get-local" id="userLocationId" tabindex="-1" role="dialog"
-           data-backdrop="static" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content"><span class="close" data-dismiss="modal">x</span>
-            <div class="modal-header">Bạn muốn giao đến đâu?</div>
-            <div class="modal-body">
-              <div class="search-local">
-                <div class="primary-local">
-                  <div class="row align-items-center no-gutters">
-                    <div class="col-auto"><i class="icon icon-search-gray"></i></div>
-                    <div class="col"><input type="text" id="address" name="address"
-                                            placeholder="Nhập địa chỉ giao hàng" value=""></div>
-                    <div class="col-auto"><i class="icon icon-location"></i></div>
-                  </div>
-                </div>
-              </div>
-              <div class="list-local">
-                <div class="suggest-local">
-                  <div class="location-items"></div>
-                  <div class="find-map">
-                    <div class="row align-items-center no-gutters">
-                      <div class="col-auto"><i class="icon icon-thumbtack"></i></div>
-                      <div class="col pl-3"><span class="txt-blue link">Tìm trên bản đồ</span>
-                      </div>
-                      <div class="col-auto mr-3"><i class="icon-arrow-thin right"></i></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+		<div class="modal fade modal-get-local" id="userLocationId"
+			tabindex="-1" role="dialog" data-backdrop="static"
+			style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<span class="close" data-dismiss="modal">x</span>
+					<div class="modal-header">Bạn muốn giao đến đâu?</div>
+					<div class="modal-body">
+						<div class="search-local">
+							<div class="primary-local">
+								<div class="row align-items-center no-gutters">
+									<div class="col-auto">
+										<i class="icon icon-search-gray"></i>
+									</div>
+									<div class="col">
+										<input type="text" id="address" name="address"
+											placeholder="Nhập địa chỉ giao hàng" value="">
+									</div>
+									<div class="col-auto">
+										<i class="icon icon-location"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="list-local">
+							<div class="suggest-local">
+								<div class="location-items"></div>
+								<div class="find-map">
+									<div class="row align-items-center no-gutters">
+										<div class="col-auto">
+											<i class="icon icon-thumbtack"></i>
+										</div>
+										<div class="col pl-3">
+											<span class="txt-blue link">Tìm trên bản đồ</span>
+										</div>
+										<div class="col-auto mr-3">
+											<i class="icon-arrow-thin right"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</header>
 
 	<div th:fragment="header">
@@ -1384,10 +1584,11 @@
 						</div>
 
 						<div class="main-nav col">
-							<span th:text ="${navTitle}">Kênh Admin</span>
+							<span th:text="${navTitle}">Kênh Admin</span>
 						</div>
 
-						<div class="user-acc col-auto user-acc-wr" th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
+						<div class="user-acc col-auto user-acc-wr"
+							th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
 							<div th:if="${message == 'chua dang nhap'}">
 								<a href="/login">
 									<button type="button" class="btn btn-none-bg btn-login">
@@ -1398,9 +1599,11 @@
 							<div th:unless="${message == 'chua dang nhap'}">
 
 								<div class="user-acc-contain">
-									<img class="user-acc-img" th:src="@{'/image/'+${session.avatar}}" alt=""> <span id="username"
-										th:text="${session.username}"></span>
-										<input id="userId" th:value="${session.userId}" style="display:none;">
+									<img class="user-acc-img"
+										th:src="@{'/image/'+${session.avatar}}" alt=""> <span
+										id="username" th:text="${session.username}"></span> <input
+										id="userId" th:value="${session.userId}"
+										style="display: none;">
 									<div class="user-acc-dropdown">
 
 										<div th:if="${role == 'merchant'}">
@@ -1417,7 +1620,8 @@
 										</div>
 
 										<div th:if="${role == 'admin'}">
-											<a class="user-acc-admin" th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
+											<a class="user-acc-admin"
+												th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
 												class="fa-solid fa-lock"></i> Kênh admin
 											</a>
 										</div>
@@ -1430,21 +1634,19 @@
 							</div>
 
 						</div>
-						
+
 						<div th:if="${role == 'user'}">
 							<div class="nav-bar-cart">
 								<i class="fa-solid fa-cart-shopping"></i>
 
 								<div class="cart-detail">
-									<span class="cart-detail-span">Sản phẩm trong giỏ hàng</span>
-							
-									 <img class="nocart-img"
+									<span class="cart-detail-span">Sản phẩm trong giỏ hàng</span> <img
+										class="nocart-img"
 										src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png"
 										alt="">
 									<div class="cart-detai-item-container">
-										<div class="cart-detai-item" >
-											<img src=" " alt=""> <span
-												class="cart-detai-item-span">{{product.product.name}}</span>
+										<div class="cart-detai-item">
+											<img src=" " alt=""> <span class="cart-detai-item-span">{{product.product.name}}</span>
 											<span>{{product.product.newPrice}} đ</span>
 										</div>
 									</div>
@@ -1488,13 +1690,13 @@
 							<img src="#" alt="App now">
 						</div>
 						<div class="info-now">
-							<span>
-								<span style="font-size: 36px; font-weight: lighter; margin-bottom: 0;">Hello
-									you!</span>
-								<span style="font-size: 15px; margin-top: 9px; margin-bottom: 9px;">
+							<span> <span
+								style="font-size: 36px; font-weight: lighter; margin-bottom: 0;">Hello
+									you!</span> <span
+								style="font-size: 15px; margin-top: 9px; margin-bottom: 9px;">
 									We are pleased to inform you that our application<span
-										class="bold"> ShopeeFood</span> is changed its name to
-								</span> <span class="btn btn-red font18" title="ShopeeFood"
+									class="bold"> ShopeeFood</span> is changed its name to
+							</span> <span class="btn btn-red font18" title="ShopeeFood"
 								style="cursor: pointer; font-size: 18px !important; background-color: #cf2127; color: #fff; border-color: #cf2127;"><span
 									class="txt-bold" style="font-weight: 700 !important;">ShopBeaFood</span></span>
 							</span>
@@ -1583,94 +1785,81 @@
 
 
 	<div th:fragment="footer">
-		
+
 		<div class="now-container-coporation container">
 			<p class="seo-footer-link__head">Danh mục</p>
 			<div class="seo-footer-link__body row">
 				<div class="seo-footer-link__item col-6 col-lg-3">
-					<a>
-						<span class="seo-footer-link__title">Thuốc</span>
+					<a> <span class="seo-footer-link__title">Thuốc</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper">
-					<li><a class="seo-footer-link__sub-item">Hoá mỹ phẩm</a></li>
-					<li><a class="seo-footer-link__sub-item">BCS</a></li>
-					<li><a class="seo-footer-link__sub-item">Thiết bị</a></li>
-					<li><a class="seo-footer-link__sub-item">Thuốc tây</a></li>
-					<li><a class="seo-footer-link__sub-item">Khẩu trang</a></li>
-					<li><a class="seo-footer-link__sub-item">Khẩn cấp</a></li>
+						<li><a class="seo-footer-link__sub-item">Hoá mỹ phẩm</a></li>
+						<li><a class="seo-footer-link__sub-item">BCS</a></li>
+						<li><a class="seo-footer-link__sub-item">Thiết bị</a></li>
+						<li><a class="seo-footer-link__sub-item">Thuốc tây</a></li>
+						<li><a class="seo-footer-link__sub-item">Khẩu trang</a></li>
+						<li><a class="seo-footer-link__sub-item">Khẩn cấp</a></li>
 					</ul>
 				</div>
 				<div class="seo-footer-link__item col-6 col-lg-3">
-					<a href="#">
-						<span class="seo-footer-link__title">Thú cưng</span>
+					<a href="#"> <span class="seo-footer-link__title">Thú
+							cưng</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper">
-					<li><a class="seo-footer-link__sub-item">Thú cưng</a></li>
+						<li><a class="seo-footer-link__sub-item">Thú cưng</a></li>
 					</ul>
 				</div>
 				<div class="seo-footer-link__item col-6 col-lg-3">
-					<a href="#">
-						<span class="seo-footer-link__title">Đồ ăn HN</span>
+					<a href="#"> <span class="seo-footer-link__title">Đồ ăn
+							HN</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper">
-						<li><a href="#" class="seo-footer-link__sub-item">Đồ ăn HN</a></li>
+						<li><a href="#" class="seo-footer-link__sub-item">Đồ ăn
+								HN</a></li>
 					</ul>
 				</div>
 				<div class="seo-footer-link__item col-6 col-lg-3">
-					<a href="#">
-						<span class="seo-footer-link__title">Đặt bàn HN</span>
+					<a href="#"> <span class="seo-footer-link__title">Đặt
+							bàn HN</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper"></ul>
 				</div>
 				<div class="seo-footer-link__item col-6 col-lg-3">
-					<a href="#">
-						<span class="seo-footer-link__title">Thực phẩm HN</span>
+					<a href="#"> <span class="seo-footer-link__title">Thực
+							phẩm HN</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper"></ul>
 				</div>
 				<div class="seo-footer-link__item col-6 col-lg-3">
-					<a href="#">
-						<span class="seo-footer-link__title">Sản phẩm HN</span>
+					<a href="#"> <span class="seo-footer-link__title">Sản
+							phẩm HN</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper"></ul>
 				</div>
 				<div class="seo-footer-link__item col-6 col-lg-3">
-					<a href="#">
-						<span class="seo-footer-link__title">Sản phẩm</span>
+					<a href="#"> <span class="seo-footer-link__title">Sản
+							phẩm</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper">
-					<li>
-						<a href="#" class="seo-footer-link__sub-item">Mỹ phẩm</a>
-					</li>
-					<li>
-						<a href="#" class="seo-footer-link__sub-item">Đồ chơi</a>
-					</li>
-					<li>
-						<a href="#" class="seo-footer-link__sub-item">Sữa</a>
-					</li>
-					<li>
-						<a href="#" class="seo-footer-link__sub-item">Tã bỉm</a>
-					</li>
-					<li>
-						<a href="#" class="seo-footer-link__sub-item">Dụng cụ</a>
-					</li>
-					<li>
-						<a href="#" class="seo-footer-link__sub-item">Quần áo</a>
-					</li>	
-					<li>
-						<a class="seo-footer-link__sub-item">Giày dép</a>
-					</li>	
-					<li>
-						<a class="seo-footer-link__sub-item">Điện tử</a>
-					</li>
-					<li>
-						<a class="seo-footer-link__sub-item">Trang sức</a>
-					</li>
+						<li><a href="#" class="seo-footer-link__sub-item">Mỹ phẩm</a>
+						</li>
+						<li><a href="#" class="seo-footer-link__sub-item">Đồ chơi</a>
+						</li>
+						<li><a href="#" class="seo-footer-link__sub-item">Sữa</a></li>
+						<li><a href="#" class="seo-footer-link__sub-item">Tã bỉm</a>
+						</li>
+						<li><a href="#" class="seo-footer-link__sub-item">Dụng cụ</a>
+						</li>
+						<li><a href="#" class="seo-footer-link__sub-item">Quần áo</a>
+						</li>
+						<li><a class="seo-footer-link__sub-item">Giày dép</a></li>
+						<li><a class="seo-footer-link__sub-item">Điện tử</a></li>
+						<li><a class="seo-footer-link__sub-item">Trang sức</a></li>
 					</ul>
 				</div>
 				<div class="seo-footer-link__item col-6 col-lg-3">
-					<a href="https://shopeefood.vn/ha-noi/flowers">
-						<span class="seo-footer-link__title">Hoa</span>
+					<a href="https://shopeefood.vn/ha-noi/flowers"> <span
+						class="seo-footer-link__title">Hoa</span>
 					</a>
 					<ul class="seo-footer-link__sub-item-wrapper">
 						<li><a class="seo-footer-link__sub-item">Chia buồn</a></li>
@@ -1687,21 +1876,18 @@
 
 				<div class="block-last col-12 mb-5">
 					<p class="title-block">Địa chỉ công ty</p>
-					<span>
-						<span>Công Ty Cổ Phần...</span>
-						<span>Cầu Giấy, Hà Nội</span>
-						<span>do Sở Kế hoạch và Đầu tư TP.HCM cấp ngày 11/6/2012,</span>
-						<span>sửa đổi lần thứ 23, ngày 10/12/2020</span>
-						<span>Số điện thoại: 1900 1234</span>
-						<span>
-							Email: <a href="mailto:support@demo.vn"> support@demo.vn</a>
-						</span>
+					<span> <span>Công Ty Cổ Phần...</span> <span>Cầu
+							Giấy, Hà Nội</span> <span>do Sở Kế hoạch và Đầu tư TP.HCM cấp
+							ngày 11/6/2012,</span> <span>sửa đổi lần thứ 23, ngày 10/12/2020</span>
+						<span>Số điện thoại: 1900 1234</span> <span> Email: <a
+							href="mailto:support@demo.vn"> support@demo.vn</a>
+					</span>
 					</span>
 				</div>
 			</div>
 		</div>
 
-	
+
 	</div>
 </body>
 </html>

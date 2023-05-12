@@ -230,12 +230,12 @@ public class AuthenServiceImpl implements IAuthenService {
                 account.setOtp(null);
                 account.setFirstLogin(false);
                 accountRepository.update(account);
+
                 return true;
             }
         }
 
         return false;
-
     }
 
     @Override

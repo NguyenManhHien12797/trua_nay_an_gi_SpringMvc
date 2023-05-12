@@ -146,7 +146,7 @@ sup {
 
 a {
   color: #0288d1;
-  text-decoration: none;
+  text-decoration: none !important;
   background-color: transparent;
   -webkit-text-decoration-skip: objects
 }
@@ -11073,8 +11073,8 @@ button.close {
 
 .opentime-status-icon {
   position: absolute;
-  top: -2px;
-  left: -18px;
+  top: 0;
+  left: -26px;
   width: 20px;
   z-index: 1
 }
@@ -11085,6 +11085,7 @@ button.close {
   top: -1px;
   left: -1px;
   right: -1px;
+  width: 15px;
   bottom: -1px;
   background-color: #fff;
   border-radius: 50%;
