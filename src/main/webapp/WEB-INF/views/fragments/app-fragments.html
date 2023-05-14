@@ -1251,202 +1251,95 @@
 	<header th:fragment="home-header">
 
 		<div class="container-header">
-			<div class="container">
-				<!-- 		<div
-					class="header-content navbar row  justify-content-between align-items-center"> -->
-				<!-- 				<div class="logo-now col-auto">
-						<span><a th:href="@{/home}">Logo     <img th:src="@{/static/img/shopeefoodvn.png}" alt="ShopBaeFood">
-						</a></span>
-					</div>
-					<div class="select-local col-auto">
-						<div class="dropdown">
-							<select th:if="${listAddress }" class="dropdown-address"
-								name="dropdown-address" th:value="${session.address}">
-								<option th:if="${session.address}" th:value="${session.address}">[[${session.address}]]</option>
-								<th:block th:each="address : ${listAddress }">
-									<option th:value="${address}">[[${address}]]</option>
-								</th:block>
-							</select>
-						</div>
-
-					</div>
-
-					<div class="main-nav col" th:if="${categories}">
-						<th:block th:each="categoryItem: ${categories}">
-							<a th:classappend="${categoryItem == category}? 'active'"
-								class="nav-item" th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
-						</th:block>
-					</div>
-					<div class="main-nav col">
-						<span th:if="${carts}" style="color: #f56043; font-size: 25px;">Giỏ
-							hàng</span> <span th:if="${route == 'user-update-info'}"
-							style="color: #f56043; font-size: 25px;">Thông tin người
-							dùng</span> <span th:if="${route == 'user-info'}"
-							style="color: #f56043; font-size: 25px;">Thông tin người
-							dùng</span>
-					</div>
-
-					<div class="user-acc col-auto user-acc-wr"
-						th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
-						<div th:if="${message == 'chua dang nhap'}">
-							<a th:href="@{/login}">
-								<button type="button" class="btn btn-none-bg btn-login">
-									<span class="font14">Đăng nhập</span>
-								</button>
-							</a>
-						</div>
-
-						<div th:unless="${message == 'chua dang nhap'}">
-
-							<div class="user-acc-contain">
-								<img class="user-acc-img"
-									th:src="@{'/image/'+${session.avatar}}" alt=""> <span
-									id="username" th:text="${session.username}"></span> <input
-									id="userId" th:value="${session.userId}" style="display: none;">
-								    <span th:text="${session.userId}"></span>
-								<div class="user-acc-dropdown">
-									<div th:if="${role == 'merchant'}">
-										<a class="user-acc-admin" th:href="@{/merchant}"><i
-											class="fa-solid fa-store"></i> Kênh người bán</a>
-
-									</div>
-									<div th:unless="${role == 'merchant'}">
-										<a class="user-acc-admin" th:href="@{/register/merchant}"><i
-											class="fa-solid fa-user-plus"></i> Đăng ký người bán</a> <a
-											class="user-acc-admin" th:href="@{/home/user-info}"><i
-											class="fa-solid fa-address-card"></i> Trang cá nhân</a>
-									</div>
-									<div th:if="${role == 'admin'}">
-										<a class="user-acc-admin"
-											th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
-											class="fa-solid fa-lock"></i> Kênh admin
-										</a>
-									</div>
-									<hr>
-									<a th:href="@{/logout}"><i
-										class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div th:if="${role == 'user'}" class="col-auto">
-						<a class="nav-bar-cart position-relative" th:href="@{/user/cart}">
-							<i class="fa-solid fa-cart-shopping"></i>
-						</a>
-						<div class="cart-detail">
-							<span class="cart-detail-span">Sản phẩm trong giỏ hàng</span>
-							<div></div>
-							<img class="nocart-img"
-								src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png"
-								alt="">
-
-							<div class="cart-detai-item-container">
-								<div class="cart-detai-item">
-									<img src=" " alt=""> <span class="cart-detai-item-span">{{product.product.name}}</span>
-									<span>{{product.product.newPrice}} đ</span>
-								</div>
-							</div>
-							<div class="cart-detail-btn">
-								<span>Tổng: {{carts.length}} sản phẩm</span>
-								<button class="btn btn-cart">Xem giỏ hàng</button>
-							</div>
-						</div>
-
-					</div> -->
-				<!-- </div> -->
-
+			<div class="container-xl container-md">
 				<nav
-					class="header-content navbar navbar-expand-sm row  justify-content-between align-items-center">
+					class="header-content navbar navbar-expand-md row  justify-content-between align-items-center">
 					<div class="container-fluid">
 						<a class="navbar-brand" th:href="@{/home}">Logo</a>
-						<button class="navbar-toggler" type="button"
+						<th:block  th:if="${carts}">
+									<span style="color: #f56043; font-size: 25px;">Giỏ
+										hàng</span> <span th:if="${route == 'user-update-info'}"
+																			style="color: #f56043; font-size: 25px;">Thông tin
+										người dùng</span> <span th:if="${route == 'user-info'}"
+																						style="color: #f56043; font-size: 25px;">Thông tin
+										người dùng</span>
+						</th:block>
+
+						<button class="navbar-toggler" th:classappend="${carts} ? 'd-none'" type="button"
 							data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
 							<span class="navbar-toggler-icon"></span>
 						</button>
-						<div class="collapse navbar-collapse" id="collapsibleNavbar">
-							<div class="navbar-nav bg-white shadow p-3">
-								<div class="nav-item col-auto">
+						<div class="collapse navbar-collapse row mt-3" id="collapsibleNavbar">
+							<div class="navbar-nav bg-white ">
+								<div class="nav-item col-auto pb-2 pl-4">
 									<div class="dropdown">
 										<select th:if="${listAddress }" class="dropdown-address"
-											name="dropdown-address" th:value="${session.address}">
+														name="dropdown-address" th:value="${session.address}">
 											<option th:if="${session.address}"
-												th:value="${session.address}">[[${session.address}]]</option>
+															th:value="${session.address}">[[${session.address}]]</option>
 											<th:block th:each="address : ${listAddress }">
 												<option th:value="${address}">[[${address}]]</option>
 											</th:block>
 										</select>
 									</div>
-
 								</div>
-
-								<!-- <div class=" main-nav col " > -->
-									<th:block th:if="${categories}" th:each="categoryItem: ${categories}">
-										<a th:classappend="${categoryItem == category}? 'active'"
-											class="nav-item main-nav col " th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
-									</th:block>
-								<!-- </div> -->
-								<div class="nav-item main-nav col">
-									<span th:if="${carts}" style="color: #f56043; font-size: 25px;">Giỏ
-										hàng</span> <span th:if="${route == 'user-update-info'}"
-										style="color: #f56043; font-size: 25px;">Thông tin
-										người dùng</span> <span th:if="${route == 'user-info'}"
-										style="color: #f56043; font-size: 25px;">Thông tin
-										người dùng</span>
+								<div class="nav-item main-nav pl-md-4 pl-xl-5 pl-4" th:if="${categories}" th:each="categoryItem: ${categories}">
+									<a th:classappend="${categoryItem == category}? 'active'" th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
 								</div>
+								<div class="acc-cart d-flex col-6 col-xl-6 col-md-6 justify-content-end">
+									<div class="nav-item user-acc user-acc-wr"
+											 th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
+										<th:block th:if="${message == 'chua dang nhap'}">
+											<a th:href="@{/login}">
+												<button type="button" class="btn btn-none-bg btn-login">
+													<span class="font14">Đăng nhập</span>
+												</button>
+											</a>
+										</th:block>
 
-								<div class="nav-item user-acc col-auto user-acc-wr"
-									th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
-									<div th:if="${message == 'chua dang nhap'}">
-										<a th:href="@{/login}">
-											<button type="button" class="btn btn-none-bg btn-login">
-												<span class="font14">Đăng nhập</span>
-											</button>
-										</a>
-									</div>
+										<div th:unless="${message == 'chua dang nhap'}">
 
-									<div th:unless="${message == 'chua dang nhap'}">
+											<div class="user-acc-contain">
+												<img class="user-acc-img"
+														 th:src="@{'/image/'+${session.avatar}}" alt=""> <span
+													id="username" th:text="${session.username}"></span> <input
+													id="userId" th:value="${session.userId}"
+													style="display: none;">
+												<!--     <span th:text="${session.userId}"></span> -->
+												<div class="user-acc-dropdown">
+													<div th:if="${role == 'merchant'}">
+														<a class="user-acc-admin" th:href="@{/merchant}"><i
+																class="fa-solid fa-store"></i> Kênh người bán</a>
 
-										<div class="user-acc-contain">
-											<img class="user-acc-img"
-												th:src="@{'/image/'+${session.avatar}}" alt=""> <span
-												id="username" th:text="${session.username}"></span> <input
-												id="userId" th:value="${session.userId}"
-												style="display: none;">
-											<!--     <span th:text="${session.userId}"></span> -->
-											<div class="user-acc-dropdown">
-												<div th:if="${role == 'merchant'}">
-													<a class="user-acc-admin" th:href="@{/merchant}"><i
-														class="fa-solid fa-store"></i> Kênh người bán</a>
-
+													</div>
+													<div th:unless="${role == 'merchant'}">
+														<a class="user-acc-admin" th:href="@{/register/merchant}"><i
+																class="fa-solid fa-user-plus"></i> Đăng ký người bán</a> <a
+															class="user-acc-admin" th:href="@{/home/user-info}"><i
+															class="fa-solid fa-address-card"></i> Trang cá nhân</a>
+													</div>
+													<div th:if="${role == 'admin'}">
+														<a class="user-acc-admin"
+															 th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
+																class="fa-solid fa-lock"></i> Kênh admin
+														</a>
+													</div>
+													<hr>
+													<a th:href="@{/logout}"><i
+															class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
 												</div>
-												<div th:unless="${role == 'merchant'}">
-													<a class="user-acc-admin" th:href="@{/register/merchant}"><i
-														class="fa-solid fa-user-plus"></i> Đăng ký người bán</a> <a
-														class="user-acc-admin" th:href="@{/home/user-info}"><i
-														class="fa-solid fa-address-card"></i> Trang cá nhân</a>
-												</div>
-												<div th:if="${role == 'admin'}">
-													<a class="user-acc-admin"
-														th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
-														class="fa-solid fa-lock"></i> Kênh admin
-													</a>
-												</div>
-												<hr>
-												<a th:href="@{/logout}"><i
-													class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
 											</div>
 										</div>
 									</div>
+
+									<div th:if="${role == 'user'}">
+										<a class="nav-bar-cart"
+											 th:href="@{/user/cart}"> <i
+												class="fa-solid fa-cart-shopping"></i>
+										</a>
+									</div>
 								</div>
 
-								<div th:if="${role == 'user'}" class="col-auto">
-									<a class="nav-bar-cart"
-										th:href="@{/user/cart}"> <i
-										class="fa-solid fa-cart-shopping"></i>
-									</a>
-
-								</div>
 							</div>
 						</div>
 					</div>
@@ -1786,7 +1679,7 @@
 
 	<div th:fragment="footer">
 
-		<div class="now-container-coporation container">
+		<div class="now-container-coporation container-xl pt-2">
 			<p class="seo-footer-link__head">Danh mục</p>
 			<div class="seo-footer-link__body row">
 				<div class="seo-footer-link__item col-6 col-lg-3">
@@ -1871,10 +1764,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="now-container-coporation container">
+		<div class="now-container-coporation container-xl">
 			<div class="container-inner row">
 
-				<div class="block-last col-12 mb-5">
+				<div class="block-last col-12 mb-5 mt-4">
 					<p class="title-block">Địa chỉ công ty</p>
 					<span> <span>Công Ty Cổ Phần...</span> <span>Cầu
 							Giấy, Hà Nội</span> <span>do Sở Kế hoạch và Đầu tư TP.HCM cấp

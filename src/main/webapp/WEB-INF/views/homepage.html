@@ -22,7 +22,7 @@
 		<div class="wrapper" th:onscroll="scrollChangePosition()">
 			<header class="main-header"
 				th:replace="~{/fragments/app-fragments :: home-header}"> </header>
-	<!-- 		<div class="now-banner ver_vi" style="position: fixed; top: 70px;">
+			<div class="now-banner ver_vi d-md-block" style="position: fixed; top: 70px;display: none;">
 				<div class="container ">
 					<div class="row">
 						<div class="now-search col-4">
@@ -61,10 +61,10 @@
 				<br>
 			</div>
 			<div class="contain-main-home clearfix">
-				<div class="container">
+				<div class="container-xl">
 					<div class="row justify-content-end">
-						<div class="col-8 col-sm-12">
-							<div class="main-right-home ">
+<!--						<div class="">-->
+							<div class="main-right-home col-12 col-xl-7 col-md-7 col-sm-12 p-0 mr-md-2">
 								<div class="user-get-local">
 									<div class="row align-items-center no-gutters pointer">
 										<div class="col-auto">
@@ -83,11 +83,11 @@
 									<div class="title-wrapper">
 										<h2 class="title">Danh sách quán</h2>
 									</div>
-									<div class="list-restaurant" id="list-restaurant-item">
+									<div class="list-restaurant row" id="list-restaurant-item">
 
-										<div class="list-restaurant-item"
+										<div class="list-restaurant-item col-6 col-xl-4"
 											th:each="merchant: ${merchants}">
-											<div class="item-restaurant">
+											<div class="item-restaurant p-0">
 												<a class="item-content"
 													th:href="@{/home/merchant-detail/__${merchant.id}__}">
 													<div class="img-restaurant">
@@ -131,13 +131,16 @@
 								<div
 									class="now-list-restaurant now-list-restaurant-row home-tab">
 									<div class="header-tab row align-items-center">
-										<div class="col">
-											<button class="item-tab active">Gần tôi</button>
-											<button class="item-tab false">Bán chạy</button>
-											<button class="item-tab false">Đánh giá</button>
-											<button class="item-tab false">Giao nhanh</button>
+										<div class="col-12 col-xl-9 col-sm-9 col-md-12">
+											<div class="row">
+												<button class="item-tab active col-3 col-sm-3">Gần tôi</button>
+												<button class="item-tab false col-3 col-sm-3">Bán chạy</button>
+												<button class="item-tab false col-3 col-sm-3">Đánh giá</button>
+												<button class="item-tab false col-3 col-sm-3">Giao nhanh</button>
+											</div>
+
 										</div>
-										<div class="col-auto">
+										<div class="col-12 col-sm-3 col-xl-3 col-md-12 mt-2">
 											<select name="districtId">
 												<option value="-1">Chọn quận/ huyện</option>
 												<option value="20">Ba Đình</option>
@@ -519,7 +522,7 @@
 								<div class="end-check-point"></div>
 							</div>
 
-						</div>
+<!--						</div>-->
 
 					</div>
 
@@ -527,23 +530,29 @@
 
 			</div>
 
-			<div class="container">
-				<div class="now-container-coporation">
-					<h4 class="title">
-						<span>Đơn hàng của bạn sẽ được bảo quản như thế nào?</span>
-					</h4>
-					<span> <span class="font15"> ShopeeBae sẽ bảo quản
+			<div class="container-xl">
+				<div class="now-container-coporation row">
+					<div class="col-sm-12 mt-4">
+						<h4 class="title">
+							<span>Đơn hàng của bạn sẽ được bảo quản như thế nào?</span>
+						</h4>
+						<span>
+							<span class="font15"> ShopeeBae sẽ bảo quản
 							đơn của bạn bằng túi &amp; thùng để chống nắng mưa, giữ nhiệt...
-							trên đường đi một cách tốt nhất. </span>
-					</span><img th:src="@{/static/img/Box-food-preservation-footer.png}"
-						alt="food preservation">
+							trên đường đi một cách tốt nhất.
+							</span>
+					</span>
+					<img class="img-fluid"  th:src="@{/static/img/Box-food-preservation-footer.png}"	alt="food preservation">
+					</div>
+
 				</div>
 
-				<div class="now-container-coporation img-right">
-					<h4 class="title">
-						<span>Ứng dụng ShopeeBae</span>
-					</h4>
-					<span> <span class="font14">- <b>Ứng dụng
+				<div class="now-container-coporation mt-5 row">
+					<div class="col-sm-12 col-lg-8 col-xl-8 col-md-6 mt-4">
+						<h4 class="title">
+							<span>Ứng dụng ShopeeBae</span>
+						</h4>
+						<span> <span class="font14">- <b>Ứng dụng
 								ShopeeBae</b> là ứng dụng quản lý đơn hàng cho các nhà hàng đối tác
 							của dịch vụ đặt món tận nơi
 					</span> <span class="font14"> - <b>ShopBaeFood.vn</b> luôn sẵn sàng
@@ -551,48 +560,52 @@
 							cũng như gia tăng khách hàng. Hãy kết nối vào hệ thống đặt và
 							giao hàng để giảm bớt chi phí quản lý, vận hành, marketing, công
 							nghệ... <br> Đăng ký tham gia: <b><a
-								th:href="@{register/merchant}" target="_blank">tại đây</a></b>
+									th:href="@{register/merchant}" target="_blank">tại đây</a></b>
 					</span>
 					</span>
-					<div class="bg-corporation">
-						<img th:src="@{/static/img/banner-phone-reg-merchant.png}"
-							alt="NowMerchant App" title="NowMerchant App" width="294px">
 					</div>
+					<div class="bg-corporation col-sm-12 col-lg-4 col-xl-4 col-md-6">
+						<img class="img-fluid" th:src="@{/static/img/banner-phone-reg-merchant.png}"
+								 alt="NowMerchant App" title="NowMerchant App" width="294px">
+					</div>
+
 				</div>
-				<div class="now-container-coporation img-right">
-					<h4 class="title">
-						<a href="/tuyen-dung"><span><span
-								style="color: #EE4D2D; font-weight: bold;">ShopBaeFood.vn</span>
+				<div class="now-container-coporation mt-5 row">
+					<div class="col-sm-12 col-lg-8 col-xl-8 col-md-6 mt-4">
+						<h4 class="title">
+							<a href="/tuyen-dung"><span><span
+									style="color: #EE4D2D; font-weight: bold;">ShopBaeFood.vn</span>
 								Hợp tác nhân viên giao nhận - ShopeeFood Driver</span></a>
-					</h4>
-					<span> <span class="font15">Giúp bạn tăng thu nhập
+						</h4>
+						<span> <span class="font15">Giúp bạn tăng thu nhập
 							trong thời gian rảnh rỗi</span> <span><span
-							style="color: #EE4D2D; font-weight: bold;">ShopBaeFood</span> tìm
+								style="color: #EE4D2D; font-weight: bold;">ShopBaeFood</span> tìm
 							kiếm hợp tác với các cá nhân để thực hiện việc giao hàng, chúng
 							tôi sẽ cung cấp ứng dụng (app), 1 số dụng cụ cần thiết để bạn có
 							thể tiếp nhận &amp; giao hàng, kiếm thêm thu nhập <br>Đăng
 							ký tham gia <a href="https://shopbaefood.vn/tuyen-dung"
-							style="color: #4D77A2; font-weight: bold">tại đây</a> hoặc gửi
+														 style="color: #4D77A2; font-weight: bold">tại đây</a> hoặc gửi
 							Email qua <a href="mailto:tuyendung@demo.vn"
-							style="color: #4D77A2; font-weight: bold">tuyendung@demo.vn</a> -
+													 style="color: #4D77A2; font-weight: bold">tuyendung@demo.vn</a> -
 							hoặc gọi qua số điện thoại (028) 0123.456.789. </span>
 					</span>
-					<div class="bg-corporation">
-						<img
-							th:src="@{/static/img/bg-deliverynow-dat-mon-truc-tuyen-giao-hang-tan-noi.png}"
-							class="bg-deliverynow"
-							alt="bg-deliverynow-dat-mon-truc-tuyen-giao-hang-tan-noi"
-							title="bg-deliverynow-dat-mon-truc-tuyen-giao-hang-tan-noi"
-							width="170px" data-change-lang="" style="width: 170px;">
+
 					</div>
+					<div class="bg-corporation col-sm-12 col-lg-4 col-xl-4 col-md-6">
+						<img
+								th:src="@{/static/img/bg-deliverynow-dat-mon-truc-tuyen-giao-hang-tan-noi.png}"
+								class="bg-deliverynow img-fluid">
+					</div>
+
 				</div>
 
 			</div>
- -->
+
 		</div>
 
 		<footer class="main-footer"
-			th:replace="~{/fragments/app-fragments :: footer}"> </footer>
+			th:replace="~{/fragments/app-fragments :: footer}">
+		</footer>
 	</div>
 
 	<script
