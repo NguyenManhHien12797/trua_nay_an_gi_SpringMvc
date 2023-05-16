@@ -979,8 +979,8 @@
 
 	<!--  Merchant-Fragment -->
 
-	<div th:fragment="user-info" class="now-container-coporation">
-
+	<div th:fragment="user-info" class="now-container-coporation container-xl">
+		<div class="row justify-content-center">
 		<div class="title title-strong">Tài Khoản</div>
 
 		<div class="desc">Thay đổi thiết lập cơ bản</div>
@@ -1092,11 +1092,13 @@
 </svg> Sửa</span>
 			</a>
 		</div>
+		
+		</div>
 
 
 	</div>
 
-	<div th:fragment="user-update-info" class="now-container-coporation">
+	<div th:fragment="user-update-info" class="now-container-coporation container-xl">
 
 
 		<form th:action="@{/user/user-info}" th:object="${account}"
@@ -1251,17 +1253,18 @@
 	<header th:fragment="home-header">
 
 		<div class="container-header">
-			<div class="container-xl container-md">
+			<div class="container-xl container-fluid-md">
 				<nav
 					class="header-content navbar navbar-expand-md row  justify-content-between align-items-center">
 					<div class="container-fluid">
 						<a class="navbar-brand" th:href="@{/home}">Logo</a>
 						<th:block  th:if="${carts}">
-									<span style="color: #f56043; font-size: 25px;">Giỏ
-										hàng</span> <span th:if="${route == 'user-update-info'}"
+									<span class="mr-4" style="color: #f56043; font-size: 25px;">Giỏ
+										hàng</span> 
+									<span class="mr-4" th:if="${route == 'user-update-info'}"
 																			style="color: #f56043; font-size: 25px;">Thông tin
-										người dùng</span> <span th:if="${route == 'user-info'}"
-																						style="color: #f56043; font-size: 25px;">Thông tin
+										người dùng</span> 
+									<span class="mr-4" th:if="${route == 'user-info'}" style="color: #f56043; font-size: 25px;">Thông tin
 										người dùng</span>
 						</th:block>
 
@@ -1270,8 +1273,9 @@
 							<span class="navbar-toggler-icon"></span>
 						</button>
 						<div class="collapse navbar-collapse row mt-3" id="collapsibleNavbar">
-							<div class="navbar-nav bg-white ">
-								<div class="nav-item col-auto pb-2 pl-4">
+							<div class="navbar-nav bg-white justify-content-between pr-0">
+								<div class="d-flex nav-item-wrap pb-3 pb-md-0 text-end pt-3 pr-4 pr-md-0 pt-md-0 jutify-content-end">
+									<div class="nav-item col-auto pb-2 pl-4 pr-0">
 									<div class="dropdown">
 										<select th:if="${listAddress }" class="dropdown-address"
 														name="dropdown-address" th:value="${session.address}">
@@ -1286,7 +1290,9 @@
 								<div class="nav-item main-nav pl-md-4 pl-xl-5 pl-4" th:if="${categories}" th:each="categoryItem: ${categories}">
 									<a th:classappend="${categoryItem == category}? 'active'" th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
 								</div>
-								<div class="acc-cart d-flex col-6 col-xl-6 col-md-6 justify-content-end">
+								
+								</div>
+								<div class="acc-cart d-flex pl-md-2 pl-xl-2 pl-2 pt-4 pt-md-0 justify-content-end pb-4 pb-md-0">
 									<div class="nav-item user-acc user-acc-wr"
 											 th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
 										<th:block th:if="${message == 'chua dang nhap'}">
@@ -1299,11 +1305,11 @@
 
 										<div th:unless="${message == 'chua dang nhap'}">
 
-											<div class="user-acc-contain">
-												<img class="user-acc-img"
-														 th:src="@{'/image/'+${session.avatar}}" alt=""> <span
-													id="username" th:text="${session.username}"></span> <input
-													id="userId" th:value="${session.userId}"
+											<div class="user-acc-contain d-flex">
+												<img class="user-acc-img d-block"
+														 th:src="@{'/image/'+${session.avatar}}" alt=""> 
+												<span id="username" th:text="${session.username}"></span> 
+												<input id="userId" th:value="${session.userId}"
 													style="display: none;">
 												<!--     <span th:text="${session.userId}"></span> -->
 												<div class="user-acc-dropdown">
