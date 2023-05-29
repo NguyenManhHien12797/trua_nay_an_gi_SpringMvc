@@ -80,6 +80,24 @@ body {
 	position: absolute;
 	background-color: #3b707e;
 }
+#loading {
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0.7;
+	background-color: #fff;
+	z-index: 99;
+}
+
+#loading-image {
+	z-index: 100;
+}
+
 
 [tabindex="-1"]:focus {
 	outline: 0 !important
@@ -17388,7 +17406,8 @@ to {
 	width: 600px;
 	margin: auto;
 	clear: both;
-	padding: 30px 0
+	padding: 30px 0;
+	background-color: #fff;
 }
 
 .now-login .content {
@@ -23502,3 +23521,16 @@ input.required-data, select.required-data {
 	color: white;
 	border: 2px solid white;
 }
+  .font15 {
+    font-size: 15px;
+  }
+
+  .font14 {
+    font-size: 14px;
+  }  .font15 {
+    font-size: 15px;
+  }
+
+  .font14 {
+    font-size: 14px;
+  }
