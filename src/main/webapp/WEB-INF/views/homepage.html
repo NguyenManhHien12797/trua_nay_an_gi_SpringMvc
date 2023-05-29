@@ -2,17 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Homepage</title>
-<script>
-	window.addEventListener("beforeunload", (event) => {
-		const loading = document.getElementById("loading");
-		loading.style.display = "flex";
-	});
-	document.addEventListener("DOMContentLoaded", () => {
-		const loading = document.getElementById("loading");
-		loading.style.display = "none";
-	});
-   
-</script>
+
 </head>
 <head th:replace="~{/fragments/head :: head}">
 </head>

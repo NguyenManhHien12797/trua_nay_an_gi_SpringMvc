@@ -8,6 +8,9 @@
 </head>
 
 <body class="portal" style="font-size: calc(8px + 0.5vw);">
+<div id="loading" style="display: none;">
+	<p id="loading-image"><img th:src="@{/static/img/loading.gif}" alt=""></p>
+</div>
 	<div id="app">
 		<div class="wrapper">
 			<header class="main-header" th:replace="~{/fragments/app-fragments :: home-header}"> 

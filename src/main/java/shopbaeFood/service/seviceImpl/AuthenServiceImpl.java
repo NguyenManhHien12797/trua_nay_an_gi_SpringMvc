@@ -170,6 +170,9 @@ public class AuthenServiceImpl implements IAuthenService {
     @Override
     public void createOtp() {
         Account account = accountService.getAccount();
+        if(account.getOtp() != null){
+            return;
+        }
         double randomDouble = Math.random();
         randomDouble = randomDouble * 1000000 + 1;
         int OTP = (int) randomDouble;
