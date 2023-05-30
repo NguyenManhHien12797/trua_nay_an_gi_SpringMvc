@@ -119,8 +119,6 @@ public class AuthenController {
         if (roleList.contains("ROLE_ADMIN")) {
             role = "admin";
         }
-        System.out.println(account.getAccountRoleMapSet().size());
-        System.out.println(account.getAccountRoleMapSet());
         AppUser user = userSevice.findById(account.getUser().getId());
         UserForm userForm = new UserForm(user.getId(), user.getName(), user.getPhone(), user.getAddress());
         model.addAttribute("user", user);

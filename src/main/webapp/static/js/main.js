@@ -5,7 +5,7 @@ $( document ).ready(function() {
         $.ajax({
             //tên API
             url:`/shopbaeFood/home/create-otp`,
-            success: function (data) {
+            success: function () {
             }
           });
     });
@@ -19,7 +19,7 @@ function changeHandler(evt) {
     const files = evt.target.files;
     const file = files[0];
     const fileReader = new FileReader();
-    fileReader.onload = function(progressEvent) {
+    fileReader.onload = function() {
         const url = fileReader.result;
        	const myImg1 = document.getElementById("myimage1");
         myImg1.src= url;
@@ -38,14 +38,14 @@ function checkotp(account_id){
         //tên API
         type: "POST",
         url:`/shopbaeFood/home/checkotp/${account_id}/${otp}`,
-        success: function (data) {
+        success: function () {
       	console.log("suss");
       	$(".mess-otp").hide();
       	 $(".create-otp").hide();
       	 $(".otp").val('');
       	$(".change-pass").show();
         },
-        error: function (data) {
+        error: function () {
             $(".mess-otp").show();
         }
       });
@@ -53,7 +53,7 @@ function checkotp(account_id){
 }
 
 const exampleModal = document.getElementById('exampleModal')
-exampleModal.addEventListener('hide.bs.modal', event => {
+exampleModal.addEventListener('hide.bs.modal', () => {
   $(".mess-otp").hide();
   $(".create-otp").show();
   $(".otp").val('');
@@ -70,14 +70,14 @@ function changePassword(account_id) {
         //tên API
         type: "POST",
         url:`/shopbaeFood/home/change-pass/${account_id}/${pass}`,
-        success: function (data) {
+        success: function () {
       	console.log("suss");
         swal("Đổi password thành công", " ","success");
       	$(".change-pass").hide();
         myModal.hide();
 
         },
-        error: function (data) {
+        error: function () {
           console.log("error");
         }
       });

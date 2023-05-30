@@ -23,10 +23,12 @@
 .img{
 	width: 100%;
 	height: fit-content;
+	transition: .3s ease;
 }
 .label-img{
 	position: relative;
 	width: 100%;
+	overflow: hidden;
 }
 .modal-add-icon{
 	font-size: 35px;
@@ -48,6 +50,16 @@
 	justify-content: center;
 	cursor: pointer;
 }
+.label-img:hover .img{
+	transform: scale(1.1);
+}
 .pass-otp{
 	min-width: 255px !important;
+}
+.modal-content{
+	position: absolute;
+    top: 180px;
+}
+.modal-title, .col-form-label{
+	font-size: 17px;
 }
