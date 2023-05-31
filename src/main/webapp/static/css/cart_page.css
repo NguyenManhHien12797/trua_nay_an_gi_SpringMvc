@@ -4,9 +4,6 @@
   background-color: #f56043 !important;
   border: #f56043 !important;
 }
-.row{
-  margin-bottom: 20px;
-}
 .bg-image{
   box-shadow: 5px 5px 5px #ddd;
 }
@@ -391,7 +388,6 @@
 }
 .cart-old-price{
 	color:red;
-	margin-left: 20px;
 	text-decoration: line-through;
 }
 

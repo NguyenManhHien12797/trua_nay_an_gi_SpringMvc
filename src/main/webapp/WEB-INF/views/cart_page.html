@@ -38,9 +38,9 @@
 											src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png" alt="">
 									</div>
 									<!-- Single item -->
-									<div class="row " th:id=" 'cart'+${cart.id}"
+									<div class="row border-bottom mb-3 pb-3" th:id=" 'cart'+${cart.id}"
 										th:each="cart : ${carts}">
-										<div class="col-lg-4 col-md-4 col-sm-4 col-4 mb-4 mb-lg-0">
+										<div class="col-lg-4 col-md-4 col-sm-4 col-4 mb-lg-0 p-0 px-sm-2">
 										<a th:href="@{/home/merchant-detail/__${cart.getProduct().getMerchant().getId()}__}"
 											class="hover-overlay hover-zoom d-block mb-3">
 											<img th:src="@{'/image/'+${cart.getProduct().getImage()}}" class="w-100 bg-image-img" alt="" />
@@ -62,24 +62,25 @@
 											<p>
 												<strong th:text="${cart.getProduct().getName()}"></strong>
 											</p>
-											<span class="d-block">Mô tả: [[${cart.getProduct().getShortDescription()}]]</span>
-											<span>Giá mới :
-												[[${#numbers.formatDecimal(cart.getProduct().getNewPrice(),0, 'COMMA', 0, 'POINT')}]] đ
-											</span> 
-											<span class="cart-old-price">Giá cũ:
-													[[${#numbers.formatDecimal(cart.getProduct().getOldPrice(),0, 'COMMA', 0, 'POINT')}]] đ
-											</span>
-											<span class="d-block">Cửa hàng:[[${cart.getProduct().getMerchant().getName()}]]</span>
-								
+											<div class="row m-0 p-0">	
+												<span class="col-4 col-sm-3 col-md-3 col-xl-3 p-0">Mô tả </span>
+												<span class="col-8 col-sm-9 col-md-9 col-xl-9 p-0">[[${cart.getProduct().getShortDescription()}]]</span>
+												<span class="col-4 col-sm-3 col-md-3 col-xl-3 p-0">Giá mới</span>
+												<span class="col-8 col-sm-9 col-md-9 col-xl-9 p-0">[[${#numbers.formatDecimal(cart.getProduct().getNewPrice(),0, 'COMMA', 0, 'POINT')}]] đ</span> 
+												<span class="cart-old-price col-4 col-sm-3 col-md-3 col-xl-3 p-0">Giá cũ</span>
+												<span class="cart-old-price col-8 col-sm-9 col-md-9 col-xl-9 p-0">[[${#numbers.formatDecimal(cart.getProduct().getOldPrice(),0, 'COMMA', 0, 'POINT')}]] đ</span>
+												<span class="col-4 col-sm-3 col-md-3 col-xl-3 p-0">Cửa hàng</span>
+												<span class="col-8 col-sm-9 col-md-9 col-xl-9 p-0">[[${cart.getProduct().getMerchant().getName()}]]</span>
+											</div>
 											<!-- Data -->
 										</div>
 
 											<!-- Quantity -->
-											<div class="d-flex mb-4 col-lg-6 col-md-6 col-sm-6 col-6" style="max-width: 300px">
+											<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-6" style="max-width: 300px">
 												<div class="form-outline">
-													<span>Số lượng: </span>
+													<span>Số lượng </span>
 													<div id="wrong-message" class="checkout-mess"></div>
-													<div class="d-flex h-50">
+													<div class="d-flex h-50 mt-2">
 														<a class="btn btn-primary btn-sm"
 															th:href="@{/user/decrease/__${cart.id}__}"> 
 															<i class="fa-sharp fa-solid fa-minus"></i>
@@ -96,11 +97,11 @@
 												</div>
 											</div>
 											<!-- Quantity -->
-											<div class="col-lg-6 col-md-6 col-sm-6 col-6 mb-4">
-												<p class="text-start text-md-center">
+											<div class="col-lg-6 col-md-6 col-sm-6 col-6 mt-3 align-items-center justify-content-end d-flex">
+												<span class="text-start text-md-center">
 												<strong>Giá tiền: </strong> 
 												<strong>[[${#numbers.formatDecimal(cart.getTotalPrice(),0, 'COMMA', 0, 'POINT')}]] đ</strong>
-												</p>
+												</span>
 											</div>
 									
 									</div>

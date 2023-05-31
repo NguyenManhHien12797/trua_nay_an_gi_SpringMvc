@@ -14825,15 +14825,15 @@ a.text-rebranding-primary:focus, a.text-rebranding-primary:hover {
 	font-size: 14px
 }
 
-.main-nav .nav-item:hover {
+.main-nav :hover {
 	color: #ee4d2d;
 	text-decoration: none
 }
 
-.main-nav .nav-item.active {
+.main-nav .active {
 	color: #ee4d2d;
 	font-weight: 700;
-	border-bottom-color: #ee4d2d
+	border-bottom: 3px solid #ee4d2d;
 }
 
 .main-nav .more-nav {
@@ -23361,13 +23361,12 @@ input.required-data, select.required-data {
 
 .user-acc-dropdown {
 	position: absolute;
-	background-color: #f7f7f7;
+	background-color: #fff;
 	width: 200px;
-	padding: 10px 0 20px 20px;
-	box-shadow: 2px 2px 5px #4a4a4a;
-	border-radius: 5px;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);
+	border-radius: 3px;
 	position: absolute;
-	right: -80px;
+	right: -54px;
 	top: 30px;
 	display: none;
 }
@@ -23381,22 +23380,13 @@ input.required-data, select.required-data {
 	display: block;
 }
 
-.user-acc-dropdown span:hover {
-	cursor: pointer;
-}
-
-.user-acc-contain span:hover {
-	cursor: pointer;
-}
-
-.nav-bar-cart:hover {
+.user-acc-contain span:hover, .user-acc-dropdown span:hover, .nav-bar-cart:hover   {
 	cursor: pointer;
 }
 
 .nav-bar-cart {
 	font-size: 20px;
 	color: #525252;
-	margin: 0 20px;
 }
 
 .cart-detail {
