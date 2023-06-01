@@ -1,255 +1,268 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
 <title>Merchant Details</title>
-
- <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/static/css/merchant-detail.css}">
-  <script th:src="@{https://kit.fontawesome.com/bb6a3cf0b7.js}"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/static/css/merchant-detail.css}">
 </head>
+<head th:replace="~{/fragments/head :: head}">
+</head>
+
 <body>
+	<div id="app">
+		<div class="wrapper">
+			<header class="main-header"
+				th:replace="~{/fragments/app-fragments :: home-header}"> 
+			</header>
 
-<div id="app">
-  <div class="wrapper">
-
-    <header class="main-header" th:replace="~{/fragments/app-fragments :: home-header}">
-
-    </header>
-
-
-
- <div class="wrapper-item">
-
-		<div class="now-detail-restaurant clearfix">
-
-  <div class="container">
-    <div class="detail-restaurant-img"><img
-      th:src="@{'/image/'+${merchant.avatar}}"
-      alt="" class=""></div>
-    <div class="detail-restaurant-info">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a class="breadcrumb-link" rel="nofollow">Home</a></li>
-          <li class="breadcrumb-item"><a class="breadcrumb-link" rel="nofollow">list-merchant</a></li>
-          <li class="breadcrumb-item"><a class="breadcrumb-link" rel="nofollow" th:text= "${merchant.name}"></a></li>
-        </ol>
-      </nav>
-      <div class="kind-restaurant">
-        <div class="tag-preferred" data-toggle="modal" data-target="#modal-preferred-merchant"><i
-          class="fa fa-thumbs-up" aria-hidden="true"></i>Yêu thích
-        </div>
-        <span> Shop Online</span></div>
-      <h1 class="name-restaurant" th:text= "${merchant.name}"></h1>
-      <div class="address-restaurant" th:text= "${merchant.address}"></div>
-      <div class="rating">
-        <div class="stars"><span class="full"><i class="fas fa-star"></i></span><span class="full"><i
-          class="fas fa-star"></i></span><span class="full"><i class="fas fa-star"></i></span><span class="full"><i
-          class="fas fa-star"></i></span><span class="half"><i class="fas fa-star-half-alt"></i></span></div>
-        <span class="number-rating">999+</span>đánh giá trên ShopeeFood
-      </div>
-      <div class="status-restaurant">
-        <div class="opentime-status"><span class="stt online" title="Mở cửa"></span></div>
-        <div class="time"><i class="far fa-clock" ></i> <span th:text= "${merchant.openTime}"></span>--<span th:text= "${merchant.closeTime}"></span></div>
-      </div>
-      <div class="share-social clearfix">
-        <div class="share-social-box">
-          <div class="fb-like" data-layout="button" data-action="like" data-size="small" data-show-faces="false"
-               data-share="true" data-colorscheme="light" data-kid-directed-site="false"></div>
-        </div>
-      </div>
-      <div class="utility-restaurant clearfix">
-        <div class="utility-item">
-          <div class="utility-title">Phí dịch vụ</div>
-          <div class="utility-content"><span class="txt-bold txt-red"> 0.0% Phí phục vụ </span></div>
-          <span class="icon icon-partner-vi" data-toggle="modal" data-target="#modal-verify-merchant"></span></div>
-        <div class="utility-item">
-          <div class="utility-title">Dịch vụ bởi</div>
-          <div class="utility-content"><span class="txt-bold txt-red">ShopBaeFood</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+			<div class="wrapper-item">
+				<div class="container">
+					<div class="row mt-5 mb-5 bg-white py-5">
+						<img th:src="@{'/image/'+${merchant.avatar}}" class="img-fluid col-4 col-sm-4 col-md-4">
+						<div class="detail-restaurant-info col-8 col-sm-8 col-md-8">
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a class="breadcrumb-link"
+										rel="nofollow">Home</a></li>
+									<li class="breadcrumb-item"><a class="breadcrumb-link"
+										rel="nofollow">list-merchant</a></li>
+									<li class="breadcrumb-item"><a class="breadcrumb-link"
+										rel="nofollow" th:text="${merchant.name}"></a></li>
+								</ol>
+							</nav>
+							<h4 class="name-restaurant" th:text="${merchant.name}"></h4>
+							<div class="address-restaurant" >
+								<i class="bi bi-geo-alt"></i>
+								<span th:text="${merchant.address}"></span>
+							</div>
+							<div class="status-restaurant">
+								<div class="time">
+									<i class="far fa-clock"></i> 
+									<span th:text="${merchant.openTime}"></span>--<span
+										th:text="${merchant.closeTime}"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
 
 
-<div class="container relative clearfix" style="padding: 0 25px 0 0;">
-  <div class="now-menu-restaurant">
-    <div class="menu-restaurant-tab">
-      <div class="item active">Thực đơn</div>
-    </div>
-    <div class="menu-restaurant-content-tab">
-      <div class="menu-restaurant-container">
-        <div class="menu-restaurant-category">
-          <div class="list-category" id="scroll-spy">
-            <div class="scrollbar-container ps">
-              <div class="item"><span id="1001658" title="HÔM NAY CÓ GÌ HOT"
-                                      class="item-link active">HÔM NAY CÓ GÌ HOT</span></div>
-              <div class="item"><span id="772307" title="Đồ Uống siêu hot ngày hè" class="item-link ">Đồ Uống siêu hot ngày hè</span>
-              </div>
-              <div class="item"><span id="4764644" title="Ăn vặt mê ly" class="item-link ">Ăn vặt mê ly</span></div>
-              <div class="item"><span id="767328" title="Mỳ Trộn (0963408143)"
-                                      class="item-link ">Mỳ Trộn (0963408143)</span></div>
-              <div class="item"><span id="767329" title="Đồ Ăn Vặt (0963408143)" class="item-link ">Đồ Ăn Vặt (0963408143)</span>
-              </div>
-              <div class="item"><span id="767332" title="Combo (0963408143)"
-                                      class="item-link ">Combo (0963408143)</span></div>
-              <div class="item"><span id="767333" title="Món Gà" class="item-link ">Món Gà</span></div>
-              <div class="item"><span id="1421506" title="Đồ đông lạnh chưa chế biến" class="item-link ">Đồ đông lạnh chưa chế biến</span>
-              </div>
-              <div class="item"><span id="1009282" title="Gia vị chấm" class="item-link ">Gia vị chấm</span></div>
-              <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-                <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-              </div>
-              <div class="ps__rail-y" style="top: 0px; right: 0px;">
-                <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="menu-restaurant-detail">
-          <div class="promotions-order">
-            <div class="promotion-item">
-              <div><img src="https://images.foody.vn/icon/discount/s/shopeefood_voucher_14.png"
-                        alt="Thanh toán thẻ tín dụng Sacombank: Giảm 60K cho đơn từ 150K" class="icon-promotion">
-                <div class="content">Thanh toán thẻ tín dụng Sacombank: Giảm 60K cho đơn từ 150K</div>
-              </div>
-              <button class="code-copy"><span class="promo_STB60">Copy code</span><span
-                class="fa fa-copy"></span></button>
-            </div>
-            <div class="promotion-item">
-              <div><img src="https://images.foody.vn/icon/discount/s/shopeefood_voucher_14.png"
-                        alt="Thanh toán thẻ tín dụng VIB: Giảm 60K cho đơn từ 200K" class="icon-promotion">
-                <div class="content">Thanh toán thẻ tín dụng VIB: Giảm 60K cho đơn từ 200K</div>
-              </div>
-              <button class="code-copy"><span class="promo_VIB60">Copy code</span><span
-                class="fa fa-copy"></span></button>
-            </div>
-            <div class="promotion-item">
-              <div><img src="https://images.foody.vn/icon/discount/s/shopeefood_voucher_14.png"
-                        alt="Thanh toán thẻ tín dụng Techcombank: Giảm 50K cho đơn từ 150K từ thứ 4 đến chủ nhật hàng tuần"
-                        class="icon-promotion">
-                <div class="content">Thanh toán thẻ tín dụng Techcombank: Giảm 50K cho đơn từ 150K từ thứ 4 đến chủ nhật
-                  hàng tuần
-                </div>
-              </div>
-              <button class="code-copy"><span class="promo_TECHCOMBANK">Copy code</span><span
-                class="fa fa-copy"></span></button>
-            </div>
-          </div>
-          <div class="menu-restaurant-list">
-            <div class="search-items"><p class="input-group"><i class="fas fa-search"></i><input type="search"
-                                                                                                 name="searchKey"
-                                                                                                 placeholder="Tìm món"></p></div>
-            <div id="restaurant-item">
-              <div aria-label="grid" aria-readonly="true" class="ReactVirtualized__Grid ReactVirtualized__List"
-                   role="grid" tabindex="0"
-                   style="box-sizing: border-box; direction: ltr; height: auto; position: relative; width: 100%; will-change: transform; outline: none;">
-                <div class="ReactVirtualized__Grid__innerScrollContainer" role="rowgroup"
-                     style="width: 100%; height: auto; max-height: 6097px; position: relative;">
-                  <div class="menu-group" id="section-group-menu-1001658"
-                       style="height: 56px; left: 0px; position: absolute; top: 0px; width: 100%;">
-                    <div class="title-menu">HÔM NAY CÓ GÌ HOT</div>
-                  </div>
-                  
-                  <br>
-                  <br>
-                  <br>
-
-                  <table style="width: 94%" class = "table-item-product">
-
-                  <!--  demo -->
-                  
-                                   
-                  <th:block th:each="product : ${products}">
-                      <tr>
-                  	<td>
-                  	<div class="item-restaurant-row ">
-
-                    <div class="row" style="width: 800px">
-                      <div class="col-auto item-restaurant-img">
-                        <button class="inline">
-                        <img  th:src="@{'/image/' +${product.image}}" style= "border-radius: 4px;width:90px"
-                          alt="img" width="90" height="70"></button>
-                      </div>
-                      <div class="col item-restaurant-info"><h2 class="item-restaurant-name" th:text = "${product.name}"></h2>
-                        <div class="item-restaurant-desc" th:text = "${product.shortDescription}">
-                        
-                        </div>
-                        <span>Số lượng: </span>
-                        <span th:if="${product.quantity} == 0" style="color:red">Hết hàng</span>
-                        <span th:unless="${product.quantity} == 0" th:text = "${product.quantity}"></span>
-                      </div>
-                      <div class="col-auto item-restaurant-more" style="margin-right: 0px;top: 30px; flex-wrap: wrap-reverse">
-                        <div class="row ">
-                          <div class="col-auto product-price" style=" position: relative;">
-                            <div class="old-price" 
-                             style="font-weight: 400;position: absolute;top:-15px;font-size: 14px;right: 0;">
-                             [[${#numbers.formatDecimal(product.oldPrice, 0, 'COMMA', 0, 'POINT')}]] đ
-                            </div>
-                            <div class="current-price" 
-                            style="font-weight: 400;position: relative;top: 7px;font-size: 14px;right: -10px;">
-                                 [[${#numbers.formatDecimal(product.newPrice, 0, 'COMMA', 0, 'POINT')}]] đ
-                            </div>
-                          </div>
-                          <div class="col-auto adding-food-cart txt-right">
-                            <div  class="btn-adding" th:onclick="addToCart([[${product.newPrice}]],[[${session.userId}]],[[${product.id}]])" >+</div>
-                          	
-                      
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  </td>
-                    </tr>
-              
-                  
-                  </th:block>
-                   
- 
-                  
-                  <!--  demo -->
-                  
-                  
-<!--                  end for-->
-                  </table>
-                  <div class="txt-center mt-2"><button class="btn-none btn-load-more link"><span
-                    class="pr-1">Xem thêm</span><i class="fas fa-redo font12 "></i></button></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-<br>
-
+				<!-- <div class="container relative clearfix"
+					style="padding: 0 25px 0 0;">
+					<div class="now-menu-restaurant"> -->
 		
-</div>
-</div>
-</div>
+						<div class="container">
+							<div class="menu-restaurant-container row">
+								<div class="menu-restaurant-category menu-restaurant-category col-4 col-sm-4 col-md-4">
+									<div class="item">Thực đơn</div>
+									<div class="list-category" id="scroll-spy">
+										<div class="scrollbar-container ps">
+											<div class="item">
+												<span id="1001658" title="HÔM NAY CÓ GÌ HOT"
+													class="item-link active pl-3">HÔM NAY CÓ GÌ HOT</span>
+											</div>
+											<div class="item">
+												<span id="772307" title="Đồ Uống siêu hot ngày hè"
+													class="item-link ">Đồ Uống siêu hot ngày hè</span>
+											</div>
+											<div class="item">
+												<span id="4764644" title="Ăn vặt mê ly" class="item-link ">Ăn
+													vặt mê ly</span>
+											</div>
+											<div class="item">
+												<span id="767328" title="Mỳ Trộn (0963408143)"
+													class="item-link ">Mỳ Trộn (0963408143)</span>
+											</div>
+											<div class="item">
+												<span id="767329" title="Đồ Ăn Vặt (0963408143)"
+													class="item-link ">Đồ Ăn Vặt (0963408143)</span>
+											</div>
+											<div class="item">
+												<span id="767332" title="Combo (0963408143)"
+													class="item-link ">Combo (0963408143)</span>
+											</div>
+											<div class="item">
+												<span id="767333" title="Món Gà" class="item-link ">Món
+													Gà</span>
+											</div>
+											<div class="item">
+												<span id="1421506" title="Đồ đông lạnh chưa chế biến"
+													class="item-link ">Đồ đông lạnh chưa chế biến</span>
+											</div>
+											<div class="item">
+												<span id="1009282" title="Gia vị chấm" class="item-link ">Gia
+													vị chấm</span>
+											</div>
+											<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+												<div class="ps__thumb-x" tabindex="0"
+													style="left: 0px; width: 0px;"></div>
+											</div>
+											<div class="ps__rail-y" style="top: 0px; right: 0px;">
+												<div class="ps__thumb-y" tabindex="0"
+													style="top: 0px; height: 0px;"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="menu-restaurant-detail col-8 col-sm-8 col-md-8 p-0">
+									<div class="promotions-order">
+										<div class="promotion-item">
+											<div>
+												<img
+													src="https://images.foody.vn/icon/discount/s/shopeefood_voucher_14.png"
+													alt="Thanh toán thẻ tín dụng Sacombank: Giảm 60K cho đơn từ 150K"
+													class="icon-promotion">
+												<div class="content">Thanh toán thẻ tín dụng
+													Sacombank: Giảm 60K cho đơn từ 150K</div>
+											</div>
+											<button class="code-copy">
+												<span class="promo_STB60">Copy code</span><span
+													class="fa fa-copy"></span>
+											</button>
+										</div>
+										<div class="promotion-item">
+											<div>
+												<img
+													src="https://images.foody.vn/icon/discount/s/shopeefood_voucher_14.png"
+													alt="Thanh toán thẻ tín dụng VIB: Giảm 60K cho đơn từ 200K"
+													class="icon-promotion">
+												<div class="content">Thanh toán thẻ tín dụng VIB: Giảm
+													60K cho đơn từ 200K</div>
+											</div>
+											<button class="code-copy">
+												<span class="promo_VIB60">Copy code</span><span
+													class="fa fa-copy"></span>
+											</button>
+										</div>
+										<div class="promotion-item">
+											<div>
+												<img
+													src="https://images.foody.vn/icon/discount/s/shopeefood_voucher_14.png"
+													alt="Thanh toán thẻ tín dụng Techcombank: Giảm 50K cho đơn từ 150K từ thứ 4 đến chủ nhật hàng tuần"
+													class="icon-promotion">
+												<div class="content">Thanh toán thẻ tín dụng
+													Techcombank: Giảm 50K cho đơn từ 150K từ thứ 4 đến chủ nhật
+													hàng tuần</div>
+											</div>
+											<button class="code-copy">
+												<span class="promo_TECHCOMBANK">Copy code</span><span
+													class="fa fa-copy"></span>
+											</button>
+										</div>
+									</div>
+									<div class="menu-restaurant-list">
+										<div class="search-items">
+											<p class="input-group">
+												<i class="fas fa-search"></i><input type="search"
+													name="searchKey" placeholder="Tìm món">
+											</p>
+										</div>
+										<div id="restaurant-item">
+													<div class="title-menu pl-3">HÔM NAY CÓ GÌ HOT</div>
+													<table class="table-item-product w-100">
+
+														<!--  demo -->
 
 
-  <footer class="main-footer"  th:replace="~{/fragments/app-fragments :: footer}">
+														<th:block th:each="product : ${products}">
+															<tr>
+																<td>
+																	<div class="item-restaurant-row pr-3">
 
-  </footer>
+																		<div class="row">
+																			<div class="col-auto item-restaurant-img">
+																				<button class="inline">
+																					<img th:src="@{'/image/' +${product.image}}"
+																						style="border-radius: 4px; width: 90px" alt="img"
+																						width="90" height="70">
+																				</button>
+																			</div>
+																			<div class="col item-restaurant-info">
+																				<h2 class="item-restaurant-name"
+																					th:text="${product.name}"></h2>
+																				<div class="item-restaurant-desc"
+																					th:text="${product.shortDescription}"></div>
+																				<span>Số lượng: </span> <span
+																					th:if="${product.quantity} == 0" style="color: red">Hết
+																					hàng</span> <span th:unless="${product.quantity} == 0"
+																					th:text="${product.quantity}"></span>
+																			</div>
+																			<div class="col-auto item-restaurant-more"
+																				style="margin-right: 0px; top: 30px; flex-wrap: wrap-reverse">
+																				<div class="row ">
+																					<div class="col-auto product-price"
+																						style="position: relative;">
+																						<div class="old-price"
+																							style="font-weight: 400; position: absolute; top: -15px; font-size: 14px; right: 0;">
+																							[[${#numbers.formatDecimal(product.oldPrice, 0,
+																							'COMMA', 0, 'POINT')}]] đ</div>
+																						<div class="current-price"
+																							style="font-weight: 400; position: relative; top: 7px; font-size: 14px; right: -10px;">
+																							[[${#numbers.formatDecimal(product.newPrice, 0,
+																							'COMMA', 0, 'POINT')}]] đ</div>
+																					</div>
+																					<div class="col-auto adding-food-cart txt-right">
+																						<div class="btn-adding"
+																							th:onclick="addToCart([[${product.newPrice}]],[[${session.userId}]],[[${product.id}]])">+</div>
 
 
-<script
-	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
-</script>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</td>
+															</tr>
 
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+														</th:block>
 
-<script th:inline="javascript" th:src="@{/static/js/merchant_detail.js}">
-</script>
+
+
+														<!--  demo -->
+
+
+														<!--                  end for-->
+													</table>
+													<div class="txt-center mt-2">
+														<button class="btn-none btn-load-more link">
+															<span class="pr-1">Xem thêm</span><i
+																class="fas fa-redo font12 "></i>
+														</button>
+													</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+			<!-- 		</div>
+				</div> -->
+				<br>
+
+
+			</div>
+		</div>
+	</div>
+
+
+	<footer class="main-footer"
+		th:replace="~{/fragments/app-fragments :: footer}"> </footer>
+
+
+	<script
+		th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
+		
+	</script>
+
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script th:inline="javascript"
+		th:src="@{/static/js/merchant_detail.js}">
+		
+	</script>
 
 
 </body>

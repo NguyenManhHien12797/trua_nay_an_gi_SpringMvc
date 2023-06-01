@@ -20440,7 +20440,6 @@ to {
 	border: 1px solid #ebebeb;
 	padding: 15px 5px 15px 15px;
 	width: 255px;
-	margin-right: 10px;
 	background: #fff;
 	border-radius: 4px
 }
@@ -20483,7 +20482,6 @@ to {
 
 .menu-restaurant-detail {
 	width: 900px;
-	padding: 6px 15px;
 	float: right;
 	border: 1px solid #ebebeb;
 	border-radius: 4px;
@@ -20532,8 +20530,6 @@ to {
 	background-color: #fbf9d8;
 	position: relative;
 	overflow: hidden;
-	margin-left: -15px;
-	margin-right: -15px;
 	border: 1px dashed #575757;
 	padding: 2px 15px 0 89px;
 	display: none
@@ -23339,11 +23335,6 @@ input.required-data, select.required-data {
 .user-acc-admin:hover {
 	color: #f69987;
 }
-
-.wrapper-item {
-	background-color: #f6f6f6;
-}
-
 .user-acc-img {
 	width: 30px;
 	height: 30px;

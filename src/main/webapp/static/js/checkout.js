@@ -285,6 +285,7 @@ function getOrderDetails(orderId){
 			let totalPrice = 0;
       		if(data != null){
 				$(".table-orderdetail-history").show();
+				$("#table-orderdetail-history > span:nth-child(1)").hide();
 				for(let i=0; i< data.length; i++){
 				  content += drawOrderDetails(data[i]);
 				  totalPrice += data[i].quantity * data[i].price;
@@ -292,7 +293,7 @@ function getOrderDetails(orderId){
 		  	}
 		  	console.log(totalPrice)
 		  	let totalPriceElement = `
-		  			<span><strong>Tổng tiền: </strong></span>
+		  			<span class="ml-2"><strong>Tổng tiền: </strong></span>
 		  			<span><strong>${totalPrice} đ</strong></span>
 		  	`
       	  	document.getElementById('table-orderDetails').innerHTML = content;
