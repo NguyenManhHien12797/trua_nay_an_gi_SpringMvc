@@ -1,0 +1,151 @@
+.now-login {
+	width: 600px;
+	margin: auto;
+	clear: both;
+	padding: 30px 0;
+	background-color: #fff;
+}
+
+.now-login .content {
+	background-color: #fff
+}
+
+.now-login .title {
+	font-size: 18px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 17px
+}
+
+.now-login .login-via {
+	margin-bottom: 35px
+}
+
+.now-login .login-via .item {
+	color: #fff;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+	position: relative;
+	margin-bottom: 10px;
+	padding: 7px 0;
+	border-radius: 3px;
+	cursor: pointer
+}
+
+.now-login .login-via .item.phone {
+	background-color: #329900
+}
+
+.now-login .login-via .item.fb {
+	background-color: #187caa
+}
+
+.now-login .login-via .item.plus {
+	background-color: #ff5252
+}
+
+.now-login .login-via .fab, .now-login .login-via .fas {
+	position: absolute;
+	top: 5px;
+	left: 7px;
+	background-color: #fff;
+	border-radius: 50%;
+	font-size: 15px;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	line-height: 25px
+}
+
+.now-login .login-via .fa-mobile-alt {
+	color: #6cc942
+}
+
+.now-login .login-via .fa-facebook-f {
+	color: #187caa
+}
+
+.now-login .login-via .fa-google-plus-g {
+	color: #ff5252
+}
+
+.now-login .text {
+	font-size: 12px;
+	color: #464646;
+	text-align: center
+}
+
+.now-login .field-group {
+	border: 1px solid #959595;
+	border-radius: 4px;
+	overflow: hidden;
+	margin-bottom: 10px
+}
+
+.now-login .btn-submit {
+	margin-bottom: 15px;
+	padding: 6px 0;
+	text-transform: uppercase
+}
+
+.now-login .alert-danger {
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1
+}
+
+.now-login .alert-danger, .now-login .alert-success {
+	margin-top: 10px;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 4px
+}
+
+.now-login .alert-success {
+	color: #6cc942;
+	font-weight: 700
+}
+
+.now-login .form-login-input .input-group {
+	border-bottom: 1px solid #959595;
+	position: relative;
+	-ms-flex-align: center;
+	align-items: center
+}
+
+.now-login .form-login-input .input-group:last-child {
+	border: 0
+}
+
+.now-login .form-login-input input[type=checkbox] {
+	width: inherit;
+	margin-top: 10px
+}
+
+.now-login .form-login-input input[type=checkbox]+label {
+	vertical-align: text-bottom;
+	margin-bottom: 0;
+	padding-left: 5px
+}
+
+.now-login .form-login-input .far, .now-login .form-login-input .fas {
+	color: #9fa9aa;
+	position: absolute;
+	top: 13px;
+	left: 8px;
+}
+
+.now-login .form-login-input input {
+	border: 0;
+	border-radius: 0;
+	width: 100%;
+	padding: 9px 10px 9px 33px
+}
+
+.now-login .login-mess-policy {
+	text-align: center;
+	color: #707070;
+	padding-top: 20px;
+	padding-bottom: 20px
+}

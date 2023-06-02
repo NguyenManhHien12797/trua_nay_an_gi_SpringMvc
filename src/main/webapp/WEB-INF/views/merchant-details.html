@@ -17,17 +17,17 @@
 
 			<div class="wrapper-item">
 				<div class="container">
-					<div class="row mt-5 mb-5 bg-white py-5">
+					<div class="row mt-5 mb-5 bg-white py-3">
 						<img th:src="@{'/image/'+${merchant.avatar}}" class="img-fluid col-4 col-sm-4 col-md-4">
 						<div class="detail-restaurant-info col-8 col-sm-8 col-md-8">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a class="breadcrumb-link"
-										rel="nofollow">Home</a></li>
-									<li class="breadcrumb-item"><a class="breadcrumb-link"
-										rel="nofollow">list-merchant</a></li>
-									<li class="breadcrumb-item"><a class="breadcrumb-link"
-										rel="nofollow" th:text="${merchant.name}"></a></li>
+									<li class="breadcrumb-item">
+										<a class="breadcrumb-link" th:href="@{/home}">Home</a>
+									</li>
+									<li class="breadcrumb-item">
+										<a class="breadcrumb-link" th:text="${merchant.name}" th:href="@{/home/merchant-detail/__${merchant.id}__}"></a>
+									</li>
 								</ol>
 							</nav>
 							<h4 class="name-restaurant" th:text="${merchant.name}"></h4>
@@ -45,67 +45,54 @@
 						</div>
 					</div>
 				</div>
-
-
-
-				<!-- <div class="container relative clearfix"
-					style="padding: 0 25px 0 0;">
-					<div class="now-menu-restaurant"> -->
-		
 						<div class="container">
-							<div class="menu-restaurant-container row">
-								<div class="menu-restaurant-category menu-restaurant-category col-4 col-sm-4 col-md-4">
+							<div class="row">
+								<div class="menu-restaurant-container col-12 col-sm-4 col-md-4 p-0 pe-sm-5">
+									<div class="menu-restaurant-category menu-restaurant-category h-100">
 									<div class="item">Thực đơn</div>
 									<div class="list-category" id="scroll-spy">
 										<div class="scrollbar-container ps">
 											<div class="item">
 												<span id="1001658" title="HÔM NAY CÓ GÌ HOT"
-													class="item-link active pl-3">HÔM NAY CÓ GÌ HOT</span>
+													class="item-link active ps-3">HÔM NAY CÓ GÌ HOT</span>
 											</div>
 											<div class="item">
-												<span id="772307" title="Đồ Uống siêu hot ngày hè"
+												<span title="Đồ Uống siêu hot ngày hè"
 													class="item-link ">Đồ Uống siêu hot ngày hè</span>
 											</div>
 											<div class="item">
-												<span id="4764644" title="Ăn vặt mê ly" class="item-link ">Ăn
+												<span title="Ăn vặt mê ly" class="item-link ">Ăn
 													vặt mê ly</span>
 											</div>
 											<div class="item">
-												<span id="767328" title="Mỳ Trộn (0963408143)"
+												<span title="Mỳ Trộn (0963408143)"
 													class="item-link ">Mỳ Trộn (0963408143)</span>
 											</div>
 											<div class="item">
-												<span id="767329" title="Đồ Ăn Vặt (0963408143)"
+												<span title="Đồ Ăn Vặt (0963408143)"
 													class="item-link ">Đồ Ăn Vặt (0963408143)</span>
 											</div>
 											<div class="item">
-												<span id="767332" title="Combo (0963408143)"
+												<span title="Combo (0963408143)"
 													class="item-link ">Combo (0963408143)</span>
 											</div>
 											<div class="item">
-												<span id="767333" title="Món Gà" class="item-link ">Món
+												<span title="Món Gà" class="item-link ">Món
 													Gà</span>
 											</div>
 											<div class="item">
-												<span id="1421506" title="Đồ đông lạnh chưa chế biến"
+												<span title="Đồ đông lạnh chưa chế biến"
 													class="item-link ">Đồ đông lạnh chưa chế biến</span>
 											</div>
 											<div class="item">
-												<span id="1009282" title="Gia vị chấm" class="item-link ">Gia
+												<span title="Gia vị chấm" class="item-link ">Gia
 													vị chấm</span>
-											</div>
-											<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-												<div class="ps__thumb-x" tabindex="0"
-													style="left: 0px; width: 0px;"></div>
-											</div>
-											<div class="ps__rail-y" style="top: 0px; right: 0px;">
-												<div class="ps__thumb-y" tabindex="0"
-													style="top: 0px; height: 0px;"></div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="menu-restaurant-detail col-8 col-sm-8 col-md-8 p-0">
+								</div>
+								<div class="menu-restaurant-detail col-12 col-sm-8 col-md-8 p-0">
 									<div class="promotions-order">
 										<div class="promotion-item">
 											<div>
@@ -139,7 +126,6 @@
 											<div>
 												<img
 													src="https://images.foody.vn/icon/discount/s/shopeefood_voucher_14.png"
-													alt="Thanh toán thẻ tín dụng Techcombank: Giảm 50K cho đơn từ 150K từ thứ 4 đến chủ nhật hàng tuần"
 													class="icon-promotion">
 												<div class="content">Thanh toán thẻ tín dụng
 													Techcombank: Giảm 50K cho đơn từ 150K từ thứ 4 đến chủ nhật
@@ -159,76 +145,46 @@
 											</p>
 										</div>
 										<div id="restaurant-item">
-													<div class="title-menu pl-3">HÔM NAY CÓ GÌ HOT</div>
-													<table class="table-item-product w-100">
-
-														<!--  demo -->
-
-
-														<th:block th:each="product : ${products}">
-															<tr>
-																<td>
-																	<div class="item-restaurant-row pr-3">
-
-																		<div class="row">
-																			<div class="col-auto item-restaurant-img">
-																				<button class="inline">
-																					<img th:src="@{'/image/' +${product.image}}"
-																						style="border-radius: 4px; width: 90px" alt="img"
-																						width="90" height="70">
-																				</button>
-																			</div>
-																			<div class="col item-restaurant-info">
-																				<h2 class="item-restaurant-name"
-																					th:text="${product.name}"></h2>
-																				<div class="item-restaurant-desc"
-																					th:text="${product.shortDescription}"></div>
-																				<span>Số lượng: </span> <span
-																					th:if="${product.quantity} == 0" style="color: red">Hết
-																					hàng</span> <span th:unless="${product.quantity} == 0"
-																					th:text="${product.quantity}"></span>
-																			</div>
-																			<div class="col-auto item-restaurant-more"
-																				style="margin-right: 0px; top: 30px; flex-wrap: wrap-reverse">
-																				<div class="row ">
-																					<div class="col-auto product-price"
-																						style="position: relative;">
-																						<div class="old-price"
-																							style="font-weight: 400; position: absolute; top: -15px; font-size: 14px; right: 0;">
-																							[[${#numbers.formatDecimal(product.oldPrice, 0,
-																							'COMMA', 0, 'POINT')}]] đ</div>
-																						<div class="current-price"
-																							style="font-weight: 400; position: relative; top: 7px; font-size: 14px; right: -10px;">
-																							[[${#numbers.formatDecimal(product.newPrice, 0,
-																							'COMMA', 0, 'POINT')}]] đ</div>
-																					</div>
-																					<div class="col-auto adding-food-cart txt-right">
-																						<div class="btn-adding"
-																							th:onclick="addToCart([[${product.newPrice}]],[[${session.userId}]],[[${product.id}]])">+</div>
-
-
-																					</div>
-																				</div>
-																			</div>
+													<div class="title-menu ps-3">HÔM NAY CÓ GÌ HOT</div>
+														<div class="item-restaurant-row pe-3" th:each="product : ${products}">
+															<div class="row">
+																<div class="col-4 col-sm-2 col-md-2 col-xl-2 item-restaurant-img ps-4">
+																		<img th:src="@{'/image/' +${product.image}}" class="w-100 rounded-1">
+																</div>
+																<div class="col-4 col-sm-8 col-md-8 col-xl-8 item-restaurant-info">
+																	<h2 class="item-restaurant-name" th:text="${product.name}"></h2>
+																	<span class="d-block" th:text="${product.shortDescription}"></span>
+																		<div class="d-flex">
+																			<span class ="me-2">Số lượng: </span> 
+																			<span th:if="${product.quantity} == 0" class="text-danger">
+																				Hết hàng
+																			</span> 
+																			<span th:unless="${product.quantity} == 0"
+																				th:text="${product.quantity}">
+																			</span>
 																		</div>
 																	</div>
-																</td>
-															</tr>
-
-
-														</th:block>
-
-
-
-														<!--  demo -->
-
-
-														<!--                  end for-->
-													</table>
+																	<div class="col-4 col-sm-2 col-md-2 col-xl-2 item-restaurant-more d-flex align-items-center justify-content-end">
+																		<div class="me-2 text-end">
+																			<span class="old-price d-block text-danger">
+																				[[${#numbers.formatDecimal(product.oldPrice, 0,
+																				'COMMA', 0, 'POINT')}]] đ
+																			</span>
+																			<span class="current-price d-block">
+																				[[${#numbers.formatDecimal(product.newPrice, 0,
+																				'COMMA', 0, 'POINT')}]] đ
+																			</span>
+																		</div>
+																		<div class="btn-adding"
+																			th:onclick="addToCart([[${product.newPrice}]],[[${session.userId}]],[[${product.id}]])">+
+																		</div>
+																	</div>
+															</div>
+														</div>
 													<div class="txt-center mt-2">
 														<button class="btn-none btn-load-more link">
-															<span class="pr-1">Xem thêm</span><i
-																class="fas fa-redo font12 "></i>
+															<span class="pe-1">Xem thêm</span>
+															<i class="fas fa-redo font12 "></i>
 														</button>
 													</div>
 										</div>
@@ -236,34 +192,20 @@
 								</div>
 							</div>
 						</div>
-
-			<!-- 		</div>
-				</div> -->
-				<br>
-
-
 			</div>
 		</div>
 	</div>
 
-
 	<footer class="main-footer"
-		th:replace="~{/fragments/app-fragments :: footer}"> </footer>
-
+		th:replace="~{/fragments/app-fragments :: footer}"> 
+	</footer>
 
 	<script
 		th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
-		
 	</script>
-
-
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
 	<script th:inline="javascript"
 		th:src="@{/static/js/merchant_detail.js}">
-		
 	</script>
-
-
 </body>
 </html>

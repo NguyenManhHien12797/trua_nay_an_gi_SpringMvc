@@ -979,226 +979,268 @@
 
 	<!--  Merchant-Fragment -->
 
-	<div th:fragment="user-info" class="now-container-coporation container-xl">
+	<div th:fragment="user-info"
+		class="now-container-coporation container-xl">
 		<div class="row justify-content-center">
-		<div class="title title-strong mt-3">Tài Khoản</div>
-		<span>Thay đổi thiết lập cơ bản</span>
-		<div class="setting-card mt-3 row m-0 p-0">
-			<div class="setting-card-inner col-sm-8 col-md-8 col-xl-8">
-			
+			<div class="title title-strong mt-3">Tài Khoản</div>
+			<span>Thay đổi thiết lập cơ bản</span>
+			<div class="setting-card mt-3 row m-0 p-0">
+				<div class="setting-card-inner col-sm-8 col-md-8 col-xl-8">
+
 					<div class="row d-flex mb-3">
-						<div class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4 ">
+						<div
+							class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4 ">
 							<i class="bi bi-person shopee-icon mr-3"></i>
 							<div class="card-info-title">Hồ sơ của tôi</div>
 						</div>
-						
-						<div class="info-input account-info col-12 col-sm-8 col-md-8 col-xl-8">
+
+						<div
+							class="info-input account-info col-12 col-sm-8 col-md-8 col-xl-8">
 							<div class="account-profile">
 								<div class="account-profile-item">
-									<span class="account-profile-text"
-										th:text="${user.name}"> 
+									<span class="account-profile-text" th:text="${user.name}">
 									</span>
 								</div>
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row d-flex mb-3">
-						<div class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4 ">
-						<i class="bi bi-telephone shopee-icon mr-3"></i>
+						<div
+							class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4 ">
+							<i class="bi bi-telephone shopee-icon mr-3"></i>
 							<div class="card-info-title">Số điện thoại</div>
 						</div>
-						
-						<div class="info-input col-12 col-sm-8 col-md-8 col-xl-8" th:text="${user.phone}"></div>
+
+						<div class="info-input col-12 col-sm-8 col-md-8 col-xl-8"
+							th:text="${user.phone}"></div>
 					</div>
 
 					<div class="row d-flex mb-3">
-						<div class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
+						<div
+							class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
 							<i class="bi bi-envelope shopee-icon mr-3"></i>
 							<div class="card-info-title">Email</div>
 						</div>
-						<div class="info-input col-12 col-sm-8 col-md-8 col-xl-8" th:text="${account.email}"></div>
+						<div class="info-input col-12 col-sm-8 col-md-8 col-xl-8"
+							th:text="${account.email}"></div>
 					</div>
 
 					<div class="row d-flex mb-3">
-						<div class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
+						<div
+							class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
 							<i class="bi bi-geo-alt shopee-icon mr-3"></i>
 							<div class="card-info-title">Address</div>
 						</div>
-						<div class="info-input col-12 col-sm-8 col-md-8 col-xl-8" th:text="${user.address}"></div>
+						<div class="info-input col-12 col-sm-8 col-md-8 col-xl-8"
+							th:text="${user.address}"></div>
 					</div>
 
 					<div class="row d-flex mb-3">
-						<div class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
+						<div
+							class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
 							<i class="bi bi-lock shopee-icon mr-3"></i>
 							<div class="card-info-title">Mật khẩu đăng nhập</div>
 						</div>
 						<div class="col-12 col-sm-8 col-md-8 col-xl-8 pass-otp">
-							<div class="info-input subtitle btn btn-dark btn-change-pass" 	data-bs-toggle="modal" data-bs-target="#exampleModal"
-												data-bs-whatever="@getbootstrap">
-								<i class="bi bi-envelope-exclamation"></i>
-               					Nhận otp để đổi mật khẩu
-               				</div>
+							<div class="info-input subtitle btn btn-dark btn-change-pass"
+								data-bs-toggle="modal" data-bs-target="#exampleModal"
+								data-bs-whatever="@getbootstrap">
+								<i class="bi bi-envelope-exclamation"></i> Nhận otp để đổi mật
+								khẩu
+							</div>
 						</div>
 					</div>
-			</div>
-			<div class="col-sm-4 col-md-4 col-xl-4">
-				<div class="mb-3"><i class="bi bi-person-bounding-box shopee-icon mr-3"></i> <span>Ảnh đại diện</span></div>
-				<label for="image" class="shadow label-img">
-					<img th:src="@{'/image/'+${user.avatar}}"
-						class="img">
-				</label>
 				</div>
-		</div>
-
-		<div class="text-center font-14 mb-5 mt-3 row">
-			<a class="right-button col-12 col-sm-2" th:href="@{/home/user-update-info}">
-				<i class="bi bi-pencil-square"></i>
- 				Sửa
-			</a>
-		</div>
-		
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title create-otp" id="exampleModalLabel">Vui lòng check email để lấy OTP!</h1>
-						<h1 class="modal-title change-pass" id="exampleModalLabel" style="display: none">Đổi Password!</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<div class="col-sm-4 col-md-4 col-xl-4">
+					<div class="mb-3">
+						<i class="bi bi-person-bounding-box shopee-icon mr-3"></i> <span>Ảnh
+							đại diện</span>
 					</div>
-					<div class="modal-body">
+					<label for="image" class="shadow label-img"> <img
+						th:src="@{'/image/'+${user.avatar}}" class="img">
+					</label>
+				</div>
+			</div>
+
+			<div class="text-center font-14 mb-5 mt-3 row">
+				<a class="right-button col-12 col-sm-2"
+					th:href="@{/home/user-update-info}"> <i
+					class="bi bi-pencil-square"></i> Sửa
+				</a>
+			</div>
+
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title create-otp" id="exampleModalLabel">Vui
+								lòng check email để lấy OTP!</h1>
+							<h1 class="modal-title change-pass" id="exampleModalLabel"
+								style="display: none">Đổi Password!</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
 							<div style="display: none; color: red" class="mess-otp">
-							Sai OTP! Mời nhập lại!</div>
+								Sai OTP! Mời nhập lại!</div>
 							<div class="mb-3 create-otp">
 								<label for="otp-number" class="col-form-label">Nhập OTP:</label>
-								<input type="text" class="form-control otp" id="otp-number" placeholder="Nhập OTP" th:name="otp">
+								<input type="text" class="form-control otp" id="otp-number"
+									placeholder="Nhập OTP" th:name="otp">
 							</div>
 							<div class="mb-3 change-pass" style="display: none">
-								<label for="otp-number" class="col-form-label">Nhập Password:</label>
-								<input type="text" class="form-control pass" id="otp-number" placeholder="Nhập Password" th:name="pass">
+								<label for="otp-number" class="col-form-label">Nhập
+									Password:</label> <input type="text" class="form-control pass"
+									id="otp-number" placeholder="Nhập Password" th:name="pass">
 							</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<button type="submit" class="show-form-update-pass create-otp btn btn-primary"
-										th:onclick="checkotp([[${account.id}]])">Check OTP</button>
-						<button type="submit" class="change-pass btn btn-primary" style="display: none" th:onclick="changePassword([[${account.id}]])">Lưu</button>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+							<button type="submit"
+								class="show-form-update-pass create-otp btn btn-primary"
+								th:onclick="checkotp([[${account.id}]])">Check OTP</button>
+							<button type="submit" class="change-pass btn btn-primary"
+								style="display: none"
+								th:onclick="changePassword([[${account.id}]])">Lưu</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 
 	</div>
 
-	<div th:fragment="user-update-info" class="now-container-coporation container-xl">
-		<form th:action="@{/user/user-info}" th:object="${account}" class="row"
-			method="post" enctype="multipart/form-data">
+	<div th:fragment="user-update-info"
+		class="now-container-coporation container-xl">
+		<form th:action="@{/user/user-info}" th:object="${account}"
+			class="row" method="post" enctype="multipart/form-data">
 			<div class="title title-strong mt-3">Tài Khoản</div>
 			<span class="setting-title">Thay đổi thiết lập cơ bản</span>
 			<div class="setting-card mt-3 row m-0 p-0">
 				<div class="setting-card-inner col-sm-8 col-md-8 col-xl-8">
-						<div class="row d-flex mb-3">
-							<div class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4 ">
-								<i class="bi bi-person shopee-icon mr-3"></i>
-								<div class="card-info-title">Hồ sơ của tôi</div>
-							</div>
-							<div class="info-input account-info col-12 col-sm-8 col-md-8 col-xl-8">
-								<div class="account-profile">
-									<div class="account-profile-item">
-										<input class="account-profile-text" th:field="${userForm.name}">
-										<input class="account-profile-text" style="display: none" th:field="${userForm.id}">
-									</div>
+					<div class="row d-flex mb-3">
+						<div
+							class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4 ">
+							<i class="bi bi-person shopee-icon mr-3"></i>
+							<div class="card-info-title">Hồ sơ của tôi</div>
+						</div>
+						<div
+							class="info-input account-info col-12 col-sm-8 col-md-8 col-xl-8">
+							<div class="account-profile">
+								<div class="account-profile-item">
+									<input class="account-profile-text" th:field="${userForm.name}">
+									<input class="account-profile-text" style="display: none"
+										th:field="${userForm.id}">
 								</div>
 							</div>
 						</div>
-						<div class="row d-flex mb-3">
-							<div class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4 ">
-								<i class="bi bi-telephone shopee-icon mr-3"></i>
-								<div class="card-info-title">Số điện thoại</div>
-							</div>
-							<div class="col-12 col-sm-8 col-md-8 col-xl-8">
-								<input class="info-input " th:field="${userForm.phone}">
+					</div>
+					<div class="row d-flex mb-3">
+						<div
+							class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4 ">
+							<i class="bi bi-telephone shopee-icon mr-3"></i>
+							<div class="card-info-title">Số điện thoại</div>
+						</div>
+						<div class="col-12 col-sm-8 col-md-8 col-xl-8">
+							<input class="info-input " th:field="${userForm.phone}">
+						</div>
+					</div>
+					<div class="row d-flex mb-3">
+						<div
+							class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
+							<i class="bi bi-envelope shopee-icon mr-3"></i>
+							<div class="card-info-title">Email</div>
+						</div>
+						<div class="col-12 col-sm-8 col-md-8 col-xl-8">
+							<input class="info-input" th:field="${account.email}">
+						</div>
+					</div>
+					<div class="row d-flex mb-3">
+						<div
+							class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
+							<i class="bi bi-geo-alt shopee-icon mr-3"></i>
+							<div class="card-info-title">Address</div>
+						</div>
+						<div class="col-12 col-sm-8 col-md-8 col-xl-8">
+							<input class="info-input" th:field="${userForm.address}">
+						</div>
+					</div>
+					<div class="row d-flex mb-3">
+						<div
+							class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
+							<i class="bi bi-lock shopee-icon mr-3"></i>
+							<div class="card-info-title">Mật khẩu đăng nhập</div>
+						</div>
+						<div class="col-12 col-sm-8 col-md-8 col-xl-8">
+							<div class="info-input subtitle btn btn-dark btn-change-pass"
+								data-bs-toggle="modal" data-bs-target="#exampleModal"
+								data-bs-whatever="@getbootstrap">
+								<i class="bi bi-envelope-exclamation"></i> Nhận otp để đổi mật
+								khẩu
 							</div>
 						</div>
-						<div class="row d-flex mb-3">
-							<div class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
-								<i class="bi bi-envelope shopee-icon mr-3"></i>
-								<div class="card-info-title">Email</div>
-							</div>
-							<div class="col-12 col-sm-8 col-md-8 col-xl-8">
-								<input class="info-input" th:field="${account.email}">
-							</div>
-						</div>
-						<div class="row d-flex mb-3">
-							<div class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
-								<i class="bi bi-geo-alt shopee-icon mr-3"></i>
-								<div class="card-info-title">Address</div>
-							</div>
-							<div class="col-12 col-sm-8 col-md-8 col-xl-8">
-								<input class="info-input" th:field="${userForm.address}">
-							</div>
-						</div>
-						<div class="row d-flex mb-3">
-							<div class="setting-card-info d-flex col-12 col-sm-4 col-md-4 col-xl-4">
-								<i class="bi bi-lock shopee-icon mr-3"></i>
-								<div class="card-info-title">Mật khẩu đăng nhập</div>
-							</div>
-							<div class="col-12 col-sm-8 col-md-8 col-xl-8">
-								<div class="info-input subtitle btn btn-dark btn-change-pass"
-												data-bs-toggle="modal" data-bs-target="#exampleModal"
-												data-bs-whatever="@getbootstrap">
-									<i class="bi bi-envelope-exclamation"></i>
-									Nhận otp để đổi mật khẩu
-								</div>
-							</div>
-						</div>
+					</div>
 				</div>
 				<div class="col-sm-4 col-md-4 col-xl-4">
-					<div class="mb-3"><i class="bi bi-person-bounding-box shopee-icon mr-3"></i> <span>Ảnh đại diện</span></div>
-				<label for="image" class="shadow label-img">
-					<img th:src="@{'/image/'+${user.avatar}}"
-						class=" img " id="myimage1">
-					<div class="modal-add">
-						<i class="bi bi-plus-square-dotted modal-add-icon"></i> <span>Đổi ảnh đại diện</span>
+					<div class="mb-3">
+						<i class="bi bi-person-bounding-box shopee-icon mr-3"></i> <span>Ảnh
+							đại diện</span>
 					</div>
-				</label>
-					<input type="file" id="image" class="info-input d-none"	th:field="${userForm.avatar}"
-												th:onchange="changeHandler(event)">
+					<label for="image" class="shadow label-img"> <img
+						th:src="@{'/image/'+${user.avatar}}" class=" img " id="myimage1">
+						<div class="modal-add">
+							<i class="bi bi-plus-square-dotted modal-add-icon"></i> <span>Đổi
+								ảnh đại diện</span>
+						</div>
+					</label> <input type="file" id="image" class="info-input d-none"
+						th:field="${userForm.avatar}" th:onchange="changeHandler(event)">
 				</div>
 			</div>
 			<div class="text-center mb-5 mt-3">
-				<button type="submit" class="right-button-2 right-button col-12 col-sm-2">
-					<i class="bi bi-box-arrow-in-down"></i>
-						Lưu
+				<button type="submit"
+					class="right-button-2 right-button col-12 col-sm-2">
+					<i class="bi bi-box-arrow-in-down"></i> Lưu
 				</button>
 			</div>
 		</form>
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title create-otp" id="exampleModalLabel">Vui lòng check email để lấy OTP!</h1>
-						<h1 class="modal-title change-pass" id="exampleModalLabel" style="display: none">Đổi Password!</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						<h1 class="modal-title create-otp" id="exampleModalLabel">Vui
+							lòng check email để lấy OTP!</h1>
+						<h1 class="modal-title change-pass" id="exampleModalLabel"
+							style="display: none">Đổi Password!</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-							<div style="display: none; color: red" class="mess-otp">
-							Sai OTP! Mời nhập lại!</div>
-							<div class="mb-3 create-otp">
-								<label for="otp-number" class="col-form-label">Nhập OTP:</label>
-								<input type="text" class="form-control otp" id="otp-number" placeholder="Nhập OTP" th:name="otp">
-							</div>
-							<div class="mb-3 change-pass" style="display: none">
-								<label for="otp-number" class="col-form-label">Nhập Password:</label>
-								<input type="text" class="form-control pass" id="otp-number" placeholder="Nhập Password" th:name="pass">
-							</div>
+						<div style="display: none; color: red" class="mess-otp">Sai
+							OTP! Mời nhập lại!</div>
+						<div class="mb-3 create-otp">
+							<label for="otp-number" class="col-form-label">Nhập OTP:</label>
+							<input type="text" class="form-control otp" id="otp-number"
+								placeholder="Nhập OTP" th:name="otp">
+						</div>
+						<div class="mb-3 change-pass" style="display: none">
+							<label for="otp-number" class="col-form-label">Nhập
+								Password:</label> <input type="text" class="form-control pass"
+								id="otp-number" placeholder="Nhập Password" th:name="pass">
+						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<button type="submit" class="show-form-update-pass create-otp btn btn-primary"
-										th:onclick="checkotp([[${account.id}]])">Check OTP</button>
-						<button type="submit" class="change-pass btn btn-primary" style="display: none" th:onclick="changePassword([[${account.id}]])">Lưu</button>
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Close</button>
+						<button type="submit"
+							class="show-form-update-pass create-otp btn btn-primary"
+							th:onclick="checkotp([[${account.id}]])">Check OTP</button>
+						<button type="submit" class="change-pass btn btn-primary"
+							style="display: none"
+							th:onclick="changePassword([[${account.id}]])">Lưu</button>
 					</div>
 				</div>
 			</div>
@@ -1214,43 +1256,50 @@
 					class="header-content navbar navbar-expand-md row  justify-content-between align-items-center">
 					<div class="container-fluid">
 						<a class="navbar-brand" th:href="@{/home}">Logo</a>
-						<th:block  th:if="${carts}">
-									<span class="mr-4" style="color: #f56043; font-size: 25px;">Giỏ
-										hàng</span> 
-									<span class="mr-4" th:if="${route == 'user-update-info'}"
-																			style="color: #f56043; font-size: 25px;">Thông tin
-										người dùng</span> 
-									<span class="mr-4" th:if="${route == 'user-info'}" style="color: #f56043; font-size: 25px;">Thông tin
-										người dùng</span>
+						<th:block th:if="${carts}">
+							<span class="me-4" style="color: #f56043; font-size: 25px;">Giỏ
+								hàng</span>
+							<span class="me-4" th:if="${route == 'user-update-info'}"
+								style="color: #f56043; font-size: 25px;">Thông tin người
+								dùng</span>
+							<span class="me-4" th:if="${route == 'user-info'}"
+								style="color: #f56043; font-size: 25px;">Thông tin người
+								dùng</span>
 						</th:block>
 
-						<button class="navbar-toggler" th:classappend="${carts} ? 'd-none'" type="button"
+						<button class="navbar-toggler"
+							th:classappend="${carts} ? 'd-none'" type="button"
 							data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
 							<span class="navbar-toggler-icon"></span>
 						</button>
 						<div class="collapse navbar-collapse row" id="collapsibleNavbar">
-							<div class="navbar-nav bg-white justify-content-between pr-0">
-								<div class="d-flex nav-item-wrap pb-3 pb-md-0 text-end pt-3 pr-4 pr-md-0 pt-md-0 jutify-content-end align-items-md-center">
-									<div class="nav-item col-auto pl-4 pr-0">
-									<div class="dropdown">
-										<select th:if="${listAddress }" class="dropdown-address"
-														name="dropdown-address" th:value="${session.address}">
-											<option th:if="${session.address}"
-															th:value="${session.address}">[[${session.address}]]</option>
-											<th:block th:each="address : ${listAddress }">
-												<option th:value="${address}">[[${address}]]</option>
-											</th:block>
-										</select>
+							<div class="navbar-nav bg-white justify-content-between pe-0">
+								<div
+									class="d-flex nav-item-wrap pb-3 pb-md-0 text-end pt-3 pe-4 pe-md-0 pt-md-0 jutify-content-end align-items-md-center">
+									<div class="nav-item col-auto ps-4 pe-0">
+										<div class="dropdown">
+											<select th:if="${listAddress }" class="dropdown-address"
+												name="dropdown-address" th:value="${session.address}">
+												<option th:if="${session.address}"
+													th:value="${session.address}">[[${session.address}]]</option>
+												<th:block th:each="address : ${listAddress }">
+													<option th:value="${address}">[[${address}]]</option>
+												</th:block>
+											</select>
+										</div>
 									</div>
+									<div class="nav-item main-nav ps-md-4 ps-xl-5 ps-4"
+										th:if="${categories}" th:each="categoryItem: ${categories}">
+										<a class="pb-4"
+											th:classappend="${categoryItem == category}? 'active'"
+											th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
+									</div>
+
 								</div>
-								<div class="nav-item main-nav pl-md-4 pl-xl-5 pl-4" th:if="${categories}" th:each="categoryItem: ${categories}">
-									<a class ="pb-4" th:classappend="${categoryItem == category}? 'active'" th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
-								</div>
-								
-								</div>
-								<div class="acc-cart d-flex pl-md-2 pl-xl-2 pl-2 pt-4 pt-md-0 justify-content-end pb-4 pb-md-0 pr-4 pr-md-0">
+								<div
+									class="acc-cart d-flex ps-md-2 ps-xl-2 ps-2 pt-4 pt-md-0 justify-content-end pb-4 pb-md-0 pe-4 pe-md-0">
 									<div class="nav-item user-acc user-acc-wr"
-											 th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
+										th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
 										<th:block th:if="${message == 'chua dang nhap'}">
 											<a th:href="@{/login}">
 												<button type="button" class="btn btn-none-bg btn-login">
@@ -1262,31 +1311,33 @@
 										<div th:unless="${message == 'chua dang nhap'}">
 											<div class="user-acc-contain d-flex">
 												<img class="user-acc-img d-block"
-														 th:src="@{'/image/'+${session.avatar}}" alt=""> 
-													<span id="username" class="d-block" th:text="${session.name}"></span>
-													<input id="userId" th:value="${session.userId}" class="d-none">
+													th:src="@{'/image/'+${session.avatar}}" alt=""> <span
+													id="username" class="d-block" th:text="${session.name}"></span>
+												<input id="userId" th:value="${session.userId}"
+													class="d-none">
 												<div class="user-acc-dropdown">
-													<div th:if="${role == 'merchant'}" class="pl-3 pt-3">
+													<div th:if="${role == 'merchant'}" class="ps-3 pt-3">
 														<a class="user-acc-admin" th:href="@{/merchant}"><i
-																class="fa-solid fa-store"></i> Kênh người bán</a>
+															class="fa-solid fa-store"></i> Kênh người bán</a>
 													</div>
-													<div th:unless="${role == 'merchant'}" class="pl-3 pt-3">
+													<div th:unless="${role == 'merchant'}" class="ps-3 pt-3">
 														<a class="user-acc-admin" th:href="@{/register/merchant}">
 															<i class="fa-solid fa-user-plus"></i> Đăng ký người bán
-														</a> 
-														<a class="user-acc-admin" th:href="@{/home/user-info}">
+														</a> <a class="user-acc-admin" th:href="@{/home/user-info}">
 															<i class="fa-solid fa-address-card"></i> Trang cá nhân
 														</a>
 													</div>
-													<div th:if="${role == 'admin'}" class="pl-3 pt-3">
+													<div th:if="${role == 'admin'}" class="ps-3 pt-3">
 														<a class="user-acc-admin"
-															 th:href="@{/admin/merchant-list/ACTIVE/1}"> 
-															 <i class="fa-solid fa-lock"></i> Kênh admin
+															th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
+															class="fa-solid fa-lock"></i> Kênh admin
 														</a>
 													</div>
 													<hr>
-													<a th:href="@{/logout}" class="mb-3 d-flex align-items-center justify-content-center">
-														<i class="fa-solid fa-right-to-bracket mr-2"></i> Đăng xuất
+													<a th:href="@{/logout}"
+														class="mb-3 d-flex align-items-center justify-content-center">
+														<i class="fa-solid fa-right-to-bracket mr-2"></i> Đăng
+														xuất
 													</a>
 												</div>
 											</div>
@@ -1294,9 +1345,8 @@
 									</div>
 
 									<th:block th:if="${role == 'user'}">
-										<a class="nav-bar-cart ml-2"
-											 th:href="@{/user/cart}"> <i
-												class="fa-solid fa-cart-shopping"></i>
+										<a class="nav-bar-cart ms-2" th:href="@{/user/cart}"> <i
+											class="fa-solid fa-cart-shopping"></i>
 										</a>
 									</th:block>
 								</div>
@@ -1408,7 +1458,7 @@
 										<div class="col-auto">
 											<i class="icon icon-thumbtack"></i>
 										</div>
-										<div class="col pl-3">
+										<div class="col ps-3">
 											<span class="txt-blue link">Tìm trên bản đồ</span>
 										</div>
 										<div class="col-auto mr-3">
@@ -1618,7 +1668,7 @@
 											<div class="col-auto">
 												<i class="icon icon-thumbtack"></i>
 											</div>
-											<div class="col pl-3">
+											<div class="col ps-3">
 												<span class="txt-blue link">Tìm trên bản đồ</span>
 											</div>
 											<div class="col-auto mr-3">
