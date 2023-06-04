@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--  main-fragment (title, otherStaticResources, header,supTitle nav, mainContent, footer)  -->
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layouts/main-layout :: main-fragment(  
                                                 ~{::title},
@@ -19,7 +18,7 @@
     </th:block>
 </head>
 <body>
-    <div id="merchant-header" th:replace="~{/fragments/app-fragments :: header}">
+    <div id="merchant-header" th:replace="~{/fragments/head :: header}">
         Header of Merchant Page
     </div>
     <div id="merchant-nav" th:replace="~{/fragments/app-fragments :: merchant-nav}">

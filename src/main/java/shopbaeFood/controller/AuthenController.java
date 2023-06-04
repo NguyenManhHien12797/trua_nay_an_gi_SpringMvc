@@ -24,6 +24,7 @@ import shopbaeFood.exception.CheckOtpException;
 import shopbaeFood.model.Account;
 import shopbaeFood.model.AppUser;
 import shopbaeFood.model.Merchant;
+import shopbaeFood.model.Product;
 import shopbaeFood.model.Status;
 import shopbaeFood.model.UserForm;
 import shopbaeFood.model.dto.AccountRegisterDTO;
@@ -32,6 +33,7 @@ import shopbaeFood.service.IAccountService;
 import shopbaeFood.service.IAppUserSevice;
 import shopbaeFood.service.IAuthenService;
 import shopbaeFood.service.IMerchantService;
+import shopbaeFood.service.IProductService;
 
 @Controller
 public class AuthenController {
@@ -46,6 +48,9 @@ public class AuthenController {
     private IMerchantService merchantService;
 
     @Autowired
+    private IProductService productService;
+
+    @Autowired
     private IAccountService accountService;
 
     public static final String USER = "user";
@@ -56,7 +61,7 @@ public class AuthenController {
     /**
      * This method returns login page or message when login error
      * 
-     * @param message
+     * @param mess
      * @param model
      * @return view login
      */
@@ -71,6 +76,7 @@ public class AuthenController {
             response.setDateHeader("Expires", 0);
             return "login";
         }
+
         return "redirect:/";
     }
 
@@ -84,8 +90,15 @@ public class AuthenController {
     @GetMapping(value = { "/home", "/" })
     public String home(@RequestParam(required = false) String address, @RequestParam(required = false) String category,
             @RequestParam(required = false) String quickSearch, Model model, HttpSession session) {
-        List<Merchant> merchants = authenService.getMerchants(address, category, quickSearch, session, model);
+        List<Merchant> merchants = authenService.getMerchants(address, category, quickSearch, session);
+
         model.addAttribute("merchants", merchants);
+        model.addAttribute("listAddress", authenService.getAddress());
+        session.setAttribute("categories", authenService.getCategories());
+        model.addAttribute("categories", authenService.getCategories());
+        model.addAttribute("quickSearchs", authenService.getListQuickSearch(category));
+        model.addAttribute("category", category);
+
         return "homepage";
     }
 
@@ -98,7 +111,13 @@ public class AuthenController {
      */
     @GetMapping(value = { "/home/merchant-detail/{id}" })
     public String merchantDetails(@PathVariable Long id, Model model) {
-        return authenService.merchantDetails(id, model);
+        Merchant merchant = merchantService.findById(id);
+        List<Product> products = productService.findAllProductByMerchantAndDeleteFlag(merchant);
+
+        model.addAttribute("merchant", merchant);
+        model.addAttribute("products", products);
+
+        return "merchant-details";
     }
 
     /**
@@ -111,13 +130,8 @@ public class AuthenController {
     @GetMapping(value = { "/home/{route}" })
     public String userInfo(@PathVariable String route, Model model) {
         Account account = accountService.getAccount();
-        List<String> roleList = authenService.authorities();
-        String role = "user";
         if (account == null) {
             return "redirect:/login?mess=not-logged-in";
-        }
-        if (roleList.contains("ROLE_ADMIN")) {
-            role = "admin";
         }
         AppUser user = userSevice.findById(account.getUser().getId());
         UserForm userForm = new UserForm(user.getId(), user.getName(), user.getPhone(), user.getAddress());
@@ -125,7 +139,7 @@ public class AuthenController {
         model.addAttribute("account", account);
         model.addAttribute("userForm", userForm);
         model.addAttribute("route", route);
-        model.addAttribute("role", role);
+
         return "user-info";
     }
 
@@ -153,7 +167,23 @@ public class AuthenController {
      */
     @GetMapping("/register/{role}")
     public ModelAndView showFormRegister(@PathVariable String role) {
-        return authenService.showFormRegister(role);
+        ModelAndView modelAndView = new ModelAndView("/register");
+        String path = "";
+        String title = "";
+        if ("user".equals(role)) {
+            path = "/register/user";
+            title = "Đăng ký người dùng";
+        }
+        if ("merchant".equals(role)) {
+            path = "/register/merchant";
+            title = "Đăng ký người bán";
+        }
+
+        modelAndView.addObject("register", path);
+        modelAndView.addObject("title", title);
+        modelAndView.addObject("accountRegisterDTO", new AccountRegisterDTO());
+
+        return modelAndView;
     }
 
     /**
@@ -188,8 +218,6 @@ public class AuthenController {
 
     /**
      * This method is used to create OTP
-     * 
-     * @param session
      * @return mess: 'create otp ok'
      */
     @RequestMapping(value = { "/home/create-otp" })
@@ -231,23 +259,10 @@ public class AuthenController {
             return "change_pass";
         }
         if (authenService.changePass(passwordDTO)) {
-            List<String> authorities = authenService.authorities();
-            if (authorities == null) {
-                return "redirect:/login?mess=not-logged-in";
-            } else {
-                if (authorities.contains("ROLE_ADMIN")) {
-                    return "redirect:/admin";
-                }
-                if (authorities.contains("ROLE_MERCHANT")) {
-                    return "redirect:/merchant";
-                }
-                if (authorities.contains("ROLE_USER")) {
-                    return "redirect:/";
-                }
-            }
-
+            return "login";
         }
         model.addAttribute("error", "Mật khẩu không đúng");
+
         return "change_pass";
     }
 
@@ -262,6 +277,7 @@ public class AuthenController {
     @ResponseBody
     public String changePass(@PathVariable Long account_id, @PathVariable String pass) {
         authenService.changePass(pass, account_id);
+
         return "change pass ok";
     }
 
@@ -269,10 +285,9 @@ public class AuthenController {
     @ResponseBody
     public List<Merchant> searchMerchant(@RequestBody(required = false) String search,
             @PathVariable(required = false) String category) {
-        System.out.println("category: " + category);
-
         List<Merchant> merchants = merchantService.findMerchantsByStatusAndCategoryAndSearch(Status.ACTIVE, category,
                 search);
+
         return merchants;
     }
 

@@ -67,12 +67,10 @@ public class AdminController {
      */
 
     private void addListAttribute(Status status, String navRoute, int pageNumber, Model model) {
-        String navTitle = "Kênh Admin";
         Page<?> page = merchantService.page(status, navRoute, pageNumber);
         int lastPageNumber = page.getLastPageNumber();
         model.addAttribute("usersOrMechants", page.getPaging());
         model.addAttribute("lastPageNumber", lastPageNumber);
-        model.addAttribute("navTitle", navTitle);
         model.addAttribute("page", pageNumber);
         model.addAttribute("navRoute", navRoute);
         model.addAttribute("status", status);

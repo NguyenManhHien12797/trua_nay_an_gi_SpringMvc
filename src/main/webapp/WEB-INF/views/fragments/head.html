@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:svg="http://www.w3.org/2000/svg"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://thymeleaf.org">
 <head th:fragment="head">
- <meta charset="ISO-8859-1">
+ <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
  <link rel="icon" type="image/x-icon" th:href="@{/static/img/favicon.png}">
  <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
@@ -27,6 +24,117 @@
   </script> -->
 </head>
 <body>
-	
+<header th:fragment="header">
+  <div class="container-header">
+    <div class="container-xl container-fluid-md h-100">
+      <nav
+          class="header-content navbar navbar-expand-md row  justify-content-between align-items-center">
+        <div class="container-fluid">
+          <a class="navbar-brand" th:href="@{/home}">Logo</a>
+          <th:block th:if="${session.authorities}">
+            <th:block th:if="${#lists.contains(session.authorities, 'ROLE_ADMIN') && role == 'admin'}">
+              <span class="me-4 head-title">Kênh Admin</span>
+            </th:block>
+            <th:block th:if="${#lists.contains(session.authorities, 'ROLE_MERCHANT') && role == 'merchant'}">
+              <span class="me-4 head-title">Kênh Merchant</span>
+            </th:block>
+          </th:block>
+          <th:block th:if="${carts}">
+							<span class="me-4 head-title">Giỏ hàng</span>
+          </th:block>
+          <th:block th:if="${route == 'user-update-info' || route == 'user-info'}">
+							 <span class="me-4 head-title">Thông tin người dùng</span>
+          </th:block>
+
+          <button class="navbar-toggler"
+                  th:classappend="${carts} ? 'd-none'" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse row" id="collapsibleNavbar">
+            <div class="navbar-nav bg-white justify-content-between pe-0">
+              <div
+                  class="d-flex nav-item-wrap pb-3 pb-md-0 text-end pt-3 pe-4 pe-md-0 pt-md-0 jutify-content-end align-items-md-center">
+                <div class="nav-item col-auto ps-4 pe-0">
+                  <div class="dropdown">
+                    <select th:if="${listAddress }" class="dropdown-address"
+                            name="dropdown-address" th:value="${session.address}">
+                      <option th:if="${session.address}"
+                              th:value="${session.address}">[[${session.address}]]</option>
+                      <th:block th:each="address : ${listAddress }">
+                        <option th:value="${address}">[[${address}]]</option>
+                      </th:block>
+                    </select>
+                  </div>
+                </div>
+                <div class="nav-item main-nav ps-md-4 ps-xl-5 ps-4"
+                     th:if="${categories}" th:each="categoryItem: ${categories}">
+                  <a class="pb-4"
+                     th:classappend="${categoryItem == category}? 'active'"
+                     th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
+                </div>
+
+              </div>
+              <div
+                  class="acc-cart d-flex ps-md-2 ps-xl-2 ps-2 pt-4 pt-md-0 justify-content-end pb-4 pb-md-0 pe-4 pe-md-0">
+                <div class="nav-item user-acc user-acc-wr">
+                  <th:block th:unless="${session.authorities}">
+                    <a th:href="@{/login}">
+                      <button type="button" class="btn btn-none-bg btn-login">
+                        <span class="font14">Đăng nhập</span>
+                      </button>
+                    </a>
+                  </th:block>
+
+                  <div th:if="${session.authorities}" class="d-flex">
+                    <div class="user-acc-contain d-flex">
+                      <img class="user-acc-img d-block"
+                           th:src="@{'/image/'+${session.avatar}}" alt=""> <span
+                        id="username" class="d-block" th:text="${session.name}"></span>
+                      <input id="userId" th:value="${session.userId}"
+                             class="d-none">
+                      <div class="user-acc-dropdown">
+                        <div th:if="${#lists.contains(session.authorities, 'ROLE_MERCHANT')}" class="ps-3 pt-3">
+                          <a class="user-acc-admin" th:href="@{/merchant}"><i
+                              class="fa-solid fa-store"></i> Kênh người bán</a>
+                        </div>
+                        <div th:unless="${#lists.contains(session.authorities, 'ROLE_MERCHANT')}" class="ps-3 pt-3">
+                          <a class="user-acc-admin" th:href="@{/register/merchant}">
+                            <i class="fa-solid fa-user-plus"></i> Đăng ký người bán
+                          </a> <a class="user-acc-admin" th:href="@{/home/user-info}">
+                          <i class="fa-solid fa-address-card"></i> Trang cá nhân
+                        </a>
+                        </div>
+                        <div th:if="${#lists.contains(session.authorities, 'ROLE_ADMIN')}" class="ps-3 pt-3">
+                          <a class="user-acc-admin"
+                             th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
+                              class="fa-solid fa-lock"></i> Kênh admin
+                          </a>
+                        </div>
+                        <hr>
+                        <a th:href="@{/logout}"
+                           class="mb-3 d-flex align-items-center justify-content-center">
+                          <i class="fa-solid fa-right-to-bracket me-2"></i> Đăng
+                          xuất
+                        </a>
+                      </div>
+                    </div>
+                    <th:block th:if="${#lists.contains(session.authorities, 'ROLE_USER')}">
+                      <a class="nav-bar-cart ms-2" th:href="@{/user/cart}"> <i
+                          class="fa-solid fa-cart-shopping"></i>
+                      </a>
+                    </th:block>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+</header>
+
 </body>
 </html>

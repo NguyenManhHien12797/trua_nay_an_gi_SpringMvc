@@ -1,5 +1,6 @@
 package shopbaeFood.config;
 
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +11,6 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
-import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 
 @Configuration
 //@EnableWebMvc
@@ -39,6 +39,7 @@ public class ThymeleafConfiguration {
         templateEngine.addDialect(new LayoutDialect());
         return templateEngine;
     }
+
 
     @Bean
     public ViewResolver viewResolver() {

@@ -60,9 +60,6 @@ public class AuthenServiceImpl implements IAuthenService {
     private IMerchantService merchantService;
 
     @Autowired
-    private IProductService productService;
-
-    @Autowired
     private IAccountRepository accountRepository;
 
     @Autowired
@@ -70,6 +67,8 @@ public class AuthenServiceImpl implements IAuthenService {
 
     public static final String USER = "user";
     public static final String MECHANT = "merchant";
+    public static final long ROLE_USER_ID = 1L;
+    public static final long ROLE_MECHANT_ID = 3L;
     public static final String MAIL_SUBJECT = "Mã xác nhận OTP";
     public static final String MAIL_FROM = "nguyenhien81f@gmail.com";
 
@@ -86,85 +85,18 @@ public class AuthenServiceImpl implements IAuthenService {
         String avatar = "images.jpg";
 
         if (USER.equals(role)) {
-
-            AppRoles appRole = roleService.findById(1L);
+            AppRoles appRole = roleService.findById(ROLE_USER_ID);
             roleService.setDefaultRole(new AccountRoleMap(account, appRole));
             userSevice.save(new AppUser(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
                     accountRegisterDTO.getPhone(), status, account));
         }
         if (MECHANT.equals(role)) {
-            AppRoles appRole = roleService.findById(3L);
+            AppRoles appRole = roleService.findById(ROLE_MECHANT_ID);
             roleService.setDefaultRole(new AccountRoleMap(account, appRole));
-
             merchantService.save(new Merchant(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
                     accountRegisterDTO.getPhone(), status, accountRegisterDTO.getCategory(), account));
         }
 
-    }
-
-    @Override
-    public List<String> authorities() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return null;
-        }
-        List<String> authorities = new ArrayList<String>();
-        for (GrantedAuthority a : authentication.getAuthorities()) {
-            authorities.add(a.getAuthority());
-        }
-        return authorities;
-    }
-
-    @Override
-    public void checkLogin(Model model) {
-        String message = " ";
-        String role = "";
-        if (authorities() == null) {
-            message = "chua dang nhap";
-        } else {
-            if (authorities().contains("ROLE_USER")) {
-                role = "user";
-            }
-            if (authorities().contains("ROLE_ADMIN")) {
-                role = "admin";
-            }
-            if (authorities().contains("ROLE_MERCHANT")) {
-                role = "merchant";
-            }
-
-            model.addAttribute("role", role);
-        }
-        model.addAttribute("message", message);
-    }
-
-    @Override
-    public ModelAndView showFormRegister(String role) {
-        ModelAndView modelAndView = new ModelAndView("/register");
-        String path = "";
-        String title = "";
-        if ("user".equals(role)) {
-            path = "/register/user";
-            title = "Đăng ký người dùng";
-        }
-        if ("merchant".equals(role)) {
-            path = "/register/merchant";
-            title = "Đăng ký người bán";
-        }
-
-        modelAndView.addObject("register", path);
-        modelAndView.addObject("title", title);
-        modelAndView.addObject("accountRegisterDTO", new AccountRegisterDTO());
-        return modelAndView;
-    }
-
-    @Override
-    public String merchantDetails(Long id, Model model) {
-        checkLogin(model);
-        Merchant merchant = merchantService.findById(id);
-        List<Product> products = productService.findAllProductByMerchantAndDeleteFlag(merchant);
-        model.addAttribute("merchant", merchant);
-        model.addAttribute("products", products);
-        return "merchant-details";
     }
 
     @Override
@@ -177,8 +109,8 @@ public class AuthenServiceImpl implements IAuthenService {
         randomDouble = randomDouble * 1000000 + 1;
         int OTP = (int) randomDouble;
         account.setOtp(String.valueOf(OTP));
-
         accountRepository.update(account);
+
         Mail mail = new Mail();
         mail.setMailTo(account.getEmail());
         mail.setMailFrom(MAIL_FROM);
@@ -242,9 +174,7 @@ public class AuthenServiceImpl implements IAuthenService {
     }
 
     @Override
-    public List<Merchant> getMerchants(String address, String category, String quickSearch, HttpSession session,
-            Model model) {
-        checkLogin(model);
+    public List<Merchant> getMerchants(String address, String category, String quickSearch, HttpSession session) {
         Account account = accountService.getAccount();
         if (address == null) {
             if (session.getAttribute("address") != null) {
@@ -285,15 +215,11 @@ public class AuthenServiceImpl implements IAuthenService {
             merchants = merchantService.findMerchantsByStatusAndAddressAndCategoryAndProducName(Status.ACTIVE, address,
                     category, quickSearchs.get(quickSearch));
         }
-        model.addAttribute("listAddress", getAddress());
-        session.setAttribute("categories", getCategories());
-        model.addAttribute("categories", getCategories());
-        model.addAttribute("quickSearchs", getListQuickSearch(category));
-        model.addAttribute("category", category);
+
         return merchants;
     }
 
-    private List<String> getAddress() {
+    public List<String> getAddress() {
         List<String> listAddress = new ArrayList<String>();
         listAddress.add("Hà Nội");
         listAddress.add("Tp.HCM");
@@ -301,7 +227,7 @@ public class AuthenServiceImpl implements IAuthenService {
         return listAddress;
     }
 
-    private List<String> getCategories() {
+    public List<String> getCategories() {
         List<String> categories = new ArrayList<String>();
         categories.add("Đồ ăn");
         categories.add("Thực phẩm");
@@ -311,7 +237,7 @@ public class AuthenServiceImpl implements IAuthenService {
         return categories;
     }
 
-    private Map<String, String> getListQuickSearch(String category) {
+    public Map<String, String> getListQuickSearch(String category) {
         Map<String, String> quickSearchs = new HashMap<String, String>();
         if ("Đồ ăn".equals(category)) {
             quickSearchs.put("all", "All");

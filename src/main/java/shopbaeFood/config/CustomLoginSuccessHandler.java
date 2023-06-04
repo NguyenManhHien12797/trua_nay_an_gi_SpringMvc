@@ -1,8 +1,10 @@
 package shopbaeFood.config;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,8 +69,11 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
             session.setAttribute("address", account.getMerchant().getAddress());
 
         }
-
-        session.setAttribute("authorities", authentication.getAuthorities());
+        List<String> authorities = new ArrayList<String>();
+        for (GrantedAuthority a : authentication.getAuthorities()) {
+            authorities.add(a.getAuthority());
+        }
+        session.setAttribute("authorities", authorities);
 
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);

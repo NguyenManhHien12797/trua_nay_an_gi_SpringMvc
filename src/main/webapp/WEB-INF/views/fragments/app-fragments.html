@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://thymeleaf.org"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:svg="http://www.w3.org/2000/svg"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
@@ -1248,443 +1248,218 @@
 	</div>
 
 
-	<header th:fragment="home-header">
 
-		<div class="container-header">
-			<div class="container-xl container-fluid-md h-100">
-				<nav
-					class="header-content navbar navbar-expand-md row  justify-content-between align-items-center">
-					<div class="container-fluid">
-						<a class="navbar-brand" th:href="@{/home}">Logo</a>
-						<th:block th:if="${carts}">
-							<span class="me-4" style="color: #f56043; font-size: 25px;">Giỏ
-								hàng</span>
-							<span class="me-4" th:if="${route == 'user-update-info'}"
-								style="color: #f56043; font-size: 25px;">Thông tin người
-								dùng</span>
-							<span class="me-4" th:if="${route == 'user-info'}"
-								style="color: #f56043; font-size: 25px;">Thông tin người
-								dùng</span>
-						</th:block>
+<!--	<div th:fragment="header">-->
 
-						<button class="navbar-toggler"
-							th:classappend="${carts} ? 'd-none'" type="button"
-							data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-							<span class="navbar-toggler-icon"></span>
-						</button>
-						<div class="collapse navbar-collapse row" id="collapsibleNavbar">
-							<div class="navbar-nav bg-white justify-content-between pe-0">
-								<div
-									class="d-flex nav-item-wrap pb-3 pb-md-0 text-end pt-3 pe-4 pe-md-0 pt-md-0 jutify-content-end align-items-md-center">
-									<div class="nav-item col-auto ps-4 pe-0">
-										<div class="dropdown">
-											<select th:if="${listAddress }" class="dropdown-address"
-												name="dropdown-address" th:value="${session.address}">
-												<option th:if="${session.address}"
-													th:value="${session.address}">[[${session.address}]]</option>
-												<th:block th:each="address : ${listAddress }">
-													<option th:value="${address}">[[${address}]]</option>
-												</th:block>
-											</select>
-										</div>
-									</div>
-									<div class="nav-item main-nav ps-md-4 ps-xl-5 ps-4"
-										th:if="${categories}" th:each="categoryItem: ${categories}">
-										<a class="pb-4"
-											th:classappend="${categoryItem == category}? 'active'"
-											th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
-									</div>
+<!--		<header class="main-header">-->
 
-								</div>
-								<div
-									class="acc-cart d-flex ps-md-2 ps-xl-2 ps-2 pt-4 pt-md-0 justify-content-end pb-4 pb-md-0 pe-4 pe-md-0">
-									<div class="nav-item user-acc user-acc-wr"
-										th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
-										<th:block th:if="${message == 'chua dang nhap'}">
-											<a th:href="@{/login}">
-												<button type="button" class="btn btn-none-bg btn-login">
-													<span class="font14">Đăng nhập</span>
-												</button>
-											</a>
-										</th:block>
+<!--			<div class="container-header">-->
+<!--				<div class="container">-->
+<!--					<div-->
+<!--						class="header-content navbar row  justify-content-between align-items-center">-->
+<!--						<div class="logo-now col-auto">-->
+<!--							<span><a th:href="@{/home}">Logo &lt;!&ndash;     <img th:src="@{/static/img/shopeefoodvn.png}" alt="ShopBaeFood"> &ndash;&gt;-->
+<!--							</a></span>-->
+<!--						</div>-->
 
-										<div th:unless="${message == 'chua dang nhap'}">
-											<div class="user-acc-contain d-flex">
-												<img class="user-acc-img d-block"
-													th:src="@{'/image/'+${session.avatar}}" alt=""> <span
-													id="username" class="d-block" th:text="${session.name}"></span>
-												<input id="userId" th:value="${session.userId}"
-													class="d-none">
-												<div class="user-acc-dropdown">
-													<div th:if="${role == 'merchant'}" class="ps-3 pt-3">
-														<a class="user-acc-admin" th:href="@{/merchant}"><i
-															class="fa-solid fa-store"></i> Kênh người bán</a>
-													</div>
-													<div th:unless="${role == 'merchant'}" class="ps-3 pt-3">
-														<a class="user-acc-admin" th:href="@{/register/merchant}">
-															<i class="fa-solid fa-user-plus"></i> Đăng ký người bán
-														</a> <a class="user-acc-admin" th:href="@{/home/user-info}">
-															<i class="fa-solid fa-address-card"></i> Trang cá nhân
-														</a>
-													</div>
-													<div th:if="${role == 'admin'}" class="ps-3 pt-3">
-														<a class="user-acc-admin"
-															th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
-															class="fa-solid fa-lock"></i> Kênh admin
-														</a>
-													</div>
-													<hr>
-													<a th:href="@{/logout}"
-														class="mb-3 d-flex align-items-center justify-content-center">
-														<i class="fa-solid fa-right-to-bracket mr-2"></i> Đăng
-														xuất
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
+<!--						<div class="main-nav col">-->
+<!--							<span th:text="${navTitle}">Kênh Admin</span>-->
+<!--						</div>-->
 
-									<th:block th:if="${role == 'user'}">
-										<a class="nav-bar-cart ms-2" th:href="@{/user/cart}"> <i
-											class="fa-solid fa-cart-shopping"></i>
-										</a>
-									</th:block>
-								</div>
+<!--						<div class="user-acc col-auto user-acc-wr"-->
+<!--							th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">-->
+<!--							<div th:if="${message == 'chua dang nhap'}">-->
+<!--								<a href="/login">-->
+<!--									<button type="button" class="btn btn-none-bg btn-login">-->
+<!--										<span class="font14">Đăng nhập</span>-->
+<!--									</button>-->
+<!--								</a>-->
+<!--							</div>-->
+<!--							<div th:unless="${message == 'chua dang nhap'}">-->
 
-							</div>
-						</div>
-					</div>
-				</nav>
+<!--								<div class="user-acc-contain">-->
+<!--									<img class="user-acc-img"-->
+<!--										th:src="@{'/image/'+${session.avatar}}" alt=""> <span-->
+<!--										id="username" th:text="${session.username}"></span> <input-->
+<!--										id="userId" th:value="${session.userId}"-->
+<!--										style="display: none;">-->
+<!--									<div class="user-acc-dropdown">-->
 
-			</div>
-		</div>
-		<div class="modal fade modal-search" id="modal-search" tabindex="-1"
-			role="dialog" aria-hidden="true">
-			style="display:none"
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<span class="close" data-dismiss="modal">x</span>
-					<div class="modal-search-form">
-						<span class="sub-title">Đặt Đồ ăn, giao hàng từ 20'... có
-							37422 địa điểm ở Hà Nội từ 00:00 - 23:59</span>
-						<form>
-							<input class="search-input" name="search-input" type="text"
-								autocomplete="off" value="">
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade modal-new-app" id="modal-new-app" tabindex="-1"
-			role="dialog" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<span class="close" data-dismiss="modal">x</span>
-					<div class="img-now">
-						<img src="#" alt="App now">
-					</div>
-					<div class="info-now">
-						<span> <span
-							style="font-size: 36px; font-weight: lighter; margin-bottom: 0">Hello
-								you!</span> <span
-							style="font-size: 15px; margin-top: 9px; margin-bottom: 9px;">We
-								are pleased to inform you that our application<span class="bold">
-									ShopeeFood</span> is changed its name to
-						</span><span class="btn btn-red font18" title="ShopeeFood"
-							style="cursor: pointer; font-size: 18px !important; background-color: #cf2127; color: #fff; border-color: #cf2127;"><span
-								class="txt-bold" style="font-weight: 700 !important;">ShopBeaFood</span></span>
-						</span>
-						<p class="update-version">Cập nhật phiên bản mới</p>
-						<div class="down-apps">
-							<a target="_blank" rel="noopener noreferrer"
-								href="https://itunes.apple.com/us/app/deliverynow/id1137866760"
-								class="down-app" title="App Store"><span
-								class="icon icon-app-store-sm"></span></a><a target="_blank"
-								rel="noopener noreferrer"
-								href="https://play.google.com/store/apps/details?id=com.deliverynow"
-								class="down-app" title="Google play"><span
-								class="icon icon-gg-play-sm"></span></a>
-						</div>
-					</div>
-					<div class="box-now-merchant clearfix">
-						<div class="img-merchant">
-							<div class="float-left mar-right10">
-								<span class="icon icon-merchant-lg"></span>
-							</div>
-							<div class="float-left">
-								<a target="_blank" rel="noopener noreferrer"
-									href="https://itunes.apple.com/US/app/id1296706589?mt=8"
-									class="down-apps" title="App Store"><span
-									class="icon icon-app-store-sm"></span></a><a target="_blank"
-									rel="noopener noreferrer"
-									href="https://play.google.com/store/apps/details?id=com.sea.foody.nowmerchant&amp;amp;hl=vi"
-									class="down-apps" title="Google play"><span
-									class="icon icon-gg-play-sm"></span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="modal fade modal-get-local" id="userLocationId"
-			tabindex="-1" role="dialog" data-backdrop="static"
-			style="display: none;" aria-hidden="true">
-			<div class="modal-dialog modal-lg" role="document">
-				<div class="modal-content">
-					<span class="close" data-dismiss="modal">x</span>
-					<div class="modal-header">Bạn muốn giao đến đâu?</div>
-					<div class="modal-body">
-						<div class="search-local">
-							<div class="primary-local">
-								<div class="row align-items-center no-gutters">
-									<div class="col-auto">
-										<i class="icon icon-search-gray"></i>
-									</div>
-									<div class="col">
-										<input type="text" id="address" name="address"
-											placeholder="Nhập địa chỉ giao hàng" value="">
-									</div>
-									<div class="col-auto">
-										<i class="icon icon-location"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="list-local">
-							<div class="suggest-local">
-								<div class="location-items"></div>
-								<div class="find-map">
-									<div class="row align-items-center no-gutters">
-										<div class="col-auto">
-											<i class="icon icon-thumbtack"></i>
-										</div>
-										<div class="col ps-3">
-											<span class="txt-blue link">Tìm trên bản đồ</span>
-										</div>
-										<div class="col-auto mr-3">
-											<i class="icon-arrow-thin right"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+<!--										<div th:if="${role == 'merchant'}">-->
+<!--											<a class="user-acc-admin" th:href="@{/merchant}"><i-->
+<!--												class="fa-solid fa-store"></i> Kênh người bán</a>-->
 
-	<div th:fragment="header">
+<!--										</div>-->
 
-		<header class="main-header">
+<!--										<div th:unless="${role == 'merchant'}">-->
+<!--											<a class="user-acc-admin" th:href="@{/register/merchant}"><i-->
+<!--												class="fa-solid fa-user-plus"></i> Đăng ký người bán</a> <a-->
+<!--												class="user-acc-admin" th:href="@{/home/user-info}"><i-->
+<!--												class="fa-solid fa-address-card"></i> Trang cá nhân</a>-->
+<!--										</div>-->
 
-			<div class="container-header">
-				<div class="container">
-					<div
-						class="header-content navbar row  justify-content-between align-items-center">
-						<div class="logo-now col-auto">
-							<span><a th:href="@{/home}">Logo <!--     <img th:src="@{/static/img/shopeefoodvn.png}" alt="ShopBaeFood"> -->
-							</a></span>
-						</div>
+<!--										<div th:if="${role == 'admin'}">-->
+<!--											<a class="user-acc-admin"-->
+<!--												th:href="@{/admin/merchant-list/ACTIVE/1}"> <i-->
+<!--												class="fa-solid fa-lock"></i> Kênh admin-->
+<!--											</a>-->
+<!--										</div>-->
 
-						<div class="main-nav col">
-							<span th:text="${navTitle}">Kênh Admin</span>
-						</div>
+<!--										<hr>-->
+<!--										<a th:href="@{/logout}"><i-->
+<!--											class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
 
-						<div class="user-acc col-auto user-acc-wr"
-							th:classappend="(${role} == 'merchant'? user-acc-wr-merchant: (${role} == 'admin'? user-acc-wr-merchant))">
-							<div th:if="${message == 'chua dang nhap'}">
-								<a href="/login">
-									<button type="button" class="btn btn-none-bg btn-login">
-										<span class="font14">Đăng nhập</span>
-									</button>
-								</a>
-							</div>
-							<div th:unless="${message == 'chua dang nhap'}">
+<!--						</div>-->
 
-								<div class="user-acc-contain">
-									<img class="user-acc-img"
-										th:src="@{'/image/'+${session.avatar}}" alt=""> <span
-										id="username" th:text="${session.username}"></span> <input
-										id="userId" th:value="${session.userId}"
-										style="display: none;">
-									<div class="user-acc-dropdown">
+<!--						<div th:if="${role == 'user'}">-->
+<!--							<div class="nav-bar-cart">-->
+<!--								<i class="fa-solid fa-cart-shopping"></i>-->
 
-										<div th:if="${role == 'merchant'}">
-											<a class="user-acc-admin" th:href="@{/merchant}"><i
-												class="fa-solid fa-store"></i> Kênh người bán</a>
+<!--								<div class="cart-detail">-->
+<!--									<span class="cart-detail-span">Sản phẩm trong giỏ hàng</span> <img-->
+<!--										class="nocart-img"-->
+<!--										src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png"-->
+<!--										alt="">-->
+<!--									<div class="cart-detai-item-container">-->
+<!--										<div class="cart-detai-item">-->
+<!--											<img src=" " alt=""> <span class="cart-detai-item-span">{{product.product.name}}</span>-->
+<!--											<span>{{product.product.newPrice}} đ</span>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--									<div class="cart-detail-btn">-->
+<!--										<span>Tổng: {{carts.length}} sản phẩm</span>-->
+<!--										<button class="btn btn-cart">Xem giỏ hàng</button>-->
+<!--									</div>-->
+<!--								</div>-->
 
-										</div>
-
-										<div th:unless="${role == 'merchant'}">
-											<a class="user-acc-admin" th:href="@{/register/merchant}"><i
-												class="fa-solid fa-user-plus"></i> Đăng ký người bán</a> <a
-												class="user-acc-admin" th:href="@{/home/user-info}"><i
-												class="fa-solid fa-address-card"></i> Trang cá nhân</a>
-										</div>
-
-										<div th:if="${role == 'admin'}">
-											<a class="user-acc-admin"
-												th:href="@{/admin/merchant-list/ACTIVE/1}"> <i
-												class="fa-solid fa-lock"></i> Kênh admin
-											</a>
-										</div>
-
-										<hr>
-										<a th:href="@{/logout}"><i
-											class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-						<div th:if="${role == 'user'}">
-							<div class="nav-bar-cart">
-								<i class="fa-solid fa-cart-shopping"></i>
-
-								<div class="cart-detail">
-									<span class="cart-detail-span">Sản phẩm trong giỏ hàng</span> <img
-										class="nocart-img"
-										src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png"
-										alt="">
-									<div class="cart-detai-item-container">
-										<div class="cart-detai-item">
-											<img src=" " alt=""> <span class="cart-detai-item-span">{{product.product.name}}</span>
-											<span>{{product.product.newPrice}} đ</span>
-										</div>
-									</div>
-									<div class="cart-detail-btn">
-										<span>Tổng: {{carts.length}} sản phẩm</span>
-										<button class="btn btn-cart">Xem giỏ hàng</button>
-									</div>
-								</div>
-
-							</div>
-						</div>
+<!--							</div>-->
+<!--						</div>-->
 
 
 
 
-					</div>
-				</div>
-			</div>
-			<div class="modal fade modal-search" id="modal-search" tabindex="-1"
-				role="dialog" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<span class="close" data-dismiss="modal">x</span>
-						<div class="modal-search-form">
-							<span class="sub-title">Đặt Đồ ăn, giao hàng từ 20'... có
-								37422 địa điểm ở Hà Nội từ 00:00 - 23:59</span>
-							<form>
-								<input class="search-input" name="search-input" type="text"
-									autocomplete="off" value="">
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal fade modal-new-app" id="modal-new-app"
-				tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<span class="close" data-dismiss="modal">x</span>
-						<div class="img-now">
-							<img src="#" alt="App now">
-						</div>
-						<div class="info-now">
-							<span> <span
-								style="font-size: 36px; font-weight: lighter; margin-bottom: 0;">Hello
-									you!</span> <span
-								style="font-size: 15px; margin-top: 9px; margin-bottom: 9px;">
-									We are pleased to inform you that our application<span
-									class="bold"> ShopeeFood</span> is changed its name to
-							</span> <span class="btn btn-red font18" title="ShopeeFood"
-								style="cursor: pointer; font-size: 18px !important; background-color: #cf2127; color: #fff; border-color: #cf2127;"><span
-									class="txt-bold" style="font-weight: 700 !important;">ShopBeaFood</span></span>
-							</span>
-							<p class="update-version">Cập nhật phiên bản mới</p>
-							<div class="down-apps">
-								<a target="_blank" rel="noopener noreferrer"
-									href="https://itunes.apple.com/us/app/deliverynow/id1137866760"
-									class="down-app" title="App Store"><span
-									class="icon icon-app-store-sm"></span></a><a target="_blank"
-									rel="noopener noreferrer"
-									href="https://play.google.com/store/apps/details?id=com.deliverynow"
-									class="down-app" title="Google play"><span
-									class="icon icon-gg-play-sm"></span></a>
-							</div>
-						</div>
-						<div class="box-now-merchant clearfix">
-							<div class="img-merchant">
-								<div class="float-left mar-right10">
-									<span class="icon icon-merchant-lg"></span>
-								</div>
-								<div class="float-left">
-									<a target="_blank" rel="noopener noreferrer"
-										href="https://itunes.apple.com/US/app/id1296706589?mt=8"
-										class="down-apps" title="App Store"><span
-										class="icon icon-app-store-sm"></span></a><a target="_blank"
-										rel="noopener noreferrer"
-										href="https://play.google.com/store/apps/details?id=com.sea.foody.nowmerchant&amp;amp;hl=vi"
-										class="down-apps" title="Google play"><span
-										class="icon icon-gg-play-sm"></span></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal fade modal-get-local" id="userLocationId"
-				tabindex="-1" role="dialog" data-backdrop="static"
-				style="display: none;" aria-hidden="true">
-				<div class="modal-dialog modal-lg" role="document">
-					<div class="modal-content">
-						<span class="close" data-dismiss="modal">x</span>
-						<div class="modal-header">Bạn muốn giao đến đâu?</div>
-						<div class="modal-body">
-							<div class="search-local">
-								<div class="primary-local">
-									<div class="row align-items-center no-gutters">
-										<div class="col-auto">
-											<i class="icon icon-search-gray"></i>
-										</div>
-										<div class="col">
-											<input type="text" id="address" name="address"
-												placeholder="Nhập địa chỉ giao hàng" value="">
-										</div>
-										<div class="col-auto">
-											<i class="icon icon-location"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="list-local">
-								<div class="suggest-local">
-									<div class="location-items"></div>
-									<div class="find-map">
-										<div class="row align-items-center no-gutters">
-											<div class="col-auto">
-												<i class="icon icon-thumbtack"></i>
-											</div>
-											<div class="col ps-3">
-												<span class="txt-blue link">Tìm trên bản đồ</span>
-											</div>
-											<div class="col-auto mr-3">
-												<i class="icon-arrow-thin right"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</header>
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="modal fade modal-search" id="modal-search" tabindex="-1"-->
+<!--				role="dialog" aria-hidden="true">-->
+<!--				<div class="modal-dialog" role="document">-->
+<!--					<div class="modal-content">-->
+<!--						<span class="close" data-dismiss="modal">x</span>-->
+<!--						<div class="modal-search-form">-->
+<!--							<span class="sub-title">Đặt Đồ ăn, giao hàng từ 20'... có-->
+<!--								37422 địa điểm ở Hà Nội từ 00:00 - 23:59</span>-->
+<!--							<form>-->
+<!--								<input class="search-input" name="search-input" type="text"-->
+<!--									autocomplete="off" value="">-->
+<!--							</form>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="modal fade modal-new-app" id="modal-new-app"-->
+<!--				tabindex="-1" role="dialog" aria-hidden="true">-->
+<!--				<div class="modal-dialog" role="document">-->
+<!--					<div class="modal-content">-->
+<!--						<span class="close" data-dismiss="modal">x</span>-->
+<!--						<div class="img-now">-->
+<!--							<img src="#" alt="App now">-->
+<!--						</div>-->
+<!--						<div class="info-now">-->
+<!--							<span> <span-->
+<!--								style="font-size: 36px; font-weight: lighter; margin-bottom: 0;">Hello-->
+<!--									you!</span> <span-->
+<!--								style="font-size: 15px; margin-top: 9px; margin-bottom: 9px;">-->
+<!--									We are pleased to inform you that our application<span-->
+<!--									class="bold"> ShopeeFood</span> is changed its name to-->
+<!--							</span> <span class="btn btn-red font18" title="ShopeeFood"-->
+<!--								style="cursor: pointer; font-size: 18px !important; background-color: #cf2127; color: #fff; border-color: #cf2127;"><span-->
+<!--									class="txt-bold" style="font-weight: 700 !important;">ShopBeaFood</span></span>-->
+<!--							</span>-->
+<!--							<p class="update-version">Cập nhật phiên bản mới</p>-->
+<!--							<div class="down-apps">-->
+<!--								<a target="_blank" rel="noopener noreferrer"-->
+<!--									href="https://itunes.apple.com/us/app/deliverynow/id1137866760"-->
+<!--									class="down-app" title="App Store"><span-->
+<!--									class="icon icon-app-store-sm"></span></a><a target="_blank"-->
+<!--									rel="noopener noreferrer"-->
+<!--									href="https://play.google.com/store/apps/details?id=com.deliverynow"-->
+<!--									class="down-app" title="Google play"><span-->
+<!--									class="icon icon-gg-play-sm"></span></a>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="box-now-merchant clearfix">-->
+<!--							<div class="img-merchant">-->
+<!--								<div class="float-left mar-right10">-->
+<!--									<span class="icon icon-merchant-lg"></span>-->
+<!--								</div>-->
+<!--								<div class="float-left">-->
+<!--									<a target="_blank" rel="noopener noreferrer"-->
+<!--										href="https://itunes.apple.com/US/app/id1296706589?mt=8"-->
+<!--										class="down-apps" title="App Store"><span-->
+<!--										class="icon icon-app-store-sm"></span></a><a target="_blank"-->
+<!--										rel="noopener noreferrer"-->
+<!--										href="https://play.google.com/store/apps/details?id=com.sea.foody.nowmerchant&amp;amp;hl=vi"-->
+<!--										class="down-apps" title="Google play"><span-->
+<!--										class="icon icon-gg-play-sm"></span></a>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="modal fade modal-get-local" id="userLocationId"-->
+<!--				tabindex="-1" role="dialog" data-backdrop="static"-->
+<!--				style="display: none;" aria-hidden="true">-->
+<!--				<div class="modal-dialog modal-lg" role="document">-->
+<!--					<div class="modal-content">-->
+<!--						<span class="close" data-dismiss="modal">x</span>-->
+<!--						<div class="modal-header">Bạn muốn giao đến đâu?</div>-->
+<!--						<div class="modal-body">-->
+<!--							<div class="search-local">-->
+<!--								<div class="primary-local">-->
+<!--									<div class="row align-items-center no-gutters">-->
+<!--										<div class="col-auto">-->
+<!--											<i class="icon icon-search-gray"></i>-->
+<!--										</div>-->
+<!--										<div class="col">-->
+<!--											<input type="text" id="address" name="address"-->
+<!--												placeholder="Nhập địa chỉ giao hàng" value="">-->
+<!--										</div>-->
+<!--										<div class="col-auto">-->
+<!--											<i class="icon icon-location"></i>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							<div class="list-local">-->
+<!--								<div class="suggest-local">-->
+<!--									<div class="location-items"></div>-->
+<!--									<div class="find-map">-->
+<!--										<div class="row align-items-center no-gutters">-->
+<!--											<div class="col-auto">-->
+<!--												<i class="icon icon-thumbtack"></i>-->
+<!--											</div>-->
+<!--											<div class="col ps-3">-->
+<!--												<span class="txt-blue link">Tìm trên bản đồ</span>-->
+<!--											</div>-->
+<!--											<div class="col-auto mr-3">-->
+<!--												<i class="icon-arrow-thin right"></i>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</header>-->
 
-	</div>
+<!--	</div>-->
 
 
 

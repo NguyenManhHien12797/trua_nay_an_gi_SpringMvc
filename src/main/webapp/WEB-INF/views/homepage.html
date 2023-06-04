@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org">
 <head>
 <title>Homepage</title>
 
@@ -15,7 +15,7 @@
 	<div id="app">
 		<div class="wrapper" th:onscroll="scrollChangePosition()">
 			<header class="main-header"
-				th:replace="~{/fragments/app-fragments :: home-header}"> </header>
+				th:replace="~{/fragments/head :: header}"> </header>
 			<div class="now-banner ver_vi d-md-block" style="position: fixed; top: 70px;display: none;">
 				<div class="container ">
 					<div class="row">

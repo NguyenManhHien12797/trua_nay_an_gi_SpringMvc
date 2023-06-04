@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org">
 <head>
 <title>Merchant Details</title>
 <link rel="stylesheet" type="text/css"
@@ -12,7 +12,7 @@
 	<div id="app">
 		<div class="wrapper">
 			<header class="main-header"
-				th:replace="~{/fragments/app-fragments :: home-header}"> 
+				th:replace="~{/fragments/head :: header}">
 			</header>
 
 			<div class="wrapper-item">
@@ -152,7 +152,7 @@
 																		<img th:src="@{'/image/' +${product.image}}" class="w-100 rounded-1">
 																</div>
 																<div class="col-4 col-sm-8 col-md-8 col-xl-8 item-restaurant-info">
-																	<h2 class="item-restaurant-name" th:text="${product.name}"></h2>
+																	<h6 class="item-restaurant-name" th:text="${product.name}"></h6>
 																	<span class="d-block" th:text="${product.shortDescription}"></span>
 																		<div class="d-flex">
 																			<span class ="me-2">Số lượng: </span> 
@@ -166,7 +166,7 @@
 																	</div>
 																	<div class="col-4 col-sm-2 col-md-2 col-xl-2 item-restaurant-more d-flex align-items-center justify-content-end">
 																		<div class="me-2 text-end">
-																			<span class="old-price d-block text-danger">
+																			<span class="old-price d-block text-danger text-decoration-line-through">
 																				[[${#numbers.formatDecimal(product.oldPrice, 0,
 																				'COMMA', 0, 'POINT')}]] đ
 																			</span>
