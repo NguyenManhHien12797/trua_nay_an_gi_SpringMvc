@@ -7,7 +7,7 @@
 <head th:replace="~{/fragments/head :: head}">
 </head>
 
-<body class="portal" style="font-size: calc(8px + 0.5vw);">
+<body class="portal">
 <div id="loading" style="display: none;">
 	<p id="loading-image"><img th:src="@{/static/img/loading.gif}" alt=""></p>
 </div>
@@ -15,7 +15,6 @@
 		<div class="wrapper">
 			<header class="main-header" th:replace="~{/fragments/head :: header}">
 			</header>
-			<!--form login-->
 			<div class="now-login container-fluid">
 				<div class="content row justify-content-center">
 					<div class="col-xl-6 col-xxl-4 col-lg-6 col-md-10 col-sm-9 col-12 border pb-3 shadow">
@@ -33,12 +32,11 @@
 								<i class="fab fa-google-plus-g"></i>Google
 							</div>
 						</div>
-						<!--        <p class="text">Hoặc đăng nhập bằng tài khoản của bạn</p>-->
 						<form th:action="@{${register}}" th:object="${accountRegisterDTO}"
 							method="post">
 							<div class="form-login-input">
 
-								<div style="color: red" th:if="${#fields.hasErrors('userName')}"
+								<div class="text-danger" th:if="${#fields.hasErrors('userName')}"
 									th:errors="*{userName}"></div>
 								<div class="field-group">
 									<div class="input-group">
@@ -46,63 +44,49 @@
 											th:field="*{userName}" placeholder="Tên đăng ký" value="">
 									</div>
 								</div>
-								<div style="color: red" th:if="${#fields.hasErrors('password')}"
+								<div class="text-danger" th:if="${#fields.hasErrors('password')}"
 									th:errors="*{password}"></div>
 								<div class="field-group">
 									<div class="input-group">
 										<i class="fas fa-lock"></i> <input type="password"
 											th:field="*{password}" placeholder="Mật khẩu" value="">
-
 									</div>
-
 								</div>
-								<div style="color: red" th:if="${#fields.hasErrors('email')}"
+								<div class="text-danger" th:if="${#fields.hasErrors('email')}"
 									th:errors="*{email}"></div>
 
 								<div class="field-group">
 									<div class="input-group">
 										<i class="far fa-envelope"></i><input type="text"
 											th:field="*{email}" placeholder="Nhập email" value="">
-
 									</div>
-
 								</div>
-
-								<div style="color: red" th:if="${#fields.hasErrors('name')}"
+								<div class="text-danger" th:if="${#fields.hasErrors('name')}"
 									th:errors="*{name}"></div>
 								<div class="field-group">
 									<div class="input-group">
 										<i class="far fa-user"></i><input type="text"
 											th:field="*{name}" placeholder="Nhập tên chủ tài khoản"
 											value="">
-
 									</div>
 								</div>
-
-								<div style="color: red" th:if="${#fields.hasErrors('phone')}"
+								<div class="text-danger" th:if="${#fields.hasErrors('phone')}"
 									th:errors="*{phone}"></div>
 								<div class="field-group">
 									<div class="input-group">
 										<i class="fas fa-phone"></i><input type="text"
 											th:field="*{phone}" placeholder="Nhập số điện thoại" value="">
-
-
-
 									</div>
 								</div>
-
-								<div style="color: red" th:if="${#fields.hasErrors('address')}"
+								<div class="text-danger" th:if="${#fields.hasErrors('address')}"
 									th:errors="*{address}"></div>
 								<div class="field-group">
 									<div class="input-group">
 										<i class="fas fa-home"></i><input type="text"
 											th:field="*{address}" placeholder="Nhập địa chỉ" value="">
-
 									</div>
 								</div>
-
 							</div>
-
 							<label th:if="${role == 'merchant'}"> Chọn phân loại : <select
 								class="select-category" name="select-category"
 								th:field=*{category}>
@@ -114,28 +98,21 @@
 									<option value="Thuốc">Thuốc</option>
 							</select>
 							</label>
-
 							<button class="btn btn-block btn-submit btn-primary">Đăng ký</button>
-
 						</form>
-
 						<br>
 						<div class="login-mess-policy">
 							Chúng tôi không sử dụng thông tin của bạn với bất kỳ mục đích
-							nào. Bằng cách đăng nhập hoặc đăng ký, bạn đồng ý với <a
-								style="color: #0495ba; border-bottom: 2px solid; text-decoration: none !important;"
+							nào. Bằng cách đăng nhập hoặc đăng ký, bạn đồng ý với 
+							<a class ="text-primary border-bottom border-2 text-decoration-none border-primary"
 								target="_blank"
-								href="https://shopeefood.vn/gioi-thieu#footer-bottom">Chính
-								sách quy định của Foody</a>
+								href="https://shopeefood.vn/gioi-thieu#footer-bottom">
+								Chính sách quy định của Foody</a>
 						</div>
 					</div>
 				</div>
-
-
 			</div>
-
 		</div>
-		<!-- end form login -->
 
 	</div>
 </body>

@@ -1,5 +1,7 @@
 @charset "ISO-8859-1";
-
+.container-layout{
+	margin-top: 130px;
+}
 .nav-item{
 	 margin-right: 15px;
 	 display: inline-block;
@@ -25,10 +27,6 @@
 
 .flex-column{
 	width: 160px;
-}
-
-#sidebarMenu{
-	max-width: 18.66667%;
 }
 
 .btn-orderDetail{

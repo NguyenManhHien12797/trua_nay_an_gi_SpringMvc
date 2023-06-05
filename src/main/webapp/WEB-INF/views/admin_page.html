@@ -14,7 +14,6 @@
 <head>
   <title>Admin Page</title>
   <th:block id="admin-static-resources">
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/admin.css}">
   </th:block>
 </head>
 <body>
@@ -22,10 +21,10 @@
 <div id="admin-nav" th:replace="~{/fragments/app-fragments :: admin-nav}"></div>
 
 <main class="container-fluid m-md-5">
-  <h1 id="admin-sup-title" class="h2"
+  <h4 id="admin-sup-title"
       th:replace="~{/fragments/app-fragments :: ${navRoute} =='merchant-list' ?
       'admin-merchant-sup-title': 'admin-user-sup-title'}">
-  </h1>
+  </h4>
 
   <div class="container card shadow d-flex justify-content-center mt-5">
     <!-- nav options -->

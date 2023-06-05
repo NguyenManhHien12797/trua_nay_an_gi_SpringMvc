@@ -3,9 +3,8 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       th:fragment="main-fragment (title, otherStaticResources, header, nav, supTitle, navSup, mainContent, footer)">
 <head>
-  <meta charset="UTF-8"/>
-  <title th:replace="${title}">e</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/static/css/admin.css}">
+  <title th:replace="${title}"></title>
+  <link rel="stylesheet" type="text/css" th:href="@{/static/css/main-layout.css}">
   <th:block th:replace="${otherStaticResources} ?: ~{}"></th:block>
 </head>
 <head th:replace="~{/fragments/head :: head}">
@@ -15,16 +14,16 @@
 </header>
 
 <section>
-  <div class="now-container-coporation now-container-content">
+  <div class="container container-layout">
     <div class="row">
       <nav th:insert="${nav} ?: ~{}" id="sidebarMenu"
-           class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+           class="col-12 col-sm-3 col-md-3 p-0 pe-sm-5">
       </nav>
-      <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <main class=" m-md-5">
-          <h1 th:insert="${supTitle} ?: ~{}"></h1>
-          <div th:insert="${navSup} ?: ~{}"></div>
-          <article th:insert="${mainContent} ?: ~{}" class="nav nav-pills mb-3 shadow-sm">
+      <div class="col-12 col-sm-9 col-md-9 p-0 bg-white shadow-sm">
+        <main>
+          <h4 th:insert="${supTitle} ?: ~{}"></h4>
+          <div th:insert="${navSup} ?: ~{}" class="border-4 border-bottom mb-3"></div>
+          <article th:insert="${mainContent} ?: ~{}" class="nav mb-3 mt-5">
           </article>
         </main>
       </div>
