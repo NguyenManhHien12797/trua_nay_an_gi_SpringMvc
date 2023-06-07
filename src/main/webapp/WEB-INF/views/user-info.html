@@ -4,7 +4,7 @@
 <title>User Info</title>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/info.css}">
 </head>
-<head th:replace="~{/fragments/head :: head}">
+<head th:replace="~{/common/head :: head}">
 </head>
 
 <body class="portal">
@@ -13,23 +13,16 @@
 </div>
 	<div id="app">
 		<div class="wrapper">
-			<header class="main-header" th:replace="~{/fragments/head :: header}">
+			<header class="main-header" th:replace="~{/common/head :: header}">
 			</header>
 			<section class="h-100 gradient-custom">
-				<div
-					th:replace="~{/fragments/app-fragments :: (${route} == 'user-info' ? 'user-info' : (${route} == 'user-update-info'? 'user-update-info': 'null'))}">
-					User Info
+				<div th:replace="~{/fragments/user-fragments :: (${route} == 'user-info' ? 
+				'user-info' : (${route} == 'user-update-info'? 'user-update-info': 'null'))}">
 				</div>
 			</section>
-			<div th:replace="~{/fragments/app-fragments :: footer}">Footer
-			</div>
 		</div>
 	</div>
-
-	<script
-		th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
-	</script>
-	<script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>
+	<footer th:replace="~{/common/footer :: footer}"></footer>
 	<script th:inline="javascript" th:src="@{/static/js/main.js}"></script>
 	
 </body>

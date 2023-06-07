@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/static/css/main-layout.css}">
   <th:block th:replace="${otherStaticResources} ?: ~{}"></th:block>
 </head>
-<head th:replace="~{/fragments/head :: head}">
+<head th:replace="~{/common/head :: head}">
 </head>
 <body>
 <header th:insert="${header} ?: ~{}">
@@ -17,12 +17,15 @@
   <div class="container container-layout">
     <div class="row">
       <nav th:insert="${nav} ?: ~{}" id="sidebarMenu"
-           class="col-12 col-sm-3 col-md-3 p-0 pe-sm-5">
+           class="col-12 col-sm-3 col-md-3 p-0 pe-sm-5 mb-4 mb-sm-0">
       </nav>
       <div class="col-12 col-sm-9 col-md-9 p-0 bg-white shadow-sm">
         <main>
           <h4 th:insert="${supTitle} ?: ~{}"></h4>
-          <div th:insert="${navSup} ?: ~{}" class="border-4 border-bottom mb-3"></div>
+          <div th:insert="${navSup} ?: ~{}" class="border-4 border-bottom mb-3"  
+          th:classappend = "${route != 'order-pending' && route != 'seller-receive' && route != 'order-history' && role != 'admin' ? 
+          'd-none' : route == 'order-pending' || route == 'seller-receive' || route == 'order-history' ? 'mt-5' : ' '}" >
+          </div>
           <article th:insert="${mainContent} ?: ~{}" class="nav mb-3 mt-5">
           </article>
         </main>
@@ -30,21 +33,10 @@
     </div>
   </div>
 </section>
-
 <footer th:insert="${footer} ?: ~{}">
-  <p>Footer</p>
 </footer>
-
-<script
-    th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
-</script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script th:inline="javascript" th:src="@{/static/js/main.js}">
 </script>
-<script th:src="@{/static/js/sockjs.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/stomp.min.js}"></script>
-<script th:src="@{/static/js/socketJs.js}"></script>
-
 
 </body>
 </html>

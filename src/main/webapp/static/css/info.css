@@ -56,10 +56,3 @@
 .pass-otp{
 	min-width: 255px !important;
 }
-.modal-content{
-	position: absolute;
-    top: 180px;
-}
-.modal-title, .col-form-label{
-	font-size: 17px;
-}

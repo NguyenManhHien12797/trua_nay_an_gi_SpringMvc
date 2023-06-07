@@ -36,7 +36,7 @@
     display: block;
     padding-top: 5px;
     border: 1px solid #e57171;
-    border-radius: 10px;
+    border-radius: 5px;
     color: #e57171;
     margin-right: 15px;
 }
@@ -56,12 +56,12 @@
 	border-bottom: 4px solid #e57171;
 }
 .active-sup-nav a{
-	color: #e57171;
+	color: #e57171 !important;
 	font-size: 16px;
 }
 
 .activeli a{
-	color: white;
+	color: white !important;
 }
 .nav-item{
 	width: 100%;
@@ -100,5 +100,6 @@
 .paging{
 	margin-right: 8px;
 	font-size: 20px;
-	    padding: 5px 15px;
+	padding: 5px 15px;
+	color: #fff;
 }

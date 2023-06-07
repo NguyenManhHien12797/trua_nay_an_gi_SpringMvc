@@ -40,10 +40,10 @@
             </th:block>
           </th:block>
           <th:block th:if="${carts}">
-							<span class="me-4 head-title">Giỏ hàng</span>
+				<span class="me-4 head-title">Giỏ hàng</span>
           </th:block>
           <th:block th:if="${route == 'user-update-info' || route == 'user-info'}">
-							 <span class="me-4 head-title">Thông tin người dùng</span>
+				<span class="me-4 head-title">Thông tin người dùng</span>
           </th:block>
 
           <button class="navbar-toggler"
@@ -77,7 +77,7 @@
               </div>
               <div
                   class="acc-cart d-flex ps-md-2 ps-xl-2 ps-2 pt-4 pt-md-0 justify-content-end pb-4 pb-md-0 pe-4 pe-md-0">
-                <div class="nav-item user-acc user-acc-wr">
+                <div class="nav-item user-acc user-acc-wr justify-content-end">
                   <th:block th:unless="${session.authorities}">
                     <a th:href="@{/login}">
                       <button type="button" class="btn btn-login">
@@ -119,8 +119,7 @@
                         <hr>
                         <a th:href="@{/logout}"
                            class="mb-3 d-flex align-items-center justify-content-center">
-                          <i class="fa-solid fa-right-to-bracket me-2"></i> Đăng
-                          xuất
+                          <i class="fa-solid fa-right-to-bracket me-2"></i> Đăng xuất
                         </a>
                       </div>
                     </div>

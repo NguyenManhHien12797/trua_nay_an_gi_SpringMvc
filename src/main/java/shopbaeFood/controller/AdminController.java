@@ -54,7 +54,7 @@ public class AdminController {
             @PathVariable Status route, Model model) {
         merchantService.updateStatus(id, status, navRoute);
         addListAttribute(route, navRoute, 1, model);
-        return "fragments/app-fragments ::${route}";
+        return "fragments/admin-fragments ::${route}";
     }
 
     /**

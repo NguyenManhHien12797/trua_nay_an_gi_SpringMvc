@@ -17,28 +17,28 @@
   </th:block>
 </head>
 <body>
-<div id="admin-header" th:replace="~{/fragments/head :: header}"></div>
-<div id="admin-nav" th:replace="~{/fragments/app-fragments :: admin-nav}"></div>
+<div id="admin-header" th:replace="~{/common/head :: header}"></div>
+<div id="admin-nav" th:replace="~{/fragments/admin-fragments :: admin-nav}"></div>
 
 <main class="container-fluid m-md-5">
   <h4 id="admin-sup-title"
-      th:replace="~{/fragments/app-fragments :: ${navRoute} =='merchant-list' ?
+      th:replace="~{/fragments/admin-fragments :: ${navRoute} =='merchant-list' ?
       'admin-merchant-sup-title': 'admin-user-sup-title'}">
   </h4>
 
   <div class="container card shadow d-flex justify-content-center mt-5">
     <!-- nav options -->
-    <div id="admin-nav-sup" th:replace="~{/fragments/app-fragments :: admin-nav-sup}">
+    <div id="admin-nav-sup" th:replace="~{/fragments/admin-fragments :: admin-nav-sup}">
       Admin Nav-Sup
     </div>
     <!-- content -->
-    <div id="admin-main-content" th:replace="~{/fragments/app-fragments :: ${status}}"></div>
+    <div id="admin-main-content" th:replace="~{/fragments/admin-fragments :: ${status}}"></div>
     <!-- content -->
   </div>
 </main>
 
-<div id="admin-footer" th:replace="~{/fragments/app-fragments :: footer}">
-</div>
+<footer id="admin-footer" th:replace="~{/common/footer :: footer}">
+</footer>
 </body>
 
 </html>

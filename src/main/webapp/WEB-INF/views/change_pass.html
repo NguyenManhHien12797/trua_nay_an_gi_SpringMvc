@@ -5,14 +5,14 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/static/css/change-pass.css}">
 </head>
-<head th:replace="~{/fragments/head :: head}">
+<head th:replace="~{/common/head :: head}">
 </head>
 
 <body class="portal" >
 	<div id="app">
 		<div class="wrapper">
 			<header class="main-header"
-				th:replace="~{/fragments/head :: header}">
+				th:replace="~{/common/head :: header}">
 			</header>
 			
 			<div class="now-change-pass container">
@@ -73,13 +73,9 @@
 					</div>
 				</div>
 			</div>
-			<div th:replace="~{/fragments/app-fragments :: footer}">Footer
-			</div>
 		</div>
 	</div>
-	<script
-		th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
-	</script>
+	<footer th:replace="~{/common/footer :: footer}"></footer>
 	<script th:inline="javascript" th:src="@{/static/js/change-pass.js}"></script>
 </body>
 </html>

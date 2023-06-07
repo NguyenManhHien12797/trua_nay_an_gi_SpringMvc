@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layouts/main-layout :: main-fragment(  
+	th:replace="~{layouts/main-layout :: main-fragment(  
                                                 ~{::title},
                                                 ~{:: #merchant-static-resources},
                                                 ~{:: #merchant-header},
@@ -10,67 +10,36 @@
                                                 ~{:: #merchant-main-content},  
                                                 ~{:: #merchant-footer}
                                                )}">
-                                              
+
 <head>
-    <title>Merchant Page</title>
-    <th:block id="merchant-static-resources">
-    
-    </th:block>
+<title>Merchant Page</title>
+<th:block id="merchant-static-resources">
+</th:block>
 </head>
 <body>
-    <div id="merchant-header" th:replace="~{/fragments/head :: header}">
-        Header of Merchant Page
-    </div>
-    <div id="merchant-nav" th:replace="~{/fragments/app-fragments :: merchant-nav}">
-        Merchant Nav
-    </div>
+	<div id="merchant-header" th:replace="~{/common/head :: header}"></div>
+	<nav id="merchant-nav"
+		th:replace="~{/fragments/merchant-fragments :: merchant-nav}">
+		Merchant Nav
+	</nav>
 
-    <main class="container-fluid m-md-5" >
-   	<!-- 	 <h1 id= "merchant-sup-title" class="h2" th:replace="~{/fragments/app-fragments :: ${role} =='merchant-list'? 'merchant-sup-title': 'user-sup-title'}">Quản lý người bán</h1> -->
-   		 
+	<main class="container-fluid m-md-5">
 		<div class="container card shadow d-flex justify-content-center mt-5">
- 		
- 		 
- 		<!-- nav options -->
- 		<div th:if="${route == 'order-pending'}">
- 		  <div id="merchant-nav-sup" th:replace="~{/fragments/app-fragments :: ${route == 'order-pending'}? 'merchant-nav-sup': 'null'}">
-       			 Merchant Nav-Sup
-   		  </div>
- 		</div>
- 		
- 		<div th:if="${route == 'seller-receive'}">
- 		 	<div id="merchant-nav-sup" th:replace="~{/fragments/app-fragments :: ${route == 'seller-receive'}? 'merchant-nav-sup': 'null'}">
-       			 Merchant Nav-Sup
-   			</div>
- 		</div>
- 		
- 		<div th:if="${route == 'order-history'}">
- 		 	<div id="merchant-nav-sup" th:replace="~{/fragments/app-fragments :: ${route == 'order-history'}? 'merchant-nav-sup': 'null'}">
-       			 Merchant Nav-Sup
-   			</div>
- 		</div>
-		  
-		<div th:if="${route == 'order-detail'}">
- 		 	<div id="merchant-nav-sup" th:replace="~{/fragments/app-fragments :: ${route == 'order-detail'}? 'merchant-nav-sup': 'null'}">
-       			 Merchant Nav-Sup
-   			</div>
- 		</div>
-   		<!-- nav options -->
-
-  		<!-- content -->
-     		<div id="merchant-main-content" th:replace="~{/fragments/app-fragments :: ${route}}">
- 
-  		 	</div>
-   
-   	  	<!-- content -->
-
+			<!-- nav options -->
+			<div th:if="${route == 'order-pending' || route == 'seller-receive' || route == 'order-history' || route == 'order-detail'}">
+				<div id="merchant-nav-sup" 
+					th:replace="~{/fragments/merchant-fragments :: merchant-nav-sup}">
+				</div>
+			</div>
+			<!-- nav options -->
+			<!-- content -->
+			<div id="merchant-main-content"  class="w-100"
+				th:replace="~{/fragments/merchant-fragments :: ${route}}">
+			</div>
+			<!-- content -->
 		</div>
 	</main>
 
-    <div id="merchant-footer" th:replace="~{/fragments/app-fragments :: footer}">
-        Footer
-    </div>
+	<footer id="merchant-footer" th:replace="~{/common/footer :: footer}"></footer>
 </body>
-
-
 </html>

@@ -3,24 +3,17 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Cart</title>
-<link rel="stylesheet" type="text/css"
-	th:href="@{/static/css/cart_page.css}">
-<script th:src="@{/static/js/sockjs.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/stomp.min.js}"></script>
-<script
-	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script th:src="@{/static/js/socketJs.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/static/css/cart_page.css}">
 <script th:src="@{/static/js/checkout.js}"></script>
 </head>
-<head th:replace="~{/fragments/head :: head}">
+<head th:replace="~{/common/head :: head}">
 </head>
 
 <body class="portal">
 	<div id="app">
 		<div class="wrapper">
 			<header class="main-header"
-				th:replace="~{/fragments/head :: header}">
+				th:replace="~{/common/head :: header}">
 			</header>
 			
 			<section class="h-100 gradient-custom">
@@ -288,10 +281,9 @@
 					</div>
 				</div>
 			</section>
-			<div th:replace="~{/fragments/app-fragments :: footer}">Footer
-			</div>
 		</div>
 	</div>
-
+	<footer th:replace="~{/common/footer :: footer}">
+	</footer>
 </body>
 </html>

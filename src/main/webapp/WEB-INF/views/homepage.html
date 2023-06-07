@@ -4,7 +4,7 @@
 <title>Homepage</title>
 <link rel="stylesheet" type="text/css" th:href="@{/static/css/homepage.css}">
 </head>
-<head th:replace="~{/fragments/head :: head}">
+<head th:replace="~{/common/head :: head}">
 </head>
 
 <body class="portal">
@@ -15,7 +15,7 @@
 	<div id="app">
 		<div class="wrapper" th:onscroll="scrollChangePosition()">
 			<header class="main-header"
-				th:replace="~{/fragments/head :: header}"> </header>
+				th:replace="~{/common/head :: header}"> </header>
 			<div class="now-banner ver_vi d-md-block" style="position: fixed; top: 70px;display: none;">
 				<div class="container ">
 					<div class="row">
@@ -494,7 +494,7 @@
 						<h4 class="title">
 							<a href="/tuyen-dung">
 								<span>
-									<span style="color: #EE4D2D; font-weight: bold;">ShopBaeFood.vn</span>
+									<span class="text-danger fw-bold">ShopBaeFood.vn</span>
 										Hợp tác nhân viên giao nhận - ShopeeFood Driver
 								</span>
 							</a>
@@ -503,16 +503,15 @@
 							<span class="font15">Giúp bạn tăng thu nhập trong thời gian rảnh rỗi
 							</span> 
 							<span>
-								<span style="color: #EE4D2D; font-weight: bold;">ShopBaeFood
+								<span class="text-danger fw-bold">ShopBaeFood
 								</span> tìm kiếm hợp tác với các cá nhân để thực hiện việc giao hàng, chúng
 									tôi sẽ cung cấp ứng dụng (app), 1 số dụng cụ cần thiết để bạn có
 									thể tiếp nhận &amp; giao hàng, kiếm thêm thu nhập 
 								<br>
 									Đăng ký tham gia 
-								<a href="https://shopbaefood.vn/tuyen-dung"  style="color: #4D77A2; font-weight: bold">tại đây
+								<a href="https://shopbaefood.vn/tuyen-dung"  class="text-primary fw-bold">tại đây
 								</a> hoặc gửi Email qua 
-								<a href="mailto:tuyendung@demo.vn"
-									style="color: #4D77A2; font-weight: bold">tuyendung@demo.vn
+								<a href="mailto:tuyendung@demo.vn" class="text-primary fw-bold">tuyendung@demo.vn
 								</a> -hoặc gọi qua số điện thoại (028) 0123.456.789. 
 							</span>
 					</span>
@@ -524,16 +523,8 @@
 				</div>
 			</div>
 		</div>
-
-		<footer class="main-footer"
-			th:replace="~{/fragments/app-fragments :: footer}">
-		</footer>
 	</div>
-
-	<script
-		th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js}">
-	</script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<footer class="main-footer" th:replace="~{/common/footer :: footer}"></footer>
 	<script th:src="@{/static/js/home-page.js}"></script>
 </body>
 </html>

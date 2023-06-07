@@ -1096,4 +1096,11 @@ button.close {
 .head-title{
 		color: #f56043;
 		font-size: 25px;
-	}
+}
+.modal-content{
+	position: absolute;
+    top: 180px;
+}
+.modal-title, .col-form-label{
+	font-size: 17px;
+}	
