@@ -103,3 +103,6 @@
 	padding: 5px 15px;
 	color: #fff;
 }
+section{
+	min-height: 75vh;
+}

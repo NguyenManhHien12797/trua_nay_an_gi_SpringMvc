@@ -92,7 +92,7 @@
                            th:src="@{'/image/'+${session.avatar}}" alt=""> 
                       <span id="username" class="d-block" th:text="${session.name}"></span>
                       <input id="userId" th:value="${session.userId}" class="d-none">
-                      <div class="user-acc-dropdown">
+                      <div class="user-acc-dropdown" th:classappend = "${#lists.contains(session.authorities, 'ROLE_USER') ? ' ' : 'admin-merchant-acc-dropdown'}">
                       	<div class="ps-3 pt-3">
                       	 <div th:if="${#lists.contains(session.authorities, 'ROLE_MERCHANT')}">
                           <a class="user-acc-admin" th:href="@{/merchant}">

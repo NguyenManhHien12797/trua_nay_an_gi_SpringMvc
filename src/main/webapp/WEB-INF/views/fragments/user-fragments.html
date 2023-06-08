@@ -121,12 +121,12 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
+							<button type="button" class="btn btn-outline-secondary"
 								data-bs-dismiss="modal">Close</button>
 							<button type="submit"
-								class="show-form-update-pass create-otp btn btn-primary"
+								class="show-form-update-pass create-otp btn btn-outline-danger"
 								th:onclick="checkotp([[${account.id}]])">Check OTP</button>
-							<button type="submit" class="change-pass btn btn-primary"
+							<button type="submit" class="change-pass btn btn-outline-danger"
 								style="display: none"
 								th:onclick="changePassword([[${account.id}]])">Lưu</button>
 						</div>
@@ -156,7 +156,7 @@
 							<div class="account-profile">
 								<div class="account-profile-item">
 									<input class="account-profile-text" th:field="${userForm.name}">
-									<input class="account-profile-text" style="display: none"
+									<input class="account-profile-text d-none"
 										th:field="${userForm.id}">
 								</div>
 							</div>
@@ -259,12 +259,12 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
+						<button type="button" class="btn btn-outline-secondary"
 							data-bs-dismiss="modal">Close</button>
 						<button type="submit"
-							class="show-form-update-pass create-otp btn btn-primary"
+							class="show-form-update-pass create-otp btn btn-outline-danger"
 							th:onclick="checkotp([[${account.id}]])">Check OTP</button>
-						<button type="submit" class="change-pass btn btn-primary"
+						<button type="submit" class="change-pass btn btn-outline-danger"
 							style="display: none"
 							th:onclick="changePassword([[${account.id}]])">Lưu</button>
 					</div>

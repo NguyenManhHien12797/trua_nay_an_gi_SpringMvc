@@ -1045,6 +1045,10 @@ button.close {
 	display: none;
 }
 
+.admin-merchant-acc-dropdown{
+	right:-24px;
+}
+
 .user-acc-admin {
 	display: block;
 	margin-bottom: 15px;
@@ -1095,7 +1099,7 @@ button.close {
   }
 .head-title{
 		color: #f56043;
-		font-size: 25px;
+		font-size: 21px;
 }
 .modal-content{
 	position: absolute;

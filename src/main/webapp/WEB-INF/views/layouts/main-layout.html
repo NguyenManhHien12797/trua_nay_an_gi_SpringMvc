@@ -14,12 +14,12 @@
 </header>
 
 <section>
-  <div class="container container-layout">
+  <div class="container-lg container-md-fluid container-layout">
     <div class="row">
       <nav th:insert="${nav} ?: ~{}" id="sidebarMenu"
-           class="col-12 col-sm-3 col-md-3 p-0 pe-sm-5 mb-4 mb-sm-0">
+           class="col-12 col-sm-12 col-md-12 col-lg-3 p-0 pe-lg-5 mb-4 mb-sm-0">
       </nav>
-      <div class="col-12 col-sm-9 col-md-9 p-0 bg-white shadow-sm">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-9 p-0 bg-white shadow-sm">
         <main>
           <h4 th:insert="${supTitle} ?: ~{}"></h4>
           <div th:insert="${navSup} ?: ~{}" class="border-4 border-bottom mb-3"  
