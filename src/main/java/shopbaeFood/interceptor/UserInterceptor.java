@@ -16,7 +16,7 @@ import shopbaeFood.model.Account;
 import shopbaeFood.model.Status;
 import shopbaeFood.repository.IAccountRepository;
 import shopbaeFood.service.IAccountService;
-import shopbaeFood.util.Constants;
+import shopbaeFood.utils.Constants;
 
 public class UserInterceptor implements HandlerInterceptor {
 
@@ -39,7 +39,6 @@ public class UserInterceptor implements HandlerInterceptor {
                 request.logout();
                 response.sendRedirect("/shopbaeFood/login?mess=ban-account");
             }
-
         }
         return true;
     }
@@ -48,12 +47,7 @@ public class UserInterceptor implements HandlerInterceptor {
      * Used before model is generated, based on session
      */
     private void addToModelUserDetails(HttpSession session) {
-        System.out.println("================= addToModelUserDetails ============================");
         String loggedUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        session.setAttribute("username", loggedUsername);
-        System.out.println("user(" + loggedUsername + ") session : " + session);
-        System.out.println("================= addToModelUserDetails ============================");
-
         Account account = accountService.findByName(loggedUsername);
 
         if (account.getFailedAttempt() > 0) {
@@ -80,7 +74,6 @@ public class UserInterceptor implements HandlerInterceptor {
             authorities.add(a.getAuthority());
         }
         session.setAttribute("authorities", authorities);
-
     }
 
     public static boolean isUserLogged() {
@@ -92,7 +85,6 @@ public class UserInterceptor implements HandlerInterceptor {
     }
 
     public boolean isUserBlock() {
-
         try {
             Account account = accountService.getAccount();
             if (account == null) {

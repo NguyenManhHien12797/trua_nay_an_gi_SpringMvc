@@ -1,4 +1,4 @@
-package shopbaeFood.util;
+package shopbaeFood.utils;
 
 import java.util.List;
 

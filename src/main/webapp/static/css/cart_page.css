@@ -106,7 +106,6 @@
 /*ẩn scroll bar*/
 
 .btn-order{
-	width: 80px;
     height: 35px;
     text-align: center;
     display: block;
@@ -163,7 +162,7 @@
 	width: 100%
 }
 
-.checkout-total-price, .order-price{
+.checkout-total-price{
     position: absolute;
     right: 30px;
 }
@@ -234,7 +233,11 @@
 	cursor:pointer;
 	/* border: 1px solid #eb4d4d; */
 }
-.table-responsive-history table thead tr{
+.table-orderdetail-history table tbody tr td:nth-child(1){
+	width: 60px;
+}
+
+/* .table-responsive-history table thead tr{
 	text-align: center;
 }
 .table-orderdetail-history table thead tr{
@@ -242,8 +245,8 @@
 }
 .table-orderdetail-history table tbody tr{
 	height: 48px;
-}
-.table-responsive-history table tbody tr td:nth-child(4){
+} */
+/* .table-responsive-history table tbody tr td:nth-child(4){
 	width: 120px;
     text-align: center;
 }
@@ -272,7 +275,7 @@
 }
 .table-orderdetail-history table tbody tr td:nth-child(2){
 	 padding-left: 10px;
-}
+} */
 
 .merchant-item-icon{
 	 width: 27px;

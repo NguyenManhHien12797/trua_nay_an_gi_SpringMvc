@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import shopbaeFood.model.Account;
 import shopbaeFood.model.Status;
 import shopbaeFood.service.IAccountService;
-import shopbaeFood.util.Constants;
+import shopbaeFood.utils.Constants;
 
 @Component
 public class CustomIdentityAuthenticationProvider implements AuthenticationProvider {

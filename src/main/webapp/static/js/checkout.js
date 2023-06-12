@@ -55,12 +55,11 @@ function drawTitle(){
       list.classList.add('alert-product');
       list.innerHTML = `
 				<ul >
-							<li scope="col">Ảnh</li>
-							<li scope="col" style=" width: 200px;">Tên</li>
-							<li scope="col">Giá</li>
-							<li scope="col">Hành động</li>
+					<li scope="col">Ảnh</li>
+					<li scope="col" style=" width: 200px;">Tên</li>
+					<li scope="col">Giá</li>
+					<li scope="col">Hành động</li>
 				</ul>
-			
       			`
      return list;
 }
@@ -211,16 +210,12 @@ function checkout(order, carts) {
         						console.log(xhr.statusText);
         						console.log(textStatus);
         						console.log(error);
-		
         						}
-
       						})
-						 
 					 }
 					 else{
 						 swal("Mời xóa các sản phẩm không hợp lệ!"," ","error");
 					 }
-		    		 
 		    	  } 
 		    	});	
 			}
@@ -231,12 +226,9 @@ function checkout(order, carts) {
         console.log(xhr.statusText);
         console.log(textStatus);
         console.log(error);
-		    
         }
-
       })
 }
-
 
 function changeQuantity(cartId,quantity){
 		$.ajax({
@@ -257,20 +249,17 @@ function changeQuantity(cartId,quantity){
 				  content = "Không nhập số âm";
 		  	}
       	  	document.getElementById('wrong-message').innerHTML = content;
-      	
         },
         error: function(xhr, textStatus, error) {
         console.log(xhr.responseText);
         console.log(xhr.statusText);
         console.log(textStatus);
         console.log(error);
-		    
         }
       });
 }
 
 function getOrderDetails(orderId){
-	
 		$.ajax({
        	headers: {
           'Accept': 'application/json',
@@ -293,11 +282,11 @@ function getOrderDetails(orderId){
 		  	}
 		  	console.log(totalPrice)
 		  	let totalPriceElement = `
-		  			<span class="ml-2"><strong>Tổng tiền: </strong></span>
+		  			<span><strong>Tổng tiền </strong></span>
 		  			<span><strong>${totalPrice} đ</strong></span>
 		  	`
       	  	document.getElementById('table-orderDetails').innerHTML = content;
-      	  	document.getElementById('order-detail-total-price').innerHTML = totalPriceElement;
+      	  	document.querySelector('.order-detail-total-price').innerHTML = totalPriceElement;
       	
         },
         error: function(xhr, textStatus, error) {
@@ -305,7 +294,6 @@ function getOrderDetails(orderId){
         console.log(xhr.statusText);
         console.log(textStatus);
         console.log(error);
-		    
         }
       });
 	
@@ -314,7 +302,6 @@ function getOrderDetails(orderId){
 function drawOrderDetails(orderDetail){
 	return `
                 <tr>
-                
                   <td>
                   	<a href="/shopbaeFood/home/merchant-detail/${orderDetail.order.merchant_id}">
                   		<img src="/shopbaeFood/image/${orderDetail.product.image}" alt="" style="height: 40px;
@@ -325,9 +312,7 @@ function drawOrderDetails(orderDetail){
                   <td class="merchant-item">${orderDetail.product.name}</td>
                   <td class="merchant-item">${orderDetail.quantity}</td>
                   <td class="merchant-item">${orderDetail.price} đ</td>
-                 
                 </tr>
-            
 			`
 }
 

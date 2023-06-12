@@ -11,7 +11,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import org.thymeleaf.spring5.SpringTemplateEngine;
 import shopbaeFood.model.Mail;
 import shopbaeFood.service.IMailService;
 
@@ -21,8 +20,8 @@ public class MailServiceImpl implements IMailService {
     @Autowired
     JavaMailSender mailSender;
 
-    @Autowired
-    private SpringTemplateEngine thymeleafTemplateEngine;
+//    @Autowired
+//    private SpringTemplateEngine thymeleafTemplateEngine;
 
     public static final String MAIL_FROM = "ShopBeaFood nhóm 3";
 

@@ -218,6 +218,7 @@ public class AuthenController {
 
     /**
      * This method is used to create OTP
+     * 
      * @return mess: 'create otp ok'
      */
     @RequestMapping(value = { "/home/create-otp" })
@@ -285,9 +286,9 @@ public class AuthenController {
     @ResponseBody
     public List<Merchant> searchMerchant(@RequestBody(required = false) String search,
             @PathVariable(required = false) String category) {
+        System.out.println(search);
         List<Merchant> merchants = merchantService.findMerchantsByStatusAndCategoryAndSearch(Status.ACTIVE, category,
                 search);
-
         return merchants;
     }
 

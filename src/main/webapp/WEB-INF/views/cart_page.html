@@ -17,14 +17,14 @@
 			</header>
 			
 			<section class="h-100 gradient-custom">
-				<div class="container py-5">
+				<div class="container-xl py-5">
 					<div class="row d-flex justify-content-center my-4">
-						<div class="col-12 col-sm-7 col-md-7 p-0 pe-sm-3">
+						<div class="col-12 col-sm-12 col-md-12 col-lg-7 p-0 pe-lg-3">
 							<div class="card mb-4">
 								<div class="card-header py-3">
 									<h5 class="mb-0">Sản phẩm</h5>
 								</div>
-								<div class="card-body  card-body-cart">
+								<div class="card-body  card-body-cart pb-0">
 									<th:block th:if="${message == 'khong co du lieu'}">
 										<img class="img-fluid"
 											src="https://taphoa.cz/static/media/cart-empty-img.8b677cb3.png" alt="">
@@ -101,21 +101,21 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12 col-sm-5 col-md-5 p-0 ps-sm-3">
+						<div class="col-12 col-sm-12 col-md-12 col-lg-5 p-0 ps-lg-3">
 							<div class="card mb-4">
 								<div class="card-header py-3">
 									<h5 class="mb-0">Hóa đơn</h5>
 								</div>
-								<div class="card-body card-body-bill">
+								<div class="card-body card-body-bill p-0">
 									<div th:if="${message == 'khong co du lieu'}">
 										<span class="fs-5">Chưa có sản phẩm</span>
 									</div>
-									<div th:unless="${message == 'khong co du lieu'}">
+									<div th:unless="${message == 'khong co du lieu'}" class="text-center mb-4">
 										<form th:action="@{/user/checkout}" th:object="${order}"
 											method="post">
 											<div class="table-responsive">
 												<table class="table table-striped table-sm">
-													<thead class="align-middle">
+													<thead class="align-middle text-center">
 														<tr>
 															<th scope="col">Stt</th>
 															<th scope="col">Tên</th>
@@ -134,45 +134,35 @@
 																[[${#numbers.formatDecimal(cart.getProduct().getNewPrice(),0, 'COMMA', 0, 'POINT')}]] đ
 															</td>
 														</tr>
-														<tr>
-															<th scope="col" colspan="3">Tổng tiền</th>
-															<th scope="col" class="order-price">
-																[[${#numbers.formatDecimal(totalPrice,0, 'COMMA', 0, 'POINT')}]] đ
-															</th>
-														</tr>
-														<tr>
-															<th scope="col">
-																<input type="text" id="merchant_id" style="display: none" th:field="*{merchant_id}">
-															</th>
-															<th scope="col">
-																<input type="text" style="display: none" th:field="*{totalPrice}">
-															</th>
-															<th scope="col">
-																<input type="text" style="display: none" th:field="*{orderdate}">
-															</th>
-														</tr>
-														<tr>
-														</tr>
-														<tr>
-															<td scope="col">Ghi chú</td>
-															<td scope="col" colspan="2">
-																<input class="note"
-																	type="text" placeholder="Ghi chú" th:field="*{note}">
-															</td>
-														</tr>
-														<tr>
-															<td scope="col">Địa chỉ</td>
-															<td scope="col" colspan="2">
-																<input class="note" type="text" placeholder="Địa chỉ giao hàng"
-																	th:field="*{address}">
-															</td>
-														</tr>
 													</tbody>
 												</table>
+												<div class="d-none">
+													<input type="text" id="merchant_id"  th:field="*{merchant_id}">
+													<input type="text"  th:field="*{totalPrice}">
+													<input type="text" th:field="*{orderdate}">
+												</div>
+												
+												<div class="d-flex mb-2 justify-content-between mx-2">
+													<span class=""><strong>Tổng tiền</strong></span>
+													<span class="order-price">
+														<strong>
+															[[${#numbers.formatDecimal(totalPrice,0, 'COMMA', 0, 'POINT')}]] đ
+														</strong>
+													</span>
+												</div>
+												<div class="d-flex mb-2">
+													<span class="col-2 col-lg-2 col-sm-2 col-md-2 text-start ps-2">Ghi chú</span>
+													<input class="note col-10 col-lg-10 col-sm-10 col-md-10" type="text" placeholder="Ghi chú" th:field="*{note}">
+												</div>
+												<div class="d-flex mb-5">
+													<span class="col-2 col-lg-2 col-sm-2 col-md-2 text-start ps-2">Địa chỉ</span>
+													<input class="note col-10 col-lg-10 col-sm-10 col-md-10" type="text" placeholder="Địa chỉ giao hàng"
+														th:field="*{address}">
+												</div>
 										</div>
 									</form>
 									<button type="submit"
-										class="btn btn-primary btn-lg btn-block btn-checkout-b"
+										class="btn btn-primary btn-lg btn-block btn-checkout-b mb-4 w-75"
 										th:onclick="checkout([[${order}]], [[${carts}]])">
 										Đặt hàng
 									</button>
@@ -183,7 +173,7 @@
 					
 					</div>
 					<div class="row d-flex justify-content-center my-4">
-						<div class="col-12 col-sm-7 col-md-7 p-0 pe-sm-3">
+						<div class="col-12 col-sm-12 col-md-12 col-lg-7 p-0 pe-lg-3">
 							<div class="card mb-4">
 								<div class="card-header py-3">
 									<h5 class="mb-0">Lịch sử mua hàng</h5>
@@ -195,16 +185,16 @@
 									<th:block th:if="${orders.size() != 0 }">
 										<div class="table-responsive  table-responsive-history">
 											<table class="table table-striped table-sm">
-												<thead class="align-middle">
+												<thead class="align-middle text-center">
 													<tr>
 														<th scope="col">Ảnh</th>
 														<th scope="col">Thời gian</th>
 														<th scope="col">Trạng thái</th>
-														<th scope="col" colspan="2"
+														<th scope="col"
 															style="text-align: center; width: 150px">Hành động</th>
 													</tr>
 												</thead>
-												<tbody class="align-middle align-middle text-center">
+												<tbody class="align-middle text-center">
 													<tr th:each="order,i : ${orders}"
 														th:onclick="getOrderDetails([[${order.id}]])">
 														<td>
@@ -213,35 +203,23 @@
 														</td>
 														<td class="merchant-item">[[${order.getOrderdate()}]]</td>
 														<td class="merchant-item">[[${order.getStatus()}]]</td>
-														<td class="merchant-item seller-receive"
-															style="width: 100px;"
-															th:if="${order.status == 'seller-receive'}">
-															<a class="btn-order"
-																th:href="@{/user/update-order-status/__${order.id}__/buyer-receive}">
-																Nhận hàng
-															</a>
-														</td>
-														<td class="merchant-item" style="width: 100px;"
-															th:if="${order.status == 'seller-receive'}">
-															<a class="btn-order" th:href="@{/user/update-order-status/__${order.id}__/buyer-refuse}">
-																Từ chối
-															</a>
-														</td>
-														<td class="merchant-item merchant-item-icon"
-															th:if="${order.status == 'buyer-receive'}">
-															<a class="btn-order-icon" th:href="@{/user/delete-order/__${order.id}__}">
-																<i class="fa-solid fa-trash"></i>
-															</a>
-														</td>
-														<td class="merchant-item merchant-item-icon"
-															th:if="${order.status == 'buyer-refuse'}">
-															<a class="btn-order-icon" th:href="@{/user/delete-order/__${order.id}__}">
-																<i class="fa-solid fa-trash"></i>
-															</a>
-														</td>
-														<td class="merchant-item merchant-item-icon"
-															th:unless="${order.status == 'seller-receive' || order.status == 'buyer-receive' || order.status == 'buyer-refuse'}">
-															
+														<td class="merchant-item seller-receive" style="width: 200px">
+															<div class="d-block d-lg-flex justify-content-center">
+																<th:block th:if="${order.status == 'seller-receive'}">
+																	<a class="btn-order px-2 me-lg-2 mb-2 mb-lg-0" 
+																		th:href="@{/user/update-order-status/__${order.id}__/buyer-receive}">
+																		Nhận hàng
+																	</a>
+																	<a class="btn-order px-2" th:href="@{/user/update-order-status/__${order.id}__/buyer-refuse}">
+																		Từ chối
+																	</a>
+																</th:block>
+																<th:block th:if="${order.status == 'buyer-receive' || order.status == 'buyer-refuse'}">
+																	<a class="btn-order-icon" th:href="@{/user/delete-order/__${order.id}__}">
+																		<i class="bi bi-trash3"></i>
+																	</a>
+																</th:block>
+															</div>
 														</td>
 													</tr>
 												</tbody>
@@ -251,7 +229,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-12 col-sm-5 col-md-5 p-0 ps-sm-3">
+						<div class="col-12 col-sm-12 col-md-12 col-lg-5 p-0 ps-lg-3">
 							<div class="card mb-4">
 							<div class="card-header py-3">
 								<h5 class="mb-0">Chi tiết đơn hàng</h5>
@@ -262,7 +240,7 @@
 								<div class="table-responsive table-orderdetail-history"
 									style="display: none">
 									<table class="table table-striped table-sm">
-										<thead class="align-middle">
+										<thead class="align-middle text-center">
 											<tr>
 												<th scope="col">Ảnh</th>
 												<th scope="col">Tên</th>
@@ -273,8 +251,8 @@
 										<tbody id="table-orderDetails" class="align-middle text-center">
 										</tbody>
 									</table>
-									<div id="order-detail-total-price"></div>
 								</div>
+								<div class = "order-detail-total-price d-flex justify-content-between mx-2 mt-5"></div>
 							</div>
 							</div>
 						</div>

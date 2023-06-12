@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import shopbaeFood.model.Status;
 import shopbaeFood.service.IMerchantService;
-import shopbaeFood.util.Page;
+import shopbaeFood.utils.Page;
 
 @Controller
 public class AdminController {

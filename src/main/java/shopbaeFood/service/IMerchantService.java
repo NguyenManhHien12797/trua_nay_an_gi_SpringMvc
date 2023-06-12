@@ -8,7 +8,7 @@ import shopbaeFood.model.Account;
 import shopbaeFood.model.Merchant;
 import shopbaeFood.model.MerchantForm;
 import shopbaeFood.model.Status;
-import shopbaeFood.util.Page;
+import shopbaeFood.utils.Page;
 
 public interface IMerchantService extends IGeneralService<Merchant> {
 

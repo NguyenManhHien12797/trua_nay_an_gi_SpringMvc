@@ -1,42 +1,43 @@
-function searchMerchant(search, category){
-	
-		const isEmpty = str => !str.trim().length;
+function searchMerchant(search, category) {
+	console.log(search)
+	const isEmpty = str => !str.trim().length;
 
-  		if( isEmpty(search) ) {
-    		location.reload();
-  		}
-		$.ajax({
-       	headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        type: "POST",
-        data: search ,
-        url:`/shopbaeFood/home/search/${category}`,
-        //xử lý khi thành công
-        success: function (data) {
+	if (isEmpty(search)) {
+		location.reload();
+	}
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		type: "POST",
+		data: search,
+		url: `/shopbaeFood/home/search/${category}`,
+		//xử lý khi thành công
+		success: function(data) {
 			console.log(data)
 			let content = " ";
-      	if(data !=null){
-			  for(let i=0; i< data.length; i++){
-				  content += drawListMerchant(data[i]);
-			  }
-		  }
-      	  document.getElementById('list-restaurant-item').innerHTML = content;
-        },
-        error: function(xhr, textStatus, error) {
-        console.log(xhr.responseText);
-        console.log(xhr.statusText);
-        console.log(textStatus);
-        console.log(error);
-		    
-        }
-      });
+			if (data != null) {
+				for (let i = 0; i < data.length; i++) {
+					content += drawListMerchant(data[i]);
+				}
+			}
+			document.getElementById('list-restaurant-item').innerHTML = content;
+		},
+		error: function(xhr, textStatus, error) {
+			console.log(xhr.responseText);
+			console.log(xhr.statusText);
+			console.log(textStatus);
+			console.log(error);
+
+		}
+	});
 
 }
 
-function drawListMerchant(merchant){
-	return  `
+function drawListMerchant(merchant) {
+	return `
+				<div class="list-restaurant-item col-6 col-xl-4"
                       <div class="item-restaurant">
                       <a class="item-content" href="/shopbaeFood/home/merchant-detail/${merchant.id}">
                         <div class="img-restaurant">
@@ -63,46 +64,25 @@ function drawListMerchant(merchant){
                         </div>
                       </a>
                       </div>
-      
-	
+               </div>
 	`;
 }
 
 const selectElement = document.querySelector(".dropdown-address");
 
 selectElement.addEventListener("change", (event) => {
-  window.location=`https://localhost:8443/shopbaeFood/?address=${event.target.value}`;
+	window.location = `https://localhost:8443/shopbaeFood/?address=${event.target.value}`;
 });
 
-window.addEventListener("scroll", () =>{
-	
+window.addEventListener("scroll", () => {
+
 	let mainRight = document.querySelector(".main-right-home");
 	let height = mainRight.clientHeight - 700;
 	let position = mainRight.getBoundingClientRect();
-	if((position.bottom - window.innerHeight) <= 0) {
-		 $(".now-banner").css({position:"absolute",top: height+"px"});
-	}else{
-		 $(".now-banner").css({position:"fixed",top: "70px"});
+	if ((position.bottom - window.innerHeight) <= 0) {
+		$(".now-banner").css({ position: "absolute", top: height + "px" });
+	} else {
+		$(".now-banner").css({ position: "fixed", top: "70px" });
 	}
-	
+
 })
-
-
-
-// window.onclick = e => {
-// 	console.log(e.target.className);
-// 	if(e.target.className === 'title'){
-// 		console.log("true")
-// 		$(".modal-toggle").toggle();
-// 	}else {
-// 		console.log("false")
-// 		$(".modal-toggle").hide();
-// 	}
-// 	if(e.target.className === 'font18 mb-2 mt-3'){
-// 		console.log("true")
-// 		$(".modal-toggle1").toggle();
-// 	}else {
-// 		console.log("false")
-// 		$(".modal-toggle1").hide();
-// 	}
-// }

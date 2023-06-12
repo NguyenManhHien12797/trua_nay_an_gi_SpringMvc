@@ -1,4 +1,4 @@
-package shopbaeFood.util;
+package shopbaeFood.utils;
 
 public class Constants {
 

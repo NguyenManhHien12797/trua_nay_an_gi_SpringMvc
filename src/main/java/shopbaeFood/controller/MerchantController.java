@@ -31,7 +31,7 @@ import shopbaeFood.service.IMerchantService;
 import shopbaeFood.service.IOrderDetailService;
 import shopbaeFood.service.IOrderService;
 import shopbaeFood.service.IProductService;
-import shopbaeFood.util.Page;
+import shopbaeFood.utils.Page;
 
 @Controller
 public class MerchantController {

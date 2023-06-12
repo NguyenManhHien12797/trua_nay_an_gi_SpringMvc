@@ -69,8 +69,8 @@
                 </div>
                 <div class="nav-item main-nav ps-md-4 ps-xl-5 ps-4"
                      th:if="${categories}" th:each="categoryItem: ${categories}">
-                  <a class="pb-4"
-                     th:classappend="${categoryItem == category}? 'active'"
+                     <a class="pb-md-4 pb-0 text-secondary fw-bold d-md-inline d-block"
+                    	 th:classappend="${category == null && categoryItem == 'Đồ ăn' || categoryItem == category}? 'active'"
                      th:href="@{?category=__${categoryItem}__ }">[[${categoryItem}]]</a>
                 </div>
 
@@ -125,7 +125,7 @@
                     </div>
                     <th:block th:if="${#lists.contains(session.authorities, 'ROLE_USER')}">
                       <a class="nav-bar-cart ms-2" th:href="@{/user/cart}"> 
-                      <i  class="fa-solid fa-cart-shopping"></i>
+                      	<i class="bi bi-cart3"></i>
                       </a>
                     </th:block>
                   </div>

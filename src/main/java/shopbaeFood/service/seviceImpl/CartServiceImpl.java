@@ -23,187 +23,189 @@ import shopbaeFood.repository.IOrderRepository;
 import shopbaeFood.repository.IProductRepository;
 import shopbaeFood.service.IAccountService;
 import shopbaeFood.service.ICartService;
-import shopbaeFood.util.Constants;
+import shopbaeFood.utils.Constants;
 
 @Service
 @Transactional
 public class CartServiceImpl implements ICartService {
 
-	@Autowired
-	private ICartRepository cartRepository;
+    @Autowired
+    private ICartRepository cartRepository;
 
-	@Autowired
-	private IProductRepository productRepository;
+    @Autowired
+    private IProductRepository productRepository;
 
-	@Autowired
-	private IOrderRepository orderRepository;
+    @Autowired
+    private IOrderRepository orderRepository;
 
-	@Autowired
-	private IAccountService accountService;
+    @Autowired
+    private IAccountService accountService;
 
-	@Override
-	public List<Cart> findAllCartByUserIdAndDeleteFlag(Long userId) {
+    @Override
+    public List<Cart> findAllCartByUserIdAndDeleteFlag(Long userId) {
+        return cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
+    }
 
-		return cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
-	}
+    @Override
+    public MessageResponse addToCart(HttpServletRequest request, CartDTO cartDTO) {
+        Account account = accountService.getAccount();
+        MessageResponse mess = new MessageResponse();
+        if (account == null) {
+            mess.setMessage("not-logged-in");
 
-	@Override
-	public MessageResponse addToCart(HttpServletRequest request, CartDTO cartDTO) {
-		Account account = accountService.getAccount();
-		MessageResponse mess = new MessageResponse();
-		if (account == null) {
-			mess.setMessage("not-logged-in");
-			return mess;
-		}
-		if (account.getUser() == null) {
-			try {
-				request.logout();
-			} catch (ServletException e) {
-				e.printStackTrace();
-			}
-			mess.setMessage("user-not-logged-in");
-			return mess;
-		}
+            return mess;
+        }
+        if (account.getUser() == null) {
+            try {
+                request.logout();
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
+            mess.setMessage("user-not-logged-in");
 
-		Cart cart = cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), account.getUser().getId());
-		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
+            return mess;
+        }
 
-		int quantity = 1;
-		Double totalPrice = 0.0;
-		Product product = productRepository.findById(cartDTO.getProduct_id());
-		if (!carts.isEmpty() && carts.get(0).getProduct().getMerchant().getId() != product.getMerchant().getId()) {
-			mess.setMessage("other shop");
-			return mess;
-		}
+        Cart cart = cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), account.getUser().getId());
+        List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(account.getUser().getId());
 
-		if (cart != null) {
-			if (product.getQuantity() <= 0) {
-				mess.setMessage("out of stock");
-				return mess;
-			}
-			cart.setQuantity(cart.getQuantity() + 1);
-			totalPrice = cart.getQuantity() * cartDTO.getPrice();
-			cart.setTotalPrice(totalPrice);
-			cartRepository.update(cart);
+        int quantity = 1;
+        Double totalPrice = 0.0;
+        Product product = productRepository.findById(cartDTO.getProduct_id());
+        if (!carts.isEmpty() && carts.get(0).getProduct().getMerchant().getId() != product.getMerchant().getId()) {
+            mess.setMessage("other shop");
 
-			mess.setMessage("add suscess");
-			return mess;
-		} else {
-			if (product.getQuantity() <= 0) {
-				mess.setMessage("out of stock");
-				return mess;
-			}
-			totalPrice = quantity * cartDTO.getPrice();
-			boolean deleteFlag = false;
+            return mess;
+        }
 
-			cartRepository
-					.save(new Cart(quantity, cartDTO.getPrice(), account.getUser(), product, totalPrice, deleteFlag));
-			Cart cart1 = cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
+        if (cart != null) {
+            if (product.getQuantity() <= 0) {
+                mess.setMessage("out of stock");
 
-			ProductCartMap productCartMap = new ProductCartMap(cart1, product);
+                return mess;
+            }
+            cart.setQuantity(cart.getQuantity() + 1);
+            totalPrice = cart.getQuantity() * cartDTO.getPrice();
+            cart.setTotalPrice(totalPrice);
+            cartRepository.update(cart);
 
-			cartRepository.setProductCart(productCartMap);
+            mess.setMessage("add suscess");
 
-			mess.setMessage("add suscess");
-			return mess;
-		}
+            return mess;
+        } else {
+            if (product.getQuantity() <= 0) {
+                mess.setMessage("out of stock");
 
-	}
+                return mess;
+            }
+            totalPrice = quantity * cartDTO.getPrice();
+            boolean deleteFlag = false;
+            cartRepository
+                    .save(new Cart(quantity, cartDTO.getPrice(), account.getUser(), product, totalPrice, deleteFlag));
+            Cart cart1 = cartRepository.findCartByProductIdAndUserId(cartDTO.getProduct_id(), cartDTO.getUser_id());
+            ProductCartMap productCartMap = new ProductCartMap(cart1, product);
+            cartRepository.setProductCart(productCartMap);
+            mess.setMessage("add suscess");
 
-	@Override
-	public void deleteCart(Long id) {
-		Cart cart = cartRepository.findById(id);
-		cart.setDeleteFlag(true);
-		cartRepository.update(cart);
+            return mess;
+        }
 
-	}
+    }
 
-	@Override
-	public String showCart(HttpServletRequest request, Model model) {
-		Account account = accountService.getAccount();
-		if (account == null) {
-			return "redirect:/login?mess=not-logged-in";
-		}
-		if (account.getUser() == null) {
-			try {
-				request.logout();
-			} catch (ServletException e) {
-				e.printStackTrace();
-			}
-			return "redirect:/login?mess=not-logged-in";
-		}
-		Long userId = account.getUser().getId();
+    @Override
+    public void deleteCart(Long id) {
+        Cart cart = cartRepository.findById(id);
+        cart.setDeleteFlag(true);
+        cartRepository.update(cart);
 
-		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
-		List<Order> orders = orderRepository.findOrdersByUserId(userId);
-		String message = " ";
-		if (carts.isEmpty()) {
-			message = Constants.CART_MESSAGE.NO_DATA;
-		}
+    }
 
-		Double totalPrice = 0.0;
-		Double cartTotalPrice = 0.0;
-		Long merchant_id = null;
-		for (Cart cart : carts) {
-			cartTotalPrice = cart.getQuantity() * cart.getProduct().getNewPrice();
-			cart.setTotalPrice(cartTotalPrice);
-			totalPrice += cart.getTotalPrice();
-			merchant_id = cart.getProduct().getMerchant().getId();
+    @Override
+    public String showCart(HttpServletRequest request, Model model) {
+        Account account = accountService.getAccount();
+        if (account == null) {
+            return "redirect:/login?mess=not-logged-in";
+        }
+        if (account.getUser() == null) {
+            try {
+                request.logout();
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/login?mess=not-logged-in";
+        }
+        Long userId = account.getUser().getId();
 
-		}
-		Order order = new Order();
-		order.setMerchant_id(merchant_id);
-		LocalDateTime time = LocalDateTime.now();
-		order.setOrderdate(time);
-		order.setAppUser(account.getUser());
+        List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
+        List<Order> orders = orderRepository.findOrdersByUserId(userId);
+        String message = " ";
+        if (carts.isEmpty()) {
+            message = Constants.CART_MESSAGE.NO_DATA;
+        }
 
-		model.addAttribute("carts", carts);
-		model.addAttribute("message", message);
-		model.addAttribute("totalPrice", totalPrice);
-		model.addAttribute("order", order);
-		model.addAttribute("orders", orders);
-		model.addAttribute("role", "user");
-		return "/cart_page";
-	}
+        Double totalPrice = 0.0;
+        Double cartTotalPrice = 0.0;
+        Long merchant_id = null;
+        for (Cart cart : carts) {
+            cartTotalPrice = cart.getQuantity() * cart.getProduct().getNewPrice();
+            cart.setTotalPrice(cartTotalPrice);
+            totalPrice += cart.getTotalPrice();
+            merchant_id = cart.getProduct().getMerchant().getId();
+        }
+        Order order = new Order();
+        order.setMerchant_id(merchant_id);
+        LocalDateTime time = LocalDateTime.now();
+        order.setOrderdate(time);
+        order.setAppUser(account.getUser());
 
-	@Override
-	public List<Cart> getCarts(Long userId) {
+        model.addAttribute("carts", carts);
+        model.addAttribute("message", message);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("order", order);
+        model.addAttribute("orders", orders);
+        model.addAttribute("role", "user");
 
-		List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
-		return carts;
-	}
+        return "/cart_page";
+    }
 
-	@Override
-	public void increaseQuantity(Long cart_id) {
-		Cart cart = cartRepository.findById(cart_id);
-		cart.setQuantity(cart.getQuantity()+1);
-		cartRepository.update(cart);
-	}
+    @Override
+    public List<Cart> getCarts(Long userId) {
+        List<Cart> carts = cartRepository.findAllCartByUserIdAndDeleteFlag(userId);
 
-	@Override
-	public void decreaseQuantity(Long cart_id) {
-		Cart cart = cartRepository.findById(cart_id);
-		int quantity = cart.getQuantity();
-		if(quantity<=1) {
-			deleteCart(cart_id);
-		}
-		cart.setQuantity(quantity -1);
-		cartRepository.update(cart);
-	}
+        return carts;
+    }
 
-	@Override
-	public MessageResponse changeQuantity(Long cart_id, int quantity) {
-		Cart cart = cartRepository.findById(cart_id);
-		MessageResponse mess = new MessageResponse();
-		if(quantity <= 0) {
-			mess.setMessage("wrong format");
-		}else {
-			cart.setQuantity(quantity);
-			cartRepository.update(cart);
-			mess.setMessage("success");
-		}
-		
-		return mess;
-	}
+    @Override
+    public void increaseQuantity(Long cart_id) {
+        Cart cart = cartRepository.findById(cart_id);
+        cart.setQuantity(cart.getQuantity() + 1);
+        cartRepository.update(cart);
+    }
+
+    @Override
+    public void decreaseQuantity(Long cart_id) {
+        Cart cart = cartRepository.findById(cart_id);
+        int quantity = cart.getQuantity();
+        if (quantity <= 1) {
+            deleteCart(cart_id);
+        }
+        cart.setQuantity(quantity - 1);
+        cartRepository.update(cart);
+    }
+
+    @Override
+    public MessageResponse changeQuantity(Long cart_id, int quantity) {
+        Cart cart = cartRepository.findById(cart_id);
+        MessageResponse mess = new MessageResponse();
+        if (quantity <= 0) {
+            mess.setMessage("wrong format");
+        } else {
+            cart.setQuantity(quantity);
+            cartRepository.update(cart);
+            mess.setMessage("success");
+        }
+
+        return mess;
+    }
 
 }

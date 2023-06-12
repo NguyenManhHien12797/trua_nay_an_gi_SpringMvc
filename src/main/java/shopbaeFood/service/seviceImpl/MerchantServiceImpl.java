@@ -26,7 +26,7 @@ import shopbaeFood.repository.IMerchantRepository;
 import shopbaeFood.service.IAccountService;
 import shopbaeFood.service.IMailService;
 import shopbaeFood.service.IMerchantService;
-import shopbaeFood.util.Page;
+import shopbaeFood.utils.Page;
 
 @Service
 @Transactional

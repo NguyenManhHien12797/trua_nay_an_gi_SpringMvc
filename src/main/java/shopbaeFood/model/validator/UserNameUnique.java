@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import shopbaeFood.util.Constants;
+import shopbaeFood.utils.Constants;
 
 @Documented
 @Constraint(validatedBy = UserNameValidator.class)

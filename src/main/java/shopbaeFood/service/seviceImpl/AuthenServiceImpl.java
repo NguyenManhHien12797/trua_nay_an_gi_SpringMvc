@@ -9,15 +9,11 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
+
+import com.google.common.base.Strings;
 
 import shopbaeFood.exception.CheckOtpException;
 import shopbaeFood.model.Account;
@@ -26,7 +22,6 @@ import shopbaeFood.model.AppRoles;
 import shopbaeFood.model.AppUser;
 import shopbaeFood.model.Mail;
 import shopbaeFood.model.Merchant;
-import shopbaeFood.model.Product;
 import shopbaeFood.model.Status;
 import shopbaeFood.model.dto.AccountRegisterDTO;
 import shopbaeFood.model.dto.PasswordDTO;
@@ -36,9 +31,8 @@ import shopbaeFood.service.IAppUserSevice;
 import shopbaeFood.service.IAuthenService;
 import shopbaeFood.service.IMailService;
 import shopbaeFood.service.IMerchantService;
-import shopbaeFood.service.IProductService;
 import shopbaeFood.service.IRoleService;
-import shopbaeFood.util.Constants;
+import shopbaeFood.utils.Constants;
 
 @Service
 @Transactional
@@ -96,13 +90,12 @@ public class AuthenServiceImpl implements IAuthenService {
             merchantService.save(new Merchant(accountRegisterDTO.getAddress(), avatar, accountRegisterDTO.getName(),
                     accountRegisterDTO.getPhone(), status, accountRegisterDTO.getCategory(), account));
         }
-
     }
 
     @Override
     public void createOtp() {
         Account account = accountService.getAccount();
-        if(account.getOtp() != null){
+        if (account.getOtp() != null) {
             return;
         }
         double randomDouble = Math.random();
@@ -175,6 +168,20 @@ public class AuthenServiceImpl implements IAuthenService {
 
     @Override
     public List<Merchant> getMerchants(String address, String category, String quickSearch, HttpSession session) {
+        List<Merchant> merchants = new ArrayList<>();
+        if ("all".equals(quickSearch) || quickSearch == null) {
+            merchants = merchantService.findMerchantsByStatusAndAddressAndCategory(Status.ACTIVE,
+                    getAddress(address, session), getCategory(category, session));
+        } else {
+            Map<String, String> quickSearchs = getListQuickSearch(category);
+            merchants = merchantService.findMerchantsByStatusAndAddressAndCategoryAndProducName(Status.ACTIVE,
+                    getAddress(address, session), getCategory(category, session), quickSearchs.get(quickSearch));
+        }
+
+        return merchants;
+    }
+
+    private String getAddress(String address, HttpSession session) {
         Account account = accountService.getAccount();
         if (address == null) {
             if (session.getAttribute("address") != null) {
@@ -184,7 +191,6 @@ public class AuthenServiceImpl implements IAuthenService {
                     if (account.getUser() != null) {
                         address = accountService.getAccount().getUser().getAddress();
                     }
-
                     if (account.getMerchant() != null) {
                         address = accountService.getAccount().getMerchant().getAddress();
                     }
@@ -192,31 +198,25 @@ public class AuthenServiceImpl implements IAuthenService {
                     address = "Hà Nội";
                 }
             }
-
         } else {
             session.setAttribute("address", address);
             getAddress().remove(address);
         }
+
+        return address;
+    }
+
+    private String getCategory(String category, HttpSession session) {
         if (category == null) {
             if (session.getAttribute("category") != null) {
                 category = (String) session.getAttribute("category");
             } else {
                 category = "Đồ ăn";
             }
-
         } else {
             session.setAttribute("category", category);
         }
-        List<Merchant> merchants = new ArrayList<>();
-        if ("all".equals(quickSearch) || quickSearch == null) {
-            merchants = merchantService.findMerchantsByStatusAndAddressAndCategory(Status.ACTIVE, address, category);
-        } else {
-            Map<String, String> quickSearchs = getListQuickSearch(category);
-            merchants = merchantService.findMerchantsByStatusAndAddressAndCategoryAndProducName(Status.ACTIVE, address,
-                    category, quickSearchs.get(quickSearch));
-        }
-
-        return merchants;
+        return category;
     }
 
     public List<String> getAddress() {
@@ -224,6 +224,7 @@ public class AuthenServiceImpl implements IAuthenService {
         listAddress.add("Hà Nội");
         listAddress.add("Tp.HCM");
         listAddress.add("Đà Nẵng");
+
         return listAddress;
     }
 
@@ -234,12 +235,13 @@ public class AuthenServiceImpl implements IAuthenService {
         categories.add("Bia");
         categories.add("Hoa");
         categories.add("Thuốc");
+
         return categories;
     }
 
     public Map<String, String> getListQuickSearch(String category) {
         Map<String, String> quickSearchs = new HashMap<String, String>();
-        if ("Đồ ăn".equals(category)) {
+        if ("Đồ ăn".equals(category) || Strings.isNullOrEmpty(category)) {
             quickSearchs.put("all", "All");
             quickSearchs.put("bun", "Bún");
             quickSearchs.put("pho", "Phở");
@@ -255,6 +257,7 @@ public class AuthenServiceImpl implements IAuthenService {
             quickSearchs.put("thit-cho", "Thịt chó");
             quickSearchs.put("thit-ga", "Thịt gà");
         }
+
         return quickSearchs;
     }
 

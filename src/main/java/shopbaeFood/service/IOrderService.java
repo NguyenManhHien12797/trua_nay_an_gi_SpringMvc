@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import shopbaeFood.model.Cart;
 import shopbaeFood.model.Order;
 import shopbaeFood.model.Product;
-import shopbaeFood.util.Page;
+import shopbaeFood.utils.Page;
 
 public interface IOrderService {
 
